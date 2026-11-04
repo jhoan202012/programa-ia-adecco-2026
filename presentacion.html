@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentación Oficial del Programa — PROGRAMA BACK | Adecco Sales & Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #03060C;
+      --bg-surface: #080E1C;
+      --bg-glass: rgba(11, 19, 36, 0.68);
+      --bg-glass-elevated: rgba(16, 28, 52, 0.82);
+      --adecco-red: #DA291C;
+      --adecco-crimson: #FF3B2F;
+      --sapphire: #2563EB;
+      --cyan-glow: #38BDF8;
+      --amber-glow: #F59E0B;
+      --emerald-glow: #10B981;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-subtle: #64748B;
+      --border-hairline: rgba(255, 255, 255, 0.09);
+      --border-highlight: rgba(56, 189, 248, 0.32);
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: rgba(218, 41, 28, 0.35);
+      color: #fff;
+    }
+
+    /* ================= AMBIENT NEURAL CANVAS & AURORA LIGHTING ================= */
+    #neural-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .ambient-aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(850px circle at 12% 12%, rgba(218, 41, 28, 0.15), transparent 55%),
+        radial-gradient(900px circle at 88% 18%, rgba(37, 99, 235, 0.17), transparent 60%),
+        radial-gradient(750px circle at 50% 92%, rgba(218, 41, 28, 0.11), transparent 60%);
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: radial-gradient(#ffffff 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* ================= BESPOKE CLICK SHOCKWAVE & SPARKS ================= */
+    .click-shockwave {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border: 1.5px solid var(--cyan-glow);
+      box-shadow: 0 0 20px var(--adecco-red), inset 0 0 12px var(--cyan-glow);
+      animation: shockwaveExpand 0.65s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes shockwaveExpand {
+      0% { width: 0px; height: 0px; opacity: 0.95; border-width: 2.5px; }
+      100% { width: 150px; height: 150px; opacity: 0; border-width: 0.5px; }
+    }
+
+    .click-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: particleFly 0.6s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes particleFly {
+      0% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
+    }
+
+    /* ================= SPOTLIGHT GLASS CARD SYSTEM ================= */
+    .spotlight-card {
+      position: relative;
+      background: var(--bg-glass);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--border-hairline);
+      border-radius: 20px;
+      overflow: hidden;
+      transition:
+        transform 0.45s var(--ease-spring),
+        border-color 0.35s ease,
+        box-shadow 0.45s var(--ease-spring);
+    }
+
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        500px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        rgba(56, 189, 248, 0.12),
+        rgba(218, 41, 28, 0.06) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spotlight-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spotlight-card:hover {
+      border-color: rgba(56, 189, 248, 0.32);
+      box-shadow:
+        0 18px 42px -15px rgba(0, 0, 0, 0.7),
+        0 0 28px -10px rgba(37, 99, 235, 0.22);
+    }
+
+    /* ================= TOP PRESENTER HUD NAVBAR ================= */
+    .deck-header {
+      position: sticky;
+      top: 12px;
+      z-index: 1000;
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hud-bar {
+      background: rgba(8, 14, 28, 0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.65);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.25), rgba(37, 99, 235, 0.25));
+      border: 1px solid rgba(218, 41, 28, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(218, 41, 28, 0.3);
+    }
+
+    .tag-adecco {
+      background: var(--adecco-red);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 10.5px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tag-deck {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan-glow);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 5px;
+    }
+
+    /* Slide Number Pills */
+    .slide-dots {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(3, 6, 12, 0.6);
+      padding: 4px;
+      border-radius: 11px;
+      border: 1px solid var(--border-hairline);
+      overflow-x: auto;
+    }
+
+    .dot-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .dot-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .dot-btn.active {
+      background: linear-gradient(135deg, var(--adecco-red), #991B1B);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(218, 41, 28, 0.45);
+    }
+
+    .hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-hud {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .btn-hud:hover {
+      border-color: var(--cyan-glow);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-hud.primary {
+      background: linear-gradient(135deg, var(--adecco-red), #991B1B);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    /* ================= SLIDE STAGE ARCHITECTURE ================= */
+    .stage-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 1340px;
+      margin: 18px auto 92px;
+      padding: 0 20px;
+      min-height: calc(100vh - 180px);
+      display: flex;
+      align-items: center;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      animation: slideEnter 0.55s var(--ease-spring) forwards;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes slideEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        filter: blur(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .slide-frame {
+      background: rgba(8, 14, 28, 0.72);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 36px 40px;
+      box-shadow:
+        0 25px 60px -15px rgba(0, 0, 0, 0.75),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 860px) {
+      .slide-frame {
+        padding: 24px 20px;
+      }
+      .slide-dots {
+        display: none;
+      }
+    }
+
+    .slide-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-hairline);
+      flex-wrap: wrap;
+    }
+
+    .slide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .slide-kicker .pill {
+      background: var(--adecco-red);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 10.5px;
+    }
+
+    .slide-page-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-subtle);
+      font-weight: 700;
+    }
+
+    .slide-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+    }
+
+    .slide-subtitle {
+      font-size: 15.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      max-width: 920px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-red {
+      background: linear-gradient(95deg, #FF6B60 0%, #DA291C 55%, #FF3B2F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-cyber {
+      background: linear-gradient(95deg, #FFFFFF 0%, #93C5FD 50%, #38BDF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ================= LAYOUT GRIDS & COMPONENTS ================= */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .grid-hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-hero, .grid-2, .grid-3, .grid-4, .grid-5 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inner-card {
+      padding: 22px;
+      height: 100%;
+    }
+
+    .inner-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .inner-card p {
+      font-size: 13.8px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* Tables */
+    .exec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .exec-table th {
+      text-align: left;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan-glow);
+      padding: 11px 14px;
+      background: rgba(3, 6, 12, 0.65);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .exec-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-hairline);
+      color: #E2E8F0;
+      vertical-align: top;
+    }
+
+    .exec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .exec-table td.key {
+      font-weight: 700;
+      color: #fff;
+      width: 34%;
+    }
+
+    /* Flow Pipeline Steps */
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .flow-step {
+      background: rgba(3, 6, 12, 0.78);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 10px;
+      padding: 8px 13px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #F1F5F9;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .flow-step span.num {
+      background: var(--adecco-red);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flow-arrow {
+      color: var(--cyan-glow);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    /* Prompt Box */
+    .prompt-box {
+      background: rgba(3, 6, 12, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-left: 4px solid var(--adecco-red);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-top: 12px;
+      position: relative;
+    }
+
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-glow);
+      font-weight: 700;
+    }
+
+    .prompt-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.8px;
+      color: #F8FAFC;
+      line-height: 1.55;
+    }
+
+    .copy-btn {
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan-glow);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--cyan-glow);
+      color: #03060C;
+    }
+
+    /* Program Icon Badge */
+    .eco-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* KPI Stat Pill */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: rgba(3, 6, 12, 0.72);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .stat-lbl {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+    }
+
+    /* PROGRAMA BACK Official Matrix */
+    .back-table-box {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(218, 41, 28, 0.45);
+      margin-bottom: 20px;
+    }
+
+    .back-banner {
+      background: linear-gradient(90deg, #881313 0%, var(--adecco-red) 50%, #881313 100%);
+      padding: 10px 18px;
+      text-align: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+
+    /* Rubric Bar */
+    .weight-bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .weight-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan-glow));
+    }
+
+    /* ================= BOTTOM FLOATING PRESENTER DOCK ================= */
+    .presenter-dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: min(92vw, 760px);
+      background: rgba(8, 14, 28, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8);
+    }
+
+    .nav-arrow-btn {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 16px;
+      border-radius: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s var(--ease-spring);
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      border-color: var(--cyan-glow);
+      background: rgba(37, 99, 235, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .nav-arrow-btn.next {
+      background: linear-gradient(135deg, var(--adecco-red), #991B1B);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dock-progress-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .dock-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .dock-progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .dock-progress-fill {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan-glow));
+      transition: width 0.35s var(--ease-spring);
+    }
+
+    /* ================= OVERVIEW MOSAIC MODE ================= */
+    body.overview-mode .stage-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    body.overview-mode .slide {
+      display: block !important;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    body.overview-mode .slide:hover {
+      transform: translateY(-5px);
+    }
+
+    body.overview-mode .slide.active .slide-frame {
+      border-color: var(--adecco-red);
+      box-shadow: 0 0 30px rgba(218, 41, 28, 0.35);
+    }
+
+    /* Print / PDF Styles */
+    @media print {
+      .deck-header, .presenter-dock, #neural-canvas, .ambient-aurora {
+        display: none !important;
+      }
+      .stage-wrapper {
+        display: block !important;
+        margin: 0 !important;
+      }
+      .slide {
+        display: block !important;
+        page-break-after: always;
+        margin-bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Neural Background -->
+  <div class="ambient-aurora"></div>
+  <canvas id="neural-canvas"></canvas>
+  <div class="noise-overlay"></div>
+
+  <!-- ================= TOP PRESENTER HUD ================= -->
+  <header class="deck-header">
+    <div class="hud-bar">
+      <a href="index.html" class="brand-cluster">
+        <div class="brand-icon">
+          <svg viewBox="0 0 400 400" width="28" height="28">
+            <circle cx="200" cy="200" r="180" fill="#0B1528"/>
+            <path d="M110,120 C110,60 150,45 200,45 L200,230 C150,230 114,200 110,150 Z" fill="#F5C29E"/>
+            <path d="M104,120 C100,60 140,30 200,32 L200,78 C155,78 128,90 114,120 Z" fill="#1C304B"/>
+            <circle cx="158" cy="132" r="10" fill="#1C304B"/>
+            <path d="M200,45 C255,45 290,60 290,120 L290,150 C286,200 250,230 200,230 Z" fill="#CBD5E1"/>
+            <rect x="206" y="106" width="64" height="44" rx="12" fill="#1C304B"/>
+            <circle cx="238" cy="128" r="14" fill="#DA291C"/>
+            <circle cx="238" cy="128" r="6" fill="#FFFFFF"/>
+            <rect x="70" y="265" width="260" height="72" rx="14" fill="#DA291C"/>
+            <text x="200" y="314" text-anchor="middle" fill="#FFFFFF" font-size="50" font-weight="900">Adecco</text>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="tag-adecco">Adecco</span>
+            <span class="tag-deck">PRESENTACIÓN DEL PROGRAMA</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
+            Sales &amp; Marketing · PROGRAMA BACK 2026
+          </div>
+        </div>
+      </a>
+
+      <!-- Slide Quick Dots -->
+      <div class="slide-dots" id="slide-dots">
+        <button class="dot-btn active" onclick="goToSlide(0)">01</button>
+        <button class="dot-btn" onclick="goToSlide(1)">02</button>
+        <button class="dot-btn" onclick="goToSlide(2)">03</button>
+        <button class="dot-btn" onclick="goToSlide(3)">04</button>
+        <button class="dot-btn" onclick="goToSlide(4)">05</button>
+        <button class="dot-btn" onclick="goToSlide(5)">06</button>
+        <button class="dot-btn" onclick="goToSlide(6)">07</button>
+        <button class="dot-btn" onclick="goToSlide(7)">08</button>
+        <button class="dot-btn" onclick="goToSlide(8)">09</button>
+        <button class="dot-btn" onclick="goToSlide(9)">10</button>
+      </div>
+
+      <!-- Presenter Actions -->
+      <div class="hud-actions">
+        <button class="btn-hud" onclick="toggleOverview()" id="btn-overview" title="Atajo: tecla G">
+          <span>⊞ Mosaico</span>
+        </button>
+        <button class="btn-hud" onclick="toggleFullscreen()" title="Atajo: tecla F">
+          <span>⛶ Pantalla Completa</span>
+        </button>
+        <a href="index.html" class="btn-hud primary">
+          <span>⚡ Ir al Portal &amp; Kahoot</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SLIDES CONTAINER ================= -->
+  <main class="stage-wrapper" id="stage-wrapper">
+
+    <!-- =================================================================
+         SLIDE 01: PORTADA EJECUTIVA DEL PROGRAMA
+    ================================================================== -->
+    <section class="slide active" data-title="Portada Oficial del Programa">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">ADECCO S&amp;M</span>
+            <span>PLAN DE CAPACITACIÓN OFICIAL · NOVIEMBRE 2026</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 01 / 10</div>
+        </div>
+
+        <div class="grid-hero">
+          <div>
+            <h1 class="slide-title" style="font-size: clamp(32px, 3.8vw, 48px);">
+              IA Aplicada a la <span class="gradient-red">Mejora y Automatización</span> de Procesos con <span class="gradient-cyber">Microsoft</span>
+            </h1>
+            <p class="slide-subtitle" style="margin-bottom: 18px;">
+              Programa corporativo de <strong>Adecco Sales &amp; Marketing (PROGRAMA BACK)</strong>. Desarrollamos capacidades prácticas para transformar tareas operativas repetitivas en soluciones comprobables asistidas por <strong>Microsoft Copilot, Excel, Word, Power BI y Power Automate</strong>.
+            </p>
+
+            <div class="stat-row">
+              <div class="stat-card">
+                <div class="stat-val" style="color:var(--cyan-glow);">4</div>
+                <div class="stat-lbl">Sesiones Presenciales (9, 11, 16 y 18 Nov)</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val" style="color:#FF6B60;">100%</div>
+                <div class="stat-lbl">Práctico en clase (Sin tareas adicionales)</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val" style="color:#34D399;">5</div>
+                <div class="stat-lbl">Herramientas M365 + Motor Copilot</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val" style="color:#FBBF24;">1</div>
+                <div class="stat-lbl">Proyecto Real de tu Cuenta + Certificación</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="nav-arrow-btn next" onclick="changeSlide(1)" style="padding:12px 22px; font-size:14px;">
+                <span>Iniciar Recorrido del Programa ➔</span>
+              </button>
+              <button class="nav-arrow-btn" onclick="goToSlide(3)" style="padding:12px 18px;">
+                <span>📅 Ver Cronograma y Salas</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Official Mascot Cyborg Split Card -->
+          <div class="spotlight-card inner-card" style="text-align:center; padding: 26px 20px; background: linear-gradient(160deg, rgba(15,25,48,0.85), rgba(7,12,24,0.92));">
+            <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-subtle); margin-bottom:10px;">
+              <span>ID: CYBORG-SPLIT-ADECCO</span>
+              <span style="color:#10B981;">● READY</span>
+            </div>
+            <svg viewBox="0 0 400 420" width="230" height="240" style="margin: 0 auto; display:block; filter: drop-shadow(0 14px 28px rgba(0,0,0,0.65));">
+              <defs>
+                <linearGradient id="s1Skin" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFE0C8"/><stop offset="100%" stop-color="#F5C29E"/>
+                </linearGradient>
+                <linearGradient id="s1Chrome" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFFFFF"/><stop offset="55%" stop-color="#E2E8F0"/><stop offset="100%" stop-color="#94A3B8"/>
+                </linearGradient>
+                <linearGradient id="s1Red" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ED2E20"/><stop offset="100%" stop-color="#B81B10"/>
+                </linearGradient>
+                <linearGradient id="s1Navy" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#274060"/><stop offset="100%" stop-color="#132235"/>
+                </linearGradient>
+                <clipPath id="s1L"><rect x="0" y="0" width="200" height="400"/></clipPath>
+                <clipPath id="s1R"><rect x="200" y="0" width="200" height="400"/></clipPath>
+              </defs>
+              <circle cx="200" cy="180" r="154" fill="#070D19" stroke="rgba(56,189,248,0.35)" stroke-width="2.5"/>
+              <path d="M200,16 A164,164 0 0,1 364,180" fill="none" stroke="#DA291C" stroke-width="4.5" stroke-dasharray="10 6"/>
+              <path d="M200,344 A164,164 0 0,1 36,180" fill="none" stroke="#38BDF8" stroke-width="3.5" stroke-dasharray="8 6"/>
+              <g clip-path="url(#s1L)">
+                <rect x="165" y="195" width="70" height="60" fill="url(#s1Skin)" stroke="#1C304B" stroke-width="4"/>
+                <path d="M65,320 C65,255 115,236 200,236 L200,340 L65,340 Z" fill="url(#s1Navy)" stroke="#1C304B" stroke-width="4.5"/>
+                <polygon points="168,236 200,236 200,320 155,268" fill="#FFFFFF" stroke="#1C304B" stroke-width="3.5"/>
+                <polygon points="186,246 200,246 200,315 180,292" fill="#DA291C"/>
+                <ellipse cx="108" cy="140" rx="15" ry="24" fill="url(#s1Skin)" stroke="#1C304B" stroke-width="4"/>
+                <path d="M110,112 C110,58 145,42 200,42 L200,218 C150,218 114,194 110,148 Z" fill="url(#s1Skin)" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M104,118 C100,58 140,26 200,28 L200,72 C155,72 128,86 114,118 Z" fill="#1C304B" stroke="#1C304B" stroke-width="3.5"/>
+                <path d="M136,104 Q158,94 180,102" fill="none" stroke="#1C304B" stroke-width="5" stroke-linecap="round"/>
+                <ellipse cx="158" cy="126" rx="14" ry="15" fill="#FFFFFF" stroke="#1C304B" stroke-width="3.5"/>
+                <circle cx="160" cy="126" r="8" fill="#1C304B"/>
+                <circle cx="157" cy="122" r="3.5" fill="#FFFFFF"/>
+                <path d="M148,168 Q174,200 200,200 L200,172 Q174,172 148,168 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+              </g>
+              <g clip-path="url(#s1R)">
+                <rect x="200" y="200" width="28" height="55" fill="url(#s1Navy)" stroke="#1C304B" stroke-width="3.5"/>
+                <rect x="230" y="196" width="14" height="58" rx="4" fill="url(#s1Chrome)" stroke="#1C304B" stroke-width="3.5"/>
+                <path d="M200,236 C285,236 335,255 335,320 L335,340 L200,340 Z" fill="url(#s1Chrome)" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M272,240 C315,248 335,274 335,315 L288,315 L260,260 Z" fill="url(#s1Red)" stroke="#1C304B" stroke-width="4"/>
+                <rect x="280" y="116" width="20" height="50" rx="7" fill="url(#s1Red)" stroke="#1C304B" stroke-width="4"/>
+                <circle cx="290" cy="141" r="6" fill="#FFFFFF"/>
+                <path d="M200,42 C255,42 290,58 290,112 L290,148 C286,194 250,218 200,218 Z" fill="url(#s1Chrome)" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M200,35 L236,42 L224,80 L200,80 Z" fill="url(#s1Red)" stroke="#1C304B" stroke-width="3.5"/>
+                <rect x="206" y="102" width="66" height="46" rx="14" fill="url(#s1Navy)" stroke="#1C304B" stroke-width="4"/>
+                <circle cx="239" cy="125" r="15" fill="#DA291C"/>
+                <circle cx="239" cy="125" r="7" fill="#FFFFFF"/>
+                <path d="M200,200 Q228,200 252,168 L200,172 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+              </g>
+              <line x1="200" y1="28" x2="200" y2="265" stroke="#DA291C" stroke-width="3.5" stroke-dasharray="7 5"/>
+              <rect x="85" y="278" width="230" height="60" rx="14" fill="url(#s1Red)" stroke="#FFFFFF" stroke-width="4.5"/>
+              <text x="200" y="319" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="38" font-weight="800">Adecco</text>
+              <rect x="40" y="356" width="320" height="32" rx="8" fill="#0B1528" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+              <text x="200" y="377" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="800">SALES &amp; MARKETING · AI CO-PILOT</text>
+            </svg>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:15px; color:#fff; margin-top:8px;">
+              CYBORG SPLIT EJECUTIVO
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--cyan-glow);">
+              CRITERIO HUMANO + EJECUCIÓN MICROSOFT
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 02: PROPÓSITO, RESULTADO ESPERADO Y PAPEL DE LA IA
+    ================================================================== -->
+    <section class="slide" data-title="Propósito y Definición del Programa">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">FUNDAMENTO</span>
+            <span>PROPÓSITO, RESULTADO ESPERADO Y ROL DE LA IA</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 02 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Propósito y Alcance del <span class="gradient-red">Programa</span></h2>
+        <p class="slide-subtitle">
+          Desarrollar la capacidad de identificar una tarea repetitiva de tu cuenta, describirla con precisión a la IA, construir una solución en herramientas Microsoft y comprobar sus resultados antes de aplicarla al trabajo.
+        </p>
+
+        <div class="grid-2">
+          <!-- Left: Program Definition Table -->
+          <div class="spotlight-card inner-card">
+            <h3>📋 Ficha Técnica del Programa</h3>
+            <table class="exec-table" style="margin-top:10px;">
+              <thead>
+                <tr>
+                  <th>Aspecto</th>
+                  <th>Definición Oficial</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="key">Duración</td>
+                  <td>4 sesiones prácticas (Fechas: 9, 11, 16 y 18 de noviembre de 2026).</td>
+                </tr>
+                <tr>
+                  <td class="key">Metodología</td>
+                  <td>Demostración guiada y construcción del proyecto <strong>durante las clases</strong>.</td>
+                </tr>
+                <tr>
+                  <td class="key">Herramientas</td>
+                  <td>Microsoft Excel, Word, Power BI y Power Automate.</td>
+                </tr>
+                <tr>
+                  <td class="key">Apoyo de IA</td>
+                  <td>Microsoft Copilot (herramienta central) y modelos generativos autorizados.</td>
+                </tr>
+                <tr>
+                  <td class="key">Evaluación</td>
+                  <td>Un único proyecto final propio; <strong>sin tareas obligatorias entre clases</strong>.</td>
+                </tr>
+                <tr>
+                  <td class="key">Reconocimiento</td>
+                  <td><strong>Certificación Oficial del Programa</strong> y validación ante el jurado evaluador.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right: Expected Outcome & Role of AI -->
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div class="spotlight-card inner-card" style="border-left: 4px solid var(--adecco-red);">
+              <h3>🎯 Resultado Esperado por Participante o Equipo</h3>
+              <p>
+                Cada participante o equipo presentará una <strong>mejora funcional de un proceso propio de su cuenta</strong>, con evidencia de prueba, un indicador de beneficio medido (ahorro de tiempo o reducción de errores) y controles básicos.
+              </p>
+              <div style="margin-top:12px; padding:10px 14px; background:rgba(218,41,28,0.12); border-radius:10px; font-size:13px; color:#FCA5A5; font-weight:600;">
+                💡 Enfoque flexible: Puedes utilizar una o dos herramientas según la necesidad real de tu cuenta; no se exige integrar todas a la vez.
+              </div>
+            </div>
+
+            <div class="spotlight-card inner-card" style="border-left: 4px solid var(--cyan-glow);">
+              <h3>🤖 El Papel de la IA vs. El Criterio Humano</h3>
+              <div class="flow-steps" style="margin-top:10px;">
+                <div class="flow-step"><span class="num">1</span> <strong>Copilot / IA:</strong> Orienta, explica código y corrige errores</div>
+                <div class="flow-step"><span class="num">2</span> <strong>Microsoft M365:</strong> Ejecuta la macro, reporte o flujo</div>
+                <div class="flow-step"><span class="num">3</span> <strong>Colaborador Adecco:</strong> Audita, valida y aprueba resultados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 03: ECOSISTEMA MICROSOFT COPILOT & PERFILES S&M
+    ================================================================== -->
+    <section class="slide" data-title="Ecosistema Microsoft Copilot en S&M">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">ARQUITECTURA</span>
+            <span>BASE COMÚN TRANSVERSAL + PROFUNDIZACIÓN POR HERRAMIENTA</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 03 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Ecosistema <span class="gradient-cyber">Microsoft Copilot</span> en Sales &amp; Marketing</h2>
+        <p class="slide-subtitle">
+          Una base común de uso efectivo y responsable de IA para todo el equipo, conectada con las 4 herramientas operativas clave de nuestras cuentas.
+        </p>
+
+        <!-- 5 Official Program Icons Grid -->
+        <div class="grid-5" style="margin-bottom: 22px;">
+          <!-- Copilot -->
+          <div class="spotlight-card inner-card" style="background:linear-gradient(160deg, rgba(218,41,28,0.16), rgba(11,19,36,0.85)); border-color:rgba(218,41,28,0.4);">
+            <div class="eco-badge" style="margin-bottom:12px;">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                <defs>
+                  <linearGradient id="dCp1" x1="6" y1="10" x2="36" y2="26" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#F97316"/><stop offset="50%" stop-color="#EC4899"/><stop offset="100%" stop-color="#8B5CF6"/>
+                  </linearGradient>
+                  <linearGradient id="dCp2" x1="12" y1="22" x2="42" y2="38" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#06B6D4"/><stop offset="55%" stop-color="#3B82F6"/><stop offset="100%" stop-color="#10B981"/>
+                  </linearGradient>
+                </defs>
+                <path d="M15.5 10C10.8 10 7 13.8 7 18.5C7 22.4 9.6 25.7 13.2 26.7L24.5 29.8C27.2 30.5 29.2 28.5 29.2 25.8C29.2 23.6 27.7 21.7 25.6 21.1L16.8 18.7C15.6 18.4 14.8 17.3 14.8 16.1C14.8 14.4 16.2 13 17.9 13H30.5C34.6 13 38 16.4 38 20.5V21.5C38 23.2 39.3 24.5 41 24.5C41 16.5 34.5 10 26.5 10H15.5Z" fill="url(#dCp1)"/>
+                <path d="M32.5 38C37.2 38 41 34.2 41 29.5C41 25.6 38.4 22.3 34.8 21.3L23.5 18.2C20.8 17.5 18.8 19.5 18.8 22.2C18.8 24.4 20.3 26.3 22.4 26.9L31.2 29.3C32.4 29.6 33.2 30.7 33.2 31.9C33.2 33.6 31.8 35 30.1 35H17.5C13.4 35 10 31.6 10 27.5V26.5C10 24.8 8.7 23.5 7 23.5C7 31.5 13.5 38 21.5 38H32.5Z" fill="url(#dCp2)"/>
+              </svg>
+            </div>
+            <h3 style="font-size:15.5px;">Microsoft Copilot</h3>
+            <p style="font-size:12.5px;">Motor central transversal. Traduce reglas de negocio en código VBA, DAX, informes y flujos.</p>
+          </div>
+
+          <!-- Excel -->
+          <div class="spotlight-card inner-card">
+            <div class="eco-badge" style="margin-bottom:12px;">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                <rect x="14" y="6" width="28" height="36" rx="4" fill="#107C41"/>
+                <path d="M14 15H42V24H14V15Z" fill="#21A366"/>
+                <path d="M14 6H28V15H14V6Z" fill="#33C481"/>
+                <rect x="6" y="13" width="20" height="22" rx="3.5" fill="#185C37"/>
+                <path d="M11.5 18.5L16 24.5L11.2 30.5H14.1L16.1 27.2L18.1 30.5H21L16.3 24.4L20.7 18.5H17.9L16.1 21.5L14.3 18.5H11.5Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <h3 style="font-size:15.5px;">Microsoft Excel</h3>
+            <p style="font-size:12.5px;">Automatización de asistencia, rotación, pendientes y sábanas de datos con Macros VBA.</p>
+          </div>
+
+          <!-- Word -->
+          <div class="spotlight-card inner-card">
+            <div class="eco-badge" style="margin-bottom:12px;">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                <rect x="14" y="6" width="28" height="36" rx="4" fill="#103F91"/>
+                <path d="M14 6H42V15H14V6Z" fill="#41A5EE"/>
+                <path d="M14 15H42V24H14V15Z" fill="#2B7CD3"/>
+                <path d="M14 24H42V33H14V24Z" fill="#185ABD"/>
+                <rect x="6" y="13" width="20" height="22" rx="3.5" fill="#185ABD"/>
+                <path d="M9.8 18.5L12.1 29.8H14.5L16.1 22.4L17.7 29.8H20.1L22.4 18.5H20.1L18.8 26.2L17.2 18.5H15L13.4 26.2L12.1 18.5H9.8Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <h3 style="font-size:15.5px;">Microsoft Word</h3>
+            <p style="font-size:12.5px;">Estandarización de reportes ejecutivos, plantillas para clientes y exportación a PDF.</p>
+          </div>
+
+          <!-- Power BI -->
+          <div class="spotlight-card inner-card">
+            <div class="eco-badge" style="margin-bottom:12px;">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                <rect x="28" y="6" width="12" height="36" rx="3.5" fill="#E6AD10"/>
+                <rect x="18" y="15" width="12" height="27" rx="3.5" fill="#F2C811"/>
+                <rect x="8" y="24" width="12" height="18" rx="3.5" fill="#F9E076"/>
+              </svg>
+            </div>
+            <h3 style="font-size:15.5px;">Power BI</h3>
+            <p style="font-size:12.5px;">Visualización ejecutiva de KPIs de cobertura, rotación y ventas con medidas DAX asistidas.</p>
+          </div>
+
+          <!-- Power Automate -->
+          <div class="spotlight-card inner-card">
+            <div class="eco-badge" style="margin-bottom:12px;">
+              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                <path d="M8 11C8 9.3 9.3 8 11 8H24.5C25.6 8 26.6 8.6 27.2 9.5L39.6 22.2C40.6 23.2 40.6 24.8 39.6 25.8L27.2 38.5C26.6 39.4 25.6 40 24.5 40H11C9.3 40 8 38.7 8 37V31.5L19.5 24L8 16.5V11Z" fill="#0066FF"/>
+                <path d="M8 11L27.5 24L40 24L26.8 9.2C26.2 8.4 25.3 8 24.3 8H11C9.3 8 8 9.3 8 11Z" fill="#50E6FF"/>
+                <path d="M18.5 24L8 31.2V37C8 38.7 9.3 40 11 40H24.3C25.3 40 26.2 39.6 26.8 38.8L40 24H18.5Z" fill="#2886DE"/>
+              </svg>
+            </div>
+            <h3 style="font-size:15.5px;">Power Automate</h3>
+            <p style="font-size:12.5px;">Flujos automáticos de alertas, vencimientos y seguimiento entre Excel y Outlook/Teams.</p>
+          </div>
+        </div>
+
+        <!-- Focus by Profile -->
+        <div class="spotlight-card inner-card" style="padding:18px 22px;">
+          <h3 style="font-size:16px; margin-bottom:10px;">👥 Enfoque Diferenciado según el Perfil en Sales &amp; Marketing</h3>
+          <div class="grid-4" style="gap:12px;">
+            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+              <div style="color:var(--cyan-glow); font-weight:800; font-size:13px; margin-bottom:4px;">Gerentes</div>
+              <p style="font-size:12px;">Productividad ejecutiva, síntesis de reportes y toma de decisiones con IA.</p>
+            </div>
+            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+              <div style="color:#FF6B60; font-weight:800; font-size:13px; margin-bottom:4px;">Jefes de Operaciones</div>
+              <p style="font-size:12px;">Lectura de indicadores (cobertura/rotación), control de gestión y mejora de procesos.</p>
+            </div>
+            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+              <div style="color:#34D399; font-weight:800; font-size:13px; margin-bottom:4px;">Coordinadores y Supervisores</div>
+              <p style="font-size:12px;">Automatización de tareas repetitivas en Excel, documentos Word y alertas operativas.</p>
+            </div>
+            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+              <div style="color:#FBBF24; font-weight:800; font-size:13px; margin-bottom:4px;">BI y Perfiles Avanzados</div>
+              <p style="font-size:12px;">Modelado de medidas DAX, tableros en Power BI y flujos integrados.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 04: CRONOGRAMA OFICIAL PROGRAMA BACK Y FLUJO CONECTOR
+    ================================================================== -->
+    <section class="slide" data-title="Cronograma Oficial PROGRAMA BACK">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">CALENDARIO OFICIAL</span>
+            <span>FECHAS, SALAS Y CASO CONECTOR DE LAS 4 SESIONES</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 04 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Cronograma Oficial — <span class="gradient-red">PROGRAMA BACK</span></h2>
+        <p class="slide-subtitle">
+          Programación confirmada de salas y horarios para las 4 sesiones del programa en noviembre de 2026.
+        </p>
+
+        <div class="back-table-box">
+          <div class="back-banner">PROGRAMA BACK · CALENDARIO Y SALAS CONFIRMADAS</div>
+          <table class="exec-table">
+            <thead>
+              <tr>
+                <th>Sesión</th>
+                <th>Fecha Oficial</th>
+                <th>Sala Asignada</th>
+                <th>Horario</th>
+                <th>Entregable / Resultado en Clase</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="key" style="width:18%;">Sesión 01 · Excel + IA</td>
+                <td><strong>Lunes 09 / 11 / 2026</strong></td>
+                <td><span style="color:#FCA5A5; font-weight:700;">📍 SALA ESTOCOLMO</span></td>
+                <td><strong>3:00 PM a 5:00 PM</strong></td>
+                <td>Macro comentada y validada de pendientes por responsable.</td>
+              </tr>
+              <tr>
+                <td class="key">Sesión 02 · Power BI &amp; Word</td>
+                <td><strong>Miércoles 11 / 11 / 2026</strong></td>
+                <td><span style="color:var(--cyan-glow); font-weight:700;">📍 OSLO - VIENA - DUBLÍN</span></td>
+                <td><strong>11:00 AM a 1:00 PM</strong></td>
+                <td>Reporte visual con indicadores DAX + documento ejecutivo en Word.</td>
+              </tr>
+              <tr>
+                <td class="key">Sesión 03 · Power Automate</td>
+                <td><strong>Lunes 16 / 11 / 2026</strong></td>
+                <td><span style="color:var(--cyan-glow); font-weight:700;">📍 OSLO - VIENA - DUBLÍN</span></td>
+                <td><strong>11:00 AM a 1:00 PM</strong></td>
+                <td>Flujo automatizado de recordatorios con Excel y Outlook.</td>
+              </tr>
+              <tr>
+                <td class="key" style="color:#FBBF24;">Sesión 04 · Sustentación Final</td>
+                <td><strong>Miércoles 18 / 11 / 2026</strong></td>
+                <td><span style="color:#FBBF24; font-weight:700;">📍 OSLO - VIENA - DUBLÍN</span></td>
+                <td><strong>11:00 AM a 1:00 PM</strong></td>
+                <td>Demostración en vivo del proyecto de mejora y Certificación Oficial.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="spotlight-card inner-card">
+          <h3>🔗 El Caso Práctico que Conecta las Sesiones: "De una Tarea Manual a una Solución Comprobable"</h3>
+          <p>
+            Partimos de un registro operativo de solicitudes, compromisos o cobertura que contiene <strong>identificador, actividad, responsable, fecha límite y estado</strong>. Sobre esta base aprendemos a construir y validar en clase mientras cada participante lo adapta al proceso real de su cuenta:
+          </p>
+          <div class="flow-steps">
+            <div class="flow-step"><span class="num">01</span> <strong>09 Nov:</strong> Automatizar pendientes en Excel (VBA + Copilot)</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">02</span> <strong>11 Nov:</strong> Analizar en Power BI y comunicar en Word</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">03</span> <strong>16 Nov:</strong> Enviar alertas automáticas con Power Automate</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">04</span> <strong>18 Nov:</strong> Sustentar la mejora ante Dirección</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 05: SESIÓN 01 — AUTOMATIZACIÓN EN EXCEL CON IA
+    ================================================================== -->
+    <section class="slide" data-title="Sesión 1: Automatización en Excel con IA">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">SESIÓN 01</span>
+            <span>LUNES 9 DE NOVIEMBRE DE 2026 · SALA ESTOCOLMO · 3:00 PM A 5:00 PM</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 05 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Sesión 1: Automatización en <span style="color:#34D399;">Excel</span> con IA</h2>
+        <p class="slide-subtitle">
+          Construir y probar una macro en VBA asistida por Microsoft Copilot para reducir una tarea repetitiva de Excel, sin necesidad de saber programar desde cero.
+        </p>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card">
+            <h3>🛠️ Estructura de la Sesión y Flujo Práctico</h3>
+            <div class="flow-steps" style="margin-bottom:14px;">
+              <div class="flow-step"><span class="num">1</span> Identificar tarea</div>
+              <div class="flow-step"><span class="num">2</span> Preparar copia</div>
+              <div class="flow-step"><span class="num">3</span> Instruir a Copilot</div>
+              <div class="flow-step"><span class="num">4</span> Probar Macro</div>
+              <div class="flow-step"><span class="num">5</span> Adaptar al proyecto</div>
+            </div>
+
+            <table class="exec-table">
+              <thead>
+                <tr>
+                  <th>Bloque de Trabajo en Clase</th>
+                  <th>Enfoque</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="key">1. Fundamentos de IA</td>
+                  <td>Origen, funcionamiento y límites de la IA con ejemplos reales de negocio.</td>
+                </tr>
+                <tr>
+                  <td class="key">2. Ingeniería de Prompts</td>
+                  <td>Cómo describir un proceso operativo y formular instrucciones estructuradas.</td>
+                </tr>
+                <tr>
+                  <td class="key">3. Laboratorio VBA + Copilot</td>
+                  <td>Construcción, ejecución y depuración de una macro de pendientes por responsable.</td>
+                </tr>
+                <tr>
+                  <td class="key">4. Avance de Proyecto</td>
+                  <td>Elección del proceso propio de tu cuenta y primer avance guiado en clase.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="spotlight-card inner-card">
+              <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
+              <div class="prompt-box">
+                <div class="prompt-header">
+                  <span>PROMPT ESTRUCTURADO · EXCEL VBA</span>
+                  <button class="copy-btn" onclick="copyText('p-s1', this)">Copiar Prompt</button>
+                </div>
+                <div class="prompt-text" id="p-s1">"Tengo una tabla con actividad, responsable, fecha límite y estado. Quiero generar pendientes por responsable sin modificar la hoja fuente. Pregunta primero por mi versión de Excel y mis columnas. Propón una macro comentada y explica cómo probarla en una copia y verificar sus resultados."</div>
+              </div>
+            </div>
+
+            <div class="spotlight-card inner-card" style="border-left:4px solid #10B981;">
+              <h3>✅ Entregable y Protocolo de Comprobación</h3>
+              <p>
+                <strong>Entregable:</strong> Archivo Excel con macro funcional e instrucciones de uso.<br>
+                <strong>Comprobación:</strong> Comparar cantidades contra el registro original; probar casos borde (responsables vacíos, fechas faltantes, tareas completadas y doble ejecución) y medir el tiempo manual vs. automatizado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 06: SESIÓN 02 — ANÁLISIS Y DOCUMENTOS CON IA (POWER BI & WORD)
+    ================================================================== -->
+    <section class="slide" data-title="Sesión 2: Power BI y Word con IA">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">SESIÓN 02</span>
+            <span>MIÉRCOLES 11 DE NOVIEMBRE DE 2026 · SALA OSLO - VIENA - DUBLÍN · 11:00 AM A 1:00 PM</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 06 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Sesión 2: Analizar y Comunicar (<span style="color:#FBBF24;">Power BI</span> &amp; <span style="color:#60A5FA;">Word</span>)</h2>
+        <p class="slide-subtitle">
+          Construir un reporte ejecutivo con indicadores y medidas DAX en Power BI asistidas por Copilot, y automatizar la comunicación formal de resultados en Microsoft Word.
+        </p>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card">
+            <h3>📊 Estructura de la Sesión y Flujo Práctico</h3>
+            <div class="flow-steps" style="margin-bottom:14px;">
+              <div class="flow-step"><span class="num">1</span> Cargar Excel</div>
+              <div class="flow-step"><span class="num">2</span> Medidas DAX con IA</div>
+              <div class="flow-step"><span class="num">3</span> Conciliar totales</div>
+              <div class="flow-step"><span class="num">4</span> Plantilla Word + PDF</div>
+            </div>
+
+            <table class="exec-table">
+              <thead>
+                <tr>
+                  <th>Bloque de Trabajo en Clase</th>
+                  <th>Enfoque</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="key">1. Reporte Guiado Power BI</td>
+                  <td>Carga de datos, modelado de 3 indicadores clave y 2 gráficos ejecutivos con medidas DAX explicadas por Copilot.</td>
+                </tr>
+                <tr>
+                  <td class="key">2. Automatización en Word</td>
+                  <td>Estructuración de plantillas ejecutivas, redacción asistida y macro sencilla de formato o exportación a PDF.</td>
+                </tr>
+                <tr>
+                  <td class="key">3. Adaptación al Proyecto</td>
+                  <td>Aplicación directa a los reportes e informes de clientes de tu propia cuenta en S&amp;M.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="spotlight-card inner-card">
+              <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
+              <div class="prompt-box">
+                <div class="prompt-header">
+                  <span>PROMPT ESTRUCTURADO · POWER BI DAX &amp; WORD</span>
+                  <button class="copy-btn" onclick="copyText('p-s2', this)">Copiar Prompt</button>
+                </div>
+                <div class="prompt-text" id="p-s2">"Necesito medir el porcentaje de solicitudes completadas. Verifica conmigo el denominador, los duplicados y los estados vacíos antes de proponer la fórmula DAX. Explica la medida y dame un ejemplo para comprobarla en Excel. Luego ayúdame a estructurar un informe ejecutivo en Word con los resultados validados."</div>
+              </div>
+            </div>
+
+            <div class="spotlight-card inner-card" style="border-left:4px solid #F59E0B;">
+              <h3>✅ Entregable y Protocolo de Comprobación</h3>
+              <p>
+                <strong>Entregable:</strong> Reporte interactivo en Power BI + documento ejecutivo en Word exportado a PDF.<br>
+                <strong>Comprobación:</strong> Conciliar totales, filtros y fechas entre Power BI y la base de Excel antes de emitir el documento ejecutivo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 07: SESIÓN 03 — FLUJOS CON POWER AUTOMATE E IA
+    ================================================================== -->
+    <section class="slide" data-title="Sesión 3: Flujos con Power Automate e IA">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">SESIÓN 03</span>
+            <span>LUNES 16 DE NOVIEMBRE DE 2026 · SALA OSLO - VIENA - DUBLÍN · 11:00 AM A 1:00 PM</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 07 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Sesión 3: Conectividad con <span style="color:#38BDF8;">Power Automate</span> e IA</h2>
+        <p class="slide-subtitle">
+          Construir desde cero un flujo automatizado que conecte tablas de Excel con notificaciones en Outlook/Teams, utilizando Copilot para diseñar las condiciones y depurar errores.
+        </p>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card">
+            <h3>⚡ Estructura de la Sesión y Flujo Práctico</h3>
+            <div class="flow-steps" style="margin-bottom:14px;">
+              <div class="flow-step"><span class="num">1</span> Disparador</div>
+              <div class="flow-step"><span class="num">2</span> Leer tabla Excel</div>
+              <div class="flow-step"><span class="num">3</span> Evaluar condición</div>
+              <div class="flow-step"><span class="num">4</span> Enviar aviso de prueba</div>
+              <div class="flow-step"><span class="num">5</span> Auditar historial</div>
+            </div>
+
+            <table class="exec-table">
+              <thead>
+                <tr>
+                  <th>Bloque de Trabajo en Clase</th>
+                  <th>Enfoque</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="key">1. Arquitectura de Flujos</td>
+                  <td>Disparadores (triggers), acciones, condiciones lógicas, conectores M365 e historial de ejecución.</td>
+                </tr>
+                <tr>
+                  <td class="key">2. Flujo de Recordatorios</td>
+                  <td>Construcción guiada de un flujo que revisa vencimientos en Excel y envía alertas automáticas sin duplicados.</td>
+                </tr>
+                <tr>
+                  <td class="key">3. Controles y Cierre</td>
+                  <td>Manejo de errores con ayuda de Copilot, permisos, responsable del flujo y preparación de la sustentación.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="spotlight-card inner-card">
+              <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
+              <div class="prompt-box">
+                <div class="prompt-header">
+                  <span>PROMPT ESTRUCTURADO · POWER AUTOMATE</span>
+                  <button class="copy-btn" onclick="copyText('p-s3', this)">Copiar Prompt</button>
+                </div>
+                <div class="prompt-text" id="p-s3">"Guíame para revisar una tabla de Excel y avisar por correo de los compromisos próximos a vencer. Soy principiante. Pregunta por mis columnas y conectores disponibles. Divide el trabajo en pasos verificables y explica cómo evitar correos duplicados, probar primero con mi correo y consultar el historial."</div>
+              </div>
+            </div>
+
+            <div class="spotlight-card inner-card" style="border-left:4px solid var(--cyan-glow);">
+              <h3>✅ Entregable y Protocolo de Comprobación</h3>
+              <p>
+                <strong>Entregable:</strong> Flujo de prueba operativo y ficha de control/mantenimiento.<br>
+                <strong>Comprobación:</strong> Probar 4 escenarios: un compromiso próximo a vencer, uno completado, uno sin fecha y otro ya notificado previamente (siempre sobre correo de prueba antes de producción).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 08: SESIÓN 04 — PROYECTO FINAL Y SUSTENTACIÓN (18 NOV)
+    ================================================================== -->
+    <section class="slide" data-title="Sesión 4: Sustentación Final y Evaluación">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill" style="background:#F59E0B; color:#000;">SESIÓN 04 · CIERRE</span>
+            <span>MIÉRCOLES 18 DE NOVIEMBRE DE 2026 · SALA OSLO - VIENA - DUBLÍN · 11:00 AM A 1:00 PM</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 08 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Sustentación Final: <span class="gradient-red">"Demuestra la Mejora"</span></h2>
+        <p class="slide-subtitle">
+          El proyecto se construye durante las sesiones de clase. El miércoles 18 de noviembre cada participante o equipo demuestra su solución funcionando en vivo ante el jurado evaluador.
+        </p>
+
+        <!-- Rubric 4 Pillars -->
+        <div class="grid-4" style="margin-bottom: 20px;">
+          <div class="spotlight-card inner-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--adecco-crimson);">35%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:100%;"></div></div>
+            <h3 style="font-size:15.5px;">Funcionamiento Demostrado</h3>
+            <p style="font-size:12.5px;">La solución ejecuta en vivo de principio a fin con datos de prueba comprobables.</p>
+          </div>
+
+          <div class="spotlight-card inner-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--cyan-glow);">30%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:86%;"></div></div>
+            <h3 style="font-size:15.5px;">Utilidad y Beneficio Medido</h3>
+            <p style="font-size:12.5px;">Impacto directo en el proceso de la cuenta: ahorro de tiempo (Antes vs. Después) y menos reprocesos.</p>
+          </div>
+
+          <div class="spotlight-card inner-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#34D399;">20%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:57%;"></div></div>
+            <h3 style="font-size:15.5px;">Viabilidad Operativa</h3>
+            <p style="font-size:12.5px;">Sostenibilidad de la solución con las licencias y recursos actuales del equipo.</p>
+          </div>
+
+          <div class="spotlight-card inner-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#FBBF24;">15%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:43%;"></div></div>
+            <h3 style="font-size:15.5px;">Uso Responsable y Control</h3>
+            <p style="font-size:12.5px;">Validación humana del resultado, protección de datos y ficha de mantenimiento.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card">
+            <h3>⏱️ Formato Ágil de Exposición (10 min por Proyecto)</h3>
+            <div class="flow-steps">
+              <div class="flow-step"><span class="num">1</span> <strong>7 min:</strong> Problema + Solución en vivo + Métrica</div>
+              <span class="flow-arrow">➔</span>
+              <div class="flow-step"><span class="num">2</span> <strong>3 min:</strong> Preguntas y feedback del Jurado</div>
+            </div>
+          </div>
+
+          <div class="spotlight-card inner-card" style="border-left: 4px solid #F59E0B;">
+            <h3>🏅 Certificación Oficial y Reconocimiento</h3>
+            <p>
+              Los proyectos con dictamen favorable reciben la <strong>Certificación Oficial del Programa</strong> avalada por la Dirección de Sales &amp; Marketing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 09: METODOLOGÍA, RECURSOS Y GOBERNANZA CORPORATIVA
+    ================================================================== -->
+    <section class="slide" data-title="Metodología, Recursos y Gobernanza">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">GOBERNANZA &amp; TI</span>
+            <span>CONDICIONES TÉCNICAS, SEGURIDAD DE DATOS Y MEDICIÓN</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 09 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Metodología, Recursos y <span class="gradient-cyber">Uso Responsable</span></h2>
+        <p class="slide-subtitle">
+          Garantizamos que cada automatización cumpla con las políticas de seguridad de la información de Adecco y cuente con respaldo humano.
+        </p>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card">
+            <h3>💻 Condiciones Técnicas para las Sesiones</h3>
+            <table class="exec-table" style="margin-top:8px;">
+              <thead>
+                <tr>
+                  <th>Recurso</th>
+                  <th>Requisito Operativo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="key">Excel y Word</td>
+                  <td>Aplicaciones de escritorio con permiso para ejecutar macros en archivos de práctica.</td>
+                </tr>
+                <tr>
+                  <td class="key">Power BI</td>
+                  <td>Power BI Desktop instalado en el equipo del participante.</td>
+                </tr>
+                <tr>
+                  <td class="key">Power Automate</td>
+                  <td>Acceso a M365 con conectores estándar de Excel y Outlook.</td>
+                </tr>
+                <tr>
+                  <td class="key">Microsoft Copilot / IA</td>
+                  <td>Cuenta corporativa autorizada de Microsoft Copilot.</td>
+                </tr>
+                <tr>
+                  <td class="key">Kit de Clase</td>
+                  <td>Bases de datos de práctica, plantillas y guía de prompts provistas por el facilitador.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="spotlight-card inner-card" style="border-left:4px solid var(--adecco-red);">
+              <h3>🛡️ 4 Reglas de Oro de Gobernanza y Seguridad</h3>
+              <ul style="list-style:none; display:grid; gap:8px; font-size:13.5px; color:var(--text-secondary); margin-top:8px;">
+                <li>🔹 <strong>1. Trabajar siempre sobre copias:</strong> Conservar intacta la fuente original antes de probar una macro o flujo.</li>
+                <li>🔹 <strong>2. Protección de datos sensibles:</strong> Utilizar datos ficticios o autorizados; nunca subir información confidencial a cuentas personales.</li>
+                <li>🔹 <strong>3. Auditoría humana del código:</strong> Revisar y comprender qué hace cada instrucción antes de ejecutarla.</li>
+                <li>🔹 <strong>4. Continuidad operativa:</strong> Documentar quién mantiene la solución y cómo recuperar el proceso manual en caso de contingencia.</li>
+              </ul>
+            </div>
+
+            <div class="spotlight-card inner-card" style="border-left:4px solid #10B981;">
+              <h3>📏 Medición Objetiva del Resultado</h3>
+              <p>
+                Cada proyecto registra el <strong>tiempo de ejecución manual vs. el tiempo con la solución automatizada</strong> y las correcciones evitadas sobre una muestra real comparable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         SLIDE 10: HOJA DE RUTA DE LANZAMIENTO Y ACCESO AL ECOSISTEMA
+    ================================================================== -->
+    <section class="slide" data-title="Hoja de Ruta y Lanzamiento">
+      <div class="slide-frame">
+        <div class="slide-top-meta">
+          <div class="slide-kicker">
+            <span class="pill">DESPLIEGUE INMEDIATO</span>
+            <span>SECUENCIA DE LANZAMIENTO Y ACCESO AL PORTAL INTERACTIVO</span>
+          </div>
+          <div class="slide-page-num">DIAPOSITIVA 10 / 10</div>
+        </div>
+
+        <h2 class="slide-title">Secuencia de <span class="gradient-red">Lanzamiento</span> y Adopción en S&amp;M</h2>
+        <p class="slide-subtitle">
+          Todo el ecosistema digital (Portal Web, Cronómetro en Vivo y Arena Modo Kahoot por sesión) ya se encuentra en línea para acompañar el programa.
+        </p>
+
+        <div class="spotlight-card inner-card" style="margin-bottom:22px;">
+          <h3>🚀 Hoja de Ruta Operativa — Noviembre 2026</h3>
+          <div class="flow-steps" style="margin-top:12px;">
+            <div class="flow-step"><span class="num">1</span> Envío de Convocatoria Oficial</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">2</span> <strong>09 Nov (3PM):</strong> Sesión 1 en Sala Estocolmo</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">3</span> <strong>11 Nov (11AM):</strong> Sesión 2 en Oslo-Viena-Dublín</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">4</span> <strong>16 Nov (11AM):</strong> Sesión 3 en Oslo-Viena-Dublín</div>
+            <span class="flow-arrow">➔</span>
+            <div class="flow-step"><span class="num">5</span> <strong>18 Nov (11AM):</strong> Sustentación Final y Certificación</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="spotlight-card inner-card" style="background:linear-gradient(145deg, rgba(218,41,28,0.18), rgba(11,19,36,0.9)); border-color:rgba(218,41,28,0.45);">
+            <h3>🌐 Portal Interactivo &amp; Arena Modo Kahoot</h3>
+            <p style="margin-bottom:16px;">
+              Al finalizar cada sesión presencial, los participantes se conectan desde su navegador (sin iniciar sesión) para reforzar lo aprendido en la <strong>Arena Modo Kahoot</strong> con preguntas de Excel, Power BI, Word y Power Automate.
+            </p>
+            <a href="index.html" class="nav-arrow-btn next" style="text-decoration:none; display:inline-flex;">
+              <span>⚡ Abrir Portal Web &amp; Arena Kahoot Ahora</span>
+            </a>
+          </div>
+
+          <div class="spotlight-card inner-card">
+            <h3>📌 Resumen Ejecutivo para Participantes</h3>
+            <ul style="list-style:none; display:grid; gap:9px; font-size:13.5px; color:var(--text-secondary); margin-top:8px;">
+              <li>✅ <strong>Asistencia con tu laptop:</strong> Trae identificado un proceso operativo o reporte repetitivo de tu cuenta.</li>
+              <li>✅ <strong>100% desarrollado en el aula:</strong> El proyecto se construye durante las sesiones con apoyo directo del facilitador.</li>
+              <li>✅ <strong>Meta del 18 de Noviembre:</strong> Demostrar tu mejora funcionando en vivo y obtener la Certificación Oficial.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= BOTTOM FLOATING PRESENTER DOCK ================= -->
+  <nav class="presenter-dock">
+    <button class="nav-arrow-btn" id="btn-prev" onclick="changeSlide(-1)">
+      <span>← Anterior</span>
+    </button>
+
+    <div class="dock-progress-wrap">
+      <div class="dock-progress-meta">
+        <span id="dock-slide-title">01 · Portada Oficial del Programa</span>
+        <span id="dock-slide-count">1 / 10</span>
+      </div>
+      <div class="dock-progress-track">
+        <div class="dock-progress-fill" id="dock-progress-fill"></div>
+      </div>
+    </div>
+
+    <button class="nav-arrow-btn next" id="btn-next" onclick="changeSlide(1)">
+      <span>Siguiente →</span>
+    </button>
+  </nav>
+
+  <!-- ================= INTERACTIVE ENGINE SCRIPT ================= -->
+  <script>
+    // 1. SLIDE DECK CONTROLLER
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotBtns = Array.from(document.querySelectorAll('.dot-btn'));
+    let currentSlide = 0;
+    let isOverview = false;
+
+    function updateSlideUI() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      dotBtns.forEach((b, idx) => {
+        b.classList.toggle('active', idx === currentSlide);
+      });
+
+      const title = slides[currentSlide].getAttribute('data-title') || '';
+      const numStr = String(currentSlide + 1).padStart(2, '0');
+      document.getElementById('dock-slide-title').textContent = `${numStr} · ${title}`;
+      document.getElementById('dock-slide-count').textContent = `${currentSlide + 1} / ${slides.length}`;
+      document.getElementById('dock-progress-fill').style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+
+      document.getElementById('btn-prev').disabled = currentSlide === 0;
+      document.getElementById('btn-next').disabled = currentSlide === slides.length - 1;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function changeSlide(delta) {
+      if (isOverview) toggleOverview();
+      const next = Math.max(0, Math.min(slides.length - 1, currentSlide + delta));
+      if (next !== currentSlide) {
+        currentSlide = next;
+        updateSlideUI();
+      }
+    }
+
+    function goToSlide(index) {
+      if (isOverview) toggleOverview();
+      currentSlide = index;
+      updateSlideUI();
+    }
+
+    function toggleOverview() {
+      isOverview = !isOverview;
+      document.body.classList.toggle('overview-mode', isOverview);
+      document.getElementById('btn-overview').innerHTML = isOverview
+        ? '<span>▣ Vista Diapositiva</span>'
+        : '<span>⊞ Mosaico</span>';
+    }
+
+    slides.forEach((s, idx) => {
+      s.addEventListener('click', () => {
+        if (isOverview) {
+          goToSlide(idx);
+        }
+      });
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Keyboard navigation (Arrows, Space, F, G)
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        changeSlide(-1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.key === 'g' || e.key === 'G') {
+        e.preventDefault();
+        toggleOverview();
+      }
+    });
+
+    // Copy Prompt Helper
+    function copyText(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = '✓ ¡Copiado!';
+        setTimeout(() => { btn.textContent = old; }, 1800);
+      });
+    }
+
+    // 2. NEURAL CONSTELLATION CANVAS + SPOTLIGHT TRACKING
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    let pointer = { x: -1000, y: -1000 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 48; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        r: Math.random() * 1.8 + 0.8,
+        accent: Math.random() > 0.65
+      });
+    }
+
+    function renderNeural() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = n.accent ? 'rgba(218, 41, 28, 0.7)' : 'rgba(56, 189, 248, 0.55)';
+        ctx.fill();
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const m = nodes[j];
+          const dx = n.x - m.x;
+          const dy = n.y - m.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 130) * 0.14})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(renderNeural);
+    }
+    renderNeural();
+
+    // Spotlight tracking on cards
+    window.addEventListener('mousemove', (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // 3. BESPOKE CLICK SHOCKWAVE + QUANTUM SPARKS
+    window.addEventListener('mousedown', (e) => {
+      const wave = document.createElement('div');
+      wave.className = 'click-shockwave';
+      wave.style.left = `${e.clientX}px`;
+      wave.style.top = `${e.clientY}px`;
+      document.body.appendChild(wave);
+      setTimeout(() => wave.remove(), 650);
+
+      const colors = ['#DA291C', '#38BDF8', '#FFFFFF', '#F59E0B'];
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'click-particle';
+        p.style.left = `${e.clientX}px`;
+        p.style.top = `${e.clientY}px`;
+        p.style.background = colors[i % colors.length];
+        const angle = (Math.PI * 2 * i) / 8 + (Math.random() - 0.5) * 0.4;
+        const dist = 28 + Math.random() * 34;
+        p.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+        p.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 600);
+      }
+    });
+
+    updateSlideUI();
+  </script>
+</body>
+</html>
