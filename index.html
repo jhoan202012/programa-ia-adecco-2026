@@ -1,0 +1,3076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROGRAMA BACK — AI Experience Portal | Adecco Sales & Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #03060C;
+      --bg-surface: #080E1C;
+      --bg-glass: rgba(11, 19, 36, 0.62);
+      --bg-glass-elevated: rgba(16, 28, 52, 0.72);
+      --adecco-red: #DA291C;
+      --adecco-crimson: #FF3B2F;
+      --sapphire: #2563EB;
+      --cyan-glow: #38BDF8;
+      --amber-glow: #F59E0B;
+      --emerald-glow: #10B981;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-subtle: #64748B;
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(56, 189, 248, 0.28);
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-obsidian);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      selection-background-color: var(--adecco-red);
+    }
+
+    ::selection {
+      background: rgba(218, 41, 28, 0.35);
+      color: #fff;
+    }
+
+    /* ================= AMBIENT NEURAL CANVAS & AURORA LIGHTING ================= */
+    #neural-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .ambient-aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(800px circle at 12% 10%, rgba(218, 41, 28, 0.14), transparent 55%),
+        radial-gradient(900px circle at 88% 18%, rgba(37, 99, 235, 0.16), transparent 60%),
+        radial-gradient(700px circle at 50% 92%, rgba(218, 41, 28, 0.10), transparent 60%);
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: radial-gradient(#ffffff 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* ================= BESPOKE CLICK SHOCKWAVE & SPARKS ================= */
+    .click-shockwave {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border: 1.5px solid var(--cyan-glow);
+      box-shadow: 0 0 20px var(--adecco-red), inset 0 0 12px var(--cyan-glow);
+      animation: shockwaveExpand 0.65s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes shockwaveExpand {
+      0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.95;
+        border-width: 2.5px;
+      }
+      100% {
+        width: 150px;
+        height: 150px;
+        opacity: 0;
+        border-width: 0.5px;
+      }
+    }
+
+    .click-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: particleFly 0.6s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes particleFly {
+      0% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ================= SPOTLIGHT GLASS CARD SYSTEM ================= */
+    .spotlight-card {
+      position: relative;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-hairline);
+      border-radius: 22px;
+      overflow: hidden;
+      transition:
+        transform 0.45s var(--ease-spring),
+        border-color 0.35s ease,
+        box-shadow 0.45s var(--ease-spring);
+    }
+
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        520px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        rgba(56, 189, 248, 0.11),
+        rgba(218, 41, 28, 0.06) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .spotlight-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .spotlight-card:hover {
+      border-color: rgba(56, 189, 248, 0.32);
+      box-shadow:
+        0 20px 50px -15px rgba(0, 0, 0, 0.7),
+        0 0 30px -10px rgba(37, 99, 235, 0.25);
+    }
+
+    /* ================= FLOATING GLASS NAVBAR ================= */
+    .navbar-wrapper {
+      position: sticky;
+      top: 16px;
+      z-index: 1000;
+      padding: 0 24px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .navbar {
+      background: rgba(8, 14, 28, 0.78);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 15px 35px -10px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.25), rgba(37, 99, 235, 0.25));
+      border: 1px solid rgba(218, 41, 28, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(218, 41, 28, 0.3);
+      transition: transform 0.4s var(--ease-spring);
+    }
+
+    .nav-brand:hover .nav-avatar {
+      transform: rotate(-6deg) scale(1.08);
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-adecco {
+      background: var(--adecco-red);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tag-back {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan-glow);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-sub {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(3, 6, 12, 0.55);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--border-hairline);
+    }
+
+    .nav-item {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 9px;
+      transition: all 0.3s var(--ease-spring);
+      position: relative;
+    }
+
+    .nav-item:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Interactive Magnetic Button */
+    .btn-kinetic {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 10px 20px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: linear-gradient(135deg, var(--adecco-red) 0%, #991B1B 100%);
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow:
+        0 8px 24px -6px rgba(218, 41, 28, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      transition:
+        transform 0.35s var(--ease-spring),
+        box-shadow 0.35s var(--ease-spring),
+        filter 0.25s ease;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn-kinetic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.65s var(--ease-out-expo);
+    }
+
+    .btn-kinetic:hover::before {
+      left: 140%;
+    }
+
+    .btn-kinetic:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 14px 32px -6px rgba(255, 59, 47, 0.75),
+        0 0 20px rgba(218, 41, 28, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-kinetic:active {
+      transform: translateY(1px) scale(0.95);
+      transition-duration: 0.08s;
+    }
+
+    .btn-kinetic.secondary {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-kinetic.secondary:hover {
+      border-color: var(--cyan-glow);
+      background: rgba(37, 99, 235, 0.22);
+      box-shadow: 0 12px 28px -6px rgba(56, 189, 248, 0.35);
+    }
+
+    /* ================= MAIN CONTAINER ================= */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ================= HERO BENTO ARCHITECTURE ================= */
+    .hero {
+      padding: 52px 0 44px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.85fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .status-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(11, 19, 36, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px 6px 8px;
+      border-radius: 999px;
+      width: fit-content;
+      margin-bottom: 22px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .status-pill-tag {
+      background: linear-gradient(135deg, var(--adecco-red), #B91C1C);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+
+    .status-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #E2E8F0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: #FFFFFF;
+      margin-bottom: 18px;
+    }
+
+    .gradient-red {
+      background: linear-gradient(95deg, #FF6B60 0%, #DA291C 55%, #FF3B2F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-cyber {
+      background: linear-gradient(95deg, #7DD3FC 0%, #38BDF8 50%, #60A5FA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-lead {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 630px;
+      margin-bottom: 28px;
+    }
+
+    .hero-lead strong {
+      color: #F1F5F9;
+      font-weight: 600;
+    }
+
+    /* Precision Telemetry Countdown Module */
+    .telemetry-box {
+      padding: 22px 24px;
+      margin-bottom: 26px;
+      border-left: 3px solid var(--adecco-red);
+      position: relative;
+    }
+
+    .scanline-sweep {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.14), rgba(218, 41, 28, 0.14), transparent);
+      transform: translateX(-100%);
+      pointer-events: none;
+    }
+
+    .scanline-sweep.active {
+      animation: sweepAcross 0.75s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes sweepAcross {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .telemetry-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .telemetry-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FDA4AF;
+    }
+
+    .live-beacon {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--adecco-crimson);
+      box-shadow: 0 0 12px var(--adecco-crimson);
+      animation: beaconPulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes beaconPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.4; }
+    }
+
+    .telemetry-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--cyan-glow);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .digit-cell {
+      background: rgba(3, 6, 12, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      padding: 14px 8px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .digit-cell::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--adecco-red), var(--cyan-glow), transparent);
+      opacity: 0.75;
+    }
+
+    .digit-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      display: inline-block;
+      transition: transform 0.28s var(--ease-spring), filter 0.28s ease;
+    }
+
+    .digit-val.tick-anim {
+      transform: translateY(-4px) scale(1.06);
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6));
+    }
+
+    .digit-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-subtle);
+      margin-top: 6px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Right Hero: 3D Interactive Mascot Hologram Card */
+    .hologram-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 24px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(37, 99, 235, 0.20) 0%, rgba(218, 41, 28, 0.10) 45%, rgba(8, 14, 28, 0.85) 80%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .hologram-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-subtle);
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 10px;
+    }
+
+    .hologram-header span.online {
+      color: var(--emerald-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .hologram-ring {
+      position: relative;
+      width: 285px;
+      height: 295px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .hologram-ring svg {
+      width: 275px;
+      height: 295px;
+      filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.7));
+      transition: transform 0.4s var(--ease-spring);
+    }
+
+    .hologram-stage:hover .hologram-ring svg {
+      transform: scale(1.04) translateY(-4px);
+    }
+
+    .optic-core {
+      animation: laserPulse 2.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes laserPulse {
+      0% { filter: drop-shadow(0 0 4px #FF3B2F); }
+      100% { filter: drop-shadow(0 0 14px #FF3B2F); }
+    }
+
+    .hologram-footer {
+      width: 100%;
+      text-align: center;
+      background: rgba(3, 6, 12, 0.55);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .hologram-footer h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+
+    .hologram-footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan-glow);
+      margin-top: 3px;
+    }
+
+    /* ================= SECTION HEADERS ================= */
+    .section {
+      padding: 64px 0;
+    }
+
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--cyan-glow);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin-top: 8px;
+    }
+
+    /* ================= PROGRAMA BACK INTERACTIVE SCHEDULE DOCK ================= */
+    .back-matrix-shell {
+      border-radius: 22px;
+      border: 1px solid rgba(218, 41, 28, 0.35);
+      background: rgba(8, 14, 28, 0.75);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    .back-matrix-header {
+      background: linear-gradient(90deg, rgba(153, 27, 27, 0.9) 0%, rgba(218, 41, 28, 0.95) 50%, rgba(153, 27, 27, 0.9) 100%);
+      padding: 13px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .back-matrix-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-matrix-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .back-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 880px) {
+      .back-matrix-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 520px) {
+      .back-matrix-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .matrix-cell {
+      padding: 20px 18px;
+      border-right: 1px solid var(--border-hairline);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.35s var(--ease-spring);
+      user-select: none;
+    }
+
+    .matrix-cell:last-child {
+      border-right: none;
+    }
+
+    .matrix-cell::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan-glow));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s var(--ease-spring);
+    }
+
+    .matrix-cell:hover, .matrix-cell.selected {
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .matrix-cell.selected::after, .matrix-cell:hover::after {
+      transform: scaleX(1);
+    }
+
+    .matrix-cell:active {
+      transform: scale(0.97);
+    }
+
+    .m-session-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .m-date {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .m-room {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan-glow);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .m-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #FDE68A;
+    }
+
+    /* Bento Sessions Grid */
+    .bento-sessions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 860px) {
+      .bento-sessions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .session-bento-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.45s var(--ease-spring), border-color 0.35s ease;
+    }
+
+    .session-bento-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .session-bento-card.highlight-card {
+      border-color: rgba(218, 41, 28, 0.55);
+      box-shadow: 0 0 35px -10px rgba(218, 41, 28, 0.35);
+    }
+
+    .sb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .sb-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(218, 41, 28, 0.18);
+      border: 1px solid rgba(218, 41, 28, 0.45);
+      color: #FDA4AF;
+      text-transform: uppercase;
+    }
+
+    .sb-Chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .sb-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(3, 6, 12, 0.65);
+      border: 1px solid var(--border-hairline);
+      color: #E2E8F0;
+    }
+
+    .sb-chip.room {
+      color: var(--cyan-glow);
+      border-color: rgba(56, 189, 248, 0.25);
+    }
+
+    .sb-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .sb-stack {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--adecco-crimson);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .sb-points {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .sb-points li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .sb-points li::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--adecco-red);
+      box-shadow: 0 0 8px var(--adecco-red);
+    }
+
+    .sb-outcome {
+      background: rgba(3, 6, 12, 0.6);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid var(--cyan-glow);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 13px;
+      color: #E2E8F0;
+      margin-bottom: 18px;
+    }
+
+    .sb-outcome strong {
+      color: var(--cyan-glow);
+    }
+
+    .sb-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-spring);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost:active {
+      transform: scale(0.94);
+    }
+
+    .btn-ghost.accent {
+      background: rgba(218, 41, 28, 0.16);
+      border-color: rgba(218, 41, 28, 0.45);
+      color: #FECDD3;
+    }
+
+    .btn-ghost.accent:hover {
+      background: var(--adecco-red);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(218, 41, 28, 0.4);
+    }
+
+    /* ================= ECOSYSTEM & RUBRIC BENTO ================= */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 1000px) {
+      .ecosystem-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .ecosystem-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .eco-node {
+      padding: 22px 18px;
+      text-align: left;
+    }
+
+    .eco-node.motor {
+      border-color: rgba(218, 41, 28, 0.5);
+      background: linear-gradient(160deg, rgba(218, 41, 28, 0.18) 0%, rgba(11, 19, 36, 0.85) 100%);
+    }
+
+    .eco-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(6, 11, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: transform 0.35s var(--ease-spring), border-color 0.3s ease;
+    }
+
+    .eco-node:hover .eco-badge {
+      transform: scale(1.08) translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .eco-node h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .eco-node p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .rubric-bento {
+      padding: 28px;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .rubric-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .rubric-item {
+      background: rgba(3, 6, 12, 0.55);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .rubric-weight {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--cyan-glow);
+    }
+
+    .rubric-item h5 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #fff;
+      margin: 4px 0 6px;
+    }
+
+    .rubric-item p {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    /* ================= SLEEK KAHOOT LIVE ARENA ================= */
+    .kahoot-shell {
+      padding: 32px;
+      border: 1px solid rgba(218, 41, 28, 0.45);
+      background:
+        radial-gradient(700px circle at 50% 0%, rgba(218, 41, 28, 0.16), transparent 65%),
+        rgba(8, 14, 28, 0.82);
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
+    }
+
+    .kahoot-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 28px;
+    }
+
+    .kahoot-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .k-live-pill {
+      background: var(--adecco-red);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.08em;
+    }
+
+    .k-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* View Transition Animation */
+    .view-stage {
+      animation: stageEnter 0.48s var(--ease-spring) forwards;
+    }
+
+    @keyframes stageEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+        filter: blur(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .lobby-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .lobby-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .glass-panel {
+      background: rgba(3, 6, 12, 0.65);
+      border: 1px solid var(--border-hairline);
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 520px) {
+      .pack-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pack-tile {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      padding: 13px 14px;
+      text-align: left;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-spring);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pack-tile:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .pack-tile:active {
+      transform: scale(0.96);
+    }
+
+    .pack-tile.active {
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.25), rgba(37, 99, 235, 0.18));
+      border-color: var(--adecco-crimson);
+      box-shadow: 0 0 22px -4px rgba(218, 41, 28, 0.45);
+    }
+
+    .pack-tile .pt-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pack-tile .pt-sub {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
+    .field-group {
+      margin-bottom: 14px;
+    }
+
+    .field-group label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .ux-input {
+      width: 100%;
+      background: rgba(8, 14, 28, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      padding: 12px 14px;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .ux-input:focus {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    /* Leaderboard Rows */
+    .lb-list {
+      list-style: none;
+    }
+
+    .lb-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid var(--border-hairline);
+      margin-bottom: 8px;
+      transition: transform 0.25s var(--ease-spring);
+    }
+
+    .lb-item:hover {
+      transform: translateX(4px);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .lb-item:nth-child(1) {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.16), rgba(15, 23, 42, 0.65));
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .lb-rank-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lb-item:nth-child(1) .lb-rank-badge { background: #F59E0B; color: #000; }
+    .lb-item:nth-child(2) .lb-rank-badge { background: #CBD5E1; color: #000; }
+    .lb-item:nth-child(3) .lb-rank-badge { background: #D97706; color: #fff; }
+
+    /* Active Quiz HUD & Tactile Pads */
+    .quiz-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hud-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(3, 6, 12, 0.75);
+      border: 1px solid var(--border-hairline);
+      padding: 8px 14px;
+      border-radius: 10px;
+    }
+
+    .timer-ring-box {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-ring-box svg {
+      position: absolute;
+      inset: 0;
+      transform: rotate(-90deg);
+    }
+
+    .timer-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .question-stage-box {
+      background: rgba(3, 6, 12, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 18px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .q-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan-glow);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .q-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(19px, 2.3vw, 25px);
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.35;
+    }
+
+    .pads-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .pads-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .answer-pad {
+      position: relative;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 18px 20px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15.5px;
+      font-weight: 600;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition:
+        transform 0.35s var(--ease-spring),
+        border-color 0.25s ease,
+        box-shadow 0.35s var(--ease-spring),
+        opacity 0.25s ease;
+      overflow: hidden;
+    }
+
+    .answer-pad.pad-0 { border-left: 4px solid #EF4444; }
+    .answer-pad.pad-1 { border-left: 4px solid #3B82F6; }
+    .answer-pad.pad-2 { border-left: 4px solid #F59E0B; }
+    .answer-pad.pad-3 { border-left: 4px solid #10B981; }
+
+    .answer-pad:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.01);
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.65);
+    }
+
+    .answer-pad:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+
+    .pad-glyph {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      font-weight: 800;
+    }
+
+    .pad-0 .pad-glyph { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .pad-1 .pad-glyph { background: rgba(59, 130, 246, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .pad-2 .pad-glyph { background: rgba(245, 158, 11, 0.2); color: #FDE68A; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .pad-3 .pad-glyph { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .answer-pad.correct-reveal {
+      background: rgba(16, 185, 129, 0.22) !important;
+      border-color: #10B981 !important;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.35) !important;
+    }
+
+    .answer-pad.wrong-reveal {
+      background: rgba(239, 68, 68, 0.22) !important;
+      border-color: #EF4444 !important;
+    }
+
+    .ai-insight-toast {
+      display: none;
+      margin-top: 18px;
+      background: rgba(3, 6, 12, 0.88);
+      border: 1px solid var(--border-highlight);
+      border-radius: 14px;
+      padding: 18px 22px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: stageEnter 0.35s var(--ease-spring) forwards;
+    }
+
+    /* Podium Bars */
+    .podium-stage {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 16px;
+      max-width: 500px;
+      height: 210px;
+      margin: 28px auto;
+    }
+
+    .podium-pillar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .podium-bar {
+      width: 100%;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: growPillar 0.7s var(--ease-spring) forwards;
+      transform-origin: bottom;
+    }
+
+    @keyframes growPillar {
+      0% { transform: scaleY(0); }
+      100% { transform: scaleY(1); }
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border-hairline);
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--text-subtle);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Background Layers -->
+  <div class="ambient-aurora"></div>
+  <canvas id="neural-canvas"></canvas>
+  <div class="noise-overlay"></div>
+
+  <!-- ================= FLOATING GLASS NAVBAR ================= -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <a href="#" class="nav-brand">
+        <div class="nav-avatar">
+          <svg viewBox="0 0 400 400" width="32" height="32">
+            <circle cx="200" cy="200" r="180" fill="#0B1528"/>
+            <path d="M110,120 C110,60 150,45 200,45 L200,230 C150,230 114,200 110,150 Z" fill="#F5C29E"/>
+            <path d="M104,120 C100,60 140,30 200,32 L200,78 C155,78 128,90 114,120 Z" fill="#1C304B"/>
+            <circle cx="158" cy="132" r="10" fill="#1C304B"/>
+            <path d="M200,45 C255,45 290,60 290,120 L290,150 C286,200 250,230 200,230 Z" fill="#CBD5E1"/>
+            <rect x="206" y="106" width="64" height="44" rx="12" fill="#1C304B"/>
+            <circle cx="238" cy="128" r="14" fill="#DA291C"/>
+            <circle cx="238" cy="128" r="6" fill="#FFFFFF"/>
+            <rect x="70" y="265" width="260" height="72" rx="14" fill="#DA291C"/>
+            <text x="200" y="314" text-anchor="middle" fill="#FFFFFF" font-size="50" font-weight="900">Adecco</text>
+          </svg>
+        </div>
+        <div class="brand-meta">
+          <div class="brand-badges">
+            <span class="tag-adecco">Adecco</span>
+            <span class="tag-back">PROGRAMA BACK · AI</span>
+          </div>
+          <span class="brand-sub">Sales &amp; Marketing · Copilot Ecosystem</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#cronograma" class="nav-item">Sesiones y Salas</a>
+        <a href="#ecosistema" class="nav-item">Arquitectura Copilot</a>
+        <a href="#proyecto" class="nav-item">Sustentación 18 Nov</a>
+      </div>
+
+      <a href="#kahoot-arena" class="btn-kinetic">
+        <span>⚡ Arena Kahoot Live</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="container">
+
+    <!-- ================= HERO BENTO SECTION ================= -->
+    <section class="hero">
+      <div class="hero-left">
+        <div>
+          <div class="status-bar">
+            <span class="status-pill-tag">COHORTE NOV 2026</span>
+            <span class="status-text">Motor Oficial: Microsoft Copilot + Herramientas M365</span>
+          </div>
+
+          <h1 class="hero-title">
+            Ingeniería de Procesos y <span class="gradient-red">Automatización Aplicada</span> con <span class="gradient-cyber">Copilot</span>
+          </h1>
+
+          <p class="hero-lead">
+            Plataforma interactiva de <strong>Adecco Sales &amp; Marketing</strong>. Transformamos necesidades reales de cada cuenta en soluciones medibles combinando <strong>Microsoft Copilot, Excel, Word, Power BI y Power Automate</strong>.
+          </p>
+        </div>
+
+        <!-- TELEMETRY COUNTDOWN MODULE -->
+        <div class="spotlight-card telemetry-box" id="telemetry-panel">
+          <div class="scanline-sweep" id="scanline-sweep"></div>
+          <div class="telemetry-top">
+            <div class="telemetry-indicator">
+              <span class="live-beacon"></span>
+              <span id="cd-session-label">CUENTA REGRESIVA · SESIÓN 01</span>
+            </div>
+            <div class="telemetry-badge" id="cd-room-label">
+              Lunes 09 Nov · 15:00 hrs · SALA ESTOCOLMO
+            </div>
+          </div>
+
+          <div class="telemetry-grid">
+            <div class="digit-cell">
+              <div class="digit-val" id="cd-days">00</div>
+              <div class="digit-label">Días</div>
+            </div>
+            <div class="digit-cell">
+              <div class="digit-val" id="cd-hours">00</div>
+              <div class="digit-label">Horas</div>
+            </div>
+            <div class="digit-cell">
+              <div class="digit-val" id="cd-mins">00</div>
+              <div class="digit-label">Minutos</div>
+            </div>
+            <div class="digit-cell">
+              <div class="digit-val" id="cd-secs">00</div>
+              <div class="digit-label">Segundos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-cta-row">
+          <a href="#kahoot-arena" class="btn-kinetic">
+            <span>🎮 Conectar al Modo Kahoot Post-Sesión</span>
+          </a>
+          <a href="#cronograma" class="btn-kinetic secondary">
+            <span>📍 Ver Salas y Cronograma Oficial</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT HOLOGRAM MASCOT CARD -->
+      <div class="spotlight-card hologram-stage" id="hologram-card">
+        <div class="hologram-header">
+          <span>ID: ADECCO-CYBORG-V4</span>
+          <span class="online">● SYSTEM ONLINE</span>
+        </div>
+
+        <div class="hologram-ring">
+          <svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="skinG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFE0C8"/>
+                <stop offset="100%" stop-color="#F5C29E"/>
+              </linearGradient>
+              <linearGradient id="chromeG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="55%" stop-color="#E2E8F0"/>
+                <stop offset="100%" stop-color="#94A3B8"/>
+              </linearGradient>
+              <linearGradient id="redG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ED2E20"/>
+                <stop offset="100%" stop-color="#B81B10"/>
+              </linearGradient>
+              <linearGradient id="navyG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#274060"/>
+                <stop offset="100%" stop-color="#132235"/>
+              </linearGradient>
+              <clipPath id="leftH"><rect x="0" y="0" width="200" height="400"/></clipPath>
+              <clipPath id="rightH"><rect x="200" y="0" width="200" height="400"/></clipPath>
+            </defs>
+
+            <circle cx="200" cy="180" r="154" fill="#070D19" stroke="rgba(56,189,248,0.35)" stroke-width="2.5"/>
+            <path d="M200,16 A164,164 0 0,1 364,180" fill="none" stroke="#DA291C" stroke-width="4.5" stroke-dasharray="10 6"/>
+            <path d="M200,344 A164,164 0 0,1 36,180" fill="none" stroke="#38BDF8" stroke-width="3.5" stroke-dasharray="8 6"/>
+
+            <!-- HUMAN LEFT -->
+            <g clip-path="url(#leftH)">
+              <rect x="165" y="195" width="70" height="60" fill="url(#skinG)" stroke="#1C304B" stroke-width="4"/>
+              <path d="M65,320 C65,255 115,236 200,236 L200,340 L65,340 Z" fill="url(#navyG)" stroke="#1C304B" stroke-width="4.5"/>
+              <polygon points="168,236 200,236 200,320 155,268" fill="#FFFFFF" stroke="#1C304B" stroke-width="3.5"/>
+              <polygon points="186,246 200,246 200,315 180,292" fill="#DA291C"/>
+              <ellipse cx="108" cy="140" rx="15" ry="24" fill="url(#skinG)" stroke="#1C304B" stroke-width="4"/>
+              <path d="M110,112 C110,58 145,42 200,42 L200,218 C150,218 114,194 110,148 Z" fill="url(#skinG)" stroke="#1C304B" stroke-width="4.5"/>
+              <path d="M104,118 C100,58 140,26 200,28 L200,72 C155,72 128,86 114,118 Z" fill="#1C304B" stroke="#1C304B" stroke-width="3.5"/>
+              <path d="M136,104 Q158,94 180,102" fill="none" stroke="#1C304B" stroke-width="5" stroke-linecap="round"/>
+              <ellipse cx="158" cy="126" rx="14" ry="15" fill="#FFFFFF" stroke="#1C304B" stroke-width="3.5"/>
+              <circle cx="160" cy="126" r="8" fill="#1C304B"/>
+              <circle cx="157" cy="122" r="3.5" fill="#FFFFFF"/>
+              <ellipse cx="136" cy="154" rx="12" ry="7" fill="#F07167" opacity="0.45"/>
+              <path d="M148,168 Q174,200 200,200 L200,172 Q174,172 148,168 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+            </g>
+
+            <!-- CYBORG RIGHT -->
+            <g clip-path="url(#rightH)">
+              <rect x="200" y="200" width="28" height="55" fill="url(#navyG)" stroke="#1C304B" stroke-width="3.5"/>
+              <rect x="230" y="196" width="14" height="58" rx="4" fill="url(#chromeG)" stroke="#1C304B" stroke-width="3.5"/>
+              <line x1="205" y1="218" x2="225" y2="218" stroke="#DA291C" stroke-width="3.5"/>
+              <line x1="205" y1="232" x2="225" y2="232" stroke="#94A3B8" stroke-width="3.5"/>
+              <path d="M200,236 C285,236 335,255 335,320 L335,340 L200,340 Z" fill="url(#chromeG)" stroke="#1C304B" stroke-width="4.5"/>
+              <path d="M272,240 C315,248 335,274 335,315 L288,315 L260,260 Z" fill="url(#redG)" stroke="#1C304B" stroke-width="4"/>
+              <rect x="280" y="116" width="20" height="50" rx="7" fill="url(#redG)" stroke="#1C304B" stroke-width="4"/>
+              <circle cx="290" cy="141" r="6" fill="#FFFFFF"/>
+              <path d="M200,42 C255,42 290,58 290,112 L290,148 C286,194 250,218 200,218 Z" fill="url(#chromeG)" stroke="#1C304B" stroke-width="4.5"/>
+              <path d="M200,35 L236,42 L224,80 L200,80 Z" fill="url(#redG)" stroke="#1C304B" stroke-width="3.5"/>
+              <polyline points="228,80 254,95 286,91" fill="none" stroke="#64748B" stroke-width="3"/>
+              <polyline points="284,160 254,170 248,204" fill="none" stroke="#1C304B" stroke-width="3.5"/>
+              <circle cx="268" cy="182" r="4.5" fill="#DA291C"/>
+              <rect x="206" y="102" width="66" height="46" rx="14" fill="url(#navyG)" stroke="#1C304B" stroke-width="4"/>
+              <circle cx="239" cy="125" r="15" fill="#DA291C" class="optic-core"/>
+              <circle cx="239" cy="125" r="7" fill="#FFFFFF"/>
+              <circle cx="243" cy="121" r="3.5" fill="#FFFFFF"/>
+              <path d="M218,96 Q240,86 264,98" fill="none" stroke="#DA291C" stroke-width="4.5" stroke-linecap="round"/>
+              <path d="M200,200 Q228,200 252,168 L200,172 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+              <line x1="218" y1="172" x2="218" y2="197" stroke="#1C304B" stroke-width="3"/>
+              <line x1="236" y1="170" x2="236" y2="190" stroke="#1C304B" stroke-width="3"/>
+            </g>
+
+            <line x1="200" y1="28" x2="200" y2="265" stroke="#DA291C" stroke-width="3.5" stroke-dasharray="7 5"/>
+            <rect x="85" y="278" width="230" height="60" rx="14" fill="url(#redG)" stroke="#FFFFFF" stroke-width="4.5"/>
+            <text x="200" y="319" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="38" font-weight="800" letter-spacing="1">Adecco</text>
+
+            <rect x="40" y="360" width="320" height="34" rx="8" fill="#0B1528" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+            <text x="200" y="382" text-anchor="middle" fill="#FFFFFF" font-size="13.5" font-weight="800" letter-spacing="1.5">SALES &amp; MARKETING</text>
+            <text x="200" y="414" text-anchor="middle" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="12.5" font-weight="700" letter-spacing="1">HUMAN + AI CO-PILOT</text>
+          </svg>
+        </div>
+
+        <div class="hologram-footer">
+          <h3>CYBORG SPLIT EJECUTIVO</h3>
+          <p>SINERGIA HUMANO-MÁQUINA · ADECCO S&amp;M</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CRONOGRAMA OFICIAL PROGRAMA BACK ================= -->
+    <section id="cronograma" class="section">
+      <div class="section-head">
+        <span class="eyebrow">Logística &amp; Salas Confirmadas</span>
+        <h2 class="section-title">Cronograma Oficial — PROGRAMA BACK</h2>
+        <p class="section-desc">
+          Selecciona cualquier fecha de la matriz oficial para sincronizar el reloj regresivo o descarga el bloqueo de agenda para Microsoft Outlook.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE PROGRAMA BACK MATRIX -->
+      <div class="back-matrix-shell">
+        <div class="back-matrix-header">
+          <div class="back-matrix-title">
+            <span>⚡ MATRIZ OFICIAL PROGRAMA BACK · NOVIEMBRE 2026</span>
+          </div>
+          <span class="back-matrix-hint">Haz clic en una sesión para sincronizar el cronómetro</span>
+        </div>
+
+        <div class="back-matrix-grid">
+          <div class="matrix-cell selected" id="mcell-0" onclick="selectSessionCountdown(0)">
+            <div class="m-session-tag"><span>SESIÓN 01</span><span>LUNES</span></div>
+            <div class="m-date">09 / 11 / 2026</div>
+            <div class="m-room">📍 SALA ESTOCOLMO</div>
+            <div class="m-time">15:00 — 17:00 (3PM a 5PM)</div>
+          </div>
+
+          <div class="matrix-cell" id="mcell-1" onclick="selectSessionCountdown(1)">
+            <div class="m-session-tag"><span>SESIÓN 02</span><span>MIÉRCOLES</span></div>
+            <div class="m-date">11 / 11 / 2026</div>
+            <div class="m-room">📍 OSLO - VIENA - DUBLÍN</div>
+            <div class="m-time">11:00 — 13:00 (11AM a 1PM)</div>
+          </div>
+
+          <div class="matrix-cell" id="mcell-2" onclick="selectSessionCountdown(2)">
+            <div class="m-session-tag"><span>SESIÓN 03</span><span>LUNES</span></div>
+            <div class="m-date">16 / 11 / 2026</div>
+            <div class="m-room">📍 OSLO - VIENA - DUBLÍN</div>
+            <div class="m-time">11:00 — 13:00 (11AM a 1PM)</div>
+          </div>
+
+          <div class="matrix-cell" id="mcell-3" onclick="selectSessionCountdown(3)">
+            <div class="m-session-tag"><span>SESIÓN 04 · CIERRE</span><span>MIÉRCOLES</span></div>
+            <div class="m-date">18 / 11 / 2026</div>
+            <div class="m-room">📍 OSLO - VIENA - DUBLÍN</div>
+            <div class="m-time">11:00 — 13:00 (11AM a 1PM)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BENTO GRID OF 4 SESSIONS -->
+      <div class="bento-sessions">
+
+        <!-- S1 -->
+        <div class="spotlight-card session-bento-card">
+          <div>
+            <div class="sb-header">
+              <span class="sb-badge">Sesión 01 · 09 Nov</span>
+              <div class="sb-Chips">
+                <span class="sb-chip room">Sala Estocolmo</span>
+                <span class="sb-chip">3:00 PM – 5:00 PM</span>
+              </div>
+            </div>
+            <h3 class="sb-title">Automatización en Excel con IA</h3>
+            <div class="sb-stack">EXCEL + MICROSOFT COPILOT + MACROS VBA</div>
+            <ul class="sb-points">
+              <li>Base común ejecutiva: arquitectura, alcances y seguridad de Microsoft Copilot en Adecco.</li>
+              <li>Ingeniería de instrucciones (Prompts técnicos) para estructurar fórmulas y código VBA sin programar desde cero.</li>
+              <li>Grabación, ejecución y depuración de macros para consolidar reportes operativos de Sales &amp; Marketing.</li>
+              <li>Validación humana de resultados y control de calidad de datos.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="sb-outcome">
+              <strong>Entregable práctico:</strong> Macro funcional que automatiza un reporte operativo de pendientes por responsable.
+            </div>
+            <div class="sb-actions">
+              <button class="btn-ghost" onclick="downloadICS(0)">📅 Agendar (.ics)</button>
+              <button class="btn-ghost accent" onclick="jumpToKahootPack(0)">⚡ Kahoot Sesión 1</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- S2 -->
+        <div class="spotlight-card session-bento-card">
+          <div>
+            <div class="sb-header">
+              <span class="sb-badge">Sesión 02 · 11 Nov</span>
+              <div class="sb-Chips">
+                <span class="sb-chip room">Oslo - Viena - Dublín</span>
+                <span class="sb-chip">11:00 AM – 1:00 PM</span>
+              </div>
+            </div>
+            <h3 class="sb-title">Analizar y Comunicar: Power BI &amp; Word</h3>
+            <div class="sb-stack">POWER BI (DAX) + MICROSOFT WORD + COPILOT</div>
+            <ul class="sb-points">
+              <li>Lectura de indicadores clave de S&amp;M: cobertura de PDV, rotación, dotación y productividad.</li>
+              <li>Formulación de medidas DAX y visualizaciones ejecutivas asistidas paso a paso por Copilot.</li>
+              <li>Automatización de informes narrativos, actas y entregables en Word mediante plantillas y macros.</li>
+              <li>Estandarización de diseño corporativo y exportación automatizada a PDF.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="sb-outcome">
+              <strong>Entregable práctico:</strong> Tablero de indicadores en Power BI + documento ejecutivo en Word listo para cliente.
+            </div>
+            <div class="sb-actions">
+              <button class="btn-ghost" onclick="downloadICS(1)">📅 Agendar (.ics)</button>
+              <button class="btn-ghost accent" onclick="jumpToKahootPack(1)">⚡ Kahoot Sesión 2</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- S3 -->
+        <div class="spotlight-card session-bento-card">
+          <div>
+            <div class="sb-header">
+              <span class="sb-badge">Sesión 03 · 16 Nov</span>
+              <div class="sb-Chips">
+                <span class="sb-chip room">Oslo - Viena - Dublín</span>
+                <span class="sb-chip">11:00 AM – 1:00 PM</span>
+              </div>
+            </div>
+            <h3 class="sb-title">Conectividad con Power Automate</h3>
+            <div class="sb-stack">POWER AUTOMATE + OUTLOOK + TEAMS + COPILOT</div>
+            <ul class="sb-points">
+              <li>Mapeo de procesos automatizables entre tablas de Excel, correos de Outlook y canales de Teams.</li>
+              <li>Construcción de flujos desde cero: disparadores (triggers), condiciones lógicas y acciones automáticas.</li>
+              <li>Uso de Copilot para traducir reglas operativas de la cuenta en flujos verificables y corregir errores.</li>
+              <li>Gobernanza: definición de responsable, permisos e historial de auditoría.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="sb-outcome">
+              <strong>Entregable práctico:</strong> Flujo automatizado de recordatorios y alertas de incidencias por correo/Teams.
+            </div>
+            <div class="sb-actions">
+              <button class="btn-ghost" onclick="downloadICS(2)">📅 Agendar (.ics)</button>
+              <button class="btn-ghost accent" onclick="jumpToKahootPack(2)">⚡ Kahoot Sesión 3</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- S4 -->
+        <div class="spotlight-card session-bento-card highlight-card">
+          <div>
+            <div class="sb-header">
+              <span class="sb-badge" style="background:rgba(245,158,11,0.2); border-color:#F59E0B; color:#FDE68A;">Sesión 04 · 18 Nov · Sustentación</span>
+              <div class="sb-Chips">
+                <span class="sb-chip room">Oslo - Viena - Dublín</span>
+                <span class="sb-chip">11:00 AM – 1:00 PM</span>
+              </div>
+            </div>
+            <h3 class="sb-title">Sustentación Final: Demuestra la Mejora</h3>
+            <div class="sb-stack" style="color:#FBBF24;">PROYECTO APLICADO A TU CUENTA + CERTIFICACIÓN OFICIAL</div>
+            <ul class="sb-points">
+              <li>Exposición ejecutiva (7 min + 3 min de preguntas): demostración de la solución corriendo en vivo.</li>
+              <li>Enfoque flexible según el dolor de tu cuenta (Excel, Word, Power BI o Power Automate impulsados por Copilot).</li>
+              <li>Presentación de métricas reales: tiempo ahorrado (Antes vs. Después) y reducción de errores operativos.</li>
+              <li>Evaluación del jurado y entrega de la <strong>Certificación Oficial del Programa</strong>.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="sb-outcome" style="border-left-color:#F59E0B;">
+              <strong>Hito de Cierre:</strong> Acreditación de la mejora implementada ante la Dirección de Sales &amp; Marketing.
+            </div>
+            <div class="sb-actions">
+              <button class="btn-ghost" onclick="downloadICS(3)">📅 Agendar (.ics)</button>
+              <button class="btn-ghost accent" onclick="jumpToKahootPack(3)">🏆 Torneo Final Kahoot</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= ARQUITECTURA DE HERRAMIENTAS & RÚBRICA ================= -->
+    <section id="ecosistema" class="section">
+      <div class="section-head">
+        <span class="eyebrow">Arquitectura Orientada al Negocio</span>
+        <h2 class="section-title">Ecosistema Microsoft Copilot en S&amp;M</h2>
+        <p class="section-desc">
+          Partimos del problema real de cada cuenta para seleccionar la herramienta adecuada y potenciarla con Inteligencia Artificial.
+        </p>
+      </div>
+
+      <div class="ecosystem-grid">
+        <!-- 1. MICROSOFT COPILOT OFFICIAL RIBBON ICON -->
+        <div class="spotlight-card eco-node motor">
+          <div class="eco-badge" style="box-shadow: 0 8px 22px rgba(236, 72, 153, 0.25);">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="cpTop" x1="6" y1="10" x2="36" y2="26" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#F97316"/>
+                  <stop offset="50%" stop-color="#EC4899"/>
+                  <stop offset="100%" stop-color="#8B5CF6"/>
+                </linearGradient>
+                <linearGradient id="cpBot" x1="12" y1="22" x2="42" y2="38" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#06B6D4"/>
+                  <stop offset="55%" stop-color="#3B82F6"/>
+                  <stop offset="100%" stop-color="#10B981"/>
+                </linearGradient>
+              </defs>
+              <path d="M15.5 10C10.8 10 7 13.8 7 18.5C7 22.4 9.6 25.7 13.2 26.7L24.5 29.8C27.2 30.5 29.2 28.5 29.2 25.8C29.2 23.6 27.7 21.7 25.6 21.1L16.8 18.7C15.6 18.4 14.8 17.3 14.8 16.1C14.8 14.4 16.2 13 17.9 13H30.5C34.6 13 38 16.4 38 20.5V21.5C38 23.2 39.3 24.5 41 24.5C41 16.5 34.5 10 26.5 10H15.5Z" fill="url(#cpTop)"/>
+              <path d="M32.5 38C37.2 38 41 34.2 41 29.5C41 25.6 38.4 22.3 34.8 21.3L23.5 18.2C20.8 17.5 18.8 19.5 18.8 22.2C18.8 24.4 20.3 26.3 22.4 26.9L31.2 29.3C32.4 29.6 33.2 30.7 33.2 31.9C33.2 33.6 31.8 35 30.1 35H17.5C13.4 35 10 31.6 10 27.5V26.5C10 24.8 8.7 23.5 7 23.5C7 31.5 13.5 38 21.5 38H32.5Z" fill="url(#cpBot)"/>
+            </svg>
+          </div>
+          <h4>Microsoft Copilot</h4>
+          <p>Motor central. Traduce tus requerimientos operativos en código VBA, medidas DAX, textos ejecutivos y flujos.</p>
+        </div>
+
+        <!-- 2. MICROSOFT EXCEL OFFICIAL ICON -->
+        <div class="spotlight-card eco-node">
+          <div class="eco-badge" style="box-shadow: 0 8px 22px rgba(16, 185, 129, 0.22);">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="14" y="6" width="28" height="36" rx="4" fill="#107C41"/>
+              <path d="M14 15H42V24H14V15Z" fill="#21A366"/>
+              <path d="M14 6C14 6 28 6 28 6V15H14V6Z" fill="#33C481"/>
+              <line x1="28" y1="6" x2="28" y2="42" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+              <rect x="6" y="13" width="20" height="22" rx="3.5" fill="#185C37" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+              <path d="M11.5 18.5L16 24.5L11.2 30.5H14.1L16.1 27.2L18.1 30.5H21L16.3 24.4L20.7 18.5H17.9L16.1 21.5L14.3 18.5H11.5Z" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <h4>Microsoft Excel</h4>
+          <p>Consolidación de asistencia, rotación, comisiones y limpieza de sábanas de datos mediante Macros VBA.</p>
+        </div>
+
+        <!-- 3. MICROSOFT WORD OFFICIAL ICON -->
+        <div class="spotlight-card eco-node">
+          <div class="eco-badge" style="box-shadow: 0 8px 22px rgba(59, 130, 246, 0.25);">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="14" y="6" width="28" height="36" rx="4" fill="#103F91"/>
+              <path d="M14 6H42V15H14V6Z" fill="#41A5EE"/>
+              <path d="M14 15H42V24H14V15Z" fill="#2B7CD3"/>
+              <path d="M14 24H42V33H14V24Z" fill="#185ABD"/>
+              <rect x="6" y="13" width="20" height="22" rx="3.5" fill="#185ABD" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+              <path d="M9.8 18.5L12.1 29.8H14.5L16.1 22.4L17.7 29.8H20.1L22.4 18.5H20.1L18.8 26.2L17.2 18.5H15L13.4 26.2L12.1 18.5H9.8Z" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <h4>Microsoft Word</h4>
+          <p>Automatización de informes ejecutivos, reportes narrativos para clientes y documentos con formato fijo.</p>
+        </div>
+
+        <!-- 4. MICROSOFT POWER BI OFFICIAL ICON -->
+        <div class="spotlight-card eco-node">
+          <div class="eco-badge" style="box-shadow: 0 8px 22px rgba(245, 158, 11, 0.25);">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="28" y="6" width="12" height="36" rx="3.5" fill="#E6AD10"/>
+              <rect x="18" y="15" width="12" height="27" rx="3.5" fill="#F2C811"/>
+              <rect x="8" y="24" width="12" height="18" rx="3.5" fill="#F9E076"/>
+            </svg>
+          </div>
+          <h4>Power BI</h4>
+          <p>Tableros interactivos de cobertura, desempeño de PDV y KPIs comerciales con fórmulas DAX asistidas.</p>
+        </div>
+
+        <!-- 5. MICROSOFT POWER AUTOMATE OFFICIAL ICON -->
+        <div class="spotlight-card eco-node">
+          <div class="eco-badge" style="box-shadow: 0 8px 22px rgba(56, 189, 248, 0.25);">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 11C8 9.3 9.3 8 11 8H24.5C25.6 8 26.6 8.6 27.2 9.5L39.6 22.2C40.6 23.2 40.6 24.8 39.6 25.8L27.2 38.5C26.6 39.4 25.6 40 24.5 40H11C9.3 40 8 38.7 8 37V31.5L19.5 24L8 16.5V11Z" fill="#0066FF"/>
+              <path d="M8 11L27.5 24L40 24L26.8 9.2C26.2 8.4 25.3 8 24.3 8H11C9.3 8 8 9.3 8 11Z" fill="#50E6FF"/>
+              <path d="M18.5 24L8 31.2V37C8 38.7 9.3 40 11 40H24.3C25.3 40 26.2 39.6 26.8 38.8L40 24H18.5Z" fill="#2886DE"/>
+            </svg>
+          </div>
+          <h4>Power Automate</h4>
+          <p>Orquestación automática de alertas, aprobaciones y seguimiento de pendientes entre Excel, Outlook y Teams.</p>
+        </div>
+      </div>
+
+      <div id="proyecto" class="spotlight-card rubric-bento">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <span class="eyebrow" style="margin-bottom:6px; display:inline-block;">Criterios del Jurado · 18 de Noviembre</span>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:22px; font-weight:800; color:#fff;">
+              Matriz de Evaluación del Proyecto de Mejora
+            </h3>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cyan-glow); background:rgba(56,189,248,0.1); padding:8px 14px; border-radius:10px; border:1px solid rgba(56,189,248,0.25);">
+            FLUJO: PROBLEMA → SOLUCIÓN → VALIDACIÓN → IMPACTO
+          </div>
+        </div>
+
+        <div class="rubric-grid">
+          <div class="rubric-item">
+            <div class="rubric-weight">35%</div>
+            <h5>Funcionamiento en Vivo</h5>
+            <p>La solución ejecuta correctamente frente al jurado utilizando datos de prueba de la cuenta.</p>
+          </div>
+          <div class="rubric-item">
+            <div class="rubric-weight">25%</div>
+            <h5>Impacto Cuantificable</h5>
+            <p>Medición objetiva del ahorro en Horas-Hombre y disminución de reprocesos o errores.</p>
+          </div>
+          <div class="rubric-item">
+            <div class="rubric-weight">20%</div>
+            <h5>Dominio de Copilot</h5>
+            <p>Uso estructurado de prompts y criterio humano para auditar y ajustar la respuesta de la IA.</p>
+          </div>
+          <div class="rubric-item">
+            <div class="rubric-weight">20%</div>
+            <h5>Control y Adopción</h5>
+            <p>Claridad técnica para que el equipo de la cuenta mantenga la herramienta operativa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ARENA INTERACTIVA MODO KAHOOT ================= -->
+    <section id="kahoot-arena" class="section">
+      <div class="section-head">
+        <span class="eyebrow">Interactive Post-Session Experience</span>
+        <h2 class="section-title">⚡ Arena Modo Kahoot — PROGRAMA BACK</h2>
+        <p class="section-desc">
+          Conéctate al cierre de cada sesión presencial en <strong>Sala Estocolmo</strong> u <strong>Oslo - Viena - Dublín</strong> y pon a prueba tus conocimientos en tiempo real.
+        </p>
+      </div>
+
+      <div class="spotlight-card kahoot-shell">
+        <div class="kahoot-nav">
+          <div class="kahoot-status">
+            <span class="k-live-pill">LIVE QUIZ ENGINE</span>
+            <span style="font-weight:700; font-size:14px; color:#E2E8F0;" id="active-pack-title">
+              Módulo: Sesión 01 — Excel, VBA &amp; Copilot
+            </span>
+          </div>
+          <div class="k-toolbar">
+            <button class="btn-ghost" id="btn-sound" onclick="toggleAudio()">🔊 Audio: ON</button>
+            <button class="btn-ghost" onclick="toggleHostPanel()">👨‍🏫 Modo Expositor (+Pregunta)</button>
+            <button class="btn-ghost" onclick="returnToLobby()">🔄 Lobby</button>
+          </div>
+        </div>
+
+        <!-- VIEW 1: LOBBY -->
+        <div class="lobby-grid view-stage" id="view-lobby">
+          <div class="glass-panel">
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:22px; font-weight:800; margin-bottom:6px;">
+              Conéctate a la Sala de Juego
+            </h3>
+            <p style="font-size:13.5px; color:var(--text-secondary); margin-bottom:18px;">
+              Selecciona la sesión correspondiente, registra tu nombre y cuenta, e inicia el desafío cronometrado.
+            </p>
+
+            <div class="field-group">
+              <label>1. Selecciona el Módulo de Preguntas</label>
+              <div class="pack-grid">
+                <button type="button" class="pack-tile active" id="ptile-0" onclick="choosePack(0)">
+                  <span class="pt-title">📊 Sesión 01 · 09 Nov</span>
+                  <span class="pt-sub">Excel, Macros VBA &amp; Copilot</span>
+                </button>
+                <button type="button" class="pack-tile" id="ptile-1" onclick="choosePack(1)">
+                  <span class="pt-title">📈 Sesión 02 · 11 Nov</span>
+                  <span class="pt-sub">Power BI, Word &amp; Reportes</span>
+                </button>
+                <button type="button" class="pack-tile" id="ptile-2" onclick="choosePack(2)">
+                  <span class="pt-title">⚡ Sesión 03 · 16 Nov</span>
+                  <span class="pt-sub">Power Automate &amp; Flujos</span>
+                </button>
+                <button type="button" class="pack-tile" id="ptile-3" onclick="choosePack(3)">
+                  <span class="pt-title">🏆 Sesión 04 · 18 Nov</span>
+                  <span class="pt-sub">Torneo Master PROGRAMA BACK</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="inp-name">2. Participante (Nombre y Apellido)</label>
+              <input type="text" id="inp-name" class="ux-input" placeholder="Ej. Valeria Gómez" />
+            </div>
+
+            <div class="field-group">
+              <label for="inp-account">3. Cuenta / Equipo Sales &amp; Marketing</label>
+              <input type="text" id="inp-account" class="ux-input" placeholder="Ej. Cuenta Retail / Trade Marketing" />
+            </div>
+
+            <div class="field-group" style="margin-bottom:20px;">
+              <label for="inp-pin">4. PIN de Sesión Presencial</label>
+              <input type="text" id="inp-pin" class="ux-input" value="BACK-2026" style="font-family:'JetBrains Mono',monospace;" />
+            </div>
+
+            <button class="btn-kinetic" style="width:100%; padding:14px; font-size:15px;" onclick="beginQuizSession()">
+              <span>🚀 INICIAR DESAFÍO EN VIVO</span>
+            </button>
+          </div>
+
+          <!-- Leaderboard Panel -->
+          <div class="glass-panel">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:19px; font-weight:800;">
+                🏆 Leaderboard en Vivo
+              </h3>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--cyan-glow); background:rgba(56,189,248,0.1); padding:4px 10px; border-radius:6px;">
+                PIN: BACK-2026
+              </span>
+            </div>
+            <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:16px;">
+              Puntaje calculado por exactitud + velocidad de respuesta (hasta 1,000 pts por pregunta + bono de racha).
+            </p>
+            <ul class="lb-list" id="lb-container"></ul>
+          </div>
+        </div>
+
+        <!-- VIEW 2: ACTIVE QUESTION STAGE -->
+        <div class="view-stage" id="view-play" style="display:none;">
+          <div class="quiz-hud">
+            <div class="hud-chip" id="hud-progress">PREGUNTA 1 / 5</div>
+            <div class="timer-ring-box">
+              <svg width="58" height="58" viewBox="0 0 58 58">
+                <circle cx="29" cy="29" r="25" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+                <circle id="timer-svg-circle" cx="29" cy="29" r="25" fill="none" stroke="#DA291C" stroke-width="4"
+                        stroke-dasharray="157" stroke-dashoffset="0" stroke-linecap="round"
+                        style="transition: stroke-dashoffset 1s linear;"/>
+              </svg>
+              <span class="timer-num" id="hud-seconds">20</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <div class="hud-chip" id="hud-streak" style="color:#FBBF24;">🔥 RACHA: 0</div>
+              <div class="hud-chip" id="hud-pts" style="color:var(--cyan-glow);">0 PTS</div>
+            </div>
+          </div>
+
+          <div class="question-stage-box" id="question-stage-box">
+            <div class="q-eyebrow" id="q-cat-label">SESIÓN 01 · EXCEL &amp; COPILOT</div>
+            <div class="q-title" id="q-main-text">Cargando pregunta...</div>
+          </div>
+
+          <div class="pads-grid">
+            <button class="answer-pad pad-0" id="pad-0" onclick="handleAnswer(0, event)">
+              <span class="pad-glyph">▲</span>
+              <span id="pad-txt-0">Opción A</span>
+            </button>
+            <button class="answer-pad pad-1" id="pad-1" onclick="handleAnswer(1, event)">
+              <span class="pad-glyph">◆</span>
+              <span id="pad-txt-1">Opción B</span>
+            </button>
+            <button class="answer-pad pad-2" id="pad-2" onclick="handleAnswer(2, event)">
+              <span class="pad-glyph">●</span>
+              <span id="pad-txt-2">Opción C</span>
+            </button>
+            <button class="answer-pad pad-3" id="pad-3" onclick="handleAnswer(3, event)">
+              <span class="pad-glyph">■</span>
+              <span id="pad-txt-3">Opción D</span>
+            </button>
+          </div>
+
+          <div class="ai-insight-toast" id="ai-insight-toast">
+            <div style="max-width:740px;">
+              <h4 id="toast-headline" style="font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:800; margin-bottom:4px;"></h4>
+              <p id="toast-body" style="font-size:13.5px; color:var(--text-secondary);"></p>
+            </div>
+            <button class="btn-kinetic" onclick="advanceQuestion()">
+              <span>Continuar ➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- VIEW 3: PODIUM -->
+        <div class="view-stage" id="view-podium" style="display:none; text-align:center; padding:16px 0;">
+          <span class="eyebrow">Resultados Oficiales de la Sesión</span>
+          <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:30px; font-weight:800; color:#fff; margin-top:8px;" id="podium-title">
+            ¡Sesión Completada!
+          </h3>
+          <p style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--cyan-glow); margin-top:4px;" id="podium-stats"></p>
+
+          <div class="podium-stage" id="podium-stage"></div>
+
+          <button class="btn-kinetic" onclick="returnToLobby()">
+            <span>🏆 Volver al Ranking General</span>
+          </button>
+        </div>
+
+        <!-- HOST DRAWER -->
+        <div id="host-drawer" style="display:none; margin-top:22px; padding-top:22px; border-top:1px solid var(--border-hairline);">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:800; color:var(--cyan-glow); margin-bottom:10px;">
+            👨‍🏫 Panel de Expositor: Añadir Pregunta en Vivo al Módulo Seleccionado
+          </h4>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+            <input type="text" id="hq-text" class="ux-input" placeholder="Escribe la pregunta en vivo..." style="grid-column:span 2;" />
+            <input type="text" id="hq-0" class="ux-input" placeholder="▲ Opción 1" />
+            <input type="text" id="hq-1" class="ux-input" placeholder="◆ Opción 2" />
+            <input type="text" id="hq-2" class="ux-input" placeholder="● Opción 3" />
+            <input type="text" id="hq-3" class="ux-input" placeholder="■ Opción 4" />
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+            <select id="hq-ans" class="ux-input" style="max-width:240px;">
+              <option value="0">Correcta: ▲ Opción 1</option>
+              <option value="1">Correcta: ◆ Opción 2</option>
+              <option value="2">Correcta: ● Opción 3</option>
+              <option value="3">Correcta: ■ Opción 4</option>
+            </select>
+            <button class="btn-kinetic" onclick="injectLiveQuestion()">➕ Publicar Pregunta en el Módulo</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <div style="color:#E2E8F0; font-weight:700; margin-bottom:4px;">
+      ADECCO PERÚ — SALES &amp; MARKETING · PROGRAMA BACK 2026
+    </div>
+    <div>
+      IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot · 9, 11, 16 y 18 de Noviembre de 2026
+    </div>
+  </footer>
+
+  <!-- ================= UX/UI INTERACTION & ENGINE SCRIPT ================= -->
+  <script>
+    // -----------------------------------------------------------------
+    // 1. NEURAL CONSTELLATION CANVAS + CURSOR SPOTLIGHT TRACKING
+    // -----------------------------------------------------------------
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    let pointer = { x: -1000, y: -1000 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 42; i++) {
+      nodes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 1.8 + 0.8,
+        isRed: i % 4 === 0
+      });
+    }
+
+    function animateNeural() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = n.isRed ? 'rgba(218, 41, 28, 0.65)' : 'rgba(56, 189, 248, 0.45)';
+        ctx.fill();
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const m = nodes[j];
+          const dx = n.x - m.x;
+          const dy = n.y - m.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 135) {
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 135) * 0.12})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateNeural);
+    }
+    animateNeural();
+
+    // Spotlight Mouse Tracking on all .spotlight-card elements
+    document.addEventListener('mousemove', (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // -----------------------------------------------------------------
+    // 2. BESPOKE CLICK SHOCKWAVE + QUANTUM SPARKS (Non-generic clicks!)
+    // -----------------------------------------------------------------
+    function spawnClickEffect(x, y, color = '#38BDF8') {
+      const wave = document.createElement('div');
+      wave.className = 'click-shockwave';
+      wave.style.left = `${x}px`;
+      wave.style.top = `${y}px`;
+      wave.style.borderColor = color;
+      document.body.appendChild(wave);
+      setTimeout(() => wave.remove(), 650);
+
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'click-particle';
+        const angle = (Math.PI * 2 * i) / 8 + (Math.random() - 0.5) * 0.4;
+        const dist = 32 + Math.random() * 34;
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.background = i % 2 === 0 ? '#DA291C' : '#38BDF8';
+        p.style.boxShadow = `0 0 8px ${i % 2 === 0 ? '#DA291C' : '#38BDF8'}`;
+        p.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+        p.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 600);
+      }
+    }
+
+    document.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button, a, .matrix-cell, .pack-tile')) {
+        spawnClickEffect(e.clientX, e.clientY);
+      }
+    });
+
+    // -----------------------------------------------------------------
+    // 3. TELEMETRY COUNTDOWN ENGINE WITH KINETIC DIGIT TRANSITIONS
+    // -----------------------------------------------------------------
+    const SESSIONS = [
+      {
+        num: "SESIÓN 01",
+        title: "Automatización en Excel con Microsoft Copilot",
+        dateISO: "2026-11-09T15:00:00-05:00",
+        endISO:  "2026-11-09T17:00:00-05:00",
+        badge: "Lunes 09 Nov · 15:00 a 17:00 hrs · SALA ESTOCOLMO",
+        room: "SALA ESTOCOLMO"
+      },
+      {
+        num: "SESIÓN 02",
+        title: "Analizar y Comunicar: Power BI + Word + Copilot",
+        dateISO: "2026-11-11T11:00:00-05:00",
+        endISO:  "2026-11-11T13:00:00-05:00",
+        badge: "Miércoles 11 Nov · 11:00 a 13:00 hrs · OSLO - VIENA - DUBLÍN",
+        room: "OSLO - VIENA - DUBLÍN"
+      },
+      {
+        num: "SESIÓN 03",
+        title: "Conectar Herramientas: Power Automate + Copilot",
+        dateISO: "2026-11-16T11:00:00-05:00",
+        endISO:  "2026-11-16T13:00:00-05:00",
+        badge: "Lunes 16 Nov · 11:00 a 13:00 hrs · OSLO - VIENA - DUBLÍN",
+        room: "OSLO - VIENA - DUBLÍN"
+      },
+      {
+        num: "SESIÓN 04 · SUSTENTACIÓN",
+        title: "Sustentación de Proyectos de Mejora",
+        dateISO: "2026-11-18T11:00:00-05:00",
+        endISO:  "2026-11-18T13:00:00-05:00",
+        badge: "Miércoles 18 Nov · 11:00 a 13:00 hrs · OSLO - VIENA - DUBLÍN",
+        room: "OSLO - VIENA - DUBLÍN"
+      }
+    ];
+
+    let currentTargetIdx = 0;
+    let prevDigits = { d: '', h: '', m: '', s: '' };
+
+    function selectSessionCountdown(idx) {
+      currentTargetIdx = idx;
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`mcell-${i}`).classList.toggle('selected', i === idx);
+      }
+      const s = SESSIONS[idx];
+      document.getElementById('cd-session-label').textContent = `CUENTA REGRESIVA · ${s.num}`;
+      document.getElementById('cd-room-label').textContent = s.badge;
+
+      // Trigger scanline sweep animation
+      const sweep = document.getElementById('scanline-sweep');
+      sweep.classList.remove('active');
+      void sweep.offsetWidth;
+      sweep.classList.add('active');
+
+      tickCountdown();
+      document.getElementById('telemetry-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function updateDigitWithMotion(id, val, key) {
+      const el = document.getElementById(id);
+      if (prevDigits[key] !== val) {
+        prevDigits[key] = val;
+        el.textContent = val;
+        el.classList.add('tick-anim');
+        setTimeout(() => el.classList.remove('tick-anim'), 220);
+      }
+    }
+
+    function tickCountdown() {
+      const now = Date.now();
+      let target = new Date(SESSIONS[currentTargetIdx].dateISO).getTime();
+
+      if (now > target) {
+        for (let i = 0; i < SESSIONS.length; i++) {
+          const t = new Date(SESSIONS[i].dateISO).getTime();
+          if (t > now) {
+            currentTargetIdx = i;
+            target = t;
+            document.getElementById('cd-session-label').textContent = `CUENTA REGRESIVA · ${SESSIONS[i].num}`;
+            document.getElementById('cd-room-label').textContent = SESSIONS[i].badge;
+            break;
+          }
+        }
+      }
+
+      const diff = Math.max(0, target - now);
+      const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
+      const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+
+      updateDigitWithMotion('cd-days', d, 'd');
+      updateDigitWithMotion('cd-hours', h, 'h');
+      updateDigitWithMotion('cd-mins', m, 'm');
+      updateDigitWithMotion('cd-secs', s, 's');
+    }
+
+    setInterval(tickCountdown, 1000);
+    tickCountdown();
+
+    function downloadICS(idx) {
+      const s = SESSIONS[idx];
+      const dtStart = s.dateISO.replace(/[-:]/g, '').split('.')[0];
+      const dtEnd = s.endISO.replace(/[-:]/g, '').split('.')[0];
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Adecco S&M//PROGRAMA BACK//ES",
+        "BEGIN:VEVENT",
+        `SUMMARY:[PROGRAMA BACK Adecco] ${s.num}: ${s.title}`,
+        `LOCATION:${s.room}`,
+        "DESCRIPTION:Programa IA aplicada a la mejora y automatización de procesos con herramientas Microsoft y Copilot.",
+        `DTSTART:${dtStart}`,
+        `DTEND:${dtEnd}`,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Adecco_${s.num.replace(/\s+/g, '_')}.ics`;
+      a.click();
+    }
+
+    // -----------------------------------------------------------------
+    // 4. WEB AUDIO API SYNTHESIZER
+    // -----------------------------------------------------------------
+    let audioOn = true;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let actx = null;
+
+    function tone(freq, type, dur, delay = 0) {
+      if (!audioOn) return;
+      try {
+        if (!actx) actx = new AudioCtx();
+        const o = actx.createOscillator();
+        const g = actx.createGain();
+        o.type = type;
+        o.frequency.setValueAtTime(freq, actx.currentTime + delay);
+        g.gain.setValueAtTime(0.12, actx.currentTime + delay);
+        g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + delay + dur);
+        o.connect(g);
+        g.connect(actx.destination);
+        o.start(actx.currentTime + delay);
+        o.stop(actx.currentTime + delay + dur);
+      } catch (e) {}
+    }
+
+    function playChimeSuccess() {
+      tone(587.33, 'triangle', 0.12, 0);
+      tone(783.99, 'triangle', 0.12, 0.09);
+      tone(1174.66, 'triangle', 0.32, 0.18);
+    }
+
+    function playChimeError() {
+      tone(220, 'sawtooth', 0.18, 0);
+      tone(164.81, 'sawtooth', 0.28, 0.15);
+    }
+
+    function toggleAudio() {
+      audioOn = !audioOn;
+      document.getElementById('btn-sound').textContent = audioOn ? "🔊 Audio: ON" : "🔇 Audio: OFF";
+    }
+
+    // -----------------------------------------------------------------
+    // 5. KAHOOT ENGINE & QUESTION BANKS
+    // -----------------------------------------------------------------
+    const PACKS = [
+      {
+        title: "Sesión 01 — Excel, Macros VBA & Copilot",
+        questions: [
+          {
+            cat: "SESIÓN 01 · MOTOR COPILOT",
+            q: "¿Cuál es el rol de Microsoft Copilot en el programa de Adecco Sales & Marketing?",
+            opts: [
+              "Sustituir la validación del responsable de cuenta",
+              "Actuar como motor para construir fórmulas, código VBA, informes y flujos sobre nuestras herramientas",
+              "Usarse solo para redactar textos informales",
+              "Modificar archivos en producción sin pruebas"
+            ],
+            ans: 1,
+            exp: "Copilot es el motor técnico que acelera la creación de soluciones en Excel, Word, Power BI y Automate bajo supervisión humana."
+          },
+          {
+            cat: "SESIÓN 01 · PROMPTS PARA VBA",
+            q: "Para que Copilot escriba una Macro VBA precisa en Excel, ¿qué elementos debe incluir tu instrucción?",
+            opts: [
+              "Solo poner: 'Automatiza mi Excel'",
+              "Contexto del libro + Nombres de hojas/columnas + Regla lógica + Resultado esperado",
+              "Adjuntar bases sin explicar las columnas",
+              "Pedirle que invente las reglas del negocio"
+            ],
+            ans: 1,
+            exp: "Especificar hojas, rangos, condiciones y salida esperada permite a Copilot entregar código VBA listo para probar."
+          },
+          {
+            cat: "SESIÓN 01 · CONTROL DE CALIDAD",
+            q: "Antes de correr una macro nueva en el reporte oficial de tu cuenta, ¿cuál es el paso obligatorio?",
+            opts: [
+              "Eliminar la base histórica",
+              "Ejecutarla primero en una copia de prueba y auditar que los totales cuadren",
+              "Enviarla al cliente sin revisar",
+              "Omitir el manejo de errores"
+            ],
+            ans: 1,
+            exp: "Toda automatización se valida primero en un entorno de prueba verificando la integridad de los datos."
+          },
+          {
+            cat: "SESIÓN 01 · IMPACTO EN CUENTAS",
+            q: "¿Qué proceso de Sales & Marketing obtiene el mayor retorno al automatizarse con Macros VBA?",
+            opts: [
+              "Cambiar un título una vez al mes",
+              "Consolidar y formatear semanalmente múltiples reportes de cobertura/asistencia con estructura repetitiva",
+              "Responder un mensaje puntual",
+              "Abrir una presentación"
+            ],
+            ans: 1,
+            exp: "Las tareas operativas repetitivas y basadas en reglas pasan de horas manuales a segundos con una macro verificada."
+          },
+          {
+            cat: "SESIÓN 01 · CORRECCIÓN DE CÓDIGO",
+            q: "Si una macro detiene su ejecución mostrando una línea en amarillo, ¿cómo lo resuelves con Copilot?",
+            opts: [
+              "Abandonando la automatización",
+              "Copiando el bloque de código y el mensaje de error en Copilot para que identifique el fallo y lo corrija",
+              "Reinstalando Office",
+              "Borrando las hojas del archivo"
+            ],
+            ans: 1,
+            exp: "Copilot explica la causa exacta del error VBA y propone la línea corregida en segundos."
+          }
+        ]
+      },
+      {
+        title: "Sesión 02 — Power BI, Word & Reportería con IA",
+        questions: [
+          {
+            cat: "SESIÓN 02 · POWER BI & DAX",
+            q: "¿Cómo acelera Microsoft Copilot el trabajo en Power BI para las cuentas de Sales & Marketing?",
+            opts: [
+              "Generando medidas DAX (cobertura, rotación, variaciones) a partir de la estructura de tus tablas",
+              "Cambiando la resolución del proyector",
+              "Funcionando sin necesidad de orígenes de datos",
+              "Eliminando los filtros del tablero"
+            ],
+            ans: 0,
+            exp: "Al describir tu tabla y el KPI requerido, Copilot redacta y explica la fórmula DAX lista para tu modelo."
+          },
+          {
+            cat: "SESIÓN 02 · AUTOMATIZACIÓN EN WORD",
+            q: "Para los equipos que entregan informes ejecutivos extensos en Word, ¿cómo optimizamos el proceso?",
+            opts: [
+              "Redactando desde cero cada mes manualmente",
+              "Integrando plantillas estandarizadas en Word, síntesis ejecutiva con Copilot y macros de formato/exportación a PDF",
+              "Enviando datos sin estructura",
+              "Eliminando el resumen ejecutivo"
+            ],
+            ans: 1,
+            exp: "Word + Copilot permite transformar indicadores operativos en informes ejecutivos formales en una fracción del tiempo."
+          },
+          {
+            cat: "SESIÓN 02 · COMUNICACIÓN EJECUTIVA",
+            q: "Al reportar una desviación de cobertura o rotación, ¿qué estructura genera mayor valor para la cuenta?",
+            opts: [
+              "Pegar miles de filas sin análisis",
+              "Mostrar el indicador visual, explicar la causa raíz validada y proponer la acción correctiva",
+              "Usar gráficos sin etiquetas de datos",
+              "Omitir el periodo evaluado"
+            ],
+            ans: 1,
+            exp: "El análisis efectivo combina el dato preciso, el contexto del negocio S&M y la recomendación accionable."
+          },
+          {
+            cat: "SESIÓN 02 · ESTRUCTURA DE DATOS",
+            q: "¿Por qué es indispensable que la base de Excel esté en formato tabular limpio antes de llevarla a Power BI?",
+            opts: [
+              "Para evitar duplicidad en las medidas DAX y permitir actualizaciones automáticas sin errores",
+              "Solo por estética visual",
+              "Porque Power BI no lee números",
+              "No tiene ninguna importancia"
+            ],
+            ans: 0,
+            exp: "Una tabla limpia sin celdas combinadas ni subtotales mezclados garantiza cálculos DAX 100% confiables."
+          },
+          {
+            cat: "SESIÓN 02 · CIERRE DE REPORTE",
+            q: "¿Qué beneficio aporta automatizar la exportación a PDF con nombre estandarizado?",
+            opts: [
+              "Asegura trazabilidad, formato inalterable y ahorro de tiempo en cada entrega al cliente",
+              "Aumenta el tamaño del archivo innecesariamente",
+              "Desconfigura las tablas",
+              "Ninguno"
+            ],
+            ans: 0,
+            exp: "Estandarizar el entregable final evita errores manuales y profesionaliza la comunicación con el cliente."
+          }
+        ]
+      },
+      {
+        title: "Sesión 03 — Power Automate & Conectividad",
+        questions: [
+          {
+            cat: "SESIÓN 03 · ARQUITECTURA DE FLUJOS",
+            q: "En Power Automate, ¿qué función cumple el 'Disparador' (Trigger)?",
+            opts: [
+              "Definir el evento u horario exacto que inicia la ejecución automática del flujo",
+              "Diseñar diapositivas",
+              "Crear gráficos dinámicos",
+              "Cambiar la contraseña de Windows"
+            ],
+            ans: 0,
+            exp: "El disparador arranca el flujo (por ejemplo, todos los lunes a las 8:00 AM o al registrarse una incidencia)."
+          },
+          {
+            cat: "SESIÓN 03 · REGLAS DE NEGOCIO",
+            q: "Si deseas notificar por correo únicamente los registros cuyo Estado sea 'Pendiente', ¿qué elemento utilizas?",
+            opts: [
+              "Una Condición o filtro lógico antes de la acción de envío de correo",
+              "Enviar correos masivos a todos sin filtro",
+              "Borrar toda la tabla",
+              "Un bucle sin condición de salida"
+            ],
+            ans: 0,
+            exp: "Las condiciones evalúan cada fila y ejecutan la notificación solo cuando se cumple el criterio definido."
+          },
+          {
+            cat: "SESIÓN 03 · PROTOCOLO DE PRUEBAS",
+            q: "¿Cuál es la práctica segura al probar por primera vez un flujo que envía alertas por Outlook o Teams?",
+            opts: [
+              "Incluir a todos los clientes externos en la primera prueba",
+              "Colocar tu propio correo como destinatario de prueba hasta verificar el contenido y formato",
+              "Activar el flujo sin revisar qué filas lee",
+              "Desactivar el historial"
+            ],
+            ans: 1,
+            exp: "Probar primero hacia tu propio buzón evita envíos accidentales y permite pulir el mensaje."
+          },
+          {
+            cat: "SESIÓN 03 · AUDITORÍA Y SOPORTE",
+            q: "¿Cómo identificas rápidamente por qué falló un flujo en Power Automate?",
+            opts: [
+              "Revisando el Historial de ejecuciones, ubicando el paso marcado en rojo y consultando el error con Copilot",
+              "Adivinando al azar",
+              "Creando una cuenta nueva",
+              "Apagando el equipo"
+            ],
+            ans: 0,
+            exp: "El historial de ejecución muestra el detalle técnico de cada paso para corregirlo con apoyo de Copilot."
+          },
+          {
+            cat: "SESIÓN 03 · SOSTENIBILIDAD",
+            q: "¿Por qué documentamos las conexiones, la ruta del archivo y el responsable del flujo?",
+            opts: [
+              "Para garantizar continuidad operativa y mantenimiento sencillo dentro del equipo de la cuenta",
+              "Para ocultar cómo funciona",
+              "Por requisito sin aplicación práctica",
+              "Para bloquear el acceso al equipo"
+            ],
+            ans: 0,
+            exp: "Una solución bien documentada asegura que el ahorro de tiempo se mantenga de forma permanente en el área."
+          }
+        ]
+      },
+      {
+        title: "Sesión 04 — Torneo Master PROGRAMA BACK (18 Nov)",
+        questions: [
+          {
+            cat: "PROGRAMA BACK · ENFOQUE DE CUENTA",
+            q: "¿Cómo definimos qué herramienta utilizar en el proyecto de mejora de cada participante o equipo?",
+            opts: [
+              "Partiendo del dolor real de su cuenta y aplicando Copilot sobre la herramienta que usan a diario (Excel, Word, BI o Automate)",
+              "Imponiendo un único caso genérico que no aplica a su operación",
+              "Haciendo solo un ensayo teórico",
+              "Usando plataformas no autorizadas"
+            ],
+            ans: 0,
+            exp: "El programa se adapta a la realidad de cada cuenta para construir soluciones que generen impacto inmediato."
+          },
+          {
+            cat: "PROGRAMA BACK · RÚBRICA 18 NOV",
+            q: "En la sustentación del 18 de noviembre en Sala Oslo-Viena-Dublín, ¿qué criterio tiene el mayor peso (35%)?",
+            opts: [
+              "Cantidad de texto en las láminas",
+              "Funcionamiento demostrado en vivo de la solución construida",
+              "Diseño de portada",
+              "Duración extensa del discurso"
+            ],
+            ans: 1,
+            exp: "El jurado prioriza ver la solución ejecutándose en vivo (35%) y el impacto medido en el proceso (25%)."
+          },
+          {
+            cat: "PROGRAMA BACK · ROI & IMPACTO",
+            q: "¿Cómo se demuestra de manera efectiva el impacto de la mejora implementada?",
+            opts: [
+              "Con percepciones subjetivas sin datos",
+              "Comparando el tiempo Antes vs. Después (ej. de 4 horas semanales a 5 minutos) y la reducción de errores",
+              "Sin mostrar el proceso anterior",
+              "Presentando solo teoría de IA"
+            ],
+            ans: 1,
+            exp: "Cuantificar minutos/horas ahorradas y errores evitados hace que el valor del proyecto sea indiscutible."
+          },
+          {
+            cat: "PROGRAMA BACK · METODOLOGÍA",
+            q: "¿Cuál es la estructura de 4 etapas para presentar tu caso práctico de Sales & Marketing?",
+            opts: [
+              "Problema → Solución → Validación → Impacto",
+              "Idea → Resumen → Correo → Cierre",
+              "Teoría → Concepto → Lectura → Examen",
+              "Archivo → Copia → Pegado → Fin"
+            ],
+            ans: 0,
+            exp: "Esta secuencia ejecutiva permite explicar cualquier mejora técnica en 7 minutos con total claridad."
+          },
+          {
+            cat: "PROGRAMA BACK · IDENTIDAD",
+            q: "¿Qué simboliza nuestro emblema 'Cyborg Split Ejecutivo' de Adecco Sales & Marketing?",
+            opts: [
+              "Automatización sin supervisión humana",
+              "El talento y criterio del profesional de Adecco potenciado por la velocidad de Microsoft Copilot",
+              "Uso exclusivo para programadores",
+              "Un gráfico decorativo"
+            ],
+            ans: 1,
+            exp: "Representa el modelo Human-in-the-Loop: criterio humano al mando + potencia biónica de Copilot."
+          }
+        ]
+      }
+    ];
+
+    let lbData = JSON.parse(localStorage.getItem('adecco_ux_lb') || 'null') || [
+      { name: "Lucía Paredes", account: "Cuenta Consumo Masivo", score: 4820 },
+      { name: "Jorge Villavicencio", account: "Operaciones Retail S&M", score: 4590 },
+      { name: "Andrea Salazar", account: "Trade Marketing", score: 4310 },
+      { name: "Diego Quispe", account: "BI & Reporting S&M", score: 4050 }
+    ];
+
+    let activePack = 0;
+    let qIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let hits = 0;
+    let pName = "";
+    let pAcc = "";
+    let timerRef = null;
+    let secLeft = 20;
+
+    function renderLB() {
+      lbData.sort((a, b) => b.score - a.score);
+      const box = document.getElementById('lb-container');
+      box.innerHTML = lbData.slice(0, 6).map((item, idx) => `
+        <li class="lb-item">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="lb-rank-badge">${idx + 1}</span>
+            <div>
+              <div style="font-weight:700; font-size:13.5px; color:#fff;">${item.name}</div>
+              <div style="font-size:11px; color:var(--cyan-glow);">${item.account}</div>
+            </div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:14px; color:#FDE68A;">
+            ${item.score.toLocaleString()} pts
+          </div>
+        </li>
+      `).join('');
+    }
+    renderLB();
+
+    function choosePack(idx) {
+      activePack = idx;
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`ptile-${i}`).classList.toggle('active', i === idx);
+      }
+      document.getElementById('active-pack-title').textContent = `Módulo: ${PACKS[idx].title}`;
+    }
+
+    function jumpToKahootPack(idx) {
+      choosePack(idx);
+      document.getElementById('kahoot-arena').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => document.getElementById('inp-name').focus(), 450);
+    }
+
+    function switchStage(showId) {
+      ['view-lobby', 'view-play', 'view-podium'].forEach(id => {
+        const el = document.getElementById(id);
+        if (id === showId) {
+          el.style.display = id === 'view-lobby' ? 'grid' : 'block';
+          el.classList.remove('view-stage');
+          void el.offsetWidth;
+          el.classList.add('view-stage');
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    function beginQuizSession() {
+      pName = document.getElementById('inp-name').value.trim() || "Ejecutivo Adecco";
+      pAcc = document.getElementById('inp-account').value.trim() || "Sales & Marketing";
+      qIndex = 0;
+      score = 0;
+      streak = 0;
+      hits = 0;
+      switchStage('view-play');
+      mountQuestion();
+    }
+
+    function mountQuestion() {
+      const pack = PACKS[activePack];
+      const item = pack.questions[qIndex];
+
+      document.getElementById('hud-progress').textContent = `PREGUNTA ${qIndex + 1} / ${pack.questions.length}`;
+      document.getElementById('hud-streak').textContent = `🔥 RACHA: ${streak}`;
+      document.getElementById('hud-pts').textContent = `${score.toLocaleString()} PTS`;
+
+      const qBox = document.getElementById('question-stage-box');
+      qBox.classList.remove('view-stage');
+      void qBox.offsetWidth;
+      qBox.classList.add('view-stage');
+
+      document.getElementById('q-cat-label').textContent = item.cat;
+      document.getElementById('q-main-text').textContent = item.q;
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`pad-${i}`);
+        document.getElementById(`pad-txt-${i}`).textContent = item.opts[i];
+        btn.disabled = false;
+        btn.style.opacity = "1";
+        btn.classList.remove('correct-reveal', 'wrong-reveal');
+      }
+
+      document.getElementById('ai-insight-toast').style.display = 'none';
+
+      clearInterval(timerRef);
+      secLeft = 20;
+      const circle = document.getElementById('timer-svg-circle');
+      document.getElementById('hud-seconds').textContent = secLeft;
+      circle.style.strokeDashoffset = '0';
+
+      timerRef = setInterval(() => {
+        secLeft--;
+        document.getElementById('hud-seconds').textContent = secLeft;
+        circle.style.strokeDashoffset = String(157 * (1 - secLeft / 20));
+        if (secLeft <= 5 && secLeft > 0) tone(880, 'sine', 0.04, 0);
+        if (secLeft <= 0) {
+          clearInterval(timerRef);
+          handleAnswer(-1, null);
+        }
+      }, 1000);
+    }
+
+    function handleAnswer(choice, evt) {
+      clearInterval(timerRef);
+      if (evt) spawnClickEffect(evt.clientX, evt.clientY, '#10B981');
+
+      const pack = PACKS[activePack];
+      const item = pack.questions[qIndex];
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`pad-${i}`);
+        btn.disabled = true;
+        if (i === item.ans) {
+          btn.classList.add('correct-reveal');
+        } else if (i === choice) {
+          btn.classList.add('wrong-reveal');
+        } else {
+          btn.style.opacity = "0.35";
+        }
+      }
+
+      const toast = document.getElementById('ai-insight-toast');
+      const head = document.getElementById('toast-headline');
+      const body = document.getElementById('toast-body');
+
+      if (choice === item.ans) {
+        playChimeSuccess();
+        streak++;
+        hits++;
+        const speedPts = Math.round(500 + (secLeft / 20) * 500);
+        const bonus = streak > 1 ? streak * 60 : 0;
+        const totalAdd = speedPts + bonus;
+        score += totalAdd;
+        head.style.color = "#10B981";
+        head.textContent = `✓ Respuesta Exacta · +${totalAdd} pts ${bonus ? `(Bono Racha +${bonus})` : ''}`;
+      } else {
+        playChimeError();
+        streak = 0;
+        head.style.color = "#FF6B60";
+        head.textContent = choice === -1 ? "⏰ Tiempo Agotado" : "✕ Respuesta Incorrecta";
+      }
+
+      document.getElementById('hud-streak').textContent = `🔥 RACHA: ${streak}`;
+      document.getElementById('hud-pts').textContent = `${score.toLocaleString()} PTS`;
+      body.textContent = item.exp;
+      toast.style.display = 'flex';
+    }
+
+    function advanceQuestion() {
+      const pack = PACKS[activePack];
+      qIndex++;
+      if (qIndex < pack.questions.length) {
+        mountQuestion();
+      } else {
+        finishQuizSession();
+      }
+    }
+
+    function finishQuizSession() {
+      playChimeSuccess();
+      switchStage('view-podium');
+
+      const pack = PACKS[activePack];
+      const accPct = Math.round((hits / pack.questions.length) * 100);
+      document.getElementById('podium-title').textContent = `¡Excelente desempeño, ${pName}!`;
+      document.getElementById('podium-stats').textContent =
+        `SCORE FINAL: ${score.toLocaleString()} PTS · PRECISIÓN: ${hits}/${pack.questions.length} (${accPct}%)`;
+
+      lbData.push({ name: pName, account: pAcc, score: score });
+      lbData.sort((a, b) => b.score - a.score);
+      localStorage.setItem('adecco_ux_lb', JSON.stringify(lbData.slice(0, 15)));
+      renderLB();
+
+      const t = lbData.slice(0, 3);
+      document.getElementById('podium-stage').innerHTML = `
+        <div class="podium-pillar">
+          <div style="font-weight:700; font-size:13px; margin-bottom:6px;">${t[1] ? t[1].name : '---'}</div>
+          <div class="podium-bar" style="height:125px; background:linear-gradient(180deg, rgba(148,163,184,0.35), rgba(30,41,59,0.85));">
+            <div style="font-size:22px;">🥈 2°</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#CBD5E1;">${t[1] ? t[1].score.toLocaleString() : 0}</div>
+          </div>
+        </div>
+        <div class="podium-pillar">
+          <div style="font-weight:800; font-size:14px; color:#FDE68A; margin-bottom:6px;">👑 ${t[0] ? t[0].name : '---'}</div>
+          <div class="podium-bar" style="height:165px; background:linear-gradient(180deg, rgba(245,158,11,0.45), rgba(180,83,9,0.85)); border-color:#F59E0B;">
+            <div style="font-size:28px;">🥇 1°</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:13px; color:#FDE68A;">${t[0] ? t[0].score.toLocaleString() : 0}</div>
+          </div>
+        </div>
+        <div class="podium-pillar">
+          <div style="font-weight:700; font-size:13px; margin-bottom:6px;">${t[2] ? t[2].name : '---'}</div>
+          <div class="podium-bar" style="height:95px; background:linear-gradient(180deg, rgba(218,41,28,0.4), rgba(127,29,29,0.85));">
+            <div style="font-size:20px;">🥉 3°</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#FCA5A5;">${t[2] ? t[2].score.toLocaleString() : 0}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function returnToLobby() {
+      clearInterval(timerRef);
+      switchStage('view-lobby');
+      renderLB();
+    }
+
+    function toggleHostPanel() {
+      const d = document.getElementById('host-drawer');
+      d.style.display = d.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function injectLiveQuestion() {
+      const q = document.getElementById('hq-text').value.trim();
+      const o0 = document.getElementById('hq-0').value.trim();
+      const o1 = document.getElementById('hq-1').value.trim();
+      const o2 = document.getElementById('hq-2').value.trim() || "Ninguna de las anteriores";
+      const o3 = document.getElementById('hq-3').value.trim() || "Todas las anteriores";
+      const ans = parseInt(document.getElementById('hq-ans').value, 10);
+
+      if (!q || !o0 || !o1) return;
+      PACKS[activePack].questions.push({
+        cat: "PREGUNTA EN VIVO · SALA",
+        q,
+        opts: [o0, o1, o2, o3],
+        ans,
+        exp: "Pregunta formulada en directo durante la sesión práctica."
+      });
+      document.getElementById('hq-text').value = '';
+      document.getElementById('hq-0').value = '';
+      document.getElementById('hq-1').value = '';
+      document.getElementById('hq-2').value = '';
+      document.getElementById('hq-3').value = '';
+    }
+  </script>
+</body>
+</html>
