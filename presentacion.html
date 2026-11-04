@@ -1233,8 +1233,8 @@
                 <div class="stat-lbl">Herramientas M365 + Motor Copilot</div>
               </div>
               <div class="stat-card">
-                <div class="stat-val" style="color:#FBBF24;" data-count="1" data-suffix="">1</div>
-                <div class="stat-lbl">Proyecto Real de tu Cuenta + Certificación</div>
+                <div class="stat-val" style="color:#FBBF24;" data-prefix="S/ " data-count="500" data-suffix="">S/ 500</div>
+                <div class="stat-lbl">Premios por Equipo (1.° S/ 300 · 2.° S/ 200)</div>
               </div>
             </div>
 
@@ -1371,8 +1371,8 @@
                   <td>Un único proyecto final propio; <strong>sin tareas obligatorias entre clases</strong>.</td>
                 </tr>
                 <tr>
-                  <td class="key">Reconocimiento</td>
-                  <td><strong>Certificación Oficial del Programa</strong> y validación ante el jurado evaluador.</td>
+                  <td class="key">Premios y Reconocimiento</td>
+                  <td><strong>1.er Puesto: S/ 300 · 2.° Puesto: S/ 200</strong> (Total S/ 500 por equipo) + <strong>Certificación Oficial</strong>.</td>
                 </tr>
               </tbody>
             </table>
@@ -1581,11 +1581,11 @@
                 <td>Flujo automatizado de recordatorios con Excel y Outlook.</td>
               </tr>
               <tr>
-                <td class="key" style="color:#FBBF24;">Sesión 04 · Sustentación Final</td>
+                <td class="key" style="color:#FBBF24;">Sesión 04 · Sustentación y Premiación</td>
                 <td><strong>Miércoles 18 / 11 / 2026</strong></td>
                 <td><span style="color:#FBBF24; font-weight:700;">📍 OSLO - VIENA - DUBLÍN</span></td>
                 <td><strong>11:00 AM a 1:00 PM</strong></td>
-                <td>Demostración en vivo del proyecto de mejora y Certificación Oficial.</td>
+                <td>Demostración en vivo, premiación (<strong>1.° S/ 300 · 2.° S/ 200</strong>) y Certificación.</td>
               </tr>
             </tbody>
           </table>
@@ -1898,19 +1898,33 @@
 
         <div class="grid-2">
           <div class="spotlight-card inner-card tilt-card">
-            <h3>⏱️ Formato Ágil de Exposición (10 min por Proyecto)</h3>
+            <h3>⏱️ Formato Ágil de Exposición y Flujo de Cierre</h3>
             <div class="flow-steps">
               <div class="flow-step"><span class="num">1</span> <strong>7 min:</strong> Problema + Solución en vivo + Métrica</div>
               <span class="flow-arrow">➔</span>
-              <div class="flow-step"><span class="num">2</span> <strong>3 min:</strong> Preguntas y feedback del Jurado</div>
+              <div class="flow-step"><span class="num">2</span> <strong>3 min:</strong> Preguntas del Jurado</div>
+              <span class="flow-arrow">➔</span>
+              <div class="flow-step"><span class="num">3</span> Evaluación y Premiación</div>
             </div>
+            <p style="margin-top:10px; font-size:13px;">
+              A igual puntaje, el jurado priorizará el <strong>funcionamiento operativo demostrado en vivo (35%)</strong> y luego la <strong>utilidad y beneficio medido (30%)</strong>. Los proyectos aprobados reciben además la <strong>Certificación Oficial del Programa</strong>.
+            </p>
           </div>
 
-          <div class="spotlight-card inner-card tilt-card" style="border-left: 4px solid #F59E0B;">
-            <h3>🏅 Certificación Oficial y Reconocimiento</h3>
-            <p>
-              Los proyectos con dictamen favorable reciben la <strong>Certificación Oficial del Programa</strong> avalada por la Dirección de Sales &amp; Marketing.
-            </p>
+          <div class="spotlight-card inner-card tilt-card" style="border: 1px solid rgba(245, 158, 11, 0.45); background: linear-gradient(155deg, rgba(245, 158, 11, 0.14), rgba(11, 19, 36, 0.92));">
+            <h3>🏆 Premiación Oficial por Equipo (Bolsa S/ 500)</h3>
+            <div class="grid-2" style="gap:12px; margin-top:10px;">
+              <div style="background:rgba(3,6,12,0.82); border:1px solid rgba(251,191,36,0.5); border-radius:14px; padding:14px; text-align:center;">
+                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#FDE68A; font-weight:800;">🥇 PRIMER PUESTO</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:30px; font-weight:800; color:#FBBF24; margin:4px 0;" data-prefix="S/ " data-count="300" data-suffix="">S/ 300</div>
+                <div style="font-size:11.5px; color:var(--text-secondary);">Premio al Equipo Ganador</div>
+              </div>
+              <div style="background:rgba(3,6,12,0.82); border:1px solid rgba(148,163,184,0.45); border-radius:14px; padding:14px; text-align:center;">
+                <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#E2E8F0; font-weight:800;">🥈 SEGUNDO PUESTO</div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:30px; font-weight:800; color:#38BDF8; margin:4px 0;" data-prefix="S/ " data-count="200" data-suffix="">S/ 200</div>
+                <div style="font-size:11.5px; color:var(--text-secondary);">Premio al 2.° Equipo</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2101,6 +2115,7 @@
       const counters = slideEl.querySelectorAll('[data-count]');
       counters.forEach(el => {
         const target = parseInt(el.getAttribute('data-count'), 10);
+        const prefix = el.getAttribute('data-prefix') || '';
         const suffix = el.getAttribute('data-suffix') || '';
         const duration = 900;
         const start = performance.now();
@@ -2108,7 +2123,7 @@
         function tick(now) {
           const progress = Math.min((now - start) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 4);
-          el.textContent = `${Math.round(target * eased)}${suffix}`;
+          el.textContent = `${prefix}${Math.round(target * eased)}${suffix}`;
           if (progress < 1) requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
