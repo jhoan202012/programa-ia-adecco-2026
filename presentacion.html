@@ -11,8 +11,8 @@
     :root {
       --bg-obsidian: #03060C;
       --bg-surface: #080E1C;
-      --bg-glass: rgba(11, 19, 36, 0.68);
-      --bg-glass-elevated: rgba(16, 28, 52, 0.82);
+      --bg-glass: rgba(11, 19, 36, 0.70);
+      --bg-glass-elevated: rgba(16, 28, 52, 0.85);
       --adecco-red: #DA291C;
       --adecco-crimson: #FF3B2F;
       --sapphire: #2563EB;
@@ -23,9 +23,10 @@
       --text-secondary: #94A3B8;
       --text-subtle: #64748B;
       --border-hairline: rgba(255, 255, 255, 0.09);
-      --border-highlight: rgba(56, 189, 248, 0.32);
+      --border-highlight: rgba(56, 189, 248, 0.35);
       --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     * {
@@ -49,7 +50,7 @@
       color: #fff;
     }
 
-    /* ================= AMBIENT NEURAL CANVAS & AURORA LIGHTING ================= */
+    /* ================= AMBIENT NEURAL CANVAS & DYNAMIC AURORA ================= */
     #neural-canvas {
       position: fixed;
       inset: 0;
@@ -57,7 +58,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.65;
+      opacity: 0.72;
     }
 
     .ambient-aurora {
@@ -66,9 +67,23 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(850px circle at 12% 12%, rgba(218, 41, 28, 0.15), transparent 55%),
-        radial-gradient(900px circle at 88% 18%, rgba(37, 99, 235, 0.17), transparent 60%),
-        radial-gradient(750px circle at 50% 92%, rgba(218, 41, 28, 0.11), transparent 60%);
+        radial-gradient(850px circle at var(--orb-1-x, 15%) var(--orb-1-y, 14%), rgba(218, 41, 28, 0.16), transparent 55%),
+        radial-gradient(950px circle at var(--orb-2-x, 86%) var(--orb-2-y, 20%), rgba(37, 99, 235, 0.19), transparent 60%),
+        radial-gradient(750px circle at 50% 92%, rgba(56, 189, 248, 0.11), transparent 60%);
+      transition: background 1.2s var(--ease-cinematic);
+    }
+
+    .cyber-grid-floor {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 50% 45%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 45%, black 30%, transparent 80%);
     }
 
     .noise-overlay {
@@ -79,6 +94,31 @@
       opacity: 0.025;
       background-image: radial-gradient(#ffffff 1px, transparent 0);
       background-size: 24px 24px;
+    }
+
+    /* ================= LASER POINTER FOR PRESENTER MODE ================= */
+    .laser-dot {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FF3B2F;
+      box-shadow:
+        0 0 12px 4px rgba(255, 59, 47, 0.95),
+        0 0 28px 10px rgba(218, 41, 28, 0.65),
+        inset 0 0 4px #FFFFFF;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.2s var(--ease-spring);
+    }
+
+    body.laser-active {
+      cursor: none;
+    }
+
+    body.laser-active .laser-dot {
+      transform: translate(-50%, -50%) scale(1);
     }
 
     /* ================= BESPOKE CLICK SHOCKWAVE & SPARKS ================= */
@@ -95,7 +135,7 @@
 
     @keyframes shockwaveExpand {
       0% { width: 0px; height: 0px; opacity: 0.95; border-width: 2.5px; }
-      100% { width: 150px; height: 150px; opacity: 0; border-width: 0.5px; }
+      100% { width: 160px; height: 160px; opacity: 0; border-width: 0.5px; }
     }
 
     .click-particle {
@@ -110,11 +150,11 @@
     }
 
     @keyframes particleFly {
-      0% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      0% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
       100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
     }
 
-    /* ================= SPOTLIGHT GLASS CARD SYSTEM ================= */
+    /* ================= SPOTLIGHT 3D TILT GLASS CARD SYSTEM ================= */
     .spotlight-card {
       position: relative;
       background: var(--bg-glass);
@@ -123,6 +163,7 @@
       border: 1px solid var(--border-hairline);
       border-radius: 20px;
       overflow: hidden;
+      transform-style: preserve-3d;
       transition:
         transform 0.45s var(--ease-spring),
         border-color 0.35s ease,
@@ -134,25 +175,38 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(
-        500px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
-        rgba(56, 189, 248, 0.12),
-        rgba(218, 41, 28, 0.06) 40%,
+        480px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+        rgba(56, 189, 248, 0.14),
+        rgba(218, 41, 28, 0.07) 42%,
         transparent 70%
       );
       pointer-events: none;
       z-index: 0;
     }
 
-    .spotlight-card > * {
-      position: relative;
+    /* Specular top edge shimmer */
+    .spotlight-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+      pointer-events: none;
       z-index: 1;
     }
 
+    .spotlight-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
     .spotlight-card:hover {
-      border-color: rgba(56, 189, 248, 0.32);
+      border-color: rgba(56, 189, 248, 0.38);
       box-shadow:
-        0 18px 42px -15px rgba(0, 0, 0, 0.7),
-        0 0 28px -10px rgba(37, 99, 235, 0.22);
+        0 20px 45px -15px rgba(0, 0, 0, 0.78),
+        0 0 32px -8px rgba(37, 99, 235, 0.28);
     }
 
     /* ================= TOP PRESENTER HUD NAVBAR ================= */
@@ -160,16 +214,16 @@
       position: sticky;
       top: 12px;
       z-index: 1000;
-      max-width: 1340px;
+      max-width: 1360px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
     .hud-bar {
-      background: rgba(8, 14, 28, 0.82);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(8, 14, 28, 0.84);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 16px;
       padding: 9px 16px;
       display: flex;
@@ -177,7 +231,9 @@
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.65);
+      box-shadow:
+        0 15px 35px -10px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .brand-cluster {
@@ -192,12 +248,17 @@
       width: 38px;
       height: 38px;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(218, 41, 28, 0.25), rgba(37, 99, 235, 0.25));
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.28), rgba(37, 99, 235, 0.28));
       border: 1px solid rgba(218, 41, 28, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px rgba(218, 41, 28, 0.3);
+      box-shadow: 0 0 18px rgba(218, 41, 28, 0.35);
+      transition: transform 0.4s var(--ease-spring);
+    }
+
+    .brand-cluster:hover .brand-icon {
+      transform: rotate(-6deg) scale(1.08);
     }
 
     .tag-adecco {
@@ -223,19 +284,20 @@
       border-radius: 5px;
     }
 
-    /* Slide Number Pills */
+    /* Slide Number Pills with Hover Tooltip */
     .slide-dots {
       display: flex;
       align-items: center;
       gap: 4px;
-      background: rgba(3, 6, 12, 0.6);
+      background: rgba(3, 6, 12, 0.65);
       padding: 4px;
       border-radius: 11px;
       border: 1px solid var(--border-hairline);
-      overflow-x: auto;
+      position: relative;
     }
 
     .dot-btn {
+      position: relative;
       background: transparent;
       border: none;
       color: var(--text-secondary);
@@ -250,23 +312,51 @@
 
     .dot-btn:hover {
       color: #fff;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.09);
+      transform: translateY(-1px);
     }
 
     .dot-btn.active {
       background: linear-gradient(135deg, var(--adecco-red), #991B1B);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(218, 41, 28, 0.45);
+      box-shadow: 0 4px 14px rgba(218, 41, 28, 0.55);
+    }
+
+    .dot-btn::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: -34px;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(8, 14, 28, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 4px 9px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s var(--ease-spring);
+      z-index: 2000;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .dot-btn:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .hud-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .btn-hud {
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.82);
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #E2E8F0;
       font-family: 'Inter', sans-serif;
@@ -282,9 +372,10 @@
       transition: all 0.25s var(--ease-spring);
     }
 
-    .btn-hud:hover {
+    .btn-hud:hover, .btn-hud.active-tool {
       border-color: var(--cyan-glow);
       color: #fff;
+      background: rgba(37, 99, 235, 0.24);
       transform: translateY(-1px);
     }
 
@@ -292,55 +383,206 @@
       background: linear-gradient(135deg, var(--adecco-red), #991B1B);
       border-color: rgba(255, 255, 255, 0.2);
       color: #fff;
+      box-shadow: 0 6px 18px -4px rgba(218, 41, 28, 0.55);
     }
 
-    /* ================= SLIDE STAGE ARCHITECTURE ================= */
+    .btn-hud.primary:hover {
+      box-shadow: 0 10px 24px -4px rgba(255, 59, 47, 0.75);
+    }
+
+    /* ================= 3D CINEMATIC SLIDE STAGE & TRANSITIONS ================= */
     .stage-wrapper {
       position: relative;
       z-index: 2;
-      max-width: 1340px;
-      margin: 18px auto 92px;
+      max-width: 1360px;
+      margin: 16px auto 96px;
       padding: 0 20px;
       min-height: calc(100vh - 180px);
       display: flex;
       align-items: center;
+      perspective: 1800px;
     }
 
     .slide {
       display: none;
       width: 100%;
-      animation: slideEnter 0.55s var(--ease-spring) forwards;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
     }
 
     .slide.active {
       display: block;
     }
 
-    @keyframes slideEnter {
+    /* Directional 3D Entrance Animations */
+    .slide.enter-next {
+      animation: slideEnterFromRight 0.68s var(--ease-cinematic) forwards;
+    }
+
+    .slide.enter-prev {
+      animation: slideEnterFromLeft 0.68s var(--ease-cinematic) forwards;
+    }
+
+    .slide.exit-next {
+      display: block;
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      pointer-events: none;
+      animation: slideExitToLeft 0.52s var(--ease-cinematic) forwards;
+    }
+
+    .slide.exit-prev {
+      display: block;
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      pointer-events: none;
+      animation: slideExitToRight 0.52s var(--ease-cinematic) forwards;
+    }
+
+    @keyframes slideEnterFromRight {
       0% {
         opacity: 0;
-        transform: translateY(18px) scale(0.985);
-        filter: blur(6px);
+        transform: translate3d(85px, 0, -140px) rotateY(-8deg) scale(0.96);
+        filter: blur(8px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes slideEnterFromLeft {
+      0% {
+        opacity: 0;
+        transform: translate3d(-85px, 0, -140px) rotateY(8deg) scale(0.96);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes slideExitToLeft {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-90px, 0, -160px) rotateY(8deg) scale(0.93);
+        filter: blur(10px);
+      }
+    }
+
+    @keyframes slideExitToRight {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: blur(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(90px, 0, -160px) rotateY(-8deg) scale(0.93);
+        filter: blur(10px);
+      }
+    }
+
+    /* ================= STAGGERED ELEMENT CHOREOGRAPHY ================= */
+    .slide.active .stagger-item {
+      opacity: 0;
+      animation: staggerReveal 0.65s var(--ease-spring) forwards;
+      animation-delay: calc(var(--stagger, 1) * 75ms + 80ms);
+    }
+
+    @keyframes staggerReveal {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0) scale(0.975);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
         filter: blur(0);
       }
     }
 
+    /* ================= SLIDE FRAME & HOLOGRAPHIC LASER SWEEP ================= */
     .slide-frame {
-      background: rgba(8, 14, 28, 0.72);
-      backdrop-filter: blur(26px);
-      -webkit-backdrop-filter: blur(26px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(8, 14, 28, 0.74);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 26px;
       padding: 36px 40px;
       box-shadow:
-        0 25px 60px -15px rgba(0, 0, 0, 0.75),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 28px 65px -15px rgba(0, 0, 0, 0.8),
+        0 0 40px -15px rgba(37, 99, 235, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
       position: relative;
       overflow: hidden;
+    }
+
+    /* Holographic Scanline Beam on Transition */
+    .holo-beam {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 180px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(56, 189, 248, 0.08) 45%,
+        rgba(218, 41, 28, 0.16) 75%,
+        rgba(255, 255, 255, 0.28) 95%,
+        transparent 100%
+      );
+      transform: skewX(-18deg) translateX(-260px);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .slide.active .holo-beam {
+      animation: beamSweep 0.95s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes beamSweep {
+      0% { transform: skewX(-18deg) translateX(-260px); opacity: 1; }
+      100% { transform: skewX(-18deg) translateX(1600px); opacity: 0; }
+    }
+
+    /* Corner Tech Brackets */
+    .slide-frame::before,
+    .slide-frame::after {
+      content: '';
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.55;
+    }
+
+    .slide-frame::before {
+      top: 14px;
+      left: 14px;
+      border-top: 2px solid var(--cyan-glow);
+      border-left: 2px solid var(--cyan-glow);
+      border-top-left-radius: 10px;
+    }
+
+    .slide-frame::after {
+      bottom: 14px;
+      right: 14px;
+      border-bottom: 2px solid var(--adecco-red);
+      border-right: 2px solid var(--adecco-red);
+      border-bottom-right-radius: 10px;
     }
 
     @media (max-width: 860px) {
@@ -376,11 +618,12 @@
     }
 
     .slide-kicker .pill {
-      background: var(--adecco-red);
+      background: linear-gradient(135deg, var(--adecco-red), #991B1B);
       color: #fff;
-      padding: 2px 8px;
-      border-radius: 5px;
+      padding: 3px 9px;
+      border-radius: 6px;
       font-size: 10.5px;
+      box-shadow: 0 0 12px rgba(218, 41, 28, 0.45);
     }
 
     .slide-page-num {
@@ -388,6 +631,10 @@
       font-size: 12px;
       color: var(--text-subtle);
       font-weight: 700;
+      background: rgba(3, 6, 12, 0.6);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-hairline);
     }
 
     .slide-title {
@@ -409,7 +656,7 @@
     }
 
     .gradient-red {
-      background: linear-gradient(95deg, #FF6B60 0%, #DA291C 55%, #FF3B2F 100%);
+      background: linear-gradient(95deg, #FF7A70 0%, #DA291C 50%, #FF3B2F 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -434,12 +681,6 @@
       align-items: center;
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -453,7 +694,7 @@
     }
 
     @media (max-width: 1024px) {
-      .grid-hero, .grid-2, .grid-3, .grid-4, .grid-5 {
+      .grid-hero, .grid-2, .grid-4, .grid-5 {
         grid-template-columns: 1fr;
       }
     }
@@ -480,7 +721,7 @@
       line-height: 1.55;
     }
 
-    /* Tables */
+    /* Tables with Hover Row Highlight */
     .exec-table {
       width: 100%;
       border-collapse: collapse;
@@ -495,8 +736,8 @@
       letter-spacing: 0.08em;
       color: var(--cyan-glow);
       padding: 11px 14px;
-      background: rgba(3, 6, 12, 0.65);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(3, 6, 12, 0.72);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.28);
     }
 
     .exec-table td {
@@ -504,6 +745,11 @@
       border-bottom: 1px solid var(--border-hairline);
       color: #E2E8F0;
       vertical-align: top;
+      transition: background 0.25s ease;
+    }
+
+    .exec-table tbody tr:hover td {
+      background: rgba(56, 189, 248, 0.06);
     }
 
     .exec-table tr:last-child td {
@@ -516,7 +762,7 @@
       width: 34%;
     }
 
-    /* Flow Pipeline Steps */
+    /* Flow Pipeline Steps with Animated Connector Pulse */
     .flow-steps {
       display: flex;
       align-items: center;
@@ -526,47 +772,62 @@
     }
 
     .flow-step {
-      background: rgba(3, 6, 12, 0.78);
+      background: rgba(3, 6, 12, 0.82);
       border: 1px solid rgba(56, 189, 248, 0.28);
-      border-radius: 10px;
+      border-radius: 11px;
       padding: 8px 13px;
       font-size: 12.5px;
       font-weight: 600;
       color: #F1F5F9;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
+      transition: all 0.3s var(--ease-spring);
+    }
+
+    .flow-step:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: var(--cyan-glow);
+      box-shadow: 0 8px 20px -6px rgba(56, 189, 248, 0.3);
     }
 
     .flow-step span.num {
-      background: var(--adecco-red);
+      background: linear-gradient(135deg, var(--adecco-red), #B91C1C);
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10.5px;
       font-weight: 800;
-      width: 20px;
-      height: 20px;
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 10px rgba(218, 41, 28, 0.45);
     }
 
     .flow-arrow {
       color: var(--cyan-glow);
       font-weight: 800;
       font-size: 14px;
+      animation: arrowPulse 1.8s infinite ease-in-out;
     }
 
-    /* Prompt Box */
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); opacity: 0.65; }
+      50% { transform: translateX(3px); opacity: 1; }
+    }
+
+    /* Prompt Box with Typewriter Glow */
     .prompt-box {
-      background: rgba(3, 6, 12, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: rgba(3, 6, 12, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.38);
       border-left: 4px solid var(--adecco-red);
       border-radius: 14px;
       padding: 16px 18px;
       margin-top: 12px;
       position: relative;
+      box-shadow: inset 0 0 24px rgba(56, 189, 248, 0.05);
     }
 
     .prompt-header {
@@ -597,25 +858,32 @@
       padding: 4px 10px;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s var(--ease-spring);
     }
 
     .copy-btn:hover {
       background: var(--cyan-glow);
       color: #03060C;
+      transform: scale(1.05);
     }
 
-    /* Program Icon Badge */
+    /* Program Icon Badge with Floating Levitation */
     .eco-badge {
-      width: 48px;
-      height: 48px;
-      border-radius: 13px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: transform 0.45s var(--ease-spring), border-color 0.3s ease;
+    }
+
+    .spotlight-card:hover .eco-badge {
+      transform: translateY(-4px) scale(1.08) rotate(-3deg);
+      border-color: rgba(56, 189, 248, 0.5);
     }
 
     /* KPI Stat Pill */
@@ -631,15 +899,22 @@
     }
 
     .stat-card {
-      background: rgba(3, 6, 12, 0.72);
+      background: rgba(3, 6, 12, 0.78);
       border: 1px solid var(--border-hairline);
       border-radius: 14px;
-      padding: 14px 16px;
+      padding: 15px 16px;
+      transition: all 0.35s var(--ease-spring);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.65);
     }
 
     .stat-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       color: #fff;
     }
@@ -647,7 +922,7 @@
     .stat-lbl {
       font-size: 11.5px;
       color: var(--text-secondary);
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     /* PROGRAMA BACK Official Matrix */
@@ -656,10 +931,11 @@
       overflow: hidden;
       border: 1px solid rgba(218, 41, 28, 0.45);
       margin-bottom: 20px;
+      box-shadow: 0 18px 40px -15px rgba(218, 41, 28, 0.2);
     }
 
     .back-banner {
-      background: linear-gradient(90deg, #881313 0%, var(--adecco-red) 50%, #881313 100%);
+      background: linear-gradient(90deg, #7F1D1D 0%, var(--adecco-red) 50%, #7F1D1D 100%);
       padding: 10px 18px;
       text-align: center;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -669,7 +945,7 @@
       color: #fff;
     }
 
-    /* Rubric Bar */
+    /* Animated Rubric Bar */
     .weight-bar-track {
       width: 100%;
       height: 8px;
@@ -681,8 +957,25 @@
 
     .weight-bar-fill {
       height: 100%;
+      width: 0%;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--adecco-red), var(--cyan-glow));
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+      transition: width 1.1s var(--ease-out-expo);
+    }
+
+    .slide.active .weight-bar-fill {
+      width: var(--target-w, 100%);
+    }
+
+    /* Hologram Mascot Pulse Ring */
+    @keyframes floatMascot {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .mascot-svg-anim {
+      animation: floatMascot 4.5s ease-in-out infinite;
     }
 
     /* ================= BOTTOM FLOATING PRESENTER DOCK ================= */
@@ -692,10 +985,10 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
-      width: min(92vw, 760px);
+      width: min(92vw, 780px);
       background: rgba(8, 14, 28, 0.88);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 18px;
       padding: 10px 16px;
@@ -703,7 +996,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8);
+      box-shadow:
+        0 20px 45px -10px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .nav-arrow-btn {
@@ -724,13 +1019,18 @@
 
     .nav-arrow-btn:hover:not(:disabled) {
       border-color: var(--cyan-glow);
-      background: rgba(37, 99, 235, 0.25);
+      background: rgba(37, 99, 235, 0.28);
       transform: translateY(-2px);
     }
 
     .nav-arrow-btn.next {
       background: linear-gradient(135deg, var(--adecco-red), #991B1B);
       border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 6px 18px -4px rgba(218, 41, 28, 0.55);
+    }
+
+    .nav-arrow-btn.next:hover:not(:disabled) {
+      box-shadow: 0 10px 24px -4px rgba(255, 59, 47, 0.8);
     }
 
     .nav-arrow-btn:disabled {
@@ -765,7 +1065,8 @@
       height: 100%;
       width: 10%;
       background: linear-gradient(90deg, var(--adecco-red), var(--cyan-glow));
-      transition: width 0.35s var(--ease-spring);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      transition: width 0.45s var(--ease-spring);
     }
 
     /* ================= OVERVIEW MOSAIC MODE ================= */
@@ -774,26 +1075,34 @@
       grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
       gap: 24px;
       align-items: stretch;
+      perspective: none;
     }
 
     body.overview-mode .slide {
       display: block !important;
+      position: relative !important;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.35s var(--ease-spring);
+      animation: none !important;
+    }
+
+    body.overview-mode .slide .stagger-item {
+      opacity: 1 !important;
+      animation: none !important;
     }
 
     body.overview-mode .slide:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px) scale(1.01);
     }
 
     body.overview-mode .slide.active .slide-frame {
       border-color: var(--adecco-red);
-      box-shadow: 0 0 30px rgba(218, 41, 28, 0.35);
+      box-shadow: 0 0 32px rgba(218, 41, 28, 0.4);
     }
 
     /* Print / PDF Styles */
     @media print {
-      .deck-header, .presenter-dock, #neural-canvas, .ambient-aurora {
+      .deck-header, .presenter-dock, #neural-canvas, .ambient-aurora, .cyber-grid-floor, .laser-dot {
         display: none !important;
       }
       .stage-wrapper {
@@ -805,15 +1114,23 @@
         page-break-after: always;
         margin-bottom: 24px;
       }
+      .slide .stagger-item {
+        opacity: 1 !important;
+        animation: none !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Neural Background -->
-  <div class="ambient-aurora"></div>
+  <!-- Ambient Neural Background & Cyber Grid -->
+  <div class="ambient-aurora" id="ambient-aurora"></div>
+  <div class="cyber-grid-floor"></div>
   <canvas id="neural-canvas"></canvas>
   <div class="noise-overlay"></div>
+
+  <!-- Presenter Laser Pointer Dot -->
+  <div class="laser-dot" id="laser-dot"></div>
 
   <!-- ================= TOP PRESENTER HUD ================= -->
   <header class="deck-header">
@@ -836,7 +1153,7 @@
         <div>
           <div style="display:flex; align-items:center; gap:6px;">
             <span class="tag-adecco">Adecco</span>
-            <span class="tag-deck">PRESENTACIÓN DEL PROGRAMA</span>
+            <span class="tag-deck">PRESENTACIÓN EJECUTIVA</span>
           </div>
           <div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">
             Sales &amp; Marketing · PROGRAMA BACK 2026
@@ -844,30 +1161,33 @@
         </div>
       </a>
 
-      <!-- Slide Quick Dots -->
+      <!-- Slide Quick Dots with Preview Tooltips -->
       <div class="slide-dots" id="slide-dots">
-        <button class="dot-btn active" onclick="goToSlide(0)">01</button>
-        <button class="dot-btn" onclick="goToSlide(1)">02</button>
-        <button class="dot-btn" onclick="goToSlide(2)">03</button>
-        <button class="dot-btn" onclick="goToSlide(3)">04</button>
-        <button class="dot-btn" onclick="goToSlide(4)">05</button>
-        <button class="dot-btn" onclick="goToSlide(5)">06</button>
-        <button class="dot-btn" onclick="goToSlide(6)">07</button>
-        <button class="dot-btn" onclick="goToSlide(7)">08</button>
-        <button class="dot-btn" onclick="goToSlide(8)">09</button>
-        <button class="dot-btn" onclick="goToSlide(9)">10</button>
+        <button class="dot-btn active" data-tip="01 · Portada Oficial" onclick="goToSlide(0)">01</button>
+        <button class="dot-btn" data-tip="02 · Propósito y Alcance" onclick="goToSlide(1)">02</button>
+        <button class="dot-btn" data-tip="03 · Ecosistema Copilot" onclick="goToSlide(2)">03</button>
+        <button class="dot-btn" data-tip="04 · Cronograma y Salas" onclick="goToSlide(3)">04</button>
+        <button class="dot-btn" data-tip="05 · Sesión 1: Excel + IA" onclick="goToSlide(4)">05</button>
+        <button class="dot-btn" data-tip="06 · Sesión 2: Power BI & Word" onclick="goToSlide(5)">06</button>
+        <button class="dot-btn" data-tip="07 · Sesión 3: Power Automate" onclick="goToSlide(6)">07</button>
+        <button class="dot-btn" data-tip="08 · Sesión 4: Sustentación" onclick="goToSlide(7)">08</button>
+        <button class="dot-btn" data-tip="09 · Recursos y Gobernanza" onclick="goToSlide(8)">09</button>
+        <button class="dot-btn" data-tip="10 · Lanzamiento y Kahoot" onclick="goToSlide(9)">10</button>
       </div>
 
       <!-- Presenter Actions -->
       <div class="hud-actions">
-        <button class="btn-hud" onclick="toggleOverview()" id="btn-overview" title="Atajo: tecla G">
+        <button class="btn-hud" onclick="toggleLaser()" id="btn-laser" title="Puntero Láser de Expositor (Tecla L)">
+          <span>🎯 Láser</span>
+        </button>
+        <button class="btn-hud" onclick="toggleOverview()" id="btn-overview" title="Vista Mosaico (Tecla G)">
           <span>⊞ Mosaico</span>
         </button>
-        <button class="btn-hud" onclick="toggleFullscreen()" title="Atajo: tecla F">
-          <span>⛶ Pantalla Completa</span>
+        <button class="btn-hud" onclick="toggleFullscreen()" title="Pantalla Completa (Tecla F)">
+          <span>⛶ Fullscreen</span>
         </button>
         <a href="index.html" class="btn-hud primary">
-          <span>⚡ Ir al Portal &amp; Kahoot</span>
+          <span>⚡ Portal &amp; Kahoot</span>
         </a>
       </div>
     </div>
@@ -881,6 +1201,7 @@
     ================================================================== -->
     <section class="slide active" data-title="Portada Oficial del Programa">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">ADECCO S&amp;M</span>
@@ -900,19 +1221,19 @@
 
             <div class="stat-row">
               <div class="stat-card">
-                <div class="stat-val" style="color:var(--cyan-glow);">4</div>
+                <div class="stat-val" style="color:var(--cyan-glow);" data-count="4" data-suffix="">4</div>
                 <div class="stat-lbl">Sesiones Presenciales (9, 11, 16 y 18 Nov)</div>
               </div>
               <div class="stat-card">
-                <div class="stat-val" style="color:#FF6B60;">100%</div>
+                <div class="stat-val" style="color:#FF6B60;" data-count="100" data-suffix="%">100%</div>
                 <div class="stat-lbl">Práctico en clase (Sin tareas adicionales)</div>
               </div>
               <div class="stat-card">
-                <div class="stat-val" style="color:#34D399;">5</div>
+                <div class="stat-val" style="color:#34D399;" data-count="5" data-suffix="">5</div>
                 <div class="stat-lbl">Herramientas M365 + Motor Copilot</div>
               </div>
               <div class="stat-card">
-                <div class="stat-val" style="color:#FBBF24;">1</div>
+                <div class="stat-val" style="color:#FBBF24;" data-count="1" data-suffix="">1</div>
                 <div class="stat-lbl">Proyecto Real de tu Cuenta + Certificación</div>
               </div>
             </div>
@@ -928,12 +1249,12 @@
           </div>
 
           <!-- Official Mascot Cyborg Split Card -->
-          <div class="spotlight-card inner-card" style="text-align:center; padding: 26px 20px; background: linear-gradient(160deg, rgba(15,25,48,0.85), rgba(7,12,24,0.92));">
+          <div class="spotlight-card inner-card tilt-card" style="text-align:center; padding: 26px 20px; background: linear-gradient(160deg, rgba(15,25,48,0.88), rgba(7,12,24,0.95));">
             <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text-subtle); margin-bottom:10px;">
               <span>ID: CYBORG-SPLIT-ADECCO</span>
-              <span style="color:#10B981;">● READY</span>
+              <span style="color:#10B981;">● SYSTEM READY</span>
             </div>
-            <svg viewBox="0 0 400 420" width="230" height="240" style="margin: 0 auto; display:block; filter: drop-shadow(0 14px 28px rgba(0,0,0,0.65));">
+            <svg class="mascot-svg-anim" viewBox="0 0 400 420" width="230" height="240" style="margin: 0 auto; display:block; filter: drop-shadow(0 16px 30px rgba(0,0,0,0.7));">
               <defs>
                 <linearGradient id="s1Skin" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stop-color="#FFE0C8"/><stop offset="100%" stop-color="#F5C29E"/>
@@ -1003,6 +1324,7 @@
     ================================================================== -->
     <section class="slide" data-title="Propósito y Definición del Programa">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">FUNDAMENTO</span>
@@ -1018,7 +1340,7 @@
 
         <div class="grid-2">
           <!-- Left: Program Definition Table -->
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>📋 Ficha Técnica del Programa</h3>
             <table class="exec-table" style="margin-top:10px;">
               <thead>
@@ -1058,7 +1380,7 @@
 
           <!-- Right: Expected Outcome & Role of AI -->
           <div style="display:flex; flex-direction:column; gap:18px;">
-            <div class="spotlight-card inner-card" style="border-left: 4px solid var(--adecco-red);">
+            <div class="spotlight-card inner-card tilt-card" style="border-left: 4px solid var(--adecco-red);">
               <h3>🎯 Resultado Esperado por Participante o Equipo</h3>
               <p>
                 Cada participante o equipo presentará una <strong>mejora funcional de un proceso propio de su cuenta</strong>, con evidencia de prueba, un indicador de beneficio medido (ahorro de tiempo o reducción de errores) y controles básicos.
@@ -1068,7 +1390,7 @@
               </div>
             </div>
 
-            <div class="spotlight-card inner-card" style="border-left: 4px solid var(--cyan-glow);">
+            <div class="spotlight-card inner-card tilt-card" style="border-left: 4px solid var(--cyan-glow);">
               <h3>🤖 El Papel de la IA vs. El Criterio Humano</h3>
               <div class="flow-steps" style="margin-top:10px;">
                 <div class="flow-step"><span class="num">1</span> <strong>Copilot / IA:</strong> Orienta, explica código y corrige errores</div>
@@ -1086,6 +1408,7 @@
     ================================================================== -->
     <section class="slide" data-title="Ecosistema Microsoft Copilot en S&M">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">ARQUITECTURA</span>
@@ -1102,8 +1425,8 @@
         <!-- 5 Official Program Icons Grid -->
         <div class="grid-5" style="margin-bottom: 22px;">
           <!-- Copilot -->
-          <div class="spotlight-card inner-card" style="background:linear-gradient(160deg, rgba(218,41,28,0.16), rgba(11,19,36,0.85)); border-color:rgba(218,41,28,0.4);">
-            <div class="eco-badge" style="margin-bottom:12px;">
+          <div class="spotlight-card inner-card tilt-card" style="background:linear-gradient(160deg, rgba(218,41,28,0.18), rgba(11,19,36,0.88)); border-color:rgba(218,41,28,0.45);">
+            <div class="eco-badge" style="margin-bottom:12px; box-shadow: 0 8px 20px rgba(236,72,153,0.25);">
               <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                 <defs>
                   <linearGradient id="dCp1" x1="6" y1="10" x2="36" y2="26" gradientUnits="userSpaceOnUse">
@@ -1122,8 +1445,8 @@
           </div>
 
           <!-- Excel -->
-          <div class="spotlight-card inner-card">
-            <div class="eco-badge" style="margin-bottom:12px;">
+          <div class="spotlight-card inner-card tilt-card">
+            <div class="eco-badge" style="margin-bottom:12px; box-shadow: 0 8px 20px rgba(16,185,129,0.22);">
               <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                 <rect x="14" y="6" width="28" height="36" rx="4" fill="#107C41"/>
                 <path d="M14 15H42V24H14V15Z" fill="#21A366"/>
@@ -1137,8 +1460,8 @@
           </div>
 
           <!-- Word -->
-          <div class="spotlight-card inner-card">
-            <div class="eco-badge" style="margin-bottom:12px;">
+          <div class="spotlight-card inner-card tilt-card">
+            <div class="eco-badge" style="margin-bottom:12px; box-shadow: 0 8px 20px rgba(59,130,246,0.25);">
               <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                 <rect x="14" y="6" width="28" height="36" rx="4" fill="#103F91"/>
                 <path d="M14 6H42V15H14V6Z" fill="#41A5EE"/>
@@ -1153,8 +1476,8 @@
           </div>
 
           <!-- Power BI -->
-          <div class="spotlight-card inner-card">
-            <div class="eco-badge" style="margin-bottom:12px;">
+          <div class="spotlight-card inner-card tilt-card">
+            <div class="eco-badge" style="margin-bottom:12px; box-shadow: 0 8px 20px rgba(245,158,11,0.25);">
               <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                 <rect x="28" y="6" width="12" height="36" rx="3.5" fill="#E6AD10"/>
                 <rect x="18" y="15" width="12" height="27" rx="3.5" fill="#F2C811"/>
@@ -1166,8 +1489,8 @@
           </div>
 
           <!-- Power Automate -->
-          <div class="spotlight-card inner-card">
-            <div class="eco-badge" style="margin-bottom:12px;">
+          <div class="spotlight-card inner-card tilt-card">
+            <div class="eco-badge" style="margin-bottom:12px; box-shadow: 0 8px 20px rgba(56,189,248,0.25);">
               <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                 <path d="M8 11C8 9.3 9.3 8 11 8H24.5C25.6 8 26.6 8.6 27.2 9.5L39.6 22.2C40.6 23.2 40.6 24.8 39.6 25.8L27.2 38.5C26.6 39.4 25.6 40 24.5 40H11C9.3 40 8 38.7 8 37V31.5L19.5 24L8 16.5V11Z" fill="#0066FF"/>
                 <path d="M8 11L27.5 24L40 24L26.8 9.2C26.2 8.4 25.3 8 24.3 8H11C9.3 8 8 9.3 8 11Z" fill="#50E6FF"/>
@@ -1183,19 +1506,19 @@
         <div class="spotlight-card inner-card" style="padding:18px 22px;">
           <h3 style="font-size:16px; margin-bottom:10px;">👥 Enfoque Diferenciado según el Perfil en Sales &amp; Marketing</h3>
           <div class="grid-4" style="gap:12px;">
-            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+            <div style="background:rgba(3,6,12,0.68); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
               <div style="color:var(--cyan-glow); font-weight:800; font-size:13px; margin-bottom:4px;">Gerentes</div>
               <p style="font-size:12px;">Productividad ejecutiva, síntesis de reportes y toma de decisiones con IA.</p>
             </div>
-            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+            <div style="background:rgba(3,6,12,0.68); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
               <div style="color:#FF6B60; font-weight:800; font-size:13px; margin-bottom:4px;">Jefes de Operaciones</div>
               <p style="font-size:12px;">Lectura de indicadores (cobertura/rotación), control de gestión y mejora de procesos.</p>
             </div>
-            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+            <div style="background:rgba(3,6,12,0.68); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
               <div style="color:#34D399; font-weight:800; font-size:13px; margin-bottom:4px;">Coordinadores y Supervisores</div>
               <p style="font-size:12px;">Automatización de tareas repetitivas en Excel, documentos Word y alertas operativas.</p>
             </div>
-            <div style="background:rgba(3,6,12,0.65); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
+            <div style="background:rgba(3,6,12,0.68); padding:12px; border-radius:12px; border:1px solid var(--border-hairline);">
               <div style="color:#FBBF24; font-weight:800; font-size:13px; margin-bottom:4px;">BI y Perfiles Avanzados</div>
               <p style="font-size:12px;">Modelado de medidas DAX, tableros en Power BI y flujos integrados.</p>
             </div>
@@ -1209,6 +1532,7 @@
     ================================================================== -->
     <section class="slide" data-title="Cronograma Oficial PROGRAMA BACK">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">CALENDARIO OFICIAL</span>
@@ -1267,7 +1591,7 @@
           </table>
         </div>
 
-        <div class="spotlight-card inner-card">
+        <div class="spotlight-card inner-card tilt-card">
           <h3>🔗 El Caso Práctico que Conecta las Sesiones: "De una Tarea Manual a una Solución Comprobable"</h3>
           <p>
             Partimos de un registro operativo de solicitudes, compromisos o cobertura que contiene <strong>identificador, actividad, responsable, fecha límite y estado</strong>. Sobre esta base aprendemos a construir y validar en clase mientras cada participante lo adapta al proceso real de su cuenta:
@@ -1290,6 +1614,7 @@
     ================================================================== -->
     <section class="slide" data-title="Sesión 1: Automatización en Excel con IA">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">SESIÓN 01</span>
@@ -1304,7 +1629,7 @@
         </p>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>🛠️ Estructura de la Sesión y Flujo Práctico</h3>
             <div class="flow-steps" style="margin-bottom:14px;">
               <div class="flow-step"><span class="num">1</span> Identificar tarea</div>
@@ -1343,7 +1668,7 @@
           </div>
 
           <div style="display:flex; flex-direction:column; gap:16px;">
-            <div class="spotlight-card inner-card">
+            <div class="spotlight-card inner-card tilt-card">
               <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
               <div class="prompt-box">
                 <div class="prompt-header">
@@ -1354,7 +1679,7 @@
               </div>
             </div>
 
-            <div class="spotlight-card inner-card" style="border-left:4px solid #10B981;">
+            <div class="spotlight-card inner-card tilt-card" style="border-left:4px solid #10B981;">
               <h3>✅ Entregable y Protocolo de Comprobación</h3>
               <p>
                 <strong>Entregable:</strong> Archivo Excel con macro funcional e instrucciones de uso.<br>
@@ -1371,6 +1696,7 @@
     ================================================================== -->
     <section class="slide" data-title="Sesión 2: Power BI y Word con IA">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">SESIÓN 02</span>
@@ -1385,7 +1711,7 @@
         </p>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>📊 Estructura de la Sesión y Flujo Práctico</h3>
             <div class="flow-steps" style="margin-bottom:14px;">
               <div class="flow-step"><span class="num">1</span> Cargar Excel</div>
@@ -1419,7 +1745,7 @@
           </div>
 
           <div style="display:flex; flex-direction:column; gap:16px;">
-            <div class="spotlight-card inner-card">
+            <div class="spotlight-card inner-card tilt-card">
               <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
               <div class="prompt-box">
                 <div class="prompt-header">
@@ -1430,7 +1756,7 @@
               </div>
             </div>
 
-            <div class="spotlight-card inner-card" style="border-left:4px solid #F59E0B;">
+            <div class="spotlight-card inner-card tilt-card" style="border-left:4px solid #F59E0B;">
               <h3>✅ Entregable y Protocolo de Comprobación</h3>
               <p>
                 <strong>Entregable:</strong> Reporte interactivo en Power BI + documento ejecutivo en Word exportado a PDF.<br>
@@ -1447,6 +1773,7 @@
     ================================================================== -->
     <section class="slide" data-title="Sesión 3: Flujos con Power Automate e IA">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">SESIÓN 03</span>
@@ -1461,7 +1788,7 @@
         </p>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>⚡ Estructura de la Sesión y Flujo Práctico</h3>
             <div class="flow-steps" style="margin-bottom:14px;">
               <div class="flow-step"><span class="num">1</span> Disparador</div>
@@ -1496,7 +1823,7 @@
           </div>
 
           <div style="display:flex; flex-direction:column; gap:16px;">
-            <div class="spotlight-card inner-card">
+            <div class="spotlight-card inner-card tilt-card">
               <h3>💬 Ejemplo de Instrucción (Prompt) para Copilot</h3>
               <div class="prompt-box">
                 <div class="prompt-header">
@@ -1507,7 +1834,7 @@
               </div>
             </div>
 
-            <div class="spotlight-card inner-card" style="border-left:4px solid var(--cyan-glow);">
+            <div class="spotlight-card inner-card tilt-card" style="border-left:4px solid var(--cyan-glow);">
               <h3>✅ Entregable y Protocolo de Comprobación</h3>
               <p>
                 <strong>Entregable:</strong> Flujo de prueba operativo y ficha de control/mantenimiento.<br>
@@ -1524,6 +1851,7 @@
     ================================================================== -->
     <section class="slide" data-title="Sesión 4: Sustentación Final y Evaluación">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill" style="background:#F59E0B; color:#000;">SESIÓN 04 · CIERRE</span>
@@ -1539,37 +1867,37 @@
 
         <!-- Rubric 4 Pillars -->
         <div class="grid-4" style="margin-bottom: 20px;">
-          <div class="spotlight-card inner-card">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--adecco-crimson);">35%</div>
-            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:100%;"></div></div>
+          <div class="spotlight-card inner-card tilt-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--adecco-crimson);" data-count="35" data-suffix="%">35%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="--target-w:100%;"></div></div>
             <h3 style="font-size:15.5px;">Funcionamiento Demostrado</h3>
             <p style="font-size:12.5px;">La solución ejecuta en vivo de principio a fin con datos de prueba comprobables.</p>
           </div>
 
-          <div class="spotlight-card inner-card">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--cyan-glow);">30%</div>
-            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:86%;"></div></div>
+          <div class="spotlight-card inner-card tilt-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:var(--cyan-glow);" data-count="30" data-suffix="%">30%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="--target-w:86%;"></div></div>
             <h3 style="font-size:15.5px;">Utilidad y Beneficio Medido</h3>
             <p style="font-size:12.5px;">Impacto directo en el proceso de la cuenta: ahorro de tiempo (Antes vs. Después) y menos reprocesos.</p>
           </div>
 
-          <div class="spotlight-card inner-card">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#34D399;">20%</div>
-            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:57%;"></div></div>
+          <div class="spotlight-card inner-card tilt-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#34D399;" data-count="20" data-suffix="%">20%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="--target-w:57%;"></div></div>
             <h3 style="font-size:15.5px;">Viabilidad Operativa</h3>
             <p style="font-size:12.5px;">Sostenibilidad de la solución con las licencias y recursos actuales del equipo.</p>
           </div>
 
-          <div class="spotlight-card inner-card">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#FBBF24;">15%</div>
-            <div class="weight-bar-track"><div class="weight-bar-fill" style="width:43%;"></div></div>
+          <div class="spotlight-card inner-card tilt-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:800; color:#FBBF24;" data-count="15" data-suffix="%">15%</div>
+            <div class="weight-bar-track"><div class="weight-bar-fill" style="--target-w:43%;"></div></div>
             <h3 style="font-size:15.5px;">Uso Responsable y Control</h3>
             <p style="font-size:12.5px;">Validación humana del resultado, protección de datos y ficha de mantenimiento.</p>
           </div>
         </div>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>⏱️ Formato Ágil de Exposición (10 min por Proyecto)</h3>
             <div class="flow-steps">
               <div class="flow-step"><span class="num">1</span> <strong>7 min:</strong> Problema + Solución en vivo + Métrica</div>
@@ -1578,7 +1906,7 @@
             </div>
           </div>
 
-          <div class="spotlight-card inner-card" style="border-left: 4px solid #F59E0B;">
+          <div class="spotlight-card inner-card tilt-card" style="border-left: 4px solid #F59E0B;">
             <h3>🏅 Certificación Oficial y Reconocimiento</h3>
             <p>
               Los proyectos con dictamen favorable reciben la <strong>Certificación Oficial del Programa</strong> avalada por la Dirección de Sales &amp; Marketing.
@@ -1593,6 +1921,7 @@
     ================================================================== -->
     <section class="slide" data-title="Metodología, Recursos y Gobernanza">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">GOBERNANZA &amp; TI</span>
@@ -1607,7 +1936,7 @@
         </p>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>💻 Condiciones Técnicas para las Sesiones</h3>
             <table class="exec-table" style="margin-top:8px;">
               <thead>
@@ -1642,7 +1971,7 @@
           </div>
 
           <div style="display:flex; flex-direction:column; gap:16px;">
-            <div class="spotlight-card inner-card" style="border-left:4px solid var(--adecco-red);">
+            <div class="spotlight-card inner-card tilt-card" style="border-left:4px solid var(--adecco-red);">
               <h3>🛡️ 4 Reglas de Oro de Gobernanza y Seguridad</h3>
               <ul style="list-style:none; display:grid; gap:8px; font-size:13.5px; color:var(--text-secondary); margin-top:8px;">
                 <li>🔹 <strong>1. Trabajar siempre sobre copias:</strong> Conservar intacta la fuente original antes de probar una macro o flujo.</li>
@@ -1652,7 +1981,7 @@
               </ul>
             </div>
 
-            <div class="spotlight-card inner-card" style="border-left:4px solid #10B981;">
+            <div class="spotlight-card inner-card tilt-card" style="border-left:4px solid #10B981;">
               <h3>📏 Medición Objetiva del Resultado</h3>
               <p>
                 Cada proyecto registra el <strong>tiempo de ejecución manual vs. el tiempo con la solución automatizada</strong> y las correcciones evitadas sobre una muestra real comparable.
@@ -1668,6 +1997,7 @@
     ================================================================== -->
     <section class="slide" data-title="Hoja de Ruta y Lanzamiento">
       <div class="slide-frame">
+        <div class="holo-beam"></div>
         <div class="slide-top-meta">
           <div class="slide-kicker">
             <span class="pill">DESPLIEGUE INMEDIATO</span>
@@ -1681,7 +2011,7 @@
           Todo el ecosistema digital (Portal Web, Cronómetro en Vivo y Arena Modo Kahoot por sesión) ya se encuentra en línea para acompañar el programa.
         </p>
 
-        <div class="spotlight-card inner-card" style="margin-bottom:22px;">
+        <div class="spotlight-card inner-card tilt-card" style="margin-bottom:22px;">
           <h3>🚀 Hoja de Ruta Operativa — Noviembre 2026</h3>
           <div class="flow-steps" style="margin-top:12px;">
             <div class="flow-step"><span class="num">1</span> Envío de Convocatoria Oficial</div>
@@ -1697,7 +2027,7 @@
         </div>
 
         <div class="grid-2">
-          <div class="spotlight-card inner-card" style="background:linear-gradient(145deg, rgba(218,41,28,0.18), rgba(11,19,36,0.9)); border-color:rgba(218,41,28,0.45);">
+          <div class="spotlight-card inner-card tilt-card" style="background:linear-gradient(145deg, rgba(218,41,28,0.18), rgba(11,19,36,0.9)); border-color:rgba(218,41,28,0.45);">
             <h3>🌐 Portal Interactivo &amp; Arena Modo Kahoot</h3>
             <p style="margin-bottom:16px;">
               Al finalizar cada sesión presencial, los participantes se conectan desde su navegador (sin iniciar sesión) para reforzar lo aprendido en la <strong>Arena Modo Kahoot</strong> con preguntas de Excel, Power BI, Word y Power Automate.
@@ -1707,7 +2037,7 @@
             </a>
           </div>
 
-          <div class="spotlight-card inner-card">
+          <div class="spotlight-card inner-card tilt-card">
             <h3>📌 Resumen Ejecutivo para Participantes</h3>
             <ul style="list-style:none; display:grid; gap:9px; font-size:13.5px; color:var(--text-secondary); margin-top:8px;">
               <li>✅ <strong>Asistencia con tu laptop:</strong> Trae identificado un proceso operativo o reporte repetitivo de tu cuenta.</li>
@@ -1742,18 +2072,92 @@
     </button>
   </nav>
 
-  <!-- ================= INTERACTIVE ENGINE SCRIPT ================= -->
+  <!-- ================= INTERACTIVE ENGINE & CHOREOGRAPHY SCRIPT ================= -->
   <script>
-    // 1. SLIDE DECK CONTROLLER
+    // -----------------------------------------------------------------
+    // 1. AUTO-STAGGER ASSIGNMENT FOR CHOREOGRAPHED ENTRANCES
+    // -----------------------------------------------------------------
     const slides = Array.from(document.querySelectorAll('.slide'));
     const dotBtns = Array.from(document.querySelectorAll('.dot-btn'));
     let currentSlide = 0;
     let isOverview = false;
+    let isLaser = false;
+    let isTransitioning = false;
 
-    function updateSlideUI() {
-      slides.forEach((s, idx) => {
-        s.classList.toggle('active', idx === currentSlide);
+    slides.forEach(slide => {
+      const targets = slide.querySelectorAll(
+        '.slide-top-meta, .slide-title, .slide-subtitle, .stat-card, .spotlight-card, .back-table-box, .flow-step, .exec-table tbody tr'
+      );
+      targets.forEach((el, idx) => {
+        el.classList.add('stagger-item');
+        el.style.setProperty('--stagger', Math.min(idx + 1, 14));
       });
+    });
+
+    // -----------------------------------------------------------------
+    // 2. ANIMATED NUMBER COUNTERS (60FPS)
+    // -----------------------------------------------------------------
+    function animateSlideCounters(slideEl) {
+      const counters = slideEl.querySelectorAll('[data-count]');
+      counters.forEach(el => {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 900;
+        const start = performance.now();
+
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          el.textContent = `${Math.round(target * eased)}${suffix}`;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    // -----------------------------------------------------------------
+    // 3. SUBTLE FUTURISTIC UI WHOOSH SOUND (WEB AUDIO API)
+    // -----------------------------------------------------------------
+    let audioCtx = null;
+    function playSlideSound(direction) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        const startFreq = direction > 0 ? 240 : 320;
+        const endFreq = direction > 0 ? 420 : 210;
+        osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(endFreq, audioCtx.currentTime + 0.14);
+
+        gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+      } catch (_) {}
+    }
+
+    // -----------------------------------------------------------------
+    // 4. 3D DIRECTIONAL SLIDE TRANSITION CONTROLLER
+    // -----------------------------------------------------------------
+    const auroraCoords = [
+      ['14%', '14%', '86%', '18%'],
+      ['22%', '28%', '78%', '15%'],
+      ['12%', '65%', '85%', '22%'],
+      ['80%', '18%', '18%', '70%'],
+      ['18%', '20%', '82%', '65%'],
+      ['25%', '75%', '75%', '20%'],
+      ['15%', '30%', '88%', '40%'],
+      ['50%', '18%', '20%', '80%'],
+      ['20%', '22%', '80%', '72%'],
+      ['15%', '15%', '85%', '20%']
+    ];
+
+    function updateHudMetadata() {
       dotBtns.forEach((b, idx) => {
         b.classList.toggle('active', idx === currentSlide);
       });
@@ -1766,36 +2170,95 @@
 
       document.getElementById('btn-prev').disabled = currentSlide === 0;
       document.getElementById('btn-next').disabled = currentSlide === slides.length - 1;
+
+      const coords = auroraCoords[currentSlide % auroraCoords.length];
+      const aurora = document.getElementById('ambient-aurora');
+      aurora.style.setProperty('--orb-1-x', coords[0]);
+      aurora.style.setProperty('--orb-1-y', coords[1]);
+      aurora.style.setProperty('--orb-2-x', coords[2]);
+      aurora.style.setProperty('--orb-2-y', coords[3]);
+    }
+
+    function transitionToSlide(targetIdx) {
+      if (isOverview) toggleOverview();
+      if (targetIdx === currentSlide || targetIdx < 0 || targetIdx >= slides.length || isTransitioning) return;
+
+      isTransitioning = true;
+      const direction = targetIdx > currentSlide ? 1 : -1;
+      const outgoing = slides[currentSlide];
+      const incoming = slides[targetIdx];
+
+      playSlideSound(direction);
+
+      // Clean classes
+      slides.forEach(s => s.classList.remove('enter-next', 'enter-prev', 'exit-next', 'exit-prev'));
+
+      outgoing.classList.remove('active');
+      outgoing.classList.add(direction > 0 ? 'exit-next' : 'exit-prev');
+
+      incoming.classList.add('active', direction > 0 ? 'enter-next' : 'enter-prev');
+
+      // Re-trigger holo-beam & staggered animations cleanly
+      const beam = incoming.querySelector('.holo-beam');
+      if (beam) {
+        beam.style.animation = 'none';
+        void beam.offsetWidth;
+        beam.style.animation = '';
+      }
+
+      incoming.querySelectorAll('.stagger-item').forEach(el => {
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = '';
+      });
+
+      currentSlide = targetIdx;
+      updateHudMetadata();
+      animateSlideCounters(incoming);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      setTimeout(() => {
+        outgoing.classList.remove('exit-next', 'exit-prev');
+        incoming.classList.remove('enter-next', 'enter-prev');
+        isTransitioning = false;
+      }, 680);
     }
 
     function changeSlide(delta) {
-      if (isOverview) toggleOverview();
-      const next = Math.max(0, Math.min(slides.length - 1, currentSlide + delta));
-      if (next !== currentSlide) {
-        currentSlide = next;
-        updateSlideUI();
-      }
+      transitionToSlide(currentSlide + delta);
     }
 
     function goToSlide(index) {
-      if (isOverview) toggleOverview();
-      currentSlide = index;
-      updateSlideUI();
+      transitionToSlide(index);
     }
 
     function toggleOverview() {
       isOverview = !isOverview;
       document.body.classList.toggle('overview-mode', isOverview);
-      document.getElementById('btn-overview').innerHTML = isOverview
-        ? '<span>▣ Vista Diapositiva</span>'
+      const btn = document.getElementById('btn-overview');
+      btn.classList.toggle('active-tool', isOverview);
+      btn.innerHTML = isOverview
+        ? '<span>▣ Diapositiva</span>'
         : '<span>⊞ Mosaico</span>';
+    }
+
+    function toggleLaser() {
+      isLaser = !isLaser;
+      document.body.classList.toggle('laser-active', isLaser);
+      document.getElementById('btn-laser').classList.toggle('active-tool', isLaser);
     }
 
     slides.forEach((s, idx) => {
       s.addEventListener('click', () => {
         if (isOverview) {
-          goToSlide(idx);
+          isOverview = false;
+          document.body.classList.remove('overview-mode');
+          document.getElementById('btn-overview').classList.remove('active-tool');
+          document.getElementById('btn-overview').innerHTML = '<span>⊞ Mosaico</span>';
+          slides.forEach((sl, i) => sl.classList.toggle('active', i === idx));
+          currentSlide = idx;
+          updateHudMetadata();
+          animateSlideCounters(slides[idx]);
         }
       });
     });
@@ -1808,7 +2271,7 @@
       }
     }
 
-    // Keyboard navigation (Arrows, Space, F, G)
+    // Keyboard navigation (Arrows, Space, F, G, L)
     window.addEventListener('keydown', (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
       if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
@@ -1823,6 +2286,9 @@
       } else if (e.key === 'g' || e.key === 'G') {
         e.preventDefault();
         toggleOverview();
+      } else if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        toggleLaser();
       }
     });
 
@@ -1836,11 +2302,13 @@
       });
     }
 
-    // 2. NEURAL CONSTELLATION CANVAS + SPOTLIGHT TRACKING
+    // -----------------------------------------------------------------
+    // 5. NEURAL CONSTELLATION CANVAS + 3D CARD TILT + LASER TRACKING
+    // -----------------------------------------------------------------
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
+    const laserDot = document.getElementById('laser-dot');
     let nodes = [];
-    let pointer = { x: -1000, y: -1000 };
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -1849,13 +2317,13 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 48; i++) {
+    for (let i = 0; i < 52; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        r: Math.random() * 1.8 + 0.8,
+        vx: (Math.random() - 0.5) * 0.48,
+        vy: (Math.random() - 0.5) * 0.48,
+        r: Math.random() * 1.9 + 0.8,
         accent: Math.random() > 0.65
       });
     }
@@ -1871,7 +2339,7 @@
 
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = n.accent ? 'rgba(218, 41, 28, 0.7)' : 'rgba(56, 189, 248, 0.55)';
+        ctx.fillStyle = n.accent ? 'rgba(218, 41, 28, 0.72)' : 'rgba(56, 189, 248, 0.58)';
         ctx.fill();
 
         for (let j = i + 1; j < nodes.length; j++) {
@@ -1879,12 +2347,12 @@
           const dx = n.x - m.x;
           const dy = n.y - m.y;
           const dist = Math.hypot(dx, dy);
-          if (dist < 130) {
+          if (dist < 135) {
             ctx.beginPath();
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(m.x, m.y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 130) * 0.14})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 135) * 0.15})`;
+            ctx.lineWidth = 0.85;
             ctx.stroke();
           }
         }
@@ -1893,18 +2361,34 @@
     }
     renderNeural();
 
-    // Spotlight tracking on cards
+    // Spotlight + Subtle 3D Tilt on active slide cards
     window.addEventListener('mousemove', (e) => {
-      pointer.x = e.clientX;
-      pointer.y = e.clientY;
-      document.querySelectorAll('.spotlight-card').forEach(card => {
+      laserDot.style.left = `${e.clientX}px`;
+      laserDot.style.top = `${e.clientY}px`;
+
+      const activeCards = slides[currentSlide].querySelectorAll('.spotlight-card');
+      activeCards.forEach(card => {
         const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${mx}px`);
+        card.style.setProperty('--mouse-y', `${my}px`);
+
+        if (card.classList.contains('tilt-card') && !isOverview) {
+          if (mx >= 0 && mx <= rect.width && my >= 0 && my <= rect.height) {
+            const rx = ((my / rect.height) - 0.5) * -4.5;
+            const ry = ((mx / rect.width) - 0.5) * 4.5;
+            card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-2px)`;
+          } else {
+            card.style.transform = '';
+          }
+        }
       });
     });
 
-    // 3. BESPOKE CLICK SHOCKWAVE + QUANTUM SPARKS
+    // -----------------------------------------------------------------
+    // 6. BESPOKE CLICK SHOCKWAVE + QUANTUM SPARKS
+    // -----------------------------------------------------------------
     window.addEventListener('mousedown', (e) => {
       const wave = document.createElement('div');
       wave.className = 'click-shockwave';
@@ -1929,7 +2413,8 @@
       }
     });
 
-    updateSlideUI();
+    updateHudMetadata();
+    animateSlideCounters(slides[0]);
   </script>
 </body>
 </html>
