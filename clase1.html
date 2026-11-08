@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 01 En Vivo — Excel + IA + Macros VBA | Adecco AI Co-Pilot Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-navy: #070E1C;
+      --card-navy: #0F1B33;
+      --card-navy-light: #162647;
+      --adecco-red: #DA291C;
+      --adecco-red-bright: #EF3326;
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.11);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-navy);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 62px;
+      background: rgba(11, 23, 42, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-red {
+      background: var(--adecco-red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .brand-title span { color: var(--cyan); }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-top:hover { background: rgba(255,255,255,0.13); border-color: var(--cyan); }
+    .btn-top.excel {
+      background: linear-gradient(135deg, #107C41, #185C37);
+      border-color: #33C481;
+      color: #fff;
+    }
+    .btn-top.excel:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(16,185,129,0.35); }
+
+    /* PROGRESS BAR */
+    .progress-track {
+      position: fixed;
+      top: 62px; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      z-index: 100;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 8.33%;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan));
+      transition: width 0.35s ease;
+    }
+
+    /* STAGE */
+    .deck-stage {
+      position: fixed;
+      top: 66px;
+      bottom: 64px;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      perspective: 1400px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 28px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(60px) scale(0.97);
+      transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide-inner {
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* TYPOGRAPHY & LAYOUT */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow.red {
+      color: #FCA5A5;
+      background: rgba(218, 41, 28, 0.16);
+      border-color: rgba(218, 41, 28, 0.45);
+    }
+
+    .eyebrow.green {
+      color: #6EE7B7;
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    h1.hero-h1 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    h2.slide-h2 {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+
+    .lead {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #CBD5E1;
+      max-width: 880px;
+      margin-bottom: 22px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    @media (max-width: 980px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .slide { justify-content: flex-start; padding: 20px; }
+    }
+
+    .card {
+      background: var(--card-navy);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+
+    .card.accent-red { border-left: 4px solid var(--adecco-red); }
+    .card.accent-cyan { border-left: 4px solid var(--cyan); }
+    .card.accent-green { border-left: 4px solid var(--emerald); }
+    .card.accent-amber { border-left: 4px solid var(--amber); }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 13.8px;
+      line-height: 1.55;
+      color: #CBD5E1;
+    }
+
+    .card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+
+    /* PROMPT & CODE BOXES */
+    .prompt-box {
+      background: #050B16;
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .prompt-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .prompt-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.3px;
+      line-height: 1.55;
+      color: #E2E8F0;
+      white-space: pre-wrap;
+      max-height: 225px;
+      overflow-y: auto;
+    }
+
+    .formula-pill {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #A7F3D0;
+      word-break: break-all;
+    }
+
+    .btn-copy {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--adecco-red), #B91C1C);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease;
+    }
+    .btn-copy:hover { transform: scale(1.03); }
+    .btn-copy.cyan { background: linear-gradient(135deg, #0284C7, #0369A1); }
+    .btn-copy.green { background: linear-gradient(135deg, #107C41, #047857); }
+
+    .cta-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #107C41, #185C37);
+      border: 2px solid #33C481;
+      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s ease;
+    }
+    .cta-hero:hover { transform: translateY(-2px); }
+
+    /* BOTTOM CONTROLS */
+    .bottombar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(11, 23, 42, 0.95);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 100;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .nav-btns { display: flex; align-items: center; gap: 10px; }
+
+    .btn-nav {
+      cursor: pointer;
+      background: var(--card-navy-light);
+      color: #fff;
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+    .btn-nav:hover { border-color: var(--cyan); background: #1E3A6D; }
+    .btn-nav.primary { background: var(--adecco-red); border-color: var(--adecco-red-bright); }
+
+    .time-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.16);
+      color: #FDE68A;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      right: 28px;
+      background: #10B981;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="topbar">
+    <div class="brand-left">
+      <span class="badge-red">SESIÓN 01 EN VIVO</span>
+      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Excel + Macros VBA</div>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-top" onclick="toggleSep()" id="sepToggleBtn" title="Cambia entre punto y coma (;) y coma (,) según tu Excel">
+        ⚙️ Separador Excel: <strong id="sepLabel">; (Punto y coma)</strong>
+      </button>
+      <a class="btn-top excel" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
+        📥 Descargar Excel de Práctica (.xlsx)
+      </a>
+      <a class="btn-top" href="index.html#kahoot-arena">
+        ⚡ Ir al Kahoot
+      </a>
+    </div>
+  </header>
+
+  <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+  <!-- ESCENARIO DE 12 DIAPOSITIVAS -->
+  <main class="deck-stage">
+
+    <!-- ==================== SLIDE 1: BIENVENIDA ==================== -->
+    <section class="slide active">
+      <div class="slide-inner">
+        <div class="grid-2" style="align-items:center;">
+          <div>
+            <span class="eyebrow red">SESIÓN 01 · CUENTA AMÉRICA MÓVIL (CLARO) - CANAL CADENAS</span>
+            <h1 class="hero-h1">
+              Automatización en <span style="color:#33C481;">Excel</span> con <span style="color:#38BDF8;">Microsoft Copilot</span> y Macros VBA
+            </h1>
+            <p class="lead">
+              Hoy pasamos del trabajo manual repetitivo a la automatización real. Aprenderás a estructurar instrucciones precisas para que la IA construya <strong>fórmulas de auditoría</strong> y <strong>Macros VBA</strong> aplicadas directamente a nuestra operación de <strong>Sales &amp; Marketing</strong>.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+              <a class="cta-hero" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
+                📥 PASO 1: Descargar Archivo Excel de Clase
+              </a>
+              <span class="time-badge">⏱️ Duración: 120 Minutos · 100% Práctico</span>
+            </div>
+          </div>
+
+          <div class="card" style="text-align:center; padding:28px;">
+            <svg viewBox="0 0 400 365" width="230" height="210" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:14px;">
+              <circle cx="200" cy="180" r="160" fill="#0B172A" stroke="#2563EB" stroke-width="4"/>
+              <path d="M200,10 A170,170 0 0,1 370,180" fill="none" stroke="#EF3326" stroke-width="6" stroke-dasharray="12 7"/>
+              <path d="M200,350 A170,170 0 0,1 30,180" fill="none" stroke="#38BDF8" stroke-width="5" stroke-dasharray="10 7"/>
+              <clipPath id="s1L"><rect x="0" y="0" width="200" height="365"/></clipPath>
+              <clipPath id="s1R"><rect x="200" y="0" width="200" height="365"/></clipPath>
+              <g clip-path="url(#s1L)">
+                <rect x="165" y="195" width="70" height="60" fill="#F5C29E" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M62,324 C62,255 114,236 200,236 L200,342 L62,342 Z" fill="#1C304B"/>
+                <polygon points="168,236 200,236 200,320 155,268" fill="#FFFFFF"/>
+                <polygon points="186,246 200,246 200,315 180,292" fill="#DA291C"/>
+                <ellipse cx="108" cy="140" rx="15" ry="24" fill="#F5C29E" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M110,112 C110,58 145,42 200,42 L200,218 C150,218 114,194 110,148 Z" fill="#FFE0C8" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M104,118 C100,58 140,26 200,28 L200,72 C155,72 128,86 114,118 Z" fill="#1C304B"/>
+                <ellipse cx="158" cy="126" rx="14" ry="15" fill="#FFFFFF" stroke="#1C304B" stroke-width="3.5"/>
+                <circle cx="160" cy="126" r="8" fill="#1C304B"/>
+                <path d="M148,168 Q174,200 200,200 L200,172 Q174,172 148,168 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+              </g>
+              <g clip-path="url(#s1R)">
+                <rect x="200" y="200" width="28" height="55" fill="#1C304B"/>
+                <path d="M200,236 C286,236 338,255 338,324 L338,342 L200,342 Z" fill="#CBD5E1" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M272,240 C315,248 338,274 338,318 L288,318 L260,260 Z" fill="#DA291C"/>
+                <path d="M200,42 C255,42 290,58 290,112 L290,148 C286,194 250,218 200,218 Z" fill="#E2E8F0" stroke="#1C304B" stroke-width="4.5"/>
+                <path d="M200,35 L236,42 L224,80 L200,80 Z" fill="#DA291C"/>
+                <rect x="206" y="102" width="66" height="46" rx="14" fill="#132235" stroke="#1C304B" stroke-width="4"/>
+                <circle cx="239" cy="125" r="15" fill="#DA291C"/>
+                <circle cx="239" cy="125" r="6" fill="#FFFFFF"/>
+                <path d="M200,200 Q228,200 252,168 L200,172 Z" fill="#FFFFFF" stroke="#1C304B" stroke-width="4"/>
+              </g>
+              <line x1="200" y1="24" x2="200" y2="275" stroke="#EF3326" stroke-width="4" stroke-dasharray="8 5"/>
+              <rect x="82" y="278" width="236" height="62" rx="15" fill="#DA291C" stroke="#FFFFFF" stroke-width="4.5"/>
+              <text x="200" y="320" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="40" font-weight="900">Adecco</text>
+            </svg>
+            <h3 style="justify-content:center; font-size:20px;">Meta de Hoy (Entregable)</h3>
+            <p style="color:#94A3B8;">
+              Salir de la sala con un libro <strong>`.xlsm`</strong> funcional capaz de auditar registros y <strong>separar automáticamente pendientes por Jefatura/Área en 3 segundos</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: RUTA DE LOS 120 MINUTOS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">MAPA DE LA SESIÓN 01</span>
+        <h2 class="slide-h2">Ruta de Entrenamiento (2 Horas Paso a Paso)</h2>
+        <p class="lead">Combinamos el entendimiento ejecutivo de Microsoft Copilot con laboratorios reales sobre datos de nuestra cuenta.</p>
+
+        <div class="grid-4">
+          <div class="card accent-cyan">
+            <span class="time-badge">Min 00 – 15</span>
+            <h3 style="margin-top:10px;">1. Base Copilot &amp; Prompts</h3>
+            <p>Cómo piensa la IA, seguridad corporativa de datos en Adecco y la fórmula maestra <strong>R-C-T-R</strong> para pedir fórmulas y código exacto.</p>
+          </div>
+          <div class="card accent-green">
+            <span class="time-badge">Min 15 – 40</span>
+            <h3 style="margin-top:10px;">2. Lab 1: Fórmulas con IA</h3>
+            <p><strong>Hoja 1:</strong> Limpieza + Alerta crítica de <strong>Marcación 2233</strong>.<br><strong>Hoja 2:</strong> Cruce de Liquidaciones <strong>SISCAD vs. Cadena Retail</strong>.</p>
+          </div>
+          <div class="card accent-red">
+            <span class="time-badge">Min 40 – 85</span>
+            <h3 style="margin-top:10px;">3. Lab 2: Tu Primera Macro</h3>
+            <p>Activación de <strong>Programador</strong>, formato <code>.xlsm</code>, generación de <strong>Macro VBA</strong> separadora de pendientes por Área y depuración.</p>
+          </div>
+          <div class="card accent-amber">
+            <span class="time-badge">Min 85 – 120</span>
+            <h3 style="margin-top:10px;">4. Tu Caso Real + Kahoot</h3>
+            <p>Definición del proceso a automatizar por equipo para el <strong>Concurso Final (S/ 300 y S/ 200)</strong> + Torneo <strong>Kahoot Live</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 3: CONEXIÓN CON SU OPERACIÓN REAL ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">DIAGNÓSTICO OPERATIVO · CUENTA AMÉRICA MÓVIL (CLARO)</span>
+        <h2 class="slide-h2">¿Dónde se nos va el tiempo hoy en Excel?</h2>
+        <p class="lead">Adaptamos esta clase directamente a los procesos críticos de nuestro Manual Operativo en Lima (Sectores M1–M7), Multimarca y Macro-Región Sur:</p>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>📍 1. Asistencia GPS + Marcación 2233 (Cap. 07)</h3>
+            <ul>
+              <li>Cruzar diariamente quién marcó en <strong>App Adecco (GPS)</strong>, quién registró el <strong>2233 en la red fija del PDV</strong> y quién reportó ventas.</li>
+              <li><strong>Riesgo real:</strong> Promotor que vende sin marcar el <code>2233</code> o usa otra RED <strong>pierde la comisión de forma irreversible</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-red">
+            <h3>🧾 2. Liquidaciones: SISCAD vs. Retail (Cap. 28)</h3>
+            <ul>
+              <li>Conciliar ventas en <em>Saga, Ripley, Tottus, Metro, Wong, Sodimac, Estilos, Carsa</em> contra <strong>SISCAD / SMA</strong>.</li>
+              <li><strong>Riesgo real:</strong> Ticket mal digitado (<code>S/ 100</code>), SKU errado en caja (<code>S/ 100</code>), Serie pendiente de cobro el mismo día o falta de Nota de Crédito.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>📦 3. Logística, Series IMEI, FIFO y DOAs (Cap. 15–25)</h3>
+            <ul>
+              <li>Controlar <strong>IMEIs de 15 dígitos</strong>, antigüedad de stock (<strong>Rotación FIFO</strong>), control Excel de <strong>Merchandising</strong> y plazos estrictos: Actas PDV (24h), Video Gama Alta (30 min), Expedientes BPO (5 días) y DOAs (7 días).</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>📤 4. Distribución Manual de Pendientes por Área</h3>
+            <ul>
+              <li>Filtrar una sábana general, copiar y pegar en pestañas distintas para <strong>Ventas Lima, Multimarca, Macro-Sur, Logística y Liquidaciones</strong>, dar formato y sumar montos todos los días.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4: SEGURIDAD + MÉTODO R-C-T-R ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">INGENIERÍA DE INSTRUCCIONES (PROMPTS TÉCNICOS)</span>
+        <h2 class="slide-h2">Seguridad de Datos + La Fórmula Maestra <span style="color:var(--cyan);">R - C - T - R</span></h2>
+
+        <div class="grid-2" style="margin-top:14px;">
+          <div class="card accent-red">
+            <h3>🔒 Reglas de Oro de Seguridad en Adecco</h3>
+            <ul>
+              <li><strong>Usa cuentas corporativas autorizadas</strong> (Microsoft Copilot con protección de datos empresariales).</li>
+              <li><strong>Para pedir fórmulas o Macros VBA, la IA NO necesita ver tus datos sensibles:</strong> solo necesita saber <strong>en qué columna está cada encabezado</strong> (Ej: <em>"Columna D = DNI, Columna H = Marcación 2233"</em>).</li>
+              <li><strong>Nunca pegues</strong> contraseñas de SISACT/SISCAD, huellas, ni cuentas bancarias/CCI reales en chats externos.</li>
+              <li><strong>Regla 100% Humana:</strong> La IA escribe el código; <strong>tú auditas el resultado</strong> antes de reportar a Gerencia.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-cyan">
+            <h3>🧠 Estructura R-C-T-R para que Excel nunca falle</h3>
+            <ul>
+              <li><strong style="color:#38BDF8;">[R] ROL + IDIOMA:</strong> <em>"Actúa como experto en Excel en español (separador punto y coma ;)"</em>.</li>
+              <li><strong style="color:#33C481;">[C] CONTEXTO EXACTO:</strong> <em>"En mi hoja '1_Asistencia_2233', fila 2: D2 es DNI, H2 es Marcacion_2233 ('SI'/'NO'), I2 es Ventas..."</em>.</li>
+              <li><strong style="color:#FBBF24;">[T] TAREA Y REGLAS:</strong> <em>"Si I2 &gt; 0 y H2 = 'NO', muestra 'ALERTA CRÍTICA: VENTA SIN 2233'..."</em>.</li>
+              <li><strong style="color:#FCA5A5;">[R] RESTRICCIÓN:</strong> <em>"Dame únicamente la fórmula exacta lista para pegar en L2 y arrastrar."</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: LAB 1A (ASISTENCIA + 2233) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LABORATORIO 1A · ABRE LA HOJA "1_Asistencia_2233"</span>
+        <h2 class="slide-h2">Limpieza Express + Alerta de Comisión 2233</h2>
+        <p class="lead" style="margin-bottom:12px;">
+          Tenemos 20 promotores de Lima y Sur con DNIs sin cero a la izquierda, nombres desordenados y ventas en App Comercial. Vamos a pedirle las 3 fórmulas a Copilot:
+        </p>
+
+        <div class="grid-2">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">🤖 PROMPT PARA MICROSOFT COPILOT</span>
+              <button class="btn-copy" onclick="copyText('promptLab1A')">📋 Copiar Prompt Lab 1A</button>
+            </div>
+            <div class="prompt-text" id="promptLab1A">Actúa como experto en Excel para Operaciones Comerciales (en español, usando punto y coma ; como separador).
+En mi hoja '1_Asistencia_2233' mis datos inician en la fila 2:
+- D2 = DNI_Sin_Formato
+- E2 = Promotor_Sucio (con espacios de más y mayúsculas/minúsculas mezcladas)
+- G2 = Marcacion_App_GPS ("SI" o "NO")
+- H2 = Marcacion_2233_Red ("SI" o "NO")
+- I2 = Ventas_Dia_App (número de ventas)
+
+Dame las 3 fórmulas exactas listas para pegar en J2, K2 y L2:
+1) En J2: Formatear D2 como texto de 8 dígitos con ceros a la izquierda.
+2) En K2: Eliminar espacios extra de E2 y convertirlo a Nombre Propio.
+3) En L2: Si I2 > 0 y H2 = "NO", mostrar "ALERTA CRITICA: VENTA SIN 2233"; si G2 = "NO" y H2 = "NO", mostrar "INASISTENCIA"; en cualquier otro caso mostrar "OK CORRECTO".</div>
+          </div>
+
+          <div class="card accent-green">
+            <h3>✅ Resultado Esperado (Validación en Clase)</h3>
+            <p>Pega cada fórmula generada en la fila 2 y haz doble clic en la esquina inferior derecha de la celda:</p>
+
+            <p style="margin-top:10px; font-weight:700; color:#fff;">1. Celda <code>J2</code> (DNI 8 dígitos):</p>
+            <div class="formula-pill" data-semi='=TEXTO(D2;"00000000")' data-comma='=TEXTO(D2,"00000000")'>=TEXTO(D2;"00000000")</div>
+
+            <p style="margin-top:10px; font-weight:700; color:#fff;">2. Celda <code>K2</code> (Nombre limpio):</p>
+            <div class="formula-pill">=NOMPROPIO(ESPACIOS(E2))</div>
+
+            <p style="margin-top:10px; font-weight:700; color:#fff;">3. Celda <code>L2</code> (Auditoría 2233):</p>
+            <div class="formula-pill" data-semi='=SI(Y(I2>0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))' data-comma='=SI(Y(I2>0,H2="NO"),"ALERTA CRITICA: VENTA SIN 2233",SI(Y(G2="NO",H2="NO"),"INASISTENCIA","OK CORRECTO"))'>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6: LAB 1B (CRUCE SISCAD VS RETAIL) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LABORATORIO 1B · ABRE LA HOJA "2_Cruce_SISCAD_Retail"</span>
+        <h2 class="slide-h2">Auditoría Automática: Liquidaciones SISCAD vs. Cadena</h2>
+        <p class="lead" style="margin-bottom:12px;">
+          Aplicamos automáticamente el <strong>Anexo 1 de Penalidades</strong> del Manual: Serie no cobrada el mismo día (Precio de Lista), Ticket errado (<code>S/ 100</code>) o SKU errado en caja (<code>S/ 100</code>).
+        </p>
+
+        <div class="grid-2">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">🤖 PROMPT PARA MICROSOFT COPILOT</span>
+              <button class="btn-copy" onclick="copyText('promptLab1B')">📋 Copiar Prompt Lab 1B</button>
+            </div>
+            <div class="prompt-text" id="promptLab1B">Actúa como Analista Senior de Liquidaciones en Excel (en español, separador punto y coma ;).
+En mi hoja '2_Cruce_SISCAD_Retail' (fila 2) tengo:
+- G2 = SKU_SISCAD | H2 = SKU_Caja_Cadena
+- I2 = Ticket_SISCAD | J2 = Ticket_Cadena
+- K2 = Precio_Lista_Soles | L2 = Cobrado_Mismo_Dia ("SI" o "NO")
+
+Dame 2 fórmulas exactas para M2 y N2 evaluando en este orden de prioridad:
+1) En M2 (Estado_Auditoria_IA):
+   - Si L2="NO" -> "SERIE PENDIENTE COBRO"
+   - Si I2<>J2 -> "TICKET ERRADO SISCAD"
+   - Si G2<>H2 -> "SKU INCORRECTO CAJA"
+   - Si todo coincide -> "CONCILIADO OK"
+2) En N2 (Penalidad_Estimada_Soles):
+   - Si L2="NO" devolver K2; si I2<>J2 o G2<>H2 devolver 100; de lo contrario devolver 0.</div>
+          </div>
+
+          <div class="card accent-cyan">
+            <h3>✅ Fórmulas de Control (M2 y N2)</h3>
+            <p>Verifica cómo en 10 segundos auditamos todas las cadenas (Saga, Ripley, Tottus, Estilos, Wong, Carsa):</p>
+
+            <p style="margin-top:12px; font-weight:700; color:#fff;">1. Celda <code>M2</code> (Diagnóstico de Liquidación):</p>
+            <div class="formula-pill" data-semi='=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2<>J2;"TICKET ERRADO SISCAD";SI(G2<>H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))' data-comma='=SI(L2="NO","SERIE PENDIENTE COBRO",SI(I2<>J2,"TICKET ERRADO SISCAD",SI(G2<>H2,"SKU INCORRECTO CAJA","CONCILIADO OK")))'>=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2&lt;&gt;J2;"TICKET ERRADO SISCAD";SI(G2&lt;&gt;H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))</div>
+
+            <p style="margin-top:12px; font-weight:700; color:#fff;">2. Celda <code>N2</code> (Cálculo de Penalidad S/):</p>
+            <div class="formula-pill" data-semi='=SI(L2="NO";K2;SI(O(I2<>J2;G2<>H2);100;0))' data-comma='=SI(L2="NO",K2,SI(O(I2<>J2,G2<>H2),100,0))'>=SI(L2="NO";K2;SI(O(I2&lt;&gt;J2;G2&lt;&gt;H2);100;0))</div>
+
+            <p style="margin-top:12px; font-size:12.5px; color:#FDE68A;">
+              💡 <strong>Tip en vivo:</strong> ¿En tu Excel te sale error de sintaxis? Haz clic arriba a la derecha en <strong>"⚙️ Separador Excel"</strong> para cambiar de <code>;</code> a <code>,</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 7: PREPARANDO MACROS EN 3 PASOS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">PREPARACIÓN TÉCNICA (3 MINUTOS · TODOS JUNTOS)</span>
+        <h2 class="slide-h2">Cómo Activar y Guardar tu Primera Macro VBA sin Errores</h2>
+        <p class="lead">Antes de pedirle código VBA a Copilot, configuremos Excel en 3 pasos sencillos:</p>
+
+        <div class="grid-3">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Activar "Programador"</h3>
+            <ul>
+              <li>Haz <strong>clic derecho</strong> sobre cualquier pestaña del menú superior de Excel (ej. <em>Inicio</em> o <em>Vista</em>).</li>
+              <li>Elige <strong>"Personalizar la cinta de opciones..."</strong>.</li>
+              <li>En la columna derecha marca la casilla <strong>☑️ Programador</strong> (o <strong>Desarrollador</strong>) y pulsa <strong>Aceptar</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>2️⃣ Guardar como <code>.xlsm</code></h3>
+            <ul>
+              <li>Presiona <strong><code>F12</code></strong> (Guardar como).</li>
+              <li>En <em>Tipo de archivo</em>, cambia de <code>.xlsx</code> a:<br><strong style="color:#FDE68A;">Libro de Excel habilitado para macros (*.xlsm)</strong>.</li>
+              <li>⚠️ <em>Si lo dejas en .xlsx, Excel borrará tu macro al cerrar el archivo.</em></li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>3️⃣ Abrir el Editor (<code>Alt + F11</code>)</h3>
+            <ul>
+              <li>Presiona <strong><code>Alt + F11</code></strong> (o clic en <em>Programador → Visual Basic</em>).</li>
+              <li>Arriba haz clic en <strong>Insertar → Módulo</strong>.</li>
+              <li>¡Listo! En esa hoja blanca pegaremos el código que nos escriba <strong>Microsoft Copilot</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8: LAB 2 - PROMPT MAESTRO VBA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">LABORATORIO 2 (ENTREGABLE) · HOJA "3_Pendientes_Macro_VBA"</span>
+        <h2 class="slide-h2">El Gran Reto: Separar Pendientes por Área en 1 Clic</h2>
+        <p class="lead" style="margin-bottom:10px;">
+          En la Hoja 3 tenemos 24 incidencias mezcladas de <strong>Liquidaciones, Logística, Ventas_Lima, Macro_Sur y Multimarca</strong> (algunas <code>PENDIENTE</code> y otras <code>CERRADO</code>). Hagamos que Copilot programe todo el robot:
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🚀 PROMPT MAESTRO VBA PARA COPIAR EN COPILOT</span>
+            <button class="btn-copy" onclick="copyText('promptLab2VBA')">📋 Copiar Prompt Maestro VBA</button>
+          </div>
+          <div class="prompt-text" id="promptLab2VBA">Actúa como desarrollador experto en Excel VBA. Tengo una hoja llamada '3_Pendientes_Macro_VBA' con encabezados en A1:J1:
+A=ID_Incidencia, B=Fecha_Deteccion, C=Area_Responsable, D=Lider_Area, E=Red_Zonal, F=PDV_Tienda, G=Tipo_Observacion_Manual, H=Dias_Abierto, I=Estado_Gestion, J=Monto_Expuesto_Soles.
+
+Escribe una Macro VBA completa y sin errores llamada GenerarReportesPendientes que haga lo siguiente:
+1) Procese únicamente las filas donde la columna I (Estado_Gestion) sea exactamente "PENDIENTE".
+2) Por cada valor único de la columna C (Area_Responsable), cree (o reemplace si ya existe) una hoja con ese nombre, copie los encabezados A1:J1 y pegue únicamente sus filas PENDIENTE.
+3) En cada hoja creada: pinte el encabezado A1:J1 de azul oscuro RGB(11,23,42) con texto blanco en negrita, aplique formato numérico #,##0.00 a la columna J, agregue al final una fila de TOTAL sumando la columna J y autoajuste el ancho de las columnas.
+4) Cree además al inicio del libro una hoja llamada 'RESUMEN_GERENCIAL' con una tabla resumen por Area_Responsable, Cantidad de Casos Pendientes y Suma de Monto Expuesto, incluyendo una fila de TOTAL GENERAL.
+5) Al terminar, muestre un MsgBox indicando cuántas áreas y cuántos casos pendientes se procesaron.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 9: CÓDIGO VBA VERIFICADO ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">DEMOSTRACIÓN EN VIVO · CÓDIGO VBA VERIFICADO</span>
+        <h2 class="slide-h2">Pega en tu Módulo (<code>Alt + F11</code>) y Presiona <code>F5</code></h2>
+        <p class="lead" style="margin-bottom:10px;">
+          Compara el código que te generó Copilot o usa este bloque verificado para probarlo en vivo y asignarlo a un botón en tu hoja:
+        </p>
+
+        <div class="prompt-box" style="border-color:rgba(16,185,129,0.5);">
+          <div class="prompt-header">
+            <span class="prompt-tag" style="color:#6EE7B7;">🛡️ MACRO VBA OFICIAL PROBADA — Sub GenerarReportesPendientes()</span>
+            <button class="btn-copy green" onclick="copyText('vbaCodeVerified')">📋 Copiar Código VBA Verificado</button>
+          </div>
+          <div class="prompt-text" id="vbaCodeVerified" style="max-height:260px;">Sub GenerarReportesPendientes()
+    Dim wsOrigen As Worksheet, wsDest As Worksheet, wsRes As Worksheet
+    Dim ultimaFila As Long, f As Long, filaDest As Long, filaRes As Long
+    Dim dictAreas As Object, area As Variant
+    Dim estado As String, monto As Double, totalCasos As Long
+
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = False
+
+    On Error Resume Next
+    Set wsOrigen = ThisWorkbook.Worksheets("3_Pendientes_Macro_VBA")
+    On Error GoTo 0
+    If wsOrigen Is Nothing Then
+        MsgBox "No se encontro la hoja '3_Pendientes_Macro_VBA'.", vbCritical, "Adecco AI Co-Pilot Lab"
+        Exit Sub
+    End If
+
+    ultimaFila = wsOrigen.Cells(wsOrigen.Rows.Count, "A").End(xlUp).Row
+    Set dictAreas = CreateObject("Scripting.Dictionary")
+
+    For f = 2 To ultimaFila
+        estado = UCase(Trim(CStr(wsOrigen.Cells(f, 9).Value)))
+        If estado = "PENDIENTE" Then
+            area = Trim(CStr(wsOrigen.Cells(f, 3).Value))
+            If Len(area) > 0 Then
+                If Not dictAreas.Exists(area) Then dictAreas.Add area, 0
+                dictAreas(area) = dictAreas(area) + 1
+                totalCasos = totalCasos + 1
+            End If
+        End If
+    Next f
+
+    On Error Resume Next
+    ThisWorkbook.Worksheets("RESUMEN_GERENCIAL").Delete
+    On Error GoTo 0
+
+    Set wsRes = ThisWorkbook.Worksheets.Add(Before:=ThisWorkbook.Worksheets(1))
+    wsRes.Name = "RESUMEN_GERENCIAL"
+    wsRes.Range("A1:C1").Value = Array("Area_Responsable", "Casos_Pendientes", "Monto_Total_Expuesto_Soles")
+    wsRes.Range("A1:C1").Interior.Color = RGB(11, 23, 42)
+    wsRes.Range("A1:C1").Font.Color = RGB(255, 255, 255)
+    wsRes.Range("A1:C1").Font.Bold = True
+    filaRes = 2
+
+    For Each area In dictAreas.Keys
+        On Error Resume Next
+        ThisWorkbook.Worksheets(CStr(area)).Delete
+        On Error GoTo 0
+
+        Set wsDest = ThisWorkbook.Worksheets.Add(After:=ThisWorkbook.Worksheets(ThisWorkbook.Worksheets.Count))
+        wsDest.Name = Left(CStr(area), 31)
+        wsOrigen.Range("A1:J1").Copy Destination:=wsDest.Range("A1")
+        wsDest.Range("A1:J1").Interior.Color = RGB(11, 23, 42)
+        wsDest.Range("A1:J1").Font.Color = RGB(255, 255, 255)
+        wsDest.Range("A1:J1").Font.Bold = True
+
+        filaDest = 2
+        monto = 0
+        For f = 2 To ultimaFila
+            If UCase(Trim(CStr(wsOrigen.Cells(f, 9).Value))) = "PENDIENTE" And _
+               Trim(CStr(wsOrigen.Cells(f, 3).Value)) = CStr(area) Then
+                wsOrigen.Range("A" & f & ":J" & f).Copy Destination:=wsDest.Range("A" & filaDest)
+                If IsNumeric(wsOrigen.Cells(f, 10).Value) Then monto = monto + CDbl(wsOrigen.Cells(f, 10).Value)
+                filaDest = filaDest + 1
+            End If
+        Next f
+
+        wsDest.Cells(filaDest, 9).Value = "TOTAL EXPUESTO:"
+        wsDest.Cells(filaDest, 9).Font.Bold = True
+        wsDest.Cells(filaDest, 10).Formula = "=SUM(J2:J" & (filaDest - 1) & ")"
+        wsDest.Cells(filaDest, 10).Font.Bold = True
+        wsDest.Range("J2:J" & filaDest).NumberFormat = "#,##0.00"
+        wsDest.Columns("A:J").AutoFit
+
+        wsRes.Cells(filaRes, 1).Value = CStr(area)
+        wsRes.Cells(filaRes, 2).Value = dictAreas(area)
+        wsRes.Cells(filaRes, 3).Value = monto
+        filaRes = filaRes + 1
+    Next area
+
+    wsRes.Cells(filaRes, 1).Value = "TOTAL GENERAL"
+    wsRes.Cells(filaRes, 2).Formula = "=SUM(B2:B" & (filaRes - 1) & ")"
+    wsRes.Cells(filaRes, 3).Formula = "=SUM(C2:C" & (filaRes - 1) & ")"
+    wsRes.Range("A" & filaRes & ":C" & filaRes).Font.Bold = True
+    wsRes.Range("C2:C" & filaRes).NumberFormat = "#,##0.00"
+    wsRes.Columns("A:C").AutoFit
+    wsRes.Activate
+
+    Application.DisplayAlerts = True
+    Application.ScreenUpdating = True
+
+    MsgBox "Proceso completado con exito!" & vbCrLf & _
+           "- Areas generadas: " & dictAreas.Count & vbCrLf & _
+           "- Casos PENDIENTES distribuidos: " & totalCasos, vbInformation, "Adecco AI Co-Pilot Lab"
+End Sub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10: DEPURACIÓN Y VALIDACIÓN HUMANA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">CONTROL DE CALIDAD Y DEPURACIÓN</span>
+        <h2 class="slide-h2">¿Qué hago si una Macro falla? + Auditoría Humana</h2>
+
+        <div class="grid-2" style="margin-top:14px;">
+          <div class="card accent-amber">
+            <h3>🛠️ Cómo corregir un error VBA en 30 segundos</h3>
+            <ul>
+              <li>Si aparece un cuadro de error, haz clic en el botón <strong>"Depurar" (Debug)</strong>.</li>
+              <li>Verás una línea pintada de <strong style="color:#FDE68A;">color amarillo</strong>.</li>
+              <li>Vuelve a Copilot y escríbele:<br>
+                <em>"Al ejecutar la macro me salió el error [número/mensaje] exactamente en esta línea amarilla: [pega la línea]. Dame el código completo corregido."</em>
+              </li>
+              <li><strong>Tip extra:</strong> Ponle un botón visual yendo a <em>Insertar → Formas → Rectángulo redondeado → Clic derecho → Asignar macro</em>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>🔍 Checklist de Validación Humana Obligatoria</h3>
+            <ul>
+              <li><strong>Cuadre de Control:</strong> Filtra manualmente <code>PENDIENTE</code> en la hoja base (<code>21 casos</code> / <code>S/ 14,913.00</code>) y verifica que coincida al centavo con <code>RESUMEN_GERENCIAL</code>.</li>
+              <li><strong>Nombres de pestañas:</strong> Excel no permite nombres de hojas mayores a 31 caracteres ni símbolos como <code>/ \ ? * [ ]</code>.</li>
+              <li><strong>Respaldo:</strong> Prueba siempre tu nueva macro sobre una <strong>copia del archivo</strong> antes de correrla en la maestra oficial.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 11: TALLER DE EQUIPOS RUMBO AL CONCURSO ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">DINÁMICA DE EQUIPOS (20 MIN) · RUMBO A LA SUSTENTACIÓN FINAL</span>
+        <h2 class="slide-h2">Elige hoy el Proceso Real que tu Equipo Automatizará</h2>
+        <p class="lead" style="margin-bottom:16px;">
+          Recuerda que en la <strong>Sesión 04</strong> premiaremos a los mejores proyectos funcionando en vivo (🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong>). Ideas reales listas por área:
+        </p>
+
+        <div class="grid-2">
+          <div class="card accent-red">
+            <h3>💳 Mesa Liquidaciones / Mesa de Ayuda</h3>
+            <p>Macro que cruce el reporte de <strong>SISCAD vs. Cadena (SMA)</strong>, detecte tickets/SKUs errados y genere automáticamente las plantillas de descargo por Supervisor.</p>
+          </div>
+
+          <div class="card accent-cyan">
+            <h3>📦 Mesa Logística / Auditoría</h3>
+            <p>Macro de alerta temprana de <strong>Rotación FIFO (&gt;45/60 días)</strong>, validador de <strong>IMEIs de 15 dígitos</strong> vs. Guía y semáforo de vencimiento de <strong>DOAs (7 días)</strong> o <strong>Actas PDV (24h)</strong>.</p>
+          </div>
+
+          <div class="card accent-green">
+            <h3>📊 Mesa Comercial / Operaciones</h3>
+            <p>Consolidador diario de <strong>App Adecco GPS + Marcación 2233 + Ventas App Comercial</strong> que separe alertas por Sector (<code>M1–M7</code>, <code>Multimarca</code> y <code>Macro-Sur</code>).</p>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>👥 Mesa RRHH / Capacitación / Admin</h3>
+            <p>Control automatizado de <strong>SLAs de Cobertura de Reclutamiento (6 a 9 días)</strong>, vencimiento de sustentos <strong>CITT (72h)</strong> y corte de solicitudes al RG (día 15).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 12: CIERRE Y KAHOOT LIVE ==================== -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="eyebrow green">CIERRE DE LA SESIÓN 01 · ¡MISIÓN CUMPLIDA!</span>
+        <h1 class="hero-h1">¡Hora de Medirnos en la <span style="color:var(--cyan);">Arena Kahoot Live</span>!</h1>
+        <p class="lead" style="margin: 0 auto 26px;">
+          Ingresa desde tu laptop o celular al portal del programa, selecciona el <strong>Pack Sesión 01 (Excel + Macros VBA)</strong> y compite en tiempo real.
+        </p>
+
+        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:28px;">
+          <a class="cta-hero" href="index.html#kahoot-arena" style="background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5;">
+            ⚡ Lanzar Arena Kahoot — Sesión 01
+          </a>
+          <a class="cta-hero" href="presentacion.html" style="background:#162647; border-color:#38BDF8; box-shadow:none;">
+            📊 Ver Presentación General del Programa
+          </a>
+        </div>
+
+        <div class="card" style="max-width:760px; margin:0 auto; text-align:left;">
+          <h3>🔜 ¿Qué viene en la Sesión 02? (Power BI + Word + IA)</h3>
+          <p>
+            Conectaremos nuestras bases limpias a <strong>Power BI</strong> usando Copilot para crear medidas <strong>DAX</strong> (cobertura, cuotas, arribos y ranking de terminales) y automatizaremos informes ejecutivos y actas formales en <strong>Microsoft Word</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CONTROLES INFERIORES -->
+  <footer class="bottombar">
+    <div class="slide-counter" id="slideCounter">DIAPOSITIVA 01 / 12</div>
+    <div class="nav-btns">
+      <button class="btn-nav" onclick="prevSlide()">← Anterior</button>
+      <button class="btn-nav primary" onclick="nextSlide()">Siguiente →</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">✅ Copiado al portapapeles</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideCounter');
+    const bar = document.getElementById('progressBar');
+    let current = 0;
+    let useSemicolon = true;
+
+    function updateDeck() {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+      const num = String(current + 1).padStart(2, '0');
+      const tot = String(slides.length).padStart(2, '0');
+      counter.textContent = `DIAPOSITIVA ${num} / ${tot}`;
+      bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) { current++; updateDeck(); }
+    }
+
+    function prevSlide() {
+      if (current > 0) { current--; updateDeck(); }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+    });
+
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✅ ¡Copiado! Pégalo con Ctrl + V en Copilot o Excel.');
+      });
+    }
+
+    function toggleSep() {
+      useSemicolon = !useSemicolon;
+      document.getElementById('sepLabel').textContent = useSemicolon ? '; (Punto y coma)' : ', (Coma)';
+      document.querySelectorAll('.formula-pill[data-semi]').forEach(el => {
+        el.textContent = useSemicolon ? el.getAttribute('data-semi') : el.getAttribute('data-comma');
+      });
+      showToast(useSemicolon ? '⚙️ Fórmulas ajustadas a Punto y Coma (;)' : '⚙️ Fórmulas ajustadas a Coma (,)');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+  </script>
+</body>
+</html>
