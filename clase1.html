@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clase 01 En Vivo — Excel + Copilot Gratis + Macros VBA | Adecco AI Co-Pilot Lab</title>
+  <title>Clase 01 — IA Generativa, Entorno Copilot y Automatización Excel + VBA | Lic. Jhoan Taboada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,6 +17,7 @@
       --cyan: #38BDF8;
       --emerald: #10B981;
       --amber: #F59E0B;
+      --purple: #A855F7;
       --text-main: #F8FAFC;
       --text-muted: #94A3B8;
       --border: rgba(255, 255, 255, 0.13);
@@ -43,14 +44,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
+      padding: 0 20px;
       z-index: 100;
     }
 
     .brand-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .badge-red {
@@ -77,7 +78,7 @@
 
     .brand-title {
       font-weight: 800;
-      font-size: 15px;
+      font-size: 14.5px;
       color: #fff;
     }
 
@@ -86,18 +87,18 @@
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
     }
 
     .btn-top {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       font-family: inherit;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      padding: 8px 13px;
+      padding: 7px 12px;
       border-radius: 9px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
@@ -117,6 +118,11 @@
       border-color: #33C481;
       color: #fff;
     }
+    .btn-top.ppt {
+      background: #C43E1C;
+      border-color: #F97316;
+      color: #fff;
+    }
 
     /* PROGRESS BAR */
     .progress-track {
@@ -128,7 +134,7 @@
     }
     .progress-fill {
       height: 100%;
-      width: 7.69%;
+      width: 5%;
       background: linear-gradient(90deg, var(--adecco-red), var(--cyan));
       transition: width 0.35s ease;
     }
@@ -146,14 +152,14 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 24px 44px;
+      padding: 20px 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(50px);
-      transition: opacity 0.38s ease, transform 0.38s ease;
+      transform: translateX(48px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
       overflow-y: auto;
     }
 
@@ -164,7 +170,7 @@
     }
 
     .slide-inner {
-      max-width: 1240px;
+      max-width: 1260px;
       width: 100%;
       margin: 0 auto;
     }
@@ -175,16 +181,16 @@
       align-items: center;
       gap: 8px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--cyan);
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 5px 14px;
+      padding: 5px 13px;
       border-radius: 999px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .eyebrow.red {
@@ -205,55 +211,63 @@
       border-color: rgba(245, 158, 11, 0.45);
     }
 
+    .eyebrow.purple {
+      color: #E9D5FF;
+      background: rgba(168, 85, 247, 0.18);
+      border-color: rgba(168, 85, 247, 0.48);
+    }
+
     h1.hero-h1 {
-      font-size: clamp(30px, 3.8vw, 48px);
+      font-size: clamp(28px, 3.6vw, 46px);
       font-weight: 900;
       line-height: 1.08;
       letter-spacing: -0.03em;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     h2.slide-h2 {
-      font-size: clamp(24px, 2.8vw, 36px);
+      font-size: clamp(22px, 2.6vw, 34px);
       font-weight: 900;
       line-height: 1.12;
       letter-spacing: -0.025em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .lead {
-      font-size: 15.5px;
-      line-height: 1.55;
+      font-size: 14.8px;
+      line-height: 1.52;
       color: #CBD5E1;
-      max-width: 920px;
-      margin-bottom: 18px;
+      max-width: 980px;
+      margin-bottom: 14px;
     }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
 
-    @media (max-width: 980px) {
-      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .slide { justify-content: flex-start; padding: 18px; }
+    @media (max-width: 1024px) {
+      .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+      .slide { justify-content: flex-start; padding: 16px; }
     }
 
     .card {
       background: var(--card-navy);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 20px;
+      border-radius: 15px;
+      padding: 16px 18px;
     }
 
     .card.accent-red { border-left: 4px solid var(--adecco-red); }
     .card.accent-cyan { border-left: 4px solid var(--cyan); }
     .card.accent-green { border-left: 4px solid var(--emerald); }
     .card.accent-amber { border-left: 4px solid var(--amber); }
+    .card.accent-purple { border-left: 4px solid var(--purple); }
 
     .card h3 {
-      font-size: 16.5px;
+      font-size: 15.5px;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       color: #FFFFFF;
       display: flex;
       align-items: center;
@@ -261,20 +275,65 @@
     }
 
     .card p, .card li {
-      font-size: 13.5px;
-      line-height: 1.55;
+      font-size: 13.2px;
+      line-height: 1.5;
       color: #CBD5E1;
     }
 
-    .card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .card ul { padding-left: 17px; display: flex; flex-direction: column; gap: 5px; }
+
+    /* KPI / PROFILE PILLS */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .kpi-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 14px;
+      text-align: center;
+    }
+    .kpi-num {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .kpi-lbl {
+      font-size: 11.5px;
+      color: #94A3B8;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* TIMELINE */
+    .timeline-step {
+      background: var(--card-navy);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--cyan);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--cyan);
+    }
 
     /* PROMPT & CODE BOXES */
     .prompt-box {
       background: #060D1A;
       border: 1.5px solid rgba(56, 189, 248, 0.45);
       border-radius: 14px;
-      padding: 15px 18px;
-      margin-top: 6px;
+      padding: 14px 16px;
+      margin-top: 4px;
       position: relative;
     }
 
@@ -283,14 +342,14 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .prompt-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       color: var(--cyan);
       text-transform: uppercase;
@@ -299,11 +358,11 @@
 
     .prompt-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12.2px;
-      line-height: 1.52;
+      font-size: 12px;
+      line-height: 1.5;
       color: #E2E8F0;
       white-space: pre-wrap;
-      max-height: 235px;
+      max-height: 230px;
       overflow-y: auto;
     }
 
@@ -311,10 +370,10 @@
       background: rgba(16, 185, 129, 0.12);
       border: 1px solid rgba(16, 185, 129, 0.4);
       border-radius: 10px;
-      padding: 9px 12px;
-      margin-top: 6px;
+      padding: 8px 11px;
+      margin-top: 5px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11.8px;
       color: #A7F3D0;
       word-break: break-all;
     }
@@ -323,9 +382,9 @@
       cursor: pointer;
       border: none;
       border-radius: 8px;
-      padding: 7px 14px;
+      padding: 7px 13px;
       font-family: inherit;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       background: var(--adecco-red);
       color: #fff;
@@ -340,10 +399,10 @@
     .cta-hero {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 13px 22px;
+      gap: 9px;
+      padding: 12px 18px;
       border-radius: 12px;
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 800;
       text-decoration: none;
       color: #fff;
@@ -356,10 +415,10 @@
     .cta-copilot {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 13px 22px;
+      gap: 9px;
+      padding: 12px 18px;
       border-radius: 12px;
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 800;
       text-decoration: none;
       color: #fff;
@@ -368,6 +427,43 @@
       transition: all 0.2s ease;
     }
     .cta-copilot:hover { transform: translateY(-2px); }
+
+    .cta-ppt {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 800;
+      text-decoration: none;
+      color: #fff;
+      background: #C43E1C;
+      border: 2px solid #FDBA74;
+      transition: all 0.2s ease;
+    }
+    .cta-ppt:hover { transform: translateY(-2px); }
+
+    /* PROBABILITY BAR */
+    .prob-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .prob-bar-bg {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .prob-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+    }
 
     /* BOTTOM CONTROLS */
     .bottombar {
@@ -407,17 +503,6 @@
     .btn-nav:hover { border-color: var(--cyan); }
     .btn-nav.primary { background: var(--adecco-red); border-color: var(--adecco-red-bright); }
 
-    .time-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(245, 158, 11, 0.16);
-      color: #FDE68A;
-      border: 1px solid rgba(245, 158, 11, 0.35);
-    }
-
     .toast {
       position: fixed;
       bottom: 80px;
@@ -444,18 +529,21 @@
   <header class="topbar">
     <div class="brand-left">
       <span class="badge-red">SESIÓN 01</span>
-      <span class="badge-free">100% COPILOT GRATUITO</span>
-      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Excel + Macros VBA</div>
+      <span class="badge-free">LIC. JHOAN TABOADA</span>
+      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Fundamentos IA + Copilot + Excel VBA</div>
     </div>
     <div class="topbar-right">
       <button class="btn-top" onclick="toggleSep()" id="sepToggleBtn" title="Cambia entre punto y coma (;) y coma (,) según tu Excel">
         ⚙️ Separador Excel: <strong id="sepLabel">; (Punto y coma)</strong>
       </button>
-      <a class="btn-top copilot" href="https://copilot.microsoft.com" target="_blank">
-        🤖 Abrir Copilot Gratis (Web)
+      <a class="btn-top ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
+        📊 Descargar PPT (.pptx)
       </a>
       <a class="btn-top excel" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
         📥 Descargar Excel (.xlsx)
+      </a>
+      <a class="btn-top copilot" href="https://copilot.microsoft.com" target="_blank">
+        🤖 Abrir Copilot Gratis
       </a>
       <a class="btn-top" href="index.html#kahoot-arena">
         ⚡ Kahoot
@@ -465,33 +553,36 @@
 
   <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
 
-  <!-- ESCENARIO DE 13 DIAPOSITIVAS -->
+  <!-- ESCENARIO DE 20 DIAPOSITIVAS -->
   <main class="deck-stage">
 
-    <!-- ==================== SLIDE 1: BIENVENIDA ==================== -->
+    <!-- ==================== SLIDE 1: PORTADA OFICIAL ==================== -->
     <section class="slide active">
       <div class="slide-inner">
         <div class="grid-2" style="align-items:center;">
           <div>
-            <span class="eyebrow green">100% CON MICROSOFT COPILOT VERSIÓN GRATUITA</span>
+            <span class="eyebrow green">PROGRAMA DE CAPACITACIÓN · SESIÓN 01 EN VIVO</span>
             <h1 class="hero-h1">
-              Automatización en <span style="color:#33C481;">Excel</span> con <span style="color:#38BDF8;">Copilot Gratis</span> y Macros VBA
+              De la Teoría de los <span style="color:#38BDF8;">Modelos GPT</span> a la Automatización en <span style="color:#33C481;">Excel + Copilot</span>
             </h1>
             <p class="lead">
-              <strong>No necesitas licencia pagada de Copilot dentro de Excel.</strong> Hoy aprenderás el método exacto para conectar <strong>Microsoft Copilot Gratuito (Web / Microsoft Edge)</strong> con tu Excel de escritorio para auditar bases y crear Macros VBA en segundos.
+              Comprenderemos cómo funciona realmente la Inteligencia Artificial por dentro (<strong>GPT, Vectores Embeddings y Predicción</strong>), el panorama mundial de modelos, cómo <strong>configurar y potenciar Microsoft Copilot</strong> al máximo y su aplicación práctica inmediata en nuestros procesos de <strong>América Móvil (Claro) - Canal Cadenas</strong>.
             </p>
-            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+            <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+              <a class="cta-ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
+                📊 Descargar Presentación (.pptx)
+              </a>
               <a class="cta-hero" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
-                📥 PASO 1: Descargar Excel de Práctica
+                📥 Descargar Excel de Práctica (.xlsx)
               </a>
               <a class="cta-copilot" href="https://copilot.microsoft.com" target="_blank">
-                🤖 PASO 2: Abrir copilot.microsoft.com
+                🤖 Abrir copilot.microsoft.com
               </a>
             </div>
           </div>
 
-          <div class="card" style="text-align:center; padding:26px;">
-            <svg viewBox="0 0 400 365" width="215" height="196" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;">
+          <div class="card" style="text-align:center; padding:24px;">
+            <svg viewBox="0 0 400 365" width="200" height="182" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px;">
               <circle cx="200" cy="180" r="160" fill="#0B172A" stroke="#2563EB" stroke-width="4"/>
               <path d="M200,10 A170,170 0 0,1 370,180" fill="none" stroke="#EF3326" stroke-width="6" stroke-dasharray="12 7"/>
               <path d="M200,350 A170,170 0 0,1 30,180" fill="none" stroke="#38BDF8" stroke-width="5" stroke-dasharray="10 7"/>
@@ -524,193 +615,617 @@
               <rect x="82" y="278" width="236" height="62" rx="15" fill="#DA291C" stroke="#FFFFFF" stroke-width="4.5"/>
               <text x="200" y="320" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="40" font-weight="900">Adecco</text>
             </svg>
-            <h3 style="justify-content:center; font-size:19px;">Cuenta América Móvil (Claro) - Canal Cadenas</h3>
+            <h3 style="justify-content:center; font-size:18px;">Ponente: Lic. Jhoan Taboada Huamán</h3>
             <p style="color:#94A3B8; margin-top:4px;">
-              Casos reales de hoy: <strong>Asistencia GPS + 2233</strong>, <strong>Liquidaciones SISCAD vs. Retail</strong> y <strong>Macro Separadora de Pendientes por Área</strong>.
+              Business Intelligence Analyst · Adecco Perú (Cuenta América Móvil - Claro)<br>
+              <strong style="color:#38BDF8;">Agenda de Hoy:</strong> 1) Quién soy · 2) Historia IA y cómo funciona un GPT · 3) Modelos Globales · 4) Configuración Entorno Copilot · 5) Casos Prácticos Excel + VBA.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 2: CÓMO USAR COPILOT GRATIS CON EXCEL ==================== -->
+    <!-- ==================== SLIDE 2: QUIÉN SOY Y EXPERIENCIA EN IA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">CONFIGURACIÓN DE PANTALLA · COPILOT VERSIÓN GRATUITA</span>
-        <h2 class="slide-h2">¿Cómo conectamos Copilot Gratis con nuestro Excel?</h2>
+        <span class="eyebrow">BLOQUE 1 · PRESENTACIÓN DEL INSTRUCTOR Y TRAYECTORIA EN IA</span>
+        <h2 class="slide-h2">¿Quién soy? <span style="color:var(--cyan);">Jhoan Taboada Huamán</span></h2>
         <p class="lead">
-          La versión gratuita no tiene el botón dentro de Excel, ¡pero funciona aún mejor como <strong>Copiloto lateral</strong>! Configura tu pantalla en 30 segundos:
+          <strong>Licenciado en Economía por la Pontificia Universidad Católica del Perú (PUCP) — Octubre 2026</strong> y Analista de Inteligencia Empresarial en <strong>Adecco Perú</strong> para la cuenta <strong>América Móvil (Claro)</strong>, especializado en Inteligencia Artificial Aplicada, LLMs y Automatización de Procesos.
         </p>
-
-        <div class="grid-3">
-          <div class="card accent-cyan">
-            <h3>1️⃣ Tres formas de abrirlo gratis</h3>
-            <ul>
-              <li><strong>En el navegador:</strong> Entra a <a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8; font-weight:700;">copilot.microsoft.com</a>.</li>
-              <li><strong>En Microsoft Edge:</strong> Haz clic en el ícono de <strong>Copilot</strong> arriba a la derecha para abrir la barra lateral.</li>
-              <li><strong>En Windows 11/10:</strong> Abre la app gratuita de <strong>Microsoft Copilot</strong> desde la barra de tareas.</li>
-            </ul>
-          </div>
-
-          <div class="card accent-green">
-            <h3>2️⃣ Divide tu pantalla en dos</h3>
-            <ul>
-              <li>Abre <strong>Excel</strong> y presiona <strong><code>Windows + Flecha Izquierda ⬅️</code></strong>.</li>
-              <li>Abre <strong>Copilot Gratis</strong> y presiona <strong><code>Windows + Flecha Derecha ➡️</code></strong>.</li>
-              <li>Así ves tus columnas de Excel a la izquierda y le pides fórmulas o Macros a Copilot a la derecha.</li>
-            </ul>
-          </div>
-
-          <div class="card accent-amber">
-            <h3>3️⃣ El Truco "Copia 2 Filas"</h3>
-            <ul>
-              <li>En Copilot Gratis no hace falta subir todo el archivo pesado.</li>
-              <li>Solo <strong>selecciona y copia las primeras 2 filas de tu Excel</strong> (Encabezados + Fila 2) y pégalas en el chat junto con tu instrucción.</li>
-              <li>¡Copilot leerá el orden exacto de tus columnas <code>A, B, C...</code>!</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SLIDE 3: CONEXIÓN CON SU OPERACIÓN REAL ==================== -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow red">DIAGNÓSTICO OPERATIVO · CUENTA AMÉRICA MÓVIL (CLARO)</span>
-        <h2 class="slide-h2">Los 4 Procesos del Manual que Automatizaremos Hoy</h2>
-        <p class="lead">Adaptamos cada ejercicio a lo que hace nuestro equipo en Lima (M1–M7), Multimarca y Macro-Región Sur:</p>
 
         <div class="grid-2">
           <div class="card accent-cyan">
-            <h3>📍 1. Asistencia GPS + Marcación 2233 (Cap. 07)</h3>
+            <h3>🎓 Formación Especializada en Inteligencia Artificial (PUCP)</h3>
             <ul>
-              <li>Cruzar diariamente quién marcó en <strong>App Adecco (GPS)</strong>, quién registró el <strong>2233 en la red fija del PDV</strong> y quién reportó ventas.</li>
-              <li><strong>Regla Crítica:</strong> Promotor que vende sin marcar el <code>2233</code> o usa otra RED <strong>pierde la comisión de forma irreversible</strong>.</li>
+              <li><strong>Licenciado y Bachiller en Economía — PUCP:</strong> Licenciatura obtenida en <strong>Octubre 2026</strong>, combinando análisis cuantitativo y estrategia de negocio con ciencia de datos.</li>
+              <li><strong>Diplomatura en Desarrollo de Aplicaciones con Inteligencia Artificial — PUCP:</strong> <em>216 horas académicas (13.5 créditos), finalizada en Mayo 2026</em>, enfocada en integración práctica de modelos de IA.</li>
+              <li><strong>Becario de Excelencia Académica — Winter School Q-LAB PUCP (2025 y 2026):</strong> Especialización intensiva en <strong>Large Language Models (LLM)</strong>, <strong>Machine Learning</strong>, series de tiempo y análisis causal.</li>
+              <li><strong>Certificación en Machine Learning Aplicado — Q-LAB PUCP:</strong> Modelamiento predictivo y algoritmos de aprendizaje supervisado y no supervisado.</li>
             </ul>
           </div>
 
           <div class="card accent-red">
-            <h3>🧾 2. Liquidaciones: SISCAD vs. Retail (Cap. 28)</h3>
+            <h3>🚀 Trayectoria en Automatización, Datos e IA Aplicada</h3>
             <ul>
-              <li>Conciliar ventas en <em>Saga, Ripley, Tottus, Metro, Wong, Sodimac, Estilos, Carsa</em> contra <strong>SISCAD / SMA</strong>.</li>
-              <li><strong>Anexo 1 Penalidades:</strong> Ticket mal digitado (<code>S/ 100</code>), SKU errado en caja (<code>S/ 100</code>) o Serie pendiente de cobro el mismo día (Precio de Lista).</li>
+              <li><strong>Analista de Inteligencia Empresarial en Adecco Perú (Feb 2025 – Actualidad):</strong> Diseño de arquitectura analítica y automatización para <strong>América Móvil (Claro)</strong> en Lima y Zona Sur.</li>
+              <li><strong>Automatización Operativa Real:</strong> Reducción de <strong>+3 horas diarias</strong> en flujos de consolidación y validación de datos mediante <strong>Macros VBA, Power Automate, SQL, BigQuery y Python</strong>.</li>
+              <li><strong>Impacto en el Equipo Comercial:</strong> Estandarización de KPIs de ventas y comisiones para <strong>+400 colaboradores</strong> y automatización de evaluaciones personalizadas.</li>
+              <li><strong>Proyectos con Python e IA:</strong> Desarrollo de bots de extracción masiva automatizada (<em>Python + Selenium</em>) y capacitación al 100 % de administradores y supervisores de Lima.</li>
             </ul>
           </div>
+        </div>
 
-          <div class="card accent-green">
-            <h3>📦 3. Logística, Series IMEI, FIFO y DOAs (Cap. 15–25)</h3>
-            <ul>
-              <li>Controlar <strong>IMEIs de 15 dígitos</strong>, antigüedad de stock (<strong>Rotación FIFO</strong>), control Excel de <strong>Merchandising</strong> y plazos estrictos: Actas PDV (24h), Video Gama Alta (30 min), Expedientes BPO (5 días) y DOAs (7 días).</li>
-            </ul>
+        <div class="kpi-row">
+          <div class="kpi-box">
+            <div class="kpi-num">Oct 2026</div>
+            <div class="kpi-lbl">Licenciado en Economía PUCP</div>
           </div>
-
-          <div class="card accent-amber">
-            <h3>📤 4. Separación de Pendientes por Jefatura</h3>
-            <ul>
-              <li>Filtrar una sábana general y crear pestañas individuales para <strong>Ventas Lima, Multimarca, Macro-Sur, Logística y Liquidaciones</strong> con sus totales en Soles.</li>
-            </ul>
+          <div class="kpi-box">
+            <div class="kpi-num">216 Horas</div>
+            <div class="kpi-lbl">Diplomatura Apps con IA (PUCP)</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num">+3h / día</div>
+            <div class="kpi-lbl">Ahorradas con Automatización</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-num">10 / 10</div>
+            <div class="kpi-lbl">Calificación Cliente Claro en BI</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 4: SEGURIDAD + MÉTODO R-C-T-R ==================== -->
+    <!-- ==================== SLIDE 3: BREVE HISTORIA DE LA IA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow">INGENIERÍA DE INSTRUCCIONES EN COPILOT GRATUITO</span>
-        <h2 class="slide-h2">Seguridad de Datos + La Fórmula Maestra <span style="color:var(--cyan);">R - C - T - R</span></h2>
+        <span class="eyebrow purple">BLOQUE 2 · FUNDAMENTOS DE INTELIGENCIA ARTIFICIAL</span>
+        <h2 class="slide-h2">Breve Historia de la IA: ¿Cómo llegamos hasta aquí?</h2>
+        <p class="lead">
+          La Inteligencia Artificial no nació en 2022 con ChatGPT. Es el resultado de más de 70 años de evolución matemática que dio un salto cuántico en 2017 con el nacimiento de los <strong>Transformers</strong>:
+        </p>
 
-        <div class="grid-2" style="margin-top:12px;">
-          <div class="card accent-red">
-            <h3>🔒 Seguridad al usar Copilot Gratuito</h3>
+        <div class="grid-5">
+          <div class="timeline-step" style="border-top-color:#94A3B8;">
+            <span class="timeline-year" style="color:#94A3B8;">1950 – 1980</span>
+            <h3 style="font-size:14.5px; color:#fff;">1. IA Simbólica (Reglas Fijas)</h3>
+            <p style="font-size:12.5px; color:#CBD5E1;">
+              De Alan Turing a los <em>Sistemas Expertos</em>. El humano programaba cada regla manualmente (<code>SI pasa A → ENTONCES B</code>). Si un dato venía sucio, el sistema fallaba.
+            </p>
+          </div>
+
+          <div class="timeline-step" style="border-top-color:#38BDF8;">
+            <span class="timeline-year">1990 – 2010</span>
+            <h3 style="font-size:14.5px; color:#fff;">2. Machine Learning</h3>
+            <p style="font-size:12.5px; color:#CBD5E1;">
+              En lugar de escribir reglas fijas, alimentamos algoritmos estadísticos con miles de datos históricos para que <strong>aprendan patrones</strong> y predigan ventas o riesgo.
+            </p>
+          </div>
+
+          <div class="timeline-step" style="border-top-color:#10B981;">
+            <span class="timeline-year" style="color:#6EE7B7;">2012 – 2016</span>
+            <h3 style="font-size:14.5px; color:#fff;">3. Deep Learning (Redes)</h3>
+            <p style="font-size:12.5px; color:#CBD5E1;">
+              Redes neuronales multicapa potenciadas por tarjetas gráficas (GPUs). La IA logra ver imágenes, reconocer voz y traducir idiomas, pero aún leía texto de forma lenta y secuencial.
+            </p>
+          </div>
+
+          <div class="timeline-step" style="border-top-color:#F59E0B;">
+            <span class="timeline-year" style="color:#FDE68A;">2017 · HITO</span>
+            <h3 style="font-size:14.5px; color:#fff;">4. Arquitectura Transformer</h3>
+            <p style="font-size:12.5px; color:#CBD5E1;">
+              Google publica <em>"Attention Is All You Need"</em>. Nace el mecanismo de <strong>Atención</strong>: la IA procesa textos enteros en paralelo entendiendo cómo se relaciona cada palabra con todas las demás.
+            </p>
+          </div>
+
+          <div class="timeline-step" style="border-top-color:#DA291C;">
+            <span class="timeline-year" style="color:#FCA5A5;">2022 – 2026</span>
+            <h3 style="font-size:14.5px; color:#fff;">5. Era GPT, Razonadores y Copilotos</h3>
+            <p style="font-size:12.5px; color:#CBD5E1;">
+              Explosión de los <strong>LLMs (Grandes Modelos de Lenguaje)</strong>: modelos capaces de razonar paso a paso, programar Macros VBA, auditar bases y actuar como copilotos en tiempo real.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4: QUÉ ES UN GPT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">DESARMANDO LA CAJA NEGRA · ¿QUÉ SIGNIFICA GPT?</span>
+        <h2 class="slide-h2">¿Qué es realmente un <span style="color:var(--cyan);">G - P - T</span>?</h2>
+        <p class="lead">
+          Cuando usamos ChatGPT o Microsoft Copilot estamos interactuando con un modelo <strong>GPT</strong>. Sus tres letras explican exactamente cómo trabaja:
+        </p>
+
+        <div class="grid-3">
+          <div class="card accent-green">
+            <h3><span style="font-size:26px; color:#33C481; font-family:'JetBrains Mono',monospace;">G</span> Generative (Generativo)</h3>
             <ul>
-              <li><strong>Inicia sesión con tu cuenta corporativa</strong> en Edge / Copilot Web (verás el escudo verde de <em>Protección de Datos Comerciales</em>).</li>
-              <li><strong>Nunca subas datos sensibles:</strong> Como en la versión gratuita le pedimos <strong>fórmulas y código VBA</strong>, Copilot solo necesita saber los <strong>nombres de las columnas</strong> (Ej: <em>"D2 es DNI, H2 es Marcación 2233"</em>).</li>
-              <li>Si pegas una fila de ejemplo para guiarte, cambia el DNI o nombre por uno ficticio.</li>
+              <li>A diferencia de Google tradicional (que solo <em>busca</em> enlaces existentes), un modelo generativo <strong>crea contenido nuevo desde cero</strong>.</li>
+              <li>Genera fórmulas de Excel a la medida de tus columnas, escribe código VBA original y redacta correos ejecutivos palabra por palabra.</li>
             </ul>
           </div>
 
           <div class="card accent-cyan">
-            <h3>🧠 Estructura R-C-T-R para que Copilot Gratis no falle</h3>
+            <h3><span style="font-size:26px; color:#38BDF8; font-family:'JetBrains Mono',monospace;">P</span> Pre-trained (Pre-entrenado)</h3>
             <ul>
-              <li><strong style="color:#38BDF8;">[R] ROL + IDIOMA:</strong> <em>"Actúa como experto en Excel en español (separador punto y coma ;)"</em>.</li>
-              <li><strong style="color:#33C481;">[C] CONTEXTO DE CELDAS:</strong> <em>"En mi hoja '1_Asistencia_2233', fila 2: D2 es DNI, H2 es Marcacion_2233 ('SI'/'NO'), I2 es Ventas..."</em>.</li>
-              <li><strong style="color:#FBBF24;">[T] TAREA (REGLA DEL MANUAL):</strong> <em>"Si I2 &gt; 0 y H2 = 'NO', muestra 'ALERTA CRÍTICA: VENTA SIN 2233'..."</em>.</li>
-              <li><strong style="color:#FCA5A5;">[R] RESTRICCIÓN:</strong> <em>"Dame solo la fórmula lista para copiar y pegar en L2."</em></li>
+              <li>Antes de que le hagas tu primera pregunta, el modelo pasó meses entrenando sobre <strong>billones de textos</strong>: libros, toda la documentación oficial de Microsoft Excel, foros de programación VBA y casos de negocio.</li>
+              <li>Por eso ya "conoce" todas las funciones de Excel en español e inglés.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-red">
+            <h3><span style="font-size:26px; color:#FCA5A5; font-family:'JetBrains Mono',monospace;">T</span> Transformer (Transformador)</h3>
+            <ul>
+              <li>Es la arquitectura neuronal creada en 2017 basada en <strong>Auto-Atención (Self-Attention)</strong>.</li>
+              <li>Le permite leer tu <em>prompt</em> completo y pesar matemáticamente qué palabras son las más importantes sin importar si están al inicio o al final del párrafo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px; background:rgba(56,189,248,0.08); border-color:rgba(56,189,248,0.35);">
+          <p style="font-size:14px; color:#E2E8F0; text-align:center;">
+            💡 <strong>Idea Clave:</strong> Un GPT no "piensa" como un humano ni tiene una base de datos de plantillas fijas; es un <strong>motor matemático gigantesco</strong> que transforma tus palabras en vectores numéricos para calcular la respuesta óptima. ¡Veamos cómo lo hace!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: TOKENS Y VECTORES EMBEDDINGS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">EL CEREBRO MATEMÁTICO DE LA IA · TOKENS Y VECTORES EMBEDDINGS</span>
+        <h2 class="slide-h2">¿Cómo funcionan los <span style="color:#E9D5FF;">Vectores (Embeddings)</span>?</h2>
+        <p class="lead">
+          Las computadoras no entienden letras, solo entienden números. Para comprender el significado de tus palabras, la IA las convierte en <strong>coordenadas dentro de un mapa multidimensional llamado Espacio de Embeddings</strong>:
+        </p>
+
+        <div class="grid-2" style="align-items:center;">
+          <div class="card accent-purple">
+            <h3>🔢 Paso 1: De Palabras a Tokens y de Tokens a Vectores</h3>
+            <ul>
+              <li><strong>1. Tokenización:</strong> Tu texto se divide en sílabas o palabras llamadas <strong>Tokens</strong>.<br>
+                <code>"Liquidación"</code> → Token <code>#48912</code> | <code>"SISCAD"</code> → Token <code>#91044</code>.
+              </li>
+              <li><strong>2. Vector Embedding (Lista de Coordenadas):</strong> Cada token se transforma en un vector de cientos o miles de números decimales:<br>
+                <code style="color:#38BDF8;">Vector("SISCAD") = [0.84, -0.19, 0.92, 0.41, ..., -0.07]</code>
+              </li>
+              <li><strong>3. Geometría del Significado:</strong> Cada dimensión mide una característica del concepto (¿es de finanzas?, ¿es de telecomunicaciones?, ¿es un sistema?, ¿es de Excel?).</li>
+              <li><strong>Palabras con significados cercanos tienen vectores cercanos (Similitud Coseno):</strong> En el mapa matemático de la IA, <code>"SISCAD"</code>, <code>"Boleta"</code>, <code>"Retail"</code> y <code>"Conciliación"</code> viven en el mismo "vecindario".</li>
+            </ul>
+          </div>
+
+          <div class="card" style="text-align:center; padding:16px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#E9D5FF; margin-bottom:8px; font-weight:800;">
+              MAPA VECTORIAL SEMÁNTICO (ESPACIO DE EMBEDDINGS 3D)
+            </div>
+            <svg viewBox="0 0 520 270" width="100%" height="235" xmlns="http://www.w3.org/2000/svg" style="background:#060D1A; border-radius:12px; border:1px solid rgba(168,85,247,0.35);">
+              <!-- Axes -->
+              <line x1="50" y1="230" x2="490" y2="230" stroke="#334155" stroke-width="2"/>
+              <line x1="50" y1="230" x2="50" y2="25" stroke="#334155" stroke-width="2"/>
+              <line x1="50" y1="230" x2="170" y2="120" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="415" y="248" fill="#64748B" font-family="monospace" font-size="10">Dimensión X (Negocio)</text>
+              <text x="60" y="38" fill="#64748B" font-family="monospace" font-size="10">Dimensión Y (Código/Excel)</text>
+
+              <!-- Cluster 1: Excel & VBA -->
+              <circle cx="155" cy="85" r="56" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-dasharray="5 4"/>
+              <text x="155" y="42" text-anchor="middle" fill="#6EE7B7" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Excel / VBA</text>
+              <circle cx="130" cy="75" r="6" fill="#10B981"/>
+              <text x="130" y="63" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">BUSCARX [0.12, 0.91]</text>
+              <circle cx="178" cy="95" r="6" fill="#10B981"/>
+              <text x="178" y="112" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Macro VBA [0.18, 0.88]</text>
+              <circle cx="145" cy="112" r="5" fill="#34D399"/>
+
+              <!-- Cluster 2: Operación Claro Retail -->
+              <circle cx="375" cy="145" r="68" fill="rgba(56,189,248,0.12)" stroke="#38BDF8" stroke-dasharray="5 4"/>
+              <text x="375" y="88" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Operación Claro</text>
+              <circle cx="345" cy="130" r="6" fill="#38BDF8"/>
+              <text x="345" y="118" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">SISCAD [0.85, 0.42]</text>
+              <circle cx="400" cy="150" r="6" fill="#38BDF8"/>
+              <text x="405" y="166" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">IMEI / 2233 [0.89, 0.39]</text>
+              <circle cx="355" cy="175" r="6" fill="#38BDF8"/>
+              <text x="355" y="192" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Retail / PDV [0.81, 0.31]</text>
+
+              <!-- Bridge Vector (Your Prompt) -->
+              <line x1="178" y1="95" x2="345" y2="130" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="6 4"/>
+              <rect x="205" y="96" width="120" height="24" rx="6" fill="#F59E0B"/>
+              <text x="265" y="112" text-anchor="middle" fill="#0B172A" font-family="sans-serif" font-size="10.5" font-weight="bold">TU PROMPT R-C-T-R</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6: ATENCIÓN Y PREDICCIÓN DE LA SIGUIENTE PALABRA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">DE LOS VECTORES A LA RESPUESTA · PREDICCIÓN DEL SIGUIENTE TOKEN</span>
+        <h2 class="slide-h2">¿Cómo usa la IA toda esa información para <span style="color:#FDE68A;">Predecir la Siguiente Palabra</span>?</h2>
+        <p class="lead">
+          Una vez que tus palabras son vectores, el modelo ejecuta <strong>dos pasos matemáticos ultrarrápidos</strong> para construir tu fórmula o tu Macro palabra por palabra:
+        </p>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>🎯 1. Mecanismo de Atención (Contexto Total)</h3>
+            <ul>
+              <li>Imagina la palabra <strong>"Claro"</strong>. Por sí sola, puede significar <em>"agua clara"</em>, <em>"por supuesto"</em> o la empresa <em>"América Móvil Claro"</em>.</li>
+              <li>La capa de <strong>Self-Attention</strong> hace que el vector de <code>"Claro"</code> mire a todos los vectores vecinos de tu prompt: <code>"PDV"</code>, <code>"Marcación 2233"</code>, <code>"SISCAD"</code> y <code>"Comisión"</code>.</li>
+              <li>Al detectar esos vecinos, el modelo actualiza el vector de <code>"Claro"</code> con toda la información contextual del negocio de telecomunicaciones y descarta los otros significados.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>🎲 2. Predicción Probabilística del Siguiente Token</h3>
+            <p>Con todos los vectores enriquecidos, la IA calcula la probabilidad de cada palabra posible para continuar la frase y elige la más probable:</p>
+            <div style="background:#060D1A; padding:11px 14px; border-radius:10px; margin-top:8px; border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#94A3B8; margin-bottom:6px;">
+                Contexto generado hasta ahora: <strong style="color:#fff;">=SI(Y(I2&gt;0;</strong>
+              </div>
+              <div class="prob-row">
+                <span style="width:110px; color:#6EE7B7; font-weight:800;">H2="NO")</span>
+                <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:94%; background:#10B981;"></div></div>
+                <span style="color:#6EE7B7; font-weight:800;">94.2% ✅</span>
+              </div>
+              <div class="prob-row">
+                <span style="width:110px; color:#94A3B8;">G2="NO")</span>
+                <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:4.5%; background:#38BDF8;"></div></div>
+                <span style="color:#94A3B8;">4.5%</span>
+              </div>
+              <div class="prob-row">
+                <span style="width:110px; color:#94A3B8;">I2=0)</span>
+                <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:1.3%; background:#64748B;"></div></div>
+                <span style="color:#94A3B8;">1.3%</span>
+              </div>
+            </div>
+            <p style="margin-top:8px; font-size:12.5px; color:#FDE68A;">
+              ⚡ <strong>Por qué esto cambia tu forma de trabajar:</strong> Si tu prompt es vago, las probabilidades se dispersan y la IA "alucina" o inventa columnas. Si le das las celdas exactas (<code>D2, H2, I2</code>), ¡concentras el 95 %+ de probabilidad en la respuesta perfecta!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 7: ECOSISTEMA MUNDIAL DE MODELOS DE IA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">BLOQUE 3 · PANORAMA GLOBAL DE LA INTELIGENCIA ARTIFICIAL EN 2026</span>
+        <h2 class="slide-h2">¿Qué Modelos de IA existen hoy a disposición en el mundo?</h2>
+        <p class="lead">
+          No existe una sola IA. Hoy compiten <strong>5 grandes potencias tecnológicas</strong>, cada una con fortalezas específicas que debemos conocer como profesionales:
+        </p>
+
+        <div class="grid-5">
+          <div class="card accent-green" style="padding:14px;">
+            <h3 style="font-size:15px;">🟢 OpenAI (ChatGPT)</h3>
+            <p style="font-size:11.5px; color:#6EE7B7; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">GPT-4o · Serie o3 · GPT-5</p>
+            <p style="font-size:12.5px;">
+              El pionero mundial y <strong>el motor que impulsa Microsoft Copilot</strong>. Excelente en lógica de negocios, fórmulas de Excel, código VBA y análisis multimodal.
+            </p>
+          </div>
+
+          <div class="card accent-amber" style="padding:14px;">
+            <h3 style="font-size:15px;">🟠 Anthropic (Claude)</h3>
+            <p style="font-size:11.5px; color:#FDE68A; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Claude 3.7 / 4 Sonnet & Opus</p>
+            <p style="font-size:12.5px;">
+              Creado por ex-investigadores de OpenAI. Líder en <strong>redacción ejecutiva natural</strong>, lectura de contratos/manuales largos y generación de código muy limpio.
+            </p>
+          </div>
+
+          <div class="card accent-cyan" style="padding:14px;">
+            <h3 style="font-size:15px;">🔵 Google (Gemini)</h3>
+            <p style="font-size:11.5px; color:#38BDF8; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Gemini 2.5 Pro · Flash</p>
+            <p style="font-size:12.5px;">
+              Nativo multimodal desde su origen con una <strong>ventana de contexto gigante</strong> (capaz de procesar libros enteros, cientos de páginas en PDF, video y audio a la vez).
+            </p>
+          </div>
+
+          <div class="card accent-purple" style="padding:14px;">
+            <h3 style="font-size:15px;">⚫ xAI (Grok)</h3>
+            <p style="font-size:11.5px; color:#E9D5FF; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Grok 3 · DeepSearch</p>
+            <p style="font-size:12.5px;">
+              El modelo de xAI (Elon Musk). Destaca por su velocidad, capacidad de razonamiento directo (<em>Think</em>) y conexión en tiempo real con noticias y tendencias globales.
+            </p>
+          </div>
+
+          <div class="card accent-red" style="padding:14px;">
+            <h3 style="font-size:15px;">🔴 Modelos Chinos</h3>
+            <p style="font-size:11.5px; color:#FCA5A5; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">DeepSeek R1/V3 · Qwen · Kimi</p>
+            <p style="font-size:12.5px;">
+              La gran revolución asiática (<strong>DeepSeek, Qwen de Alibaba, Kimi</strong>). Modelos abiertos de altísima potencia en <strong>matemáticas, lógica paso a paso y código</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px; padding:12px 18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <span style="font-size:13.5px; color:#E2E8F0;">
+            🎯 <strong>¿Con cuál trabajaremos en nuestro programa corporativo Adecco?</strong> Con <strong>Microsoft Copilot (Versión Gratuita)</strong>, que nos entrega gratis el poder de los modelos de <strong>OpenAI (GPT-4o + Modelo Razonador Think Deeper)</strong> directamente en Windows y Edge.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8: QUÉ MODELOS TENEMOS EN COPILOT GRATUITO ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">BLOQUE 4 · NUESTRA HERRAMIENTA EN ADECCO Y CONFIGURACIÓN DEL ENTORNO</span>
+        <h2 class="slide-h2">¿Qué Modelos Tenemos a Disposición Dentro de <span style="color:#38BDF8;">Microsoft Copilot Gratis</span>?</h2>
+        <p class="lead">
+          Aunque usemos la <strong>versión gratuita de Microsoft Copilot</strong> (<a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8;">copilot.microsoft.com</a> / Microsoft Edge), por dentro tenemos acceso gratuito a <strong>dos motores de OpenAI</strong> que debemos saber alternar según la tarea:
+        </p>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>⚡ 1. Modo Respuesta Rápida (Motor GPT-4o)</h3>
+            <ul>
+              <li><strong>¿Qué modelo es por dentro?:</strong> Es el modelo multimodal de alta velocidad de OpenAI conectado al buscador Bing.</li>
+              <li><strong>¿Cuándo usarlo en nuestro trabajo diario?:</strong>
+                <ul>
+                  <li>Para pedir <strong>fórmulas de Excel rápidas</strong> (<code>SI</code>, <code>BUSCARX</code>, <code>TEXTO</code>, <code>NOMPROPIO</code>).</li>
+                  <li>Para pegar una tabla de Excel (<code>Ctrl+C</code> / <code>Ctrl+V</code>) y pedir un cuadro resumen.</li>
+                  <li>Para redactar correos formales a Jefes de Ventas, Supervisores o Cadenas Retail.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card accent-purple">
+            <h3>🧠 2. Modo "Think Deeper" / Pensar más a fondo (Motor Razonador o1/o3)</h3>
+            <ul>
+              <li><strong>¿Qué modelo es por dentro?:</strong> Activa el modelo de <strong>Razonamiento Profundo (*Chain-of-Thought*)</strong> de OpenAI de forma 100 % gratuita.</li>
+              <li><strong>¿Cómo funciona?:</strong> Antes de escribirte la respuesta, se toma entre 10 y 25 segundos para <strong>planificar la lógica, verificar variables y probar mentalmente si el código fallará</strong>.</li>
+              <li><strong>¿Cuándo activarlo obligatoriamente?:</strong>
+                <ul>
+                  <li>Cuando pidamos <strong>Macros VBA completas</strong> que crean hojas, filtran estados y calculan totales.</li>
+                  <li>Cuando necesitemos cruzar múltiples reglas del Manual Operativo sin errores.</li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 5: LAB 1A (ASISTENCIA + 2233) ==================== -->
+    <!-- ==================== SLIDE 9: CONFIGURACIÓN DEL ENTORNO COPILOT (PASO A PASO) ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">LABORATORIO 1A · HOJA "1_Asistencia_2233" + COPILOT GRATIS</span>
-        <h2 class="slide-h2">Limpieza Express + Alerta de Comisión 2233</h2>
+        <span class="eyebrow green">CONFIGURACIÓN DEL ENTORNO COPILOT · PARTE 1</span>
+        <h2 class="slide-h2">Cómo Configurar y Potenciar tu Entorno Copilot en 4 Simples Pasos</h2>
+        <p class="lead">
+          La mayoría de usuarios abre Copilot y escribe preguntas sueltas, obteniendo resultados mediocres. Hagamos juntos esta configuración en nuestras laptops para multiplicar por 10 su precisión:
+        </p>
+
+        <div class="grid-4">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Acceso e Inicio de Sesión</h3>
+            <ul>
+              <li>Entra a <a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8; font-weight:700;">copilot.microsoft.com</a> o abre el ícono de Copilot arriba a la derecha en <strong>Microsoft Edge</strong>.</li>
+              <li><strong>Inicia sesión siempre:</strong> Desbloquea el historial de chats, permite pegar tablas más largas y habilita el botón <strong>Think Deeper</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>2️⃣ Pantalla Dividida 50 / 50</h3>
+            <ul>
+              <li>Abre tu <strong>Excel</strong> y presiona <strong><code>Windows + Flecha Izquierda ⬅️</code></strong>.</li>
+              <li>Abre <strong>Copilot Gratis</strong> y presiona <strong><code>Windows + Flecha Derecha ➡️</code></strong>.</li>
+              <li>Nunca trabajes cambiando con <code>Alt+Tab</code> a ciegas; ten tus columnas a la vista.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-purple">
+            <h3>3️⃣ Crea un "Chat Maestro de Excel"</h3>
+            <ul>
+              <li>No abras un chat nuevo para cada fórmula.</li>
+              <li>Dedica <strong>una conversación fija</strong> llamada <em>"Copiloto Excel Adecco"</em> donde en el primer mensaje configures el idioma y separador de tu Excel.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>4️⃣ El Truco "Cabecera + 1 Fila"</h3>
+            <ul>
+              <li>En vez de explicarle tu tabla con palabras largas, selecciona en Excel las celdas <strong><code>A1:I2</code></strong> (Encabezados + 1 fila ficticia), cópialas y pégalas en el chat.</li>
+              <li>¡Copilot mapeará las letras de tus columnas al instante!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10: PROMPT DE CALIBRACIÓN DEL ENTORNO COPILOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">CONFIGURACIÓN DEL ENTORNO COPILOT · PARTE 2 (¡HAGÁMOSLO AHORA!)</span>
+        <h2 class="slide-h2">El "Prompt de Calibración": Configura la Memoria de tu Copilot en 1 Clic</h2>
         <p class="lead" style="margin-bottom:10px;">
-          Copia este prompt con el botón rojo, pégalo en <strong>copilot.microsoft.com</strong> y pega las 3 fórmulas que te entregue en las celdas <code>J2</code>, <code>K2</code> y <code>L2</code> de tu Excel:
+          ¿Por qué a veces Copilot te da fórmulas en inglés (<code>=IF(...)</code>) o con coma cuando tu Excel usa punto y coma? Porque no ha sido calibrado. <strong>Copia este prompt de configuración y pégalo como primer mensaje en tu Copilot Gratis ahora mismo:</strong>
         </p>
 
         <div class="grid-2">
           <div class="prompt-box">
             <div class="prompt-header">
-              <span class="prompt-tag">🤖 PEGAR EN COPILOT GRATIS (WEB / EDGE)</span>
-              <button class="btn-copy" onclick="copyText('promptLab1A')">📋 Copiar Prompt Lab 1A</button>
+              <span class="prompt-tag">⚙️ PASO INICIAL: COPIAR Y PEGAR EN COPILOT GRATIS</span>
+              <button class="btn-copy" onclick="copyText('promptSetupCopilot')">📋 Copiar Prompt de Configuración</button>
             </div>
-            <div class="prompt-text" id="promptLab1A">Actúa como experto en Excel para Operaciones Comerciales (mi Excel está en español y usa punto y coma ; como separador).
-En mi hoja '1_Asistencia_2233' mis datos inician en la fila 2:
+            <div class="prompt-text" id="promptSetupCopilot">CONFIGURACIÓN DE MI ENTORNO DE TRABAJO (MANTENER EN TODA LA SESIÓN):
+Actúa como mi Arquitecto Senior de Automatización en Excel, VBA y Operaciones Comerciales en Adecco Perú (Cuenta América Móvil - Claro).
+Para todas mis consultas en este chat, aplica siempre estas 5 reglas técnicas:
+1) IDIOMA DE EXCEL: Mi Microsoft Excel de escritorio está en ESPAÑOL (Perú). Usa siempre nombres de funciones en español (SI, Y, O, SI.CONJUNTO, BUSCARX, BUSCARV, TEXTO, NOMPROPIO, ESPACIOS, CONTAR.SI.CONJUNTO).
+2) SEPARADOR DE FÓRMULAS: Usa siempre PUNTO Y COMA (;) para separar argumentos dentro de las fórmulas. (Nota: En códigos de Macros VBA sí usa la sintaxis estándar en inglés de VBA).
+3) FORMATO DE ENTREGA: Cuando te pida una fórmula o una Macro VBA, entrégame primero el bloque de código limpio listo para copiar y pegar, indicando en qué celda exacta debo pegarlo.
+4) PREVENCIÓN DE ERRORES: En cruces de datos incluye manejo de errores (SI.ERROR) y en Macros VBA declara todas las variables (Option Explicit / Dim) y desactiva ScreenUpdating para máxima velocidad.
+5) ENFOQUE DE NEGOCIO: Prioriza alertas de comisiones, control de penalidades en Soles (S/) y cumplimiento normativo.
+
+Responde únicamente: "✅ Entorno Copilot calibrado para Excel en Español (;) y Macros VBA - Adecco Claro. Listo para recibir tu primer caso."</div>
+          </div>
+
+          <div class="card accent-green">
+            <h3>🚀 ¿Qué logramos con esta configuración?</h3>
+            <ul>
+              <li><strong>Alineas los Vectores desde el Minuto 1:</strong> Ya activaste en la memoria de contexto de Copilot los clústeres de <em>Excel en Español</em>, <em>Separador punto y coma (;)</em> y <em>Macros VBA corporativas</em>.</li>
+              <li><strong>Cero errores de traducción:</strong> Nunca más tendrás que traducir manualmente un <code>VLOOKUP</code> o un <code>TRIM</code>.</li>
+              <li><strong>Nota importante sobre VBA:</strong> Observa la Regla #2 del prompt: le recordamos que las fórmulas de celda van en español con <code>;</code>, pero cuando genere fórmulas <em>dentro de una Macro VBA</em> (<code>.Formula = "=SUM(...)"</code>) use el estándar interno de VBA para que no falle en ninguna PC.</li>
+              <li><strong>¿Tu laptop usa coma (<code>,</code>) en vez de punto y coma (<code>;</code>)?</strong> Solo cambia la palabra <code>PUNTO Y COMA (;)</code> por <code>COMA (,)</code> en la Regla #2 o usa el conmutador de la barra superior.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 11: CONFIGURACIÓN DEL ENTORNO EXCEL + SEGURIDAD ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">CONFIGURACIÓN DEL ENTORNO EXCEL + SEGURIDAD CORPORATIVA</span>
+        <h2 class="slide-h2">Dejando Listo Nuestro Excel de Escritorio y Reglas de Privacidad</h2>
+
+        <div class="grid-3" style="margin-top:12px;">
+          <div class="card accent-cyan">
+            <h3>🛠️ 1. Habilitar Pestaña "Programador"</h3>
+            <ul>
+              <li>Abre el archivo descargado <code>Practica_Clase01_Operaciones_Adecco_Claro.xlsx</code>.</li>
+              <li>Haz <strong>clic derecho</strong> sobre cualquier pestaña del menú superior (ej. <em>Inicio</em>) → <strong>"Personalizar la cinta de opciones..."</strong>.</li>
+              <li>En el panel derecho marca la casilla <strong>☑️ Programador</strong> (o <strong>Desarrollador</strong>) y haz clic en <strong>Aceptar</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>💾 2. Verificar tu Separador y Formato</h3>
+            <ul>
+              <li>En cualquier celda vacía escribe <code>=SI(</code> y mira el recuadro flotante debajo de la celda:
+                <ul>
+                  <li>Si dice <code>prueba_lógica; [valor_si_verdadero]</code> → usas <strong>punto y coma (<code>;</code>)</strong>.</li>
+                  <li>Si dice <code>prueba_lógica, [valor_si_verdadero]</code> → usas <strong>coma (<code>,</code>)</strong>.</li>
+                </ul>
+              </li>
+              <li>Cuando pasemos a Macros, guardaremos con <code>F12</code> como <strong>Libro habilitado para macros (<code>.xlsm</code>)</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-red">
+            <h3>🔒 3. Regla de Oro de Seguridad en IA</h3>
+            <ul>
+              <li><strong>Protección de Datos Comerciales:</strong> Al usar Copilot Gratis, nunca subas archivos completos con datos confidenciales de clientes ni planillas reales.</li>
+              <li><strong>Para pedir Fórmulas y Macros:</strong> Copilot solo necesita conocer las <strong>letras de columna y el nombre de tus encabezados</strong> (o 2 filas con datos ficticios).</li>
+              <li>Toda la ejecución real ocurre dentro de tu propio Excel local.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 12: MAPA DE CASOS PRÁCTICOS DE NUESTRA OPERACIÓN ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">BLOQUE 5 · INICIAMOS CON COPILOT + EXCEL · CASOS PRÁCTICOS REALES</span>
+        <h2 class="slide-h2">Los 4 Casos Prácticos de la Cuenta América Móvil (Claro) que Abarcaremos Hoy</h2>
+        <p class="lead">
+          Con nuestro entorno de Copilot ya calibrado y el archivo <code>Practica_Clase01_Operaciones_Adecco_Claro.xlsx</code> abierto, resolveremos en vivo estos 4 dolores reales extraídos de nuestro <strong>Manual Operativo Canal Cadenas</strong>:
+        </p>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>📍 Caso Práctico 1: Asistencia GPS + Marcación 2233 (Hoja 1)</h3>
+            <ul>
+              <li><strong>Problema Real (Cap. 07 del Manual):</strong> DNIs que pierden el cero inicial al exportar, nombres desordenados y promotores que registran ventas en la App Comercial pero <strong>olvidaron marcar el código <code>2233</code> desde la red fija del PDV</strong>.</li>
+              <li><strong>Impacto:</strong> Venta sin <code>2233</code> <strong>no comisiona de forma irreversible</strong>. Crearemos con Copilot las fórmulas que lo detectan al instante.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-red">
+            <h3>🧾 Caso Práctico 2: Cruce Liquidaciones SISCAD vs. Retail (Hoja 2)</h3>
+            <ul>
+              <li><strong>Problema Real (Cap. 28 y Anexo 1):</strong> Cruzar las ventas en <em>Saga, Ripley, Tottus, Plaza Vea, Metro, Sodimac, Estilos, Carsa</em> contra <strong>SISCAD</strong>.</li>
+              <li><strong>Impacto (Penalidades Anexo 1):</strong> Serie pendiente de cobro el mismo día = <strong>Precio Lista del Equipo</strong>; Ticket mal digitado = <strong>S/ 100</strong>; SKU errado en caja = <strong>S/ 100</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>📊 Caso Práctico 3: Resumen de Riesgo + Correo SMA con Copilot (Hoja 2)</h3>
+            <ul>
+              <li><strong>Problema Real:</strong> Una vez detectadas las observaciones en Excel, toma media mañana armar el cuadro resumen por cadena y redactar el correo exigiendo el sustento en el portal <strong>SMA</strong>.</li>
+              <li><strong>Impacto:</strong> Copiaremos la tabla auditada al chat de Copilot para obtener el resumen de <strong>S/ 4,927 en riesgo</strong> y el correo ejecutivo en 10 segundos.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>⚡ Caso Práctico 4: Macro VBA Separadora de Pendientes por Área (Hoja 3)</h3>
+            <ul>
+              <li><strong>Problema Real (Cap. 15–25):</strong> Filtrar manualmente una sábana general de incidencias (Actas 24h, Videos Gama Alta 30 min, Expedientes BPO 5 días, DOAs 7 días, Rotación FIFO) para cada jefatura.</li>
+              <li><strong>Impacto:</strong> Crearemos con Copilot (en modo <em>Think Deeper</em>) un botón que separa automáticamente las hojas por área y crea un <code>RESUMEN_GERENCIAL</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 13: CASO PRÁCTICO 1 (HOJA 1 - ASISTENCIA + 2233) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">CASO PRÁCTICO 1 · HOJA "1_Asistencia_2233" + COPILOT CALIBRADO</span>
+        <h2 class="slide-h2">Limpieza Express de Base + Alerta Crítica de Comisión 2233</h2>
+        <p class="lead" style="margin-bottom:10px;">
+          Ve a la Hoja <code>1_Asistencia_2233</code> de tu Excel. Copia este prompt con el botón rojo, pégalo en tu <strong>Copilot Gratis</strong> y pega las 3 fórmulas resultantes en las celdas <code>J2</code>, <code>K2</code> y <code>L2</code>:
+        </p>
+
+        <div class="grid-2">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">🤖 PEGAR EN TU CHAT CALIBRADO DE COPILOT GRATIS</span>
+              <button class="btn-copy" onclick="copyText('promptLab1A')">📋 Copiar Prompt Caso 1</button>
+            </div>
+            <div class="prompt-text" id="promptLab1A">En mi hoja '1_Asistencia_2233' mis datos inician en la fila 2:
 - D2 = DNI_Sin_Formato (algunos tienen 6 o 7 dígitos porque perdieron el cero inicial)
 - E2 = Promotor_Sucio (tiene espacios dobles y mezcla mayúsculas/minúsculas)
 - G2 = Marcacion_App_GPS ("SI" o "NO")
 - H2 = Marcacion_2233_Red ("SI" o "NO")
 - I2 = Ventas_Dia_App (cantidad de ventas del día)
 
-Dame las 3 fórmulas exactas listas para copiar y pegar en J2, K2 y L2:
+Dame las 3 fórmulas exactas en español (con separador punto y coma ;) listas para copiar y pegar en J2, K2 y L2:
 1) En J2: Convertir D2 a texto de 8 dígitos completando con ceros a la izquierda.
 2) En K2: Quitar espacios extra de E2 y ponerlo en Nombre Propio.
 3) En L2: Si I2 > 0 y H2 = "NO", mostrar "ALERTA CRITICA: VENTA SIN 2233"; si G2 = "NO" y H2 = "NO", mostrar "INASISTENCIA"; de lo contrario mostrar "OK CORRECTO".</div>
           </div>
 
           <div class="card accent-green">
-            <h3>✅ Lo que te entregará Copilot Gratis</h3>
-            <p>En el chat de Copilot haz clic en <strong>"Copiar código"</strong> en cada fórmula y pégala en tu Excel:</p>
+            <h3>✅ Resultado para Pegar en <code>J2</code>, <code>K2</code> y <code>L2</code></h3>
+            <p>Copia desde Copilot Gratis y pega en las celdas verdes de la Hoja 1:</p>
 
-            <p style="margin-top:10px; font-weight:700; color:#fff;">1. Pega en <code>J2</code> y arrastra (DNI 8 dígitos):</p>
+            <p style="margin-top:9px; font-weight:700; color:#fff;">1. En <code>J2</code> (DNI 8 dígitos con cero a la izquierda):</p>
             <div class="formula-pill" data-semi='=TEXTO(D2;"00000000")' data-comma='=TEXTO(D2,"00000000")'>=TEXTO(D2;"00000000")</div>
 
-            <p style="margin-top:10px; font-weight:700; color:#fff;">2. Pega en <code>K2</code> y arrastra (Nombre limpio):</p>
+            <p style="margin-top:9px; font-weight:700; color:#fff;">2. En <code>K2</code> (Nombre limpio sin espacios dobles):</p>
             <div class="formula-pill">=NOMPROPIO(ESPACIOS(E2))</div>
 
-            <p style="margin-top:10px; font-weight:700; color:#fff;">3. Pega en <code>L2</code> y arrastra (Auditoría 2233):</p>
+            <p style="margin-top:9px; font-weight:700; color:#fff;">3. En <code>L2</code> (Auditoría Automática 2233):</p>
             <div class="formula-pill" data-semi='=SI(Y(I2>0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))' data-comma='=SI(Y(I2>0,H2="NO"),"ALERTA CRITICA: VENTA SIN 2233",SI(Y(G2="NO",H2="NO"),"INASISTENCIA","OK CORRECTO"))'>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 6: LAB 1B (CRUCE SISCAD VS RETAIL) ==================== -->
+    <!-- ==================== SLIDE 14: CASO PRÁCTICO 2 (HOJA 2 - CRUCE SISCAD VS RETAIL) ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">LABORATORIO 1B · HOJA "2_Cruce_SISCAD_Retail"</span>
-        <h2 class="slide-h2">Auditoría Automática: Liquidaciones SISCAD vs. Cadena</h2>
+        <span class="eyebrow green">CASO PRÁCTICO 2 · HOJA "2_Cruce_SISCAD_Retail"</span>
+        <h2 class="slide-h2">Auditoría Automática: Liquidaciones SISCAD vs. Cadena Retail (Anexo 1)</h2>
         <p class="lead" style="margin-bottom:10px;">
-          Ahora que Copilot Gratis ya sabe que usamos Excel en español, pidámosle la fórmula que audita <strong>Series pendientes, Tickets y SKUs (Anexo 1: Penalidad S/ 100)</strong>:
+          Pasa a la Hoja <code>2_Cruce_SISCAD_Retail</code>. Vamos a pedirle a Copilot las dos fórmulas que cruzan tickets, SKUs y series pendientes calculando la penalidad exacta en Soles:
         </p>
 
         <div class="grid-2">
           <div class="prompt-box">
             <div class="prompt-header">
-              <span class="prompt-tag">🤖 PEGAR EN COPILOT GRATIS (WEB / EDGE)</span>
-              <button class="btn-copy" onclick="copyText('promptLab1B')">📋 Copiar Prompt Lab 1B</button>
+              <span class="prompt-tag">🤖 PEGAR EN TU CHAT DE COPILOT GRATIS</span>
+              <button class="btn-copy" onclick="copyText('promptLab1B')">📋 Copiar Prompt Caso 2</button>
             </div>
-            <div class="prompt-text" id="promptLab1B">Actúa como Analista Senior de Liquidaciones en Excel (en español, separador punto y coma ;).
-En mi hoja '2_Cruce_SISCAD_Retail' (fila 2) tengo:
+            <div class="prompt-text" id="promptLab1B">En mi hoja '2_Cruce_SISCAD_Retail' (fila 2) tengo:
 - G2 = SKU_SISCAD | H2 = SKU_Caja_Cadena
 - I2 = Ticket_SISCAD | J2 = Ticket_Cadena
 - K2 = Precio_Lista_Soles | L2 = Cobrado_Mismo_Dia ("SI" o "NO")
 
-Dame 2 fórmulas exactas listas para pegar en M2 y N2 evaluando en este orden:
+Dame 2 fórmulas exactas en español (separador ;) listas para pegar en M2 y N2 evaluando en este orden estricto:
 1) En M2 (Estado_Auditoria_IA):
    - Si L2="NO" -> "SERIE PENDIENTE COBRO"
    - Si I2<>J2 -> "TICKET ERRADO SISCAD"
@@ -724,34 +1239,34 @@ Dame 2 fórmulas exactas listas para pegar en M2 y N2 evaluando en este orden:
             <h3>✅ Fórmulas Listas para Pegar en <code>M2</code> y <code>N2</code></h3>
             <p>Copia desde Copilot Gratis y pega en las columnas rojas de la Hoja 2:</p>
 
-            <p style="margin-top:10px; font-weight:700; color:#fff;">1. En <code>M2</code> (Estado Auditoría):</p>
+            <p style="margin-top:9px; font-weight:700; color:#fff;">1. En <code>M2</code> (Estado Auditoría):</p>
             <div class="formula-pill" data-semi='=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2<>J2;"TICKET ERRADO SISCAD";SI(G2<>H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))' data-comma='=SI(L2="NO","SERIE PENDIENTE COBRO",SI(I2<>J2,"TICKET ERRADO SISCAD",SI(G2<>H2,"SKU INCORRECTO CAJA","CONCILIADO OK")))'>=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2&lt;&gt;J2;"TICKET ERRADO SISCAD";SI(G2&lt;&gt;H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))</div>
 
-            <p style="margin-top:10px; font-weight:700; color:#fff;">2. En <code>N2</code> (Penalidad S/):</p>
+            <p style="margin-top:9px; font-weight:700; color:#fff;">2. En <code>N2</code> (Penalidad Estimada S/):</p>
             <div class="formula-pill" data-semi='=SI(L2="NO";K2;SI(O(I2<>J2;G2<>H2);100;0))' data-comma='=SI(L2="NO",K2,SI(O(I2<>J2,G2<>H2),100,0))'>=SI(L2="NO";K2;SI(O(I2&lt;&gt;J2;G2&lt;&gt;H2);100;0))</div>
 
-            <p style="margin-top:10px; font-size:12.5px; color:#FDE68A;">
-              💡 Si una fórmula da error en tu laptop, dile en el chat a Copilot Gratis: <em>"Cámbiala usando coma (,) en vez de punto y coma (;)"</em> o usa el botón arriba a la derecha.
+            <p style="margin-top:9px; font-size:12.5px; color:#FDE68A;">
+              💰 Al arrastrar hasta la fila 16 descubrirás inmediatamente <strong>S/ 4,927.00 en penalidades expuestas</strong> (2 series sin cobro en Saga y Estilos + 3 errores de Ticket/SKU de S/ 100).
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 7: LAB 1C (TRUCO EXCLUSIVO COPILOT GRATIS) ==================== -->
+    <!-- ==================== SLIDE 15: CASO PRÁCTICO 3 (TABLA PEGADA EN COPILOT + CORREO SMA) ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow amber">LABORATORIO 1C · SUPERPODER DE COPILOT GRATIS</span>
-        <h2 class="slide-h2">Analizar una Tabla Pegada y Redactar Correo de Alerta</h2>
+        <span class="eyebrow amber">CASO PRÁCTICO 3 · SUPERPODER DEL CHAT DE COPILOT GRATIS</span>
+        <h2 class="slide-h2">Analizar la Tabla Auditada en el Chat y Generar el Correo de Alerta SMA</h2>
         <p class="lead" style="margin-bottom:10px;">
-          ¿Sabías que en <strong>Copilot Gratis</strong> puedes seleccionar una tabla de Excel (`Ctrl + C`), pegarla en el chat (`Ctrl + V`) y pedirle un resumen ejecutivo + correo de seguimiento al instante? ¡Hagámoslo con la Hoja 2!
+          Ahora aprovechemos la ventana de contexto de Copilot Gratis: copiemos la tabla auditada de la Hoja 2 (<code>A1:N16</code>) y peguémosla en el chat para que arme el cuadro ejecutivo y el correo de descargo:
         </p>
 
         <div class="grid-2">
           <div class="prompt-box">
             <div class="prompt-header">
-              <span class="prompt-tag">🤖 COPIA ESTE PROMPT + PEGA TU TABLA DE LA HOJA 2</span>
-              <button class="btn-copy" onclick="copyText('promptLab1C')">📋 Copiar Prompt Lab 1C</button>
+              <span class="prompt-tag">🤖 COPIA ESTE PROMPT + PEGA EL RANGO A1:N16 DE TU HOJA 2</span>
+              <button class="btn-copy" onclick="copyText('promptLab1C')">📋 Copiar Prompt Caso 3</button>
             </div>
             <div class="prompt-text" id="promptLab1C">Actúa como Coordinador de Liquidaciones y Operaciones de Adecco Sales & Marketing (Cuenta Claro - Canal Cadenas).
 A continuación te pego el resultado de nuestra auditoría SISCAD vs. Retail de hoy. Por favor:
@@ -763,69 +1278,70 @@ A continuación te pego el resultado de nuestra auditoría SISCAD vs. Retail de 
           </div>
 
           <div class="card accent-amber">
-            <h3>⚡ Paso a Paso en Vivo (2 Minutos)</h3>
+            <h3>⚡ Ejecución en Vivo (2 Minutos)</h3>
             <ul>
-              <li><strong>Paso 1:</strong> Haz clic en <strong>"📋 Copiar Prompt Lab 1C"</strong> y pégalo en el cuadro de texto de <strong>Copilot Gratis</strong> (sin enviar todavía).</li>
-              <li><strong>Paso 2:</strong> Ve a tu Excel (Hoja <code>2_Cruce_SISCAD_Retail</code>), selecciona el rango <strong><code>A1:N16</code></strong> y presiona <strong><code>Ctrl + C</code></strong>.</li>
-              <li><strong>Paso 3:</strong> Vuelve a Copilot Gratis, presiona <strong><code>Ctrl + V</code></strong> debajo del prompt y dale <strong>Enviar</strong>.</li>
-              <li>¡Mira cómo Copilot Gratis filtra los casos, suma los <strong>S/ 4,927</strong> en riesgo y te redacta el correo listo para Outlook!</li>
+              <li><strong>Paso 1:</strong> Haz clic en <strong>"📋 Copiar Prompt Caso 3"</strong> y pégalo en el cuadro de chat de <strong>Copilot Gratis</strong>.</li>
+              <li><strong>Paso 2:</strong> En tu Excel (Hoja <code>2_Cruce_SISCAD_Retail</code>), selecciona el rango <strong><code>A1:N16</code></strong> y presiona <strong><code>Ctrl + C</code></strong>.</li>
+              <li><strong>Paso 3:</strong> Vuelve a Copilot Gratis, presiona <strong><code>Ctrl + V</code></strong> debajo del texto y presiona <strong>Enter</strong>.</li>
+              <li>¡Observa cómo los vectores de atención filtran las 10 filas conciliadas, aíslan las <strong>5 observaciones críticas</strong>, suman los <strong>S/ 4,927</strong> y te entregan el correo listo para enviar por Outlook!</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 8: PREPARANDO MACROS EN 3 PASOS ==================== -->
+    <!-- ==================== SLIDE 16: PREPARACIÓN TÉCNICA PARA MACROS VBA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow red">PREPARACIÓN TÉCNICA (3 MINUTOS · TODOS JUNTOS)</span>
-        <h2 class="slide-h2">Cómo Pegar en Excel una Macro Creada en Copilot Gratis</h2>
-        <p class="lead">Copilot Gratis escribe todo el código VBA por ti; tú solo necesitas hacer estos 3 pasos en tu Excel:</p>
+        <span class="eyebrow red">PREPARACIÓN TÉCNICA ANTES DEL CASO PRÁCTICO 4 (3 MINUTOS)</span>
+        <h2 class="slide-h2">3 Pasos para Ejecutar en Excel una Macro Creada por Copilot</h2>
+        <p class="lead">
+          Para el Caso Práctico 4 activaremos el modo <strong>Think Deeper (Razonamiento Profundo)</strong> en Copilot Gratis para que escriba un robot VBA completo. Prepara tu Excel en 3 pasos:
+        </p>
 
         <div class="grid-3">
           <div class="card accent-cyan">
-            <h3>1️⃣ Activar "Programador"</h3>
+            <h3>1️⃣ Verifica "Programador"</h3>
             <ul>
-              <li>Haz <strong>clic derecho</strong> sobre cualquier pestaña del menú superior de Excel (ej. <em>Inicio</em> o <em>Vista</em>).</li>
-              <li>Elige <strong>"Personalizar la cinta de opciones..."</strong>.</li>
-              <li>En la columna derecha marca la casilla <strong>☑️ Programador</strong> (o <strong>Desarrollador</strong>) y pulsa <strong>Aceptar</strong>.</li>
+              <li>Confirma que ya ves la pestaña <strong>Programador</strong> (o <strong>Desarrollador</strong>) arriba en tu Excel.</li>
+              <li>Si aún no aparece: Clic derecho en el menú superior → <em>Personalizar la cinta de opciones...</em> → marca <strong>☑️ Programador</strong>.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>2️⃣ Guardar como <code>.xlsm</code></h3>
+            <h3>2️⃣ Guarda como <code>.xlsm</code></h3>
             <ul>
-              <li>Presiona <strong><code>F12</code></strong> (Guardar como).</li>
-              <li>En <em>Tipo de archivo</em>, cambia de <code>.xlsx</code> a:<br><strong style="color:#FDE68A;">Libro de Excel habilitado para macros (*.xlsm)</strong>.</li>
-              <li>⚠️ <em>Si lo dejas en .xlsx, Excel no guardará tu macro.</em></li>
+              <li>Presiona la tecla <strong><code>F12</code></strong> (Guardar como).</li>
+              <li>En el desplegable <em>Tipo de archivo</em>, elige:<br><strong style="color:#FDE68A;">Libro de Excel habilitado para macros (*.xlsm)</strong>.</li>
+              <li>Guárdalo en tu Escritorio o carpeta de trabajo.</li>
             </ul>
           </div>
 
           <div class="card accent-green">
-            <h3>3️⃣ Pegar en <code>Alt + F11</code></h3>
+            <h3>3️⃣ Abre <code>Alt + F11</code> → Módulo</h3>
             <ul>
-              <li>Presiona <strong><code>Alt + F11</code></strong> en tu teclado.</li>
-              <li>En el menú superior haz clic en <strong>Insertar → Módulo</strong>.</li>
-              <li>En esa ventana blanca pegas el código de Copilot Gratis y presionas el botón verde <strong>▶️ Ejecutar (<code>F5</code>)</strong>.</li>
+              <li>Presiona <strong><code>Alt + F11</code></strong> para abrir el Editor de Visual Basic.</li>
+              <li>En la barra superior del editor haz clic en <strong>Insertar → Módulo</strong>.</li>
+              <li>Dejaremos lista esa hoja blanca para pegar el código que nos dará Copilot y pulsar <strong>▶️ Ejecutar (<code>F5</code>)</strong>.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 9: LAB 2 - PROMPT MAESTRO VBA ==================== -->
+    <!-- ==================== SLIDE 17: CASO PRÁCTICO 4 - PROMPT MAESTRO VBA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow red">LABORATORIO 2 (ENTREGABLE) · HOJA "3_Pendientes_Macro_VBA"</span>
-        <h2 class="slide-h2">Pídele a Copilot Gratis la Macro Separadora por Área</h2>
+        <span class="eyebrow purple">CASO PRÁCTICO 4 (ENTREGABLE) · HOJA "3_Pendientes_Macro_VBA"</span>
+        <h2 class="slide-h2">Pídele a Copilot (Modo <em>Think Deeper</em>) la Macro Separadora por Área</h2>
         <p class="lead" style="margin-bottom:10px;">
-          En la Hoja 3 tenemos 24 incidencias de <strong>Liquidaciones, Logística, Ventas_Lima, Macro_Sur y Multimarca</strong>. Copia este prompt y pégalo en <strong>Copilot Gratis</strong>:
+          En la Hoja 3 tenemos 24 incidencias de <strong>Liquidaciones, Logistica, Ventas_Lima, Macro_Sur y Multimarca</strong>. Activa <strong>Think Deeper</strong> en Copilot Gratis y pega este Prompt Maestro:
         </p>
 
         <div class="prompt-box">
           <div class="prompt-header">
-            <span class="prompt-tag">🚀 PEGAR EN COPILOT GRATIS (WEB / EDGE)</span>
-            <button class="btn-copy" onclick="copyText('promptLab2VBA')">📋 Copiar Prompt Maestro VBA</button>
+            <span class="prompt-tag">🧠 PEGAR EN COPILOT GRATIS (MODO THINK DEEPER RECOMENDADO)</span>
+            <button class="btn-copy" onclick="copyText('promptLab2VBA')">📋 Copiar Prompt Maestro VBA (Caso 4)</button>
           </div>
           <div class="prompt-text" id="promptLab2VBA">Actúa como desarrollador experto en Excel VBA. Tengo una hoja llamada '3_Pendientes_Macro_VBA' con encabezados en A1:J1:
 A=ID_Incidencia, B=Fecha_Deteccion, C=Area_Responsable, D=Lider_Area, E=Red_Zonal, F=PDV_Tienda, G=Tipo_Observacion_Manual, H=Dias_Abierto, I=Estado_Gestion, J=Monto_Expuesto_Soles.
@@ -840,13 +1356,13 @@ Escribe únicamente el bloque de código de una Macro VBA completa y sin errores
       </div>
     </section>
 
-    <!-- ==================== SLIDE 10: CÓDIGO VBA VERIFICADO ==================== -->
+    <!-- ==================== SLIDE 18: CÓDIGO VBA VERIFICADO ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">EJECUCIÓN EN VIVO · CÓDIGO VBA VERIFICADO</span>
+        <span class="eyebrow green">EJECUCIÓN EN VIVO · CÓDIGO VBA VERIFICADO AL 100%</span>
         <h2 class="slide-h2">Pega el Código en tu Módulo (<code>Alt + F11</code>) y Presiona <code>F5</code></h2>
         <p class="lead" style="margin-bottom:8px;">
-          Puedes usar el código que te dio Copilot Gratis en su cuadro negro (clic en <em>Copiar</em>) o copiar directamente este bloque verificado:
+          Puedes pegar el código generado por tu Copilot Gratis o usar directamente este bloque oficial verificado para comparar resultados:
         </p>
 
         <div class="prompt-box" style="border-color:rgba(16,185,129,0.5);">
@@ -854,7 +1370,7 @@ Escribe únicamente el bloque de código de una Macro VBA completa y sin errores
             <span class="prompt-tag" style="color:#6EE7B7;">🛡️ MACRO VBA OFICIAL PROBADA — Sub GenerarReportesPendientes()</span>
             <button class="btn-copy green" onclick="copyText('vbaCodeVerified')">📋 Copiar Código VBA Verificado</button>
           </div>
-          <div class="prompt-text" id="vbaCodeVerified" style="max-height:250px;">Sub GenerarReportesPendientes()
+          <div class="prompt-text" id="vbaCodeVerified" style="max-height:245px;">Sub GenerarReportesPendientes()
     Dim wsOrigen As Worksheet, wsDest As Worksheet, wsRes As Worksheet
     Dim ultimaFila As Long, f As Long, filaDest As Long, filaRes As Long
     Dim dictAreas As Object, area As Variant
@@ -953,94 +1469,79 @@ End Sub</div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 11: DEPURACIÓN Y BOTÓN EN HOJA ==================== -->
+    <!-- ==================== SLIDE 19: BOTÓN EJECUTIVO Y DEPURACIÓN CON COPILOT ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow">CONTROL DE CALIDAD + BOTÓN EJECUTIVO</span>
-        <h2 class="slide-h2">Crea tu Botón en Excel y Depura con Copilot Gratis</h2>
+        <span class="eyebrow">CONTROL DE CALIDAD + BOTÓN EJECUTIVO EN EXCEL</span>
+        <h2 class="slide-h2">Asigna la Macro a un Botón y Aprende a Depurar con Copilot</h2>
 
-        <div class="grid-2" style="margin-top:14px;">
+        <div class="grid-2" style="margin-top:12px;">
           <div class="card accent-cyan">
-            <h3>🔘 Ponle un Botón Rojo a tu Excel (1 Minuto)</h3>
+            <h3>🔘 Crea tu Botón Ejecutivo en 1 Minuto</h3>
             <ul>
-              <li>En la Hoja <code>3_Pendientes_Macro_VBA</code> ve al menú <strong>Insertar → Ilustraciones → Formas → Rectángulo redondeado</strong>.</li>
-              <li>Dibújalo arriba a la derecha y escríbele: <strong>"⚡ GENERAR REPORTES"</strong>.</li>
-              <li>Haz <strong>clic derecho sobre el botón → Asignar macro...</strong></li>
-              <li>Selecciona <strong><code>GenerarReportesPendientes</code></strong> y pulsa <strong>Aceptar</strong>. ¡Ahora cualquiera en tu equipo puede correrlo con 1 clic!</li>
+              <li>En la Hoja <code>3_Pendientes_Macro_VBA</code> ve a <strong>Insertar → Ilustraciones → Formas → Rectángulo redondeado</strong>.</li>
+              <li>Dibújalo arriba a la derecha con el texto: <strong>"⚡ GENERAR REPORTES"</strong>.</li>
+              <li>Haz <strong>clic derecho sobre la forma → Asignar macro...</strong></li>
+              <li>Selecciona <strong><code>GenerarReportesPendientes</code></strong> y pulsa <strong>Aceptar</strong>. ¡Al hacer clic creará las 5 pestañas por área y el <code>RESUMEN_GERENCIAL</code> en 1 segundo!</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>🛠️ ¿Y si el código de Copilot Gratis da error?</h3>
+            <h3>🛠️ ¿Qué hacer si un código de IA marca error?</h3>
             <ul>
-              <li>Haz clic en <strong>"Depurar" (Debug)</strong> cuando salga el aviso de Excel.</li>
-              <li>Copia la línea que se pintó de <strong style="color:#FDE68A;">amarillo</strong>.</li>
-              <li>Vuelve al mismo chat de <strong>Copilot Gratis</strong> y escríbele:<br>
-                <em>"Me salió error en esta línea amarilla: [pega la línea]. Dame nuevamente todo el código VBA corregido."</em>
+              <li>Haz clic en el botón <strong>"Depurar" (Debug)</strong> de la ventana emergente de Excel.</li>
+              <li>Copia la línea que se resaltó en color <strong style="color:#FDE68A;">amarillo</strong>.</li>
+              <li>Regresa al mismo chat de <strong>Copilot Gratis</strong> y escríbele:<br>
+                <em>"Me salió error en esta línea amarilla: [pega la línea]. Corrige el código completo para que no falle."</em>
               </li>
-              <li><strong>Validación humana:</strong> Verifica que el total en <code>RESUMEN_GERENCIAL</code> (<code>21 casos</code> / <code>S/ 14,913.00</code>) cuadre con el filtro manual.</li>
+              <li><strong>Validación humana:</strong> Comprueba que <code>RESUMEN_GERENCIAL</code> sume exactamente <strong>21 casos pendientes</strong> y <strong>S/ 14,913.00</strong>.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 12: TALLER DE EQUIPOS RUMBO AL CONCURSO ==================== -->
+    <!-- ==================== SLIDE 20: QUÉ MÁS PODEMOS ABARCAR + CONCURSO + KAHOOT ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow amber">DINÁMICA DE EQUIPOS (20 MIN) · RUMBO A LA SUSTENTACIÓN FINAL</span>
-        <h2 class="slide-h2">Elige hoy el Proceso Real que tu Equipo Automatizará</h2>
-        <p class="lead" style="margin-bottom:14px;">
-          Todo el concurso final se puede construir <strong>100% con Copilot Versión Gratuita + Excel / Word / Power BI</strong> (🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong>):
+        <span class="eyebrow green">CIERRE DE LA SESIÓN 01 · TALLER DE PROYECTOS Y ARENA KAHOOT LIVE</span>
+        <h2 class="slide-h2">¿Qué otros Casos Reales Podemos Abarcar para el Concurso Final?</h2>
+        <p class="lead" style="margin-bottom:12px;">
+          En equipos elijan hoy qué proceso de su área automatizarán rumbo a la Sustentación Final (🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong>) y cerramos jugando en la <strong>Arena Kahoot Live</strong>:
         </p>
 
-        <div class="grid-2">
+        <div class="grid-4" style="margin-bottom:16px;">
           <div class="card accent-red">
-            <h3>💳 Mesa Liquidaciones / Mesa de Ayuda</h3>
-            <p>Macro generada en Copilot Gratis que cruce el reporte de <strong>SISCAD vs. Cadena (SMA)</strong>, detecte tickets/SKUs errados y separe las plantillas de descargo por Supervisor.</p>
+            <h3>💳 Liquidaciones / SMA</h3>
+            <p>Cruzar automáticamente <strong>SISCAD vs. Retail</strong>, detectar series sin cobro y armar plantillas de descargo por Supervisor.</p>
           </div>
 
           <div class="card accent-cyan">
-            <h3>📦 Mesa Logística / Auditoría</h3>
-            <p>Macro de alerta de <strong>Rotación FIFO (&gt;45/60 días)</strong>, validador de <strong>IMEIs de 15 dígitos</strong> vs. Guía y semáforo de vencimiento de <strong>DOAs (7 días)</strong> o <strong>Actas PDV (24h)</strong>.</p>
+            <h3>📦 Logística / IMEIs</h3>
+            <p>Validador de <strong>IMEIs de 15 dígitos</strong>, alerta de <strong>Rotación FIFO (&gt;45/60 días)</strong> y semáforo de <strong>DOAs (7 días)</strong> o <strong>Actas (24h)</strong>.</p>
           </div>
 
           <div class="card accent-green">
-            <h3>📊 Mesa Comercial / Operaciones</h3>
-            <p>Consolidador diario de <strong>App Adecco GPS + Marcación 2233 + Ventas App Comercial</strong> que separe alertas por Sector (<code>M1–M7</code>, <code>Multimarca</code> y <code>Macro-Sur</code>).</p>
+            <h3>📊 Ventas Lima / Sur / Multi</h3>
+            <p>Consolidador de <strong>Asistencia GPS + Marcación 2233 + Ventas App</strong> separado por Sector (<code>M1–M7</code>, Multimarca y Sur).</p>
           </div>
 
           <div class="card accent-amber">
-            <h3>👥 Mesa RRHH / Capacitación / Admin</h3>
-            <p>Control automatizado de <strong>SLAs de Cobertura de Reclutamiento (6 a 9 días)</strong>, vencimiento de sustentos <strong>CITT (72h)</strong> y corte de solicitudes al RG (día 15).</p>
+            <h3>👥 RRHH / Capacitación</h3>
+            <p>Control de <strong>SLAs de Cobertura (6 a 9 días)</strong>, vencimiento de descansos médicos <strong>CITT (72h)</strong> y corte día 15.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ==================== SLIDE 13: CIERRE Y KAHOOT LIVE ==================== -->
-    <section class="slide">
-      <div class="slide-inner" style="text-align:center;">
-        <span class="eyebrow green">CIERRE DE LA SESIÓN 01 · ¡MISIÓN CUMPLIDA!</span>
-        <h1 class="hero-h1">¡Hora de Medirnos en la <span style="color:var(--cyan);">Arena Kahoot Live</span>!</h1>
-        <p class="lead" style="margin: 0 auto 24px;">
-          Ingresa desde tu laptop o celular al portal del programa, selecciona el <strong>Pack Sesión 01 (Excel + Macros VBA)</strong> y demuestra lo aprendido hoy.
-        </p>
-
-        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:26px;">
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
           <a class="cta-hero" href="index.html#kahoot-arena" style="background:#DA291C; border-color:#FCA5A5;">
-            ⚡ Lanzar Arena Kahoot — Sesión 01
+            ⚡ Lanzar Arena Kahoot Live — Sesión 01
+          </a>
+          <a class="cta-ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
+            📊 Descargar Presentación PPT (.pptx)
           </a>
           <a class="cta-copilot" href="https://copilot.microsoft.com" target="_blank">
-            🤖 Seguir practicando en Copilot Gratis
+            🤖 Abrir Microsoft Copilot Gratis
           </a>
-        </div>
-
-        <div class="card" style="max-width:760px; margin:0 auto; text-align:left;">
-          <h3>🔜 ¿Qué viene en la Sesión 02? (Power BI + Word con Copilot Gratis)</h3>
-          <p>
-            Aprenderemos cómo pedirle a <strong>Copilot Gratis</strong> medidas <strong>DAX listas para pegar en Power BI Desktop gratuito</strong> (cobertura, cuotas, arribos y ranking de terminales) y cómo automatizar informes y actas en <strong>Microsoft Word</strong>.
-          </p>
         </div>
       </div>
     </section>
@@ -1049,65 +1550,70 @@ End Sub</div>
 
   <!-- CONTROLES INFERIORES -->
   <footer class="bottombar">
-    <div class="slide-counter" id="slideCounter">DIAPOSITIVA 01 / 13</div>
+    <div class="slide-counter" id="slideCounter">Diapositiva 01 / 20</div>
+    <div style="font-size:12.5px; color:#94A3B8;">
+      Usa las flechas del teclado <strong>⬅️ ➡️</strong> · Ponente: <strong style="color:#38BDF8;">Lic. Jhoan Taboada Huamán</strong>
+    </div>
     <div class="nav-btns">
-      <button class="btn-nav" onclick="prevSlide()">← Anterior</button>
-      <button class="btn-nav primary" onclick="nextSlide()">Siguiente →</button>
+      <button class="btn-nav" onclick="changeSlide(-1)">⬅️ Anterior</button>
+      <button class="btn-nav primary" onclick="changeSlide(1)">Siguiente ➡️</button>
     </div>
   </footer>
 
-  <div class="toast" id="toast">✅ Copiado al portapapeles</div>
+  <div class="toast" id="toastMsg">✅ ¡Copiado al portapapeles! Pégalo en Copilot Gratis o en Excel</div>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
-    const counter = document.getElementById('slideCounter');
-    const bar = document.getElementById('progressBar');
-    let current = 0;
-    let useSemicolon = true;
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slideCounter');
+    const progressEl = document.getElementById('progressBar');
+    let currentIndex = 0;
+    let useComma = false;
 
     function updateDeck() {
-      slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
-      const num = String(current + 1).padStart(2, '0');
-      const tot = String(slides.length).padStart(2, '0');
-      counter.textContent = `DIAPOSITIVA ${num} / ${tot}`;
-      bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentIndex));
+      const num = String(currentIndex + 1).padStart(2, '0');
+      const total = String(slides.length).padStart(2, '0');
+      counterEl.textContent = `Diapositiva ${num} / ${total}`;
+      progressEl.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
     }
 
-    function nextSlide() {
-      if (current < slides.length - 1) { current++; updateDeck(); }
-    }
-
-    function prevSlide() {
-      if (current > 0) { current--; updateDeck(); }
+    function changeSlide(delta) {
+      const next = currentIndex + delta;
+      if (next >= 0 && next < slides.length) {
+        currentIndex = next;
+        updateDeck();
+      }
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
-      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
     });
 
-    function copyText(id) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        showToast('✅ ¡Copiado! Pégalo con Ctrl + V en Copilot Gratis o Excel.');
-      });
-    }
-
     function toggleSep() {
-      useSemicolon = !useSemicolon;
-      document.getElementById('sepLabel').textContent = useSemicolon ? '; (Punto y coma)' : ', (Coma)';
+      useComma = !useComma;
+      const label = document.getElementById('sepLabel');
+      label.textContent = useComma ? ', (Coma)' : '; (Punto y coma)';
       document.querySelectorAll('.formula-pill[data-semi]').forEach(el => {
-        el.textContent = useSemicolon ? el.getAttribute('data-semi') : el.getAttribute('data-comma');
+        el.textContent = useComma ? el.getAttribute('data-comma') : el.getAttribute('data-semi');
       });
-      showToast(useSemicolon ? '⚙️ Fórmulas ajustadas a Punto y Coma (;)' : '⚙️ Fórmulas ajustadas a Coma (,)');
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      let text = el.innerText;
+      if (useComma && (elementId === 'promptLab1A' || elementId === 'promptLab1B' || elementId === 'promptSetupCopilot')) {
+        text = text.replace(/punto y coma ;/gi, 'coma ,').replace(/PUNTO Y COMA \(;\)/g, 'COMA (,)').replace(/\(;\)/g, '(,)');
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toastMsg');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      });
     }
+
+    updateDeck();
   </script>
 </body>
 </html>
