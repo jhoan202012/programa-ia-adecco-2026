@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Correo Convocatoria Mañana Sesión 01 — Adecco AI Co-Pilot Lab (Listo para Outlook)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B1120;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      padding: 28px 16px 60px;
+    }
+    .toolbar {
+      max-width: 820px;
+      margin: 0 auto 20px;
+      background: #131D31;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    }
+    .toolbar-left h1 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .toolbar-left p {
+      font-size: 12.5px;
+      color: #94A3B8;
+    }
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn {
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #DA291C, #B81B10);
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(218, 41, 28, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-cyan {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      color: #FFFFFF;
+    }
+    .subject-bar {
+      max-width: 820px;
+      margin: 0 auto 20px;
+      background: #131D31;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 13px;
+    }
+    .subject-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 6px 0;
+    }
+    .subject-label {
+      color: #38BDF8;
+      font-weight: 800;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      min-width: 75px;
+    }
+    .subject-text {
+      flex: 1;
+      color: #F8FAFC;
+      font-weight: 600;
+    }
+    .copy-mini {
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(56,189,248,0.35);
+      color: #38BDF8;
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .email-canvas {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+    }
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #10B981;
+      color: #FFFFFF;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13.5px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h1>📧 Correo Recordatorio: Mañana Iniciamos la Sesión 01 (Con Logo PNG)</h1>
+      <p>Haz clic en el botón rojo y pégalo con <strong>Ctrl + V</strong> en el cuerpo de tu correo de Outlook.</p>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-primary" onclick="copyEmailForOutlook()">
+        📋 Copiar Correo con Logo para Outlook
+      </button>
+      <a class="btn btn-cyan" href="clase1.html" target="_blank">
+        🖥️ Ver Presentación Clase 01
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-bar">
+    <div class="subject-row">
+      <span class="subject-label">ASUNTO:</span>
+      <span class="subject-text" id="subjText">🚀 ¡Mañana iniciamos! Sesión 01: Automatización en Excel con IA y Macros VBA — Adecco AI Co-Pilot Lab (3:00 PM | Sala Estocolmo)</span>
+      <button class="copy-mini" onclick="copySubject()">Copiar Asunto</button>
+    </div>
+  </div>
+
+  <!-- BLOQUE COPIABLE PARA OUTLOOK -->
+  <div class="email-canvas" id="emailContent">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F1F5F9; font-family:'Segoe UI', Arial, sans-serif; padding:24px 12px;">
+      <tr>
+        <td align="center">
+          <table width="680" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFFFFF; border-radius:14px; overflow:hidden; border:1px solid #E2E8F0;">
+
+            <!-- FRANJA SUPERIOR ROJA ADECCO -->
+            <tr>
+              <td style="background-color:#DA291C; height:7px; font-size:1px; line-height:1px;">&nbsp;</td>
+            </tr>
+
+            <!-- CABECERA AZUL CORPORATIVA CON LOGO OFICIAL PNG -->
+            <tr>
+              <td align="center" style="background-color:#0B172A; padding:28px 32px 24px;">
+                <img src="https://jhoan202012.github.io/programa-ia-adecco-2026/logo_adecco_ia.png" alt="Adecco AI Co-Pilot Lab" width="135" style="display:block; width:135px; height:auto; margin:0 auto 12px; border:0;" />
+                <div style="display:inline-block; background-color:#DA291C; color:#FFFFFF; font-size:11px; font-weight:bold; letter-spacing:1.2px; padding:4px 12px; border-radius:4px; text-transform:uppercase; margin-bottom:10px;">
+                  MAÑANA INICIAMOS · SESIÓN 01 PRESENCIAL
+                </div>
+                <h1 style="color:#FFFFFF; font-size:25px; font-weight:800; margin:0 0 6px; line-height:1.2;">
+                  Adecco <span style="color:#38BDF8;">AI Co-Pilot</span> <span style="color:#EF3326;">Lab</span>
+                </h1>
+                <p style="color:#CBD5E1; font-size:14px; margin:0; font-weight:500;">
+                  Sesión 01: Fundamentos de IA (GPT &amp; Embeddings), Entorno Copilot y Automatización en Excel + Macros VBA
+                </p>
+              </td>
+            </tr>
+
+            <!-- SALUDO Y MENSAJE PRINCIPAL -->
+            <tr>
+              <td style="padding:28px 34px 16px; color:#1E293B; font-size:14.5px; line-height:1.65;">
+                <p style="margin:0 0 14px;"><strong>Estimado equipo,</strong></p>
+                <p style="margin:0 0 14px;">
+                  ¡Llegó el momento! <strong>Mañana damos inicio oficial a la Sesión 01</strong> de nuestro programa de entrenamiento práctico <strong>Adecco AI Co-Pilot Lab</strong> para la cuenta <strong>América Móvil (Claro) - Canal Cadenas</strong>.
+                </p>
+                <p style="margin:0 0 16px;">
+                  En esta primera sesión aprenderemos desde cómo funciona realmente la Inteligencia Artificial por dentro (<strong>modelos GPT, vectores y predicción</strong>) y cómo <strong>configurar y calibrar Microsoft Copilot (Versión Gratuita)</strong> en nuestras laptops, hasta la resolución en vivo de <strong>casos prácticos reales de nuestra operación en Excel y Macros VBA</strong>.
+                </p>
+
+                <!-- FICHA DE CITA -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8FAFC; border:1px solid #CBD5E1; border-left:5px solid #DA291C; border-radius:10px; margin:18px 0;">
+                  <tr>
+                    <td style="padding:16px 20px;">
+                      <div style="font-size:12px; font-weight:bold; color:#DA291C; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">
+                        📍 Coordenadas de la Sesión 01 (Mañana)
+                      </div>
+                      <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:13.5px; color:#0F172A;">
+                        <tr>
+                          <td width="32%"><strong>📅 Fecha y Hora:</strong></td>
+                          <td><strong>Mañana — 3:00 PM a 5:00 PM</strong> <em>(Se solicita ingreso 5 min antes)</em></td>
+                        </tr>
+                        <tr>
+                          <td><strong>🏢 Lugar / Sala:</strong></td>
+                          <td><strong>Sala Estocolmo</strong> (Modalidad 100 % Práctica con Laptop)</td>
+                        </tr>
+                        <tr>
+                          <td><strong>👨‍🏫 Ponente:</strong></td>
+                          <td><strong>Lic. Jhoan Taboada Huamán</strong> — Business Intelligence Analyst (Adecco Perú)</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- TEMARIO DE MAÑANA EN 4 BLOQUES -->
+                <h3 style="color:#0B172A; font-size:15.5px; font-weight:800; margin:22px 0 10px;">
+                  🧭 ¿Qué abarcaremos mañana en vivo?
+                </h3>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13.5px; color:#334155; margin-bottom:18px;">
+                  <tr>
+                    <td style="padding:7px 0; border-bottom:1px solid #E2E8F0;">
+                      <strong style="color:#0284C7;">1. Fundamentos de IA y Modelos GPT:</strong> Breve historia de la IA, qué es un GPT, cómo funcionan los <em>Tokens</em>, los <em>Vectores (Embeddings)</em> y la predicción probabilística de la siguiente palabra, más el panorama mundial de modelos (<em>ChatGPT, Claude, Gemini, Grok y Modelos Chinos</em>).
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:7px 0; border-bottom:1px solid #E2E8F0;">
+                      <strong style="color:#107C41;">2. Configuración y Potenciación del Entorno Copilot (Versión Gratuita):</strong> Cómo configurar tu pantalla dividida, activar los motores <em>GPT-4o Rápido</em> y <em>Think Deeper (Razonador)</em> y calibrar la memoria de Copilot para Excel en Español.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:7px 0; border-bottom:1px solid #E2E8F0;">
+                      <strong style="color:#DA291C;">3. Casos Prácticos en Excel + Macros VBA (Operación Claro Cadenas):</strong> Auditoría automática de <em>Asistencia GPS + Marcación 2233</em>, cruce de <em>Liquidaciones SISCAD vs. Retail (Anexo 1)</em>, análisis de tablas en el chat de Copilot para alertas <em>SMA</em> y creación de una <em>Macro VBA separadora de pendientes por Jefatura</em>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:7px 0;">
+                      <strong style="color:#D97706;">4. Dinámica de Equipos (Concurso S/ 300 y S/ 200) + Arena Kahoot Live:</strong> Elección del caso real por equipo y competencia interactiva de cierre.
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- CHECKLIST OBLIGATORIO PARA MAÑANA -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EFF6FF; border:1px solid #93C5FD; border-radius:10px; margin-bottom:20px;">
+                  <tr>
+                    <td style="padding:16px 20px;">
+                      <div style="font-size:13px; font-weight:800; color:#1D4ED8; text-transform:uppercase; margin-bottom:8px;">
+                        💻 Checklist Indispensable para traer mañana a Sala Estocolmo:
+                      </div>
+                      <ul style="margin:0; padding-left:18px; color:#1E3A8A; font-size:13.5px; line-height:1.6;">
+                        <li><strong>Laptop operativa + cargador</strong> (100 % indispensable, la sesión es práctica).</li>
+                        <li><strong>Microsoft Excel de escritorio</strong> instalado.</li>
+                        <li>Navegador <strong>Microsoft Edge</strong> o acceso a <a href="https://copilot.microsoft.com" style="color:#2563EB; font-weight:bold;">https://copilot.microsoft.com</a> (trabajaremos con la versión gratuita de Microsoft Copilot).</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- BOTONES DE ACCESO AL MATERIAL -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 10px;">
+                  <tr>
+                    <td align="center">
+                      <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/clase1.html" style="display:inline-block; background-color:#DA291C; color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px;">
+                        🖥️ Ver Portal de la Sesión 01
+                      </a>
+                      <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/Practica_Clase01_Operaciones_Adecco_Claro.xlsx" style="display:inline-block; background-color:#107C41; color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px;">
+                        📥 Descargar Excel de Práctica (.xlsx)
+                      </a>
+                      <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" style="display:inline-block; background-color:#0B172A; color:#38BDF8; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px; border:1px solid #38BDF8;">
+                        📘 Guía Técnica con Ejemplos
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="margin:18px 0 0; font-size:14px; color:#334155;">
+                  ¡Nos vemos mañana a las <strong>3:00 PM en la Sala Estocolmo</strong> para transformar nuestra forma de trabajar con Inteligencia Artificial!
+                </p>
+                <p style="margin:14px 0 0; font-size:14px; color:#0F172A;">
+                  Atentamente,<br>
+                  <strong>Lic. Jhoan Taboada Huamán</strong><br>
+                  <span style="color:#64748B; font-size:13px;">Business Intelligence Analyst · Adecco Perú — Cuenta América Móvil (Claro)</span>
+                </p>
+              </td>
+            </tr>
+
+            <!-- PIE DE PÁGINA -->
+            <tr>
+              <td align="center" style="background-color:#0B172A; padding:14px 24px; color:#94A3B8; font-size:11.5px;">
+                Adecco Sales &amp; Marketing · Cuenta América Móvil (Claro) - Canal Cadenas · Programa Adecco AI Co-Pilot Lab 2026
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="toast" id="toast">✅ ¡Copiado! Ve a Outlook y presiona Ctrl + V</div>
+
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function copySubject() {
+      const txt = document.getElementById('subjText').innerText;
+      navigator.clipboard.writeText(txt).then(() => showToast('✅ ¡Asunto copiado al portapapeles!'));
+    }
+
+    async function copyEmailForOutlook() {
+      const node = document.getElementById('emailContent');
+      const html = node.innerHTML;
+      const text = node.innerText;
+      try {
+        if (window.ClipboardItem) {
+          const item = new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' }),
+            'text/plain': new Blob([text], { type: 'text/plain' })
+          });
+          await navigator.clipboard.write([item]);
+          showToast('✅ ¡Correo con diseño y logo copiado! Pégalo en Outlook con Ctrl + V');
+          return;
+        }
+      } catch (e) {}
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand('copy');
+      sel.removeAllRanges();
+      showToast('✅ ¡Correo con diseño y logo copiado! Pégalo en Outlook con Ctrl + V');
+    }
+  </script>
+</body>
+</html>
