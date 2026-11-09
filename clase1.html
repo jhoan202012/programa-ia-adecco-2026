@@ -78,7 +78,7 @@
 
     .brand-title {
       font-weight: 800;
-      font-size: 14.5px;
+      font-size: 14px;
       color: #fff;
     }
 
@@ -98,7 +98,7 @@
       font-family: inherit;
       font-size: 11.5px;
       font-weight: 700;
-      padding: 7px 12px;
+      padding: 7px 11px;
       border-radius: 9px;
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.06);
@@ -121,6 +121,11 @@
     .btn-top.ppt {
       background: #C43E1C;
       border-color: #F97316;
+      color: #fff;
+    }
+    .btn-top.doc {
+      background: #0284C7;
+      border-color: #38BDF8;
       color: #fff;
     }
 
@@ -152,7 +157,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 20px 40px;
+      padding: 18px 38px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -181,16 +186,16 @@
       align-items: center;
       gap: 8px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--cyan);
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 5px 13px;
+      padding: 4px 12px;
       border-radius: 999px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .eyebrow.red {
@@ -218,33 +223,33 @@
     }
 
     h1.hero-h1 {
-      font-size: clamp(28px, 3.6vw, 46px);
+      font-size: clamp(26px, 3.4vw, 44px);
       font-weight: 900;
       line-height: 1.08;
       letter-spacing: -0.03em;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     h2.slide-h2 {
-      font-size: clamp(22px, 2.6vw, 34px);
+      font-size: clamp(21px, 2.4vw, 31px);
       font-weight: 900;
       line-height: 1.12;
       letter-spacing: -0.025em;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .lead {
-      font-size: 14.8px;
-      line-height: 1.52;
+      font-size: 14px;
+      line-height: 1.48;
       color: #CBD5E1;
-      max-width: 980px;
-      margin-bottom: 14px;
+      max-width: 1020px;
+      margin-bottom: 12px;
     }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 11px; }
 
     @media (max-width: 1024px) {
       .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
@@ -255,7 +260,7 @@
       background: var(--card-navy);
       border: 1px solid var(--border);
       border-radius: 15px;
-      padding: 16px 18px;
+      padding: 15px 17px;
     }
 
     .card.accent-red { border-left: 4px solid var(--adecco-red); }
@@ -265,9 +270,9 @@
     .card.accent-purple { border-left: 4px solid var(--purple); }
 
     .card h3 {
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 800;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       color: #FFFFFF;
       display: flex;
       align-items: center;
@@ -275,35 +280,165 @@
     }
 
     .card p, .card li {
-      font-size: 13.2px;
-      line-height: 1.5;
+      font-size: 12.8px;
+      line-height: 1.48;
       color: #CBD5E1;
     }
 
-    .card ul { padding-left: 17px; display: flex; flex-direction: column; gap: 5px; }
+    .card ul { padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
+
+    /* DYNAMIC FLOW PIPELINE (FLUJOS DINÁMICOS) */
+    .flow-banner {
+      background: linear-gradient(90deg, rgba(17,34,64,0.95), rgba(24,48,89,0.95));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 14px;
+      padding: 11px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .flow-node {
+      flex: 1;
+      min-width: 135px;
+      background: #081223;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 11px;
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .flow-node:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
+    }
+    .flow-node.active-node {
+      border-color: var(--emerald);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.22);
+    }
+    .flow-node.red-node {
+      border-color: rgba(218, 41, 28, 0.65);
+    }
+    .flow-node.amber-node {
+      border-color: rgba(245, 158, 11, 0.65);
+    }
+    .flow-node.purple-node {
+      border-color: rgba(168, 85, 247, 0.65);
+    }
+
+    .flow-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(56,189,248,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .flow-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .flow-step-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .flow-step-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .flow-step-sub {
+      font-size: 10.5px;
+      color: #94A3B8;
+      margin-top: 1px;
+    }
+
+    .flow-arrow {
+      color: var(--cyan);
+      font-weight: 900;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseArrow 1.8s infinite ease-in-out;
+      user-select: none;
+    }
+
+    @keyframes pulseArrow {
+      0%, 100% { transform: translateX(0); opacity: 0.65; }
+      50% { transform: translateX(4px); opacity: 1; }
+    }
+
+    /* BRAND LOGO PILLS */
+    .logo-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .logo-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #F8FAFC;
+    }
+
+    .model-logo-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
 
     /* KPI / PROFILE PILLS */
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 12px;
+      gap: 11px;
+      margin-top: 10px;
     }
     .kpi-box {
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 11px 14px;
+      padding: 9px 12px;
       text-align: center;
     }
     .kpi-num {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
       color: var(--cyan);
       font-family: 'JetBrains Mono', monospace;
     }
     .kpi-lbl {
-      font-size: 11.5px;
+      font-size: 11px;
       color: #94A3B8;
       margin-top: 2px;
       font-weight: 600;
@@ -315,14 +450,14 @@
       border: 1px solid var(--border);
       border-top: 4px solid var(--cyan);
       border-radius: 14px;
-      padding: 14px;
+      padding: 13px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
     .timeline-year {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       color: var(--cyan);
     }
@@ -332,7 +467,7 @@
       background: #060D1A;
       border: 1.5px solid rgba(56, 189, 248, 0.45);
       border-radius: 14px;
-      padding: 14px 16px;
+      padding: 13px 15px;
       margin-top: 4px;
       position: relative;
     }
@@ -342,14 +477,14 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 8px;
-      padding-bottom: 7px;
+      margin-bottom: 7px;
+      padding-bottom: 6px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .prompt-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 10.8px;
       font-weight: 800;
       color: var(--cyan);
       text-transform: uppercase;
@@ -358,11 +493,11 @@
 
     .prompt-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11.6px;
+      line-height: 1.48;
       color: #E2E8F0;
       white-space: pre-wrap;
-      max-height: 230px;
+      max-height: 205px;
       overflow-y: auto;
     }
 
@@ -370,10 +505,10 @@
       background: rgba(16, 185, 129, 0.12);
       border: 1px solid rgba(16, 185, 129, 0.4);
       border-radius: 10px;
-      padding: 8px 11px;
-      margin-top: 5px;
+      padding: 7px 10px;
+      margin-top: 4px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.8px;
+      font-size: 11.4px;
       color: #A7F3D0;
       word-break: break-all;
     }
@@ -382,9 +517,9 @@
       cursor: pointer;
       border: none;
       border-radius: 8px;
-      padding: 7px 13px;
+      padding: 6px 12px;
       font-family: inherit;
-      font-size: 11.5px;
+      font-size: 11.2px;
       font-weight: 800;
       background: var(--adecco-red);
       color: #fff;
@@ -399,10 +534,10 @@
     .cta-hero {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 13.5px;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 13px;
       font-weight: 800;
       text-decoration: none;
       color: #fff;
@@ -415,10 +550,10 @@
     .cta-copilot {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 13.5px;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 13px;
       font-weight: 800;
       text-decoration: none;
       color: #fff;
@@ -431,10 +566,10 @@
     .cta-ppt {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 13.5px;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 13px;
       font-weight: 800;
       text-decoration: none;
       color: #fff;
@@ -444,14 +579,30 @@
     }
     .cta-ppt:hover { transform: translateY(-2px); }
 
+    .cta-doc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      color: #fff;
+      background: #0284C7;
+      border: 2px solid #7DD3FC;
+      transition: all 0.2s ease;
+    }
+    .cta-doc:hover { transform: translateY(-2px); }
+
     /* PROBABILITY BAR */
     .prob-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 6px;
+      margin-top: 5px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 11.5px;
     }
     .prob-bar-bg {
       flex: 1;
@@ -525,64 +676,134 @@
 </head>
 <body>
 
-  <!-- BARRA SUPERIOR -->
+  <!-- BARRA SUPERIOR CON LOGOS Y ACCESOS -->
   <header class="topbar">
     <div class="brand-left">
-      <span class="badge-red">SESIÓN 01</span>
-      <span class="badge-free">LIC. JHOAN TABOADA</span>
-      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Fundamentos IA + Copilot + Excel VBA</div>
+      <span class="badge-red">ADECCO</span>
+      <span class="badge-free">CLARO CADENAS</span>
+      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Sesión 01 · Lic. Jhoan Taboada</div>
     </div>
     <div class="topbar-right">
       <button class="btn-top" onclick="toggleSep()" id="sepToggleBtn" title="Cambia entre punto y coma (;) y coma (,) según tu Excel">
-        ⚙️ Separador Excel: <strong id="sepLabel">; (Punto y coma)</strong>
+        ⚙️ Separador: <strong id="sepLabel">; (Punto y coma)</strong>
       </button>
+      <a class="btn-top doc" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" target="_blank">
+        📘 Guía Técnica con Ejemplos
+      </a>
       <a class="btn-top ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
-        📊 Descargar PPT (.pptx)
+        📊 PPT (.pptx)
       </a>
       <a class="btn-top excel" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
-        📥 Descargar Excel (.xlsx)
+        📥 Excel (.xlsx)
       </a>
       <a class="btn-top copilot" href="https://copilot.microsoft.com" target="_blank">
-        🤖 Abrir Copilot Gratis
-      </a>
-      <a class="btn-top" href="index.html#kahoot-arena">
-        ⚡ Kahoot
+        🤖 Copilot Gratis
       </a>
     </div>
   </header>
 
   <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
 
-  <!-- ESCENARIO DE 20 DIAPOSITIVAS -->
+  <!-- ESCENARIO DE 20 DIAPOSITIVAS CON FLUJOS DINÁMICOS Y LOGOS -->
   <main class="deck-stage">
 
-    <!-- ==================== SLIDE 1: PORTADA OFICIAL ==================== -->
+    <!-- ==================== SLIDE 1: PORTADA OFICIAL CON LOGOS Y FLUJO DE SESIÓN ==================== -->
     <section class="slide active">
       <div class="slide-inner">
+        <!-- Flujo Dinámico de laRuta de Aprendizaje de Hoy -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">👨‍🏫</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ETAPA 01</span>
+              <span class="flow-step-title">Ponente & Trayectoria IA</span>
+              <span class="flow-step-sub">Lic. Jhoan Taboada · PUCP</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.18);">🧠</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">ETAPA 02</span>
+              <span class="flow-step-title">GPT, Embeddings & Tokens</span>
+              <span class="flow-step-sub">Cómo predice la IA</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon" style="background:rgba(245,158,11,0.18);">🌍</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">ETAPA 03</span>
+              <span class="flow-step-title">Ecosistema de Modelos</span>
+              <span class="flow-step-sub">GPT · Claude · Gemini · Chinos</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(16,185,129,0.18);">⚙️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">ETAPA 04</span>
+              <span class="flow-step-title">Configuración Copilot</span>
+              <span class="flow-step-sub">Calibración del Entorno</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon" style="background:rgba(218,41,28,0.2);">📊</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">ETAPA 05</span>
+              <span class="flow-step-title">Excel + Macros VBA</span>
+              <span class="flow-step-sub">4 Casos Reales Claro</span>
+            </div>
+          </div>
+        </div>
+
         <div class="grid-2" style="align-items:center;">
           <div>
-            <span class="eyebrow green">PROGRAMA DE CAPACITACIÓN · SESIÓN 01 EN VIVO</span>
+            <span class="eyebrow green">PROGRAMA CORPORATIVO · SESIÓN 01 EN VIVO</span>
             <h1 class="hero-h1">
-              De la Teoría de los <span style="color:#38BDF8;">Modelos GPT</span> a la Automatización en <span style="color:#33C481;">Excel + Copilot</span>
+              De la Arquitectura <span style="color:#38BDF8;">GPT y Embeddings</span> a la Automatización en <span style="color:#33C481;">Excel + Copilot</span>
             </h1>
             <p class="lead">
-              Comprenderemos cómo funciona realmente la Inteligencia Artificial por dentro (<strong>GPT, Vectores Embeddings y Predicción</strong>), el panorama mundial de modelos, cómo <strong>configurar y potenciar Microsoft Copilot</strong> al máximo y su aplicación práctica inmediata en nuestros procesos de <strong>América Móvil (Claro) - Canal Cadenas</strong>.
+              Domina desde los fundamentos matemáticos de los Grandes Modelos de Lenguaje (**Vectores, Atención y Predicción de la Siguiente Palabra**) hasta la **configuración profesional de Microsoft Copilot Gratuito** aplicada a los procesos críticos de **Adecco Sales & Marketing — Cuenta América Móvil (Claro)**.
             </p>
-            <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+            <div style="display:flex; flex-wrap:wrap; gap:9px; align-items:center;">
               <a class="cta-ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
-                📊 Descargar Presentación (.pptx)
+                📊 Descargar PPT (.pptx)
+              </a>
+              <a class="cta-doc" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" target="_blank">
+                📘 Abrir Guía Técnica con Ejemplos
               </a>
               <a class="cta-hero" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
-                📥 Descargar Excel de Práctica (.xlsx)
+                📥 Excel de Práctica (.xlsx)
               </a>
               <a class="cta-copilot" href="https://copilot.microsoft.com" target="_blank">
-                🤖 Abrir copilot.microsoft.com
+                🤖 Abrir Copilot Gratis
               </a>
+            </div>
+
+            <!-- Barra de Logos Oficiales -->
+            <div class="logo-strip">
+              <span class="logo-chip" style="border-color:#DA291C; background:rgba(218,41,28,0.16);">
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#DA291C;"></span> Adecco Perú
+              </span>
+              <span class="logo-chip" style="border-color:#EF4444; background:rgba(239,68,68,0.14);">
+                📶 América Móvil (Claro)
+              </span>
+              <span class="logo-chip" style="border-color:#38BDF8; background:rgba(56,189,248,0.14);">
+                🏛️ PUCP · Q-LAB
+              </span>
+              <span class="logo-chip" style="border-color:#8B5CF6; background:rgba(139,92,246,0.15);">
+                🤖 Microsoft Copilot
+              </span>
+              <span class="logo-chip" style="border-color:#10B981; background:rgba(16,185,129,0.15);">
+                📗 Excel + VBA
+              </span>
             </div>
           </div>
 
-          <div class="card" style="text-align:center; padding:24px;">
-            <svg viewBox="0 0 400 365" width="200" height="182" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:10px;">
+          <div class="card" style="text-align:center; padding:20px;">
+            <svg viewBox="0 0 400 365" width="188" height="172" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:8px;">
               <circle cx="200" cy="180" r="160" fill="#0B172A" stroke="#2563EB" stroke-width="4"/>
               <path d="M200,10 A170,170 0 0,1 370,180" fill="none" stroke="#EF3326" stroke-width="6" stroke-dasharray="12 7"/>
               <path d="M200,350 A170,170 0 0,1 30,180" fill="none" stroke="#38BDF8" stroke-width="5" stroke-dasharray="10 7"/>
@@ -615,43 +836,78 @@
               <rect x="82" y="278" width="236" height="62" rx="15" fill="#DA291C" stroke="#FFFFFF" stroke-width="4.5"/>
               <text x="200" y="320" text-anchor="middle" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="40" font-weight="900">Adecco</text>
             </svg>
-            <h3 style="justify-content:center; font-size:18px;">Ponente: Lic. Jhoan Taboada Huamán</h3>
-            <p style="color:#94A3B8; margin-top:4px;">
-              Business Intelligence Analyst · Adecco Perú (Cuenta América Móvil - Claro)<br>
-              <strong style="color:#38BDF8;">Agenda de Hoy:</strong> 1) Quién soy · 2) Historia IA y cómo funciona un GPT · 3) Modelos Globales · 4) Configuración Entorno Copilot · 5) Casos Prácticos Excel + VBA.
+            <h3 style="justify-content:center; font-size:17.5px;">Ponente: Lic. Jhoan Taboada Huamán</h3>
+            <p style="color:#94A3B8; font-size:12.5px; margin-top:4px;">
+              Licenciado en Economía PUCP (Octubre 2026) · Especialista en IA & LLMs (PUCP / Q-LAB) · Analista de Inteligencia Empresarial en Adecco Perú.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 2: QUIÉN SOY Y EXPERIENCIA EN IA ==================== -->
+    <!-- ==================== SLIDE 2: QUIÉN SOY Y FLUJO DE TRAYECTORIA EN IA ==================== -->
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow">BLOQUE 1 · PRESENTACIÓN DEL INSTRUCTOR Y TRAYECTORIA EN IA</span>
-        <h2 class="slide-h2">¿Quién soy? <span style="color:var(--cyan);">Jhoan Taboada Huamán</span></h2>
-        <p class="lead">
-          <strong>Licenciado en Economía por la Pontificia Universidad Católica del Perú (PUCP) — Octubre 2026</strong> y Analista de Inteligencia Empresarial en <strong>Adecco Perú</strong> para la cuenta <strong>América Móvil (Claro)</strong>, especializado en Inteligencia Artificial Aplicada, LLMs y Automatización de Procesos.
-        </p>
+        <h2 class="slide-h2">¿Quién soy? <span style="color:var(--cyan);">Lic. Jhoan Taboada Huamán</span></h2>
+
+        <!-- Flujo Dinámico de Evolución Profesional en IA -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🏛️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">BASE CUANTITATIVA</span>
+              <span class="flow-step-title">Economía — PUCP</span>
+              <span class="flow-step-sub">Bachiller & Licenciado (Oct 2026)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.2);">🔬</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">BECARIO EXCELENCIA</span>
+              <span class="flow-step-title">Q-LAB PUCP (2025–2026)</span>
+              <span class="flow-step-sub">Machine Learning, Causal & LLMs</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon" style="background:rgba(245,158,11,0.2);">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">ESPECIALIZACIÓN IA</span>
+              <span class="flow-step-title">Diplomatura IA — PUCP</span>
+              <span class="flow-step-sub">216 Horas · 13.5 Créditos (May 2026)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(218,41,28,0.25);">🚀</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">IMPACTO CORPORATIVO</span>
+              <span class="flow-step-title">BI Analyst — Adecco Claro</span>
+              <span class="flow-step-sub">+3h/día ahorradas · Nota 10/10</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="card accent-cyan">
-            <h3>🎓 Formación Especializada en Inteligencia Artificial (PUCP)</h3>
+            <h3>🎓 Formación en Economía, Machine Learning e IA (PUCP)</h3>
             <ul>
-              <li><strong>Licenciado y Bachiller en Economía — PUCP:</strong> Licenciatura obtenida en <strong>Octubre 2026</strong>, combinando análisis cuantitativo y estrategia de negocio con ciencia de datos.</li>
-              <li><strong>Diplomatura en Desarrollo de Aplicaciones con Inteligencia Artificial — PUCP:</strong> <em>216 horas académicas (13.5 créditos), finalizada en Mayo 2026</em>, enfocada en integración práctica de modelos de IA.</li>
-              <li><strong>Becario de Excelencia Académica — Winter School Q-LAB PUCP (2025 y 2026):</strong> Especialización intensiva en <strong>Large Language Models (LLM)</strong>, <strong>Machine Learning</strong>, series de tiempo y análisis causal.</li>
-              <li><strong>Certificación en Machine Learning Aplicado — Q-LAB PUCP:</strong> Modelamiento predictivo y algoritmos de aprendizaje supervisado y no supervisado.</li>
+              <li><strong>Licenciado en Economía — PUCP (Octubre 2026) & Bachiller PUCP:</strong> Formación analítica, econométrica y de modelamiento de datos para toma de decisiones.</li>
+              <li><strong>Diplomatura en Desarrollo de Aplicaciones con Inteligencia Artificial — PUCP:</strong> <em>216 horas académicas (13.5 créditos), finalizada en Mayo 2026</em>, enfocada en soluciones reales con IA Generativa y LLMs.</li>
+              <li><strong>Becario de Excelencia Académica — Winter School Q-LAB PUCP (2025 y 2026):</strong> Entrenamiento intensivo en <strong>Large Language Models (LLM)</strong>, <strong>Machine Learning</strong>, series de tiempo y análisis causal.</li>
+              <li><strong>Certificación en Machine Learning Aplicado — Q-LAB PUCP.</strong></li>
             </ul>
           </div>
 
           <div class="card accent-red">
-            <h3>🚀 Trayectoria en Automatización, Datos e IA Aplicada</h3>
+            <h3>⚡ Experiencia en Automatización e Inteligencia Empresarial</h3>
             <ul>
-              <li><strong>Analista de Inteligencia Empresarial en Adecco Perú (Feb 2025 – Actualidad):</strong> Diseño de arquitectura analítica y automatización para <strong>América Móvil (Claro)</strong> en Lima y Zona Sur.</li>
-              <li><strong>Automatización Operativa Real:</strong> Reducción de <strong>+3 horas diarias</strong> en flujos de consolidación y validación de datos mediante <strong>Macros VBA, Power Automate, SQL, BigQuery y Python</strong>.</li>
-              <li><strong>Impacto en el Equipo Comercial:</strong> Estandarización de KPIs de ventas y comisiones para <strong>+400 colaboradores</strong> y automatización de evaluaciones personalizadas.</li>
-              <li><strong>Proyectos con Python e IA:</strong> Desarrollo de bots de extracción masiva automatizada (<em>Python + Selenium</em>) y capacitación al 100 % de administradores y supervisores de Lima.</li>
+              <li><strong>Analista de Inteligencia Empresarial — Adecco Perú (Feb 2025 – Actualidad):</strong> Lidero la reportería estratégica y estandarización de KPIs para <strong>América Móvil (Claro)</strong> en Lima y Zona Sur (<strong>+400 colaboradores</strong>).</li>
+              <li><strong>Automatización con IA, Macros VBA y Power Automate:</strong> Reducción de <strong>+3 horas diarias</strong> en flujos de consolidación, validación de datos y envío automatizado de evaluaciones.</li>
+              <li><strong>Calificación 10/10 del Cliente Claro:</strong> Máximo puntaje en el balance de evaluación por calidad y oportunidad de la información.</li>
+              <li><strong>Automatización con Python y Selenium:</strong> Bots de extracción masiva de registros públicos (SUNAT) y arquitectura en <strong>SQL, BigQuery y Power BI</strong>.</li>
             </ul>
           </div>
         </div>
@@ -671,167 +927,269 @@
           </div>
           <div class="kpi-box">
             <div class="kpi-num">10 / 10</div>
-            <div class="kpi-lbl">Calificación Cliente Claro en BI</div>
+            <div class="kpi-lbl">Evaluación Cliente América Móvil</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 3: BREVE HISTORIA DE LA IA ==================== -->
+    <!-- ==================== SLIDE 3: BREVE HISTORIA DE LA IA CON FLUJO EVOLUTIVO ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow purple">BLOQUE 2 · FUNDAMENTOS DE INTELIGENCIA ARTIFICIAL</span>
-        <h2 class="slide-h2">Breve Historia de la IA: ¿Cómo llegamos hasta aquí?</h2>
+        <span class="eyebrow purple">BLOQUE 2 · HISTORIA DE LA INTELIGENCIA ARTIFICIAL</span>
+        <h2 class="slide-h2">Breve Historia de la IA: El Flujo de Evolución hasta Hoy</h2>
         <p class="lead">
-          La Inteligencia Artificial no nació en 2022 con ChatGPT. Es el resultado de más de 70 años de evolución matemática que dio un salto cuántico en 2017 con el nacimiento de los <strong>Transformers</strong>:
+          Para dominar la IA debemos entender su cambio de arquitectura: pasamos de **programar reglas rígidas a mano** a **redes neuronales que entienden el contexto completo**:
         </p>
+
+        <!-- Flujo Dinámico de Evolución -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">⚙️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ERA 1 (1950–1980)</span>
+              <span class="flow-step-title">Reglas Fijas (SI/ENTONCES)</span>
+              <span class="flow-step-sub">Humano programa cada regla</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node">
+            <div class="flow-icon">📈</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ERA 2 (1990–2010)</span>
+              <span class="flow-step-title">Machine Learning</span>
+              <span class="flow-step-sub">Aprende de datos históricos</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node">
+            <div class="flow-icon">🕸️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ERA 3 (2012–2016)</span>
+              <span class="flow-step-title">Deep Learning</span>
+              <span class="flow-step-sub">Redes neuronales (Voz/Visión)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon" style="background:rgba(245,158,11,0.2);">⚡</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">HITO 2017 (GOOGLE)</span>
+              <span class="flow-step-title">Arquitectura Transformer</span>
+              <span class="flow-step-sub">Mecanismo de Auto-Atención</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(16,185,129,0.2);">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">ERA 5 (2022–2026)</span>
+              <span class="flow-step-title">LLMs & Copilotos</span>
+              <span class="flow-step-sub">Generan código y razonan</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-5">
           <div class="timeline-step" style="border-top-color:#94A3B8;">
             <span class="timeline-year" style="color:#94A3B8;">1950 – 1980</span>
-            <h3 style="font-size:14.5px; color:#fff;">1. IA Simbólica (Reglas Fijas)</h3>
-            <p style="font-size:12.5px; color:#CBD5E1;">
-              De Alan Turing a los <em>Sistemas Expertos</em>. El humano programaba cada regla manualmente (<code>SI pasa A → ENTONCES B</code>). Si un dato venía sucio, el sistema fallaba.
+            <h3 style="font-size:14px; color:#fff;">1. IA Simbólica</h3>
+            <p style="font-size:12px; color:#CBD5E1;">
+              Sistemas expertos basados en condicionales rígidas. <strong>Ejemplo:</strong> Una fórmula `=SI()` tradicional; si alguien escribe `"SÍ"` con tilde en vez de `"SI"`, falla.
             </p>
           </div>
 
           <div class="timeline-step" style="border-top-color:#38BDF8;">
             <span class="timeline-year">1990 – 2010</span>
-            <h3 style="font-size:14.5px; color:#fff;">2. Machine Learning</h3>
-            <p style="font-size:12.5px; color:#CBD5E1;">
-              En lugar de escribir reglas fijas, alimentamos algoritmos estadísticos con miles de datos históricos para que <strong>aprendan patrones</strong> y predigan ventas o riesgo.
+            <h3 style="font-size:14px; color:#fff;">2. Machine Learning</h3>
+            <p style="font-size:12px; color:#CBD5E1;">
+              Algoritmos estadísticos (regresiones, árboles) que aprenden patrones de miles de filas para predecir ventas o fugas de clientes.
             </p>
           </div>
 
           <div class="timeline-step" style="border-top-color:#10B981;">
             <span class="timeline-year" style="color:#6EE7B7;">2012 – 2016</span>
-            <h3 style="font-size:14.5px; color:#fff;">3. Deep Learning (Redes)</h3>
-            <p style="font-size:12.5px; color:#CBD5E1;">
-              Redes neuronales multicapa potenciadas por tarjetas gráficas (GPUs). La IA logra ver imágenes, reconocer voz y traducir idiomas, pero aún leía texto de forma lenta y secuencial.
+            <h3 style="font-size:14px; color:#fff;">3. Deep Learning</h3>
+            <p style="font-size:12px; color:#CBD5E1;">
+              Redes neuronales multicapa inspiradas en el cerebro. Leían el texto palabra por palabra en fila, olvidando el inicio en textos largos.
             </p>
           </div>
 
           <div class="timeline-step" style="border-top-color:#F59E0B;">
-            <span class="timeline-year" style="color:#FDE68A;">2017 · HITO</span>
-            <h3 style="font-size:14.5px; color:#fff;">4. Arquitectura Transformer</h3>
-            <p style="font-size:12.5px; color:#CBD5E1;">
-              Google publica <em>"Attention Is All You Need"</em>. Nace el mecanismo de <strong>Atención</strong>: la IA procesa textos enteros en paralelo entendiendo cómo se relaciona cada palabra con todas las demás.
+            <span class="timeline-year" style="color:#FDE68A;">2017 · EL QUIEBRE</span>
+            <h3 style="font-size:14px; color:#fff;">4. Transformer</h3>
+            <p style="font-size:12px; color:#CBD5E1;">
+              Paper <em>"Attention Is All You Need"</em>. Permite que la IA lea todo tu prompt de golpe en paralelo y conecte palabras distantes entre sí.
             </p>
           </div>
 
           <div class="timeline-step" style="border-top-color:#DA291C;">
             <span class="timeline-year" style="color:#FCA5A5;">2022 – 2026</span>
-            <h3 style="font-size:14.5px; color:#fff;">5. Era GPT, Razonadores y Copilotos</h3>
-            <p style="font-size:12.5px; color:#CBD5E1;">
-              Explosión de los <strong>LLMs (Grandes Modelos de Lenguaje)</strong>: modelos capaces de razonar paso a paso, programar Macros VBA, auditar bases y actuar como copilotos en tiempo real.
+            <h3 style="font-size:14px; color:#fff;">5. GPTs & Razonadores</h3>
+            <p style="font-size:12px; color:#CBD5E1;">
+              De ChatGPT a modelos que verifican su propia lógica (*Think Deeper*), escriben Macros VBA completas y auditan tablas operativas.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 4: QUÉ ES UN GPT ==================== -->
+    <!-- ==================== SLIDE 4: QUÉ ES UN GPT + FLUJO DE ARQUITECTURA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow">DESARMANDO LA CAJA NEGRA · ¿QUÉ SIGNIFICA GPT?</span>
-        <h2 class="slide-h2">¿Qué es realmente un <span style="color:var(--cyan);">G - P - T</span>?</h2>
-        <p class="lead">
-          Cuando usamos ChatGPT o Microsoft Copilot estamos interactuando con un modelo <strong>GPT</strong>. Sus tres letras explican exactamente cómo trabaja:
-        </p>
+        <span class="eyebrow">BLOQUE 2 · DESARMANDO LA CAJA NEGRA</span>
+        <h2 class="slide-h2">¿Qué es realmente un <span style="color:var(--cyan);">G - P - T</span> y cómo fluye la información?</h2>
+
+        <!-- Flujo Dinámico del Motor GPT -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📚</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">FASE 1 · PRE-TRAINED</span>
+              <span class="flow-step-title">Entrenamiento Masivo Previo</span>
+              <span class="flow-step-sub">Billones de textos, manuales Excel y código VBA</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.2);">🔀</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">FASE 2 · TRANSFORMER</span>
+              <span class="flow-step-title">Comprensión Contextual (Atención)</span>
+              <span class="flow-step-sub">Conecta todas las palabras de tu Prompt</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(16,185,129,0.2);">✨</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">FASE 3 · GENERATIVE</span>
+              <span class="flow-step-title">Generación Token por Token</span>
+              <span class="flow-step-sub">Construye tu fórmula o Macro a medida</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-3">
           <div class="card accent-green">
-            <h3><span style="font-size:26px; color:#33C481; font-family:'JetBrains Mono',monospace;">G</span> Generative (Generativo)</h3>
+            <h3><span style="font-size:24px; color:#33C481; font-family:'JetBrains Mono',monospace;">G</span> Generative (Generativo)</h3>
             <ul>
-              <li>A diferencia de Google tradicional (que solo <em>busca</em> enlaces existentes), un modelo generativo <strong>crea contenido nuevo desde cero</strong>.</li>
-              <li>Genera fórmulas de Excel a la medida de tus columnas, escribe código VBA original y redacta correos ejecutivos palabra por palabra.</li>
+              <li><strong>No busca respuestas prefabricadas:</strong> A diferencia de Google tradicional, crea una respuesta nueva palabra por palabra.</li>
+              <li><strong>Ejemplo en Adecco:</strong> Si tus columnas están en `D2`, `H2` e `I2`, construye la fórmula exacta para esas celdas en ese instante.</li>
             </ul>
           </div>
 
           <div class="card accent-cyan">
-            <h3><span style="font-size:26px; color:#38BDF8; font-family:'JetBrains Mono',monospace;">P</span> Pre-trained (Pre-entrenado)</h3>
+            <h3><span style="font-size:24px; color:#38BDF8; font-family:'JetBrains Mono',monospace;">P</span> Pre-trained (Pre-entrenado)</h3>
             <ul>
-              <li>Antes de que le hagas tu primera pregunta, el modelo pasó meses entrenando sobre <strong>billones de textos</strong>: libros, toda la documentación oficial de Microsoft Excel, foros de programación VBA y casos de negocio.</li>
-              <li>Por eso ya "conoce" todas las funciones de Excel en español e inglés.</li>
+              <li><strong>Conocimiento base acumulado:</strong> Leyó toda la documentación oficial de Microsoft Office, libros de finanzas, foros de VBA y SQL.</li>
+              <li><strong>Ejemplo en Adecco:</strong> Ya sabe cómo funciona `Scripting.Dictionary` en VBA o `BUSCARX` en español sin que tengas que enseñarle a programar.</li>
             </ul>
           </div>
 
           <div class="card accent-red">
-            <h3><span style="font-size:26px; color:#FCA5A5; font-family:'JetBrains Mono',monospace;">T</span> Transformer (Transformador)</h3>
+            <h3><span style="font-size:24px; color:#FCA5A5; font-family:'JetBrains Mono',monospace;">T</span> Transformer (Transformador)</h3>
             <ul>
-              <li>Es la arquitectura neuronal creada en 2017 basada en <strong>Auto-Atención (Self-Attention)</strong>.</li>
-              <li>Le permite leer tu <em>prompt</em> completo y pesar matemáticamente qué palabras son las más importantes sin importar si están al inicio o al final del párrafo.</li>
+              <li><strong>El motor de Atención:</strong> Evalúa cómo cada palabra de tu instrucción modifica a las demás.</li>
+              <li><strong>Ejemplo en Adecco:</strong> Conecta que *"punto y coma (;)"* al inicio de tu prompt obliga a cambiar todas las comas dentro de `=SI(Y(I2>0;H2="NO")...)`.</li>
             </ul>
           </div>
-        </div>
-
-        <div class="card" style="margin-top:16px; background:rgba(56,189,248,0.08); border-color:rgba(56,189,248,0.35);">
-          <p style="font-size:14px; color:#E2E8F0; text-align:center;">
-            💡 <strong>Idea Clave:</strong> Un GPT no "piensa" como un humano ni tiene una base de datos de plantillas fijas; es un <strong>motor matemático gigantesco</strong> que transforma tus palabras en vectores numéricos para calcular la respuesta óptima. ¡Veamos cómo lo hace!
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 5: TOKENS Y VECTORES EMBEDDINGS ==================== -->
+    <!-- ==================== SLIDE 5: TOKENS Y VECTORES EMBEDDINGS CON FLUJO VISUAL ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow purple">EL CEREBRO MATEMÁTICO DE LA IA · TOKENS Y VECTORES EMBEDDINGS</span>
-        <h2 class="slide-h2">¿Cómo funcionan los <span style="color:#E9D5FF;">Vectores (Embeddings)</span>?</h2>
-        <p class="lead">
-          Las computadoras no entienden letras, solo entienden números. Para comprender el significado de tus palabras, la IA las convierte en <strong>coordenadas dentro de un mapa multidimensional llamado Espacio de Embeddings</strong>:
-        </p>
+        <span class="eyebrow purple">BLOQUE 2 · EL CEREBRO MATEMÁTICO DE LA IA · TOKENS Y EMBEDDINGS</span>
+        <h2 class="slide-h2">¿Cómo funcionan los <span style="color:#E9D5FF;">Tokens y los Vectores (Embeddings)</span>?</h2>
+
+        <!-- Flujo Dinámico de Tokenización a Embeddings -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">💬</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">1. TU PALABRA</span>
+              <span class="flow-step-title">"Liquidación SISCAD"</span>
+              <span class="flow-step-sub">Lenguaje humano</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon" style="background:rgba(245,158,11,0.2);">🧩</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">2. TOKENIZACIÓN</span>
+              <span class="flow-step-title">[#48912] [#91044]</span>
+              <span class="flow-step-sub">Se parte en IDs numéricos</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.2);">📐</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">3. VECTOR EMBEDDING</span>
+              <span class="flow-step-title">[0.85, 0.42, -0.19...]</span>
+              <span class="flow-step-sub">+1,500 coordenadas GPS</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(16,185,129,0.2);">🗺️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">4. VECINDARIO SEMÁNTICO</span>
+              <span class="flow-step-title">Cerca de "Boleta / Retail"</span>
+              <span class="flow-step-sub">Similitud matemática</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2" style="align-items:center;">
           <div class="card accent-purple">
-            <h3>🔢 Paso 1: De Palabras a Tokens y de Tokens a Vectores</h3>
+            <h3>🧭 Analogía Fácil: El "GPS del Significado"</h3>
             <ul>
-              <li><strong>1. Tokenización:</strong> Tu texto se divide en sílabas o palabras llamadas <strong>Tokens</strong>.<br>
-                <code>"Liquidación"</code> → Token <code>#48912</code> | <code>"SISCAD"</code> → Token <code>#91044</code>.
+              <li><strong>¿Por qué necesita vectores?:</strong> Una computadora no sabe qué es una *"boleta"* ni qué es *"Excel"*. Pero sí sabe medir distancias entre coordenadas numéricas.</li>
+              <li><strong>¿Qué es un Embedding?:</strong> Es una ficha con más de **1,500 coordenadas** para cada palabra. Por ejemplo:<br>
+                • ¿Se relaciona con dinero/ventas? → `0.89` (Alto)<br>
+                • ¿Se relaciona con programación/Excel? → `0.12` (Bajo)<br>
+                • ¿Se relaciona con medicina? → `-0.95` (Nulo)
               </li>
-              <li><strong>2. Vector Embedding (Lista de Coordenadas):</strong> Cada token se transforma en un vector de cientos o miles de números decimales:<br>
-                <code style="color:#38BDF8;">Vector("SISCAD") = [0.84, -0.19, 0.92, 0.41, ..., -0.07]</code>
-              </li>
-              <li><strong>3. Geometría del Significado:</strong> Cada dimensión mide una característica del concepto (¿es de finanzas?, ¿es de telecomunicaciones?, ¿es un sistema?, ¿es de Excel?).</li>
-              <li><strong>Palabras con significados cercanos tienen vectores cercanos (Similitud Coseno):</strong> En el mapa matemático de la IA, <code>"SISCAD"</code>, <code>"Boleta"</code>, <code>"Retail"</code> y <code>"Conciliación"</code> viven en el mismo "vecindario".</li>
+              <li><strong>Vecindarios de Palabras:</strong> Gracias a esas coordenadas, todos los conceptos de **Operaciones Claro** quedan agrupados en una zona del mapa y los de **Excel/VBA** en otra. **Tu prompt traza la ruta entre ambos.**</li>
             </ul>
           </div>
 
-          <div class="card" style="text-align:center; padding:16px;">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#E9D5FF; margin-bottom:8px; font-weight:800;">
-              MAPA VECTORIAL SEMÁNTICO (ESPACIO DE EMBEDDINGS 3D)
+          <div class="card" style="text-align:center; padding:14px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#E9D5FF; margin-bottom:6px; font-weight:800;">
+              FLUJO EN EL ESPACIO DE EMBEDDINGS (TU PROMPT UNE AMBOS CLÚSTERES)
             </div>
-            <svg viewBox="0 0 520 270" width="100%" height="235" xmlns="http://www.w3.org/2000/svg" style="background:#060D1A; border-radius:12px; border:1px solid rgba(168,85,247,0.35);">
-              <!-- Axes -->
-              <line x1="50" y1="230" x2="490" y2="230" stroke="#334155" stroke-width="2"/>
-              <line x1="50" y1="230" x2="50" y2="25" stroke="#334155" stroke-width="2"/>
-              <line x1="50" y1="230" x2="170" y2="120" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <text x="415" y="248" fill="#64748B" font-family="monospace" font-size="10">Dimensión X (Negocio)</text>
-              <text x="60" y="38" fill="#64748B" font-family="monospace" font-size="10">Dimensión Y (Código/Excel)</text>
+            <svg viewBox="0 0 520 250" width="100%" height="220" xmlns="http://www.w3.org/2000/svg" style="background:#060D1A; border-radius:12px; border:1px solid rgba(168,85,247,0.35);">
+              <line x1="45" y1="215" x2="495" y2="215" stroke="#334155" stroke-width="2"/>
+              <line x1="45" y1="215" x2="45" y2="20" stroke="#334155" stroke-width="2"/>
+              <line x1="45" y1="215" x2="160" y2="110" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="405" y="234" fill="#64748B" font-family="monospace" font-size="10">Dimensión Negocio Retail</text>
+              <text x="55" y="34" fill="#64748B" font-family="monospace" font-size="10">Dimensión Excel / Código</text>
 
               <!-- Cluster 1: Excel & VBA -->
-              <circle cx="155" cy="85" r="56" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-dasharray="5 4"/>
-              <text x="155" y="42" text-anchor="middle" fill="#6EE7B7" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Excel / VBA</text>
-              <circle cx="130" cy="75" r="6" fill="#10B981"/>
-              <text x="130" y="63" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">BUSCARX [0.12, 0.91]</text>
-              <circle cx="178" cy="95" r="6" fill="#10B981"/>
-              <text x="178" y="112" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Macro VBA [0.18, 0.88]</text>
-              <circle cx="145" cy="112" r="5" fill="#34D399"/>
+              <circle cx="150" cy="82" r="54" fill="rgba(16,185,129,0.13)" stroke="#10B981" stroke-dasharray="5 4"/>
+              <text x="150" y="38" text-anchor="middle" fill="#6EE7B7" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Excel / VBA</text>
+              <circle cx="125" cy="72" r="6" fill="#10B981"/>
+              <text x="125" y="60" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">SI / BUSCARX [0.12, 0.91]</text>
+              <circle cx="174" cy="94" r="6" fill="#10B981"/>
+              <text x="174" y="110" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Macro VBA [0.18, 0.88]</text>
 
               <!-- Cluster 2: Operación Claro Retail -->
-              <circle cx="375" cy="145" r="68" fill="rgba(56,189,248,0.12)" stroke="#38BDF8" stroke-dasharray="5 4"/>
-              <text x="375" y="88" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Operación Claro</text>
-              <circle cx="345" cy="130" r="6" fill="#38BDF8"/>
-              <text x="345" y="118" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">SISCAD [0.85, 0.42]</text>
-              <circle cx="400" cy="150" r="6" fill="#38BDF8"/>
-              <text x="405" y="166" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">IMEI / 2233 [0.89, 0.39]</text>
-              <circle cx="355" cy="175" r="6" fill="#38BDF8"/>
-              <text x="355" y="192" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Retail / PDV [0.81, 0.31]</text>
+              <circle cx="380" cy="138" r="64" fill="rgba(56,189,248,0.13)" stroke="#38BDF8" stroke-dasharray="5 4"/>
+              <text x="380" y="82" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold">Clúster Claro Cadenas</text>
+              <circle cx="348" cy="124" r="6" fill="#38BDF8"/>
+              <text x="348" y="112" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">SISCAD [0.85, 0.42]</text>
+              <circle cx="404" cy="144" r="6" fill="#38BDF8"/>
+              <text x="408" y="160" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">2233 / IMEI [0.89, 0.39]</text>
+              <circle cx="358" cy="168" r="6" fill="#38BDF8"/>
+              <text x="358" y="184" text-anchor="middle" fill="#fff" font-family="monospace" font-size="10">Penalidad S/ [0.81, 0.31]</text>
 
-              <!-- Bridge Vector (Your Prompt) -->
-              <line x1="178" y1="95" x2="345" y2="130" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="6 4"/>
-              <rect x="205" y="96" width="120" height="24" rx="6" fill="#F59E0B"/>
-              <text x="265" y="112" text-anchor="middle" fill="#0B172A" font-family="sans-serif" font-size="10.5" font-weight="bold">TU PROMPT R-C-T-R</text>
+              <!-- Bridge Vector -->
+              <line x1="174" y1="94" x2="348" y2="124" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6 4"/>
+              <rect x="200" y="92" width="128" height="24" rx="6" fill="#F59E0B"/>
+              <text x="264" y="108" text-anchor="middle" fill="#0B172A" font-family="sans-serif" font-size="10.5" font-weight="bold">⚡ TU PROMPT R-C-T-R</text>
             </svg>
           </div>
         </div>
@@ -841,32 +1199,68 @@
     <!-- ==================== SLIDE 6: ATENCIÓN Y PREDICCIÓN DE LA SIGUIENTE PALABRA ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow amber">DE LOS VECTORES A LA RESPUESTA · PREDICCIÓN DEL SIGUIENTE TOKEN</span>
-        <h2 class="slide-h2">¿Cómo usa la IA toda esa información para <span style="color:#FDE68A;">Predecir la Siguiente Palabra</span>?</h2>
-        <p class="lead">
-          Una vez que tus palabras son vectores, el modelo ejecuta <strong>dos pasos matemáticos ultrarrápidos</strong> para construir tu fórmula o tu Macro palabra por palabra:
-        </p>
+        <span class="eyebrow amber">BLOQUE 2 · MECANISMO DE ATENCIÓN Y PREDICCIÓN PROBABILÍSTICA</span>
+        <h2 class="slide-h2">¿Cómo usa los Vectores para <span style="color:#FDE68A;">Predecir la Siguiente Palabra</span>?</h2>
+
+        <!-- Flujo Dinámico de Atención -> Cálculo Probabilístico -> Selección -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🔍</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PASO 1 · SELF-ATTENTION</span>
+              <span class="flow-step-title">Cruza Palabras Vecinas</span>
+              <span class="flow-step-sub">"Claro" + "2233" + "PDV" = Telecom</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.2);">🧮</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">PASO 2 · DISTRIBUCIÓN</span>
+              <span class="flow-step-title">Calcula Probabilidades</span>
+              <span class="flow-step-sub">Evalúa +100,000 tokens posibles</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(16,185,129,0.2);">🎯</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">PASO 3 · ELECCIÓN</span>
+              <span class="flow-step-title">Elige el Token Ganador</span>
+              <span class="flow-step-sub">H2="NO") con 94.2% de certeza</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon" style="background:rgba(245,158,11,0.2);">🔄</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">PASO 4 · BUCLE (LOOP)</span>
+              <span class="flow-step-title">Repite 80 veces / seg</span>
+              <span class="flow-step-sub">Hasta completar tu fórmula o Macro</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="card accent-cyan">
-            <h3>🎯 1. Mecanismo de Atención (Contexto Total)</h3>
+            <h3>🔦 Ejemplo Real de Atención: La palabra "CLARO"</h3>
             <ul>
-              <li>Imagina la palabra <strong>"Claro"</strong>. Por sí sola, puede significar <em>"agua clara"</em>, <em>"por supuesto"</em> o la empresa <em>"América Móvil Claro"</em>.</li>
-              <li>La capa de <strong>Self-Attention</strong> hace que el vector de <code>"Claro"</code> mire a todos los vectores vecinos de tu prompt: <code>"PDV"</code>, <code>"Marcación 2233"</code>, <code>"SISCAD"</code> y <code>"Comisión"</code>.</li>
-              <li>Al detectar esos vecinos, el modelo actualiza el vector de <code>"Claro"</code> con toda la información contextual del negocio de telecomunicaciones y descarta los otros significados.</li>
+              <li>Si escribes solo: <em>"Haz un reporte para Claro"</em> → El vector `"Claro"` está rodeado de vacío; el modelo duda entre *color claro*, *lenguaje claro* o *empresa*.</li>
+              <li>Si escribes: <em>"En Adecco Cuenta <strong>Claro</strong> auditamos el código <strong>2233</strong> en cada <strong>PDV</strong> y <strong>SISCAD</strong>"</em>:</li>
+              <li>El **Mecanismo de Atención** multiplica los vectores entre sí y asigna **99.8 % de peso** al contexto de **Operaciones Comerciales Telecomunicaciones**.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>🎲 2. Predicción Probabilística del Siguiente Token</h3>
-            <p>Con todos los vectores enriquecidos, la IA calcula la probabilidad de cada palabra posible para continuar la frase y elige la más probable:</p>
-            <div style="background:#060D1A; padding:11px 14px; border-radius:10px; margin-top:8px; border:1px solid rgba(255,255,255,0.1);">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#94A3B8; margin-bottom:6px;">
-                Contexto generado hasta ahora: <strong style="color:#fff;">=SI(Y(I2&gt;0;</strong>
+            <h3>🎲 Ejemplo Real de Predicción del Siguiente Token</h3>
+            <p>Mira cómo decide Copilot qué escribir después de <code>=SI(Y(I2&gt;0;</code> cuando le diste las columnas exactas:</p>
+            <div style="background:#060D1A; padding:10px 14px; border-radius:10px; margin-top:7px; border:1px solid rgba(255,255,255,0.1);">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#94A3B8; margin-bottom:5px;">
+                Contexto previo en la fórmula: <strong style="color:#fff;">=SI(Y(I2&gt;0;</strong>
               </div>
               <div class="prob-row">
                 <span style="width:110px; color:#6EE7B7; font-weight:800;">H2="NO")</span>
-                <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:94%; background:#10B981;"></div></div>
+                <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:94.2%; background:#10B981;"></div></div>
                 <span style="color:#6EE7B7; font-weight:800;">94.2% ✅</span>
               </div>
               <div class="prob-row">
@@ -875,111 +1269,195 @@
                 <span style="color:#94A3B8;">4.5%</span>
               </div>
               <div class="prob-row">
-                <span style="width:110px; color:#94A3B8;">I2=0)</span>
+                <span style="width:110px; color:#94A3B8;">H2=0)</span>
                 <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:1.3%; background:#64748B;"></div></div>
                 <span style="color:#94A3B8;">1.3%</span>
               </div>
             </div>
-            <p style="margin-top:8px; font-size:12.5px; color:#FDE68A;">
-              ⚡ <strong>Por qué esto cambia tu forma de trabajar:</strong> Si tu prompt es vago, las probabilidades se dispersan y la IA "alucina" o inventa columnas. Si le das las celdas exactas (<code>D2, H2, I2</code>), ¡concentras el 95 %+ de probabilidad en la respuesta perfecta!
+            <p style="margin-top:7px; font-size:12px; color:#FDE68A;">
+              💡 <strong>Regla de Oro:</strong> La IA "alucina" únicamente cuando la dejas adivinar qué columna es cuál. ¡Dándole la letra de columna (`H2`) eliminas el azar!
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 7: ECOSISTEMA MUNDIAL DE MODELOS DE IA ==================== -->
+    <!-- ==================== SLIDE 7: ECOSISTEMA MUNDIAL DE MODELOS CON LOGOS OFICIALES ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow">BLOQUE 3 · PANORAMA GLOBAL DE LA INTELIGENCIA ARTIFICIAL EN 2026</span>
-        <h2 class="slide-h2">¿Qué Modelos de IA existen hoy a disposición en el mundo?</h2>
+        <span class="eyebrow">BLOQUE 3 · PANORAMA MUNDIAL DE LA INTELIGENCIA ARTIFICIAL (CON LOGOS)</span>
+        <h2 class="slide-h2">¿Qué Modelos de IA Tenemos Hoy a Disposición en el Mundo?</h2>
         <p class="lead">
-          No existe una sola IA. Hoy compiten <strong>5 grandes potencias tecnológicas</strong>, cada una con fortalezas específicas que debemos conocer como profesionales:
+          Hoy compiten **5 grandes familias de modelos**. Conoce sus logos, sus motores insignia y en qué destaca cada uno:
         </p>
 
         <div class="grid-5">
+          <!-- OpenAI ChatGPT -->
           <div class="card accent-green" style="padding:14px;">
-            <h3 style="font-size:15px;">🟢 OpenAI (ChatGPT)</h3>
-            <p style="font-size:11.5px; color:#6EE7B7; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">GPT-4o · Serie o3 · GPT-5</p>
-            <p style="font-size:12.5px;">
-              El pionero mundial y <strong>el motor que impulsa Microsoft Copilot</strong>. Excelente en lógica de negocios, fórmulas de Excel, código VBA y análisis multimodal.
+            <div class="model-logo-box" style="background:rgba(16,163,127,0.18); border:1px solid #10A37F;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3 C16 7, 16 17, 12 21 C8 17, 8 7, 12 3 Z"/>
+                <path d="M3 12 C7 8, 17 8, 21 12 C17 16, 7 16, 3 12 Z"/>
+              </svg>
+            </div>
+            <h3 style="font-size:14.5px;">OpenAI · ChatGPT</h3>
+            <p style="font-size:11px; color:#6EE7B7; font-family:'JetBrains Mono',monospace; margin-bottom:5px;">GPT-4o · Serie o3 · GPT-5</p>
+            <p style="font-size:12px;">
+              El pionero mundial y **el motor que impulsa Microsoft Copilot**. Rey en lógica de negocios, fórmulas de Excel y Macros VBA.
             </p>
           </div>
 
+          <!-- Anthropic Claude -->
           <div class="card accent-amber" style="padding:14px;">
-            <h3 style="font-size:15px;">🟠 Anthropic (Claude)</h3>
-            <p style="font-size:11.5px; color:#FDE68A; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Claude 3.7 / 4 Sonnet & Opus</p>
-            <p style="font-size:12.5px;">
-              Creado por ex-investigadores de OpenAI. Líder en <strong>redacción ejecutiva natural</strong>, lectura de contratos/manuales largos y generación de código muy limpio.
+            <div class="model-logo-box" style="background:rgba(217,119,87,0.2); border:1px solid #D97757;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round">
+                <line x1="12" y1="2" x2="12" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/>
+                <line x1="19.1" y1="4.9" x2="4.9" y2="19.1"/>
+              </svg>
+            </div>
+            <h3 style="font-size:14.5px;">Anthropic · Claude</h3>
+            <p style="font-size:11px; color:#FDE68A; font-family:'JetBrains Mono',monospace; margin-bottom:5px;">Claude 3.7 / 4 Sonnet & Opus</p>
+            <p style="font-size:12px;">
+              Famoso por su **redacción ejecutiva ultra humana**, análisis de documentos extensos y generación de código muy estructurado.
             </p>
           </div>
 
+          <!-- Google Gemini -->
           <div class="card accent-cyan" style="padding:14px;">
-            <h3 style="font-size:15px;">🔵 Google (Gemini)</h3>
-            <p style="font-size:11.5px; color:#38BDF8; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Gemini 2.5 Pro · Flash</p>
-            <p style="font-size:12.5px;">
-              Nativo multimodal desde su origen con una <strong>ventana de contexto gigante</strong> (capaz de procesar libros enteros, cientos de páginas en PDF, video y audio a la vez).
+            <div class="model-logo-box" style="background:rgba(56,189,248,0.18); border:1px solid #38BDF8;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="#38BDF8">
+                <path d="M12 2 C12.5 8.5, 15.5 11.5, 22 12 C15.5 12.5, 12.5 15.5, 12 22 C11.5 15.5, 8.5 12.5, 2 12 C8.5 11.5, 11.5 8.5, 12 2 Z"/>
+              </svg>
+            </div>
+            <h3 style="font-size:14.5px;">Google · Gemini</h3>
+            <p style="font-size:11px; color:#38BDF8; font-family:'JetBrains Mono',monospace; margin-bottom:5px;">Gemini 2.5 Pro · Flash</p>
+            <p style="font-size:12px;">
+              Nativo multimodal con **ventana de contexto masiva** (lee manuales de cientos de páginas, PDFs largos, video y audio de una vez).
             </p>
           </div>
 
+          <!-- xAI Grok -->
           <div class="card accent-purple" style="padding:14px;">
-            <h3 style="font-size:15px;">⚫ xAI (Grok)</h3>
-            <p style="font-size:11.5px; color:#E9D5FF; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Grok 3 · DeepSearch</p>
-            <p style="font-size:12.5px;">
-              El modelo de xAI (Elon Musk). Destaca por su velocidad, capacidad de razonamiento directo (<em>Think</em>) y conexión en tiempo real con noticias y tendencias globales.
+            <div class="model-logo-box" style="background:rgba(168,85,247,0.18); border:1px solid #A855F7;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E9D5FF" stroke-width="2.4" stroke-linecap="round">
+                <line x1="4" y1="20" x2="20" y2="4"/>
+                <line x1="6" y1="4" x2="18" y2="20"/>
+              </svg>
+            </div>
+            <h3 style="font-size:14.5px;">xAI · Grok</h3>
+            <p style="font-size:11px; color:#E9D5FF; font-family:'JetBrains Mono',monospace; margin-bottom:5px;">Grok 3 · DeepSearch</p>
+            <p style="font-size:12px;">
+              Creado por xAI. Destaca por su rapidez, razonamiento directo sin rodeos y acceso en tiempo real a tendencias globales.
             </p>
           </div>
 
+          <!-- Modelos Chinos -->
           <div class="card accent-red" style="padding:14px;">
-            <h3 style="font-size:15px;">🔴 Modelos Chinos</h3>
-            <p style="font-size:11.5px; color:#FCA5A5; font-family:'JetBrains Mono',monospace; margin-bottom:6px;">DeepSeek R1/V3 · Qwen · Kimi</p>
-            <p style="font-size:12.5px;">
-              La gran revolución asiática (<strong>DeepSeek, Qwen de Alibaba, Kimi</strong>). Modelos abiertos de altísima potencia en <strong>matemáticas, lógica paso a paso y código</strong>.
+            <div class="model-logo-box" style="background:rgba(218,41,28,0.2); border:1px solid #EF4444;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FCA5A5" stroke-width="2">
+                <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"/>
+                <circle cx="12" cy="12" r="3" fill="#FCA5A5"/>
+              </svg>
+            </div>
+            <h3 style="font-size:14.5px;">Modelos Chinos</h3>
+            <p style="font-size:11px; color:#FCA5A5; font-family:'JetBrains Mono',monospace; margin-bottom:5px;">DeepSeek R1/V3 · Qwen · Kimi</p>
+            <p style="font-size:12px;">
+              La revolución asiática (*Open Weights*). Extraordinaria potencia en **matemáticas, lógica paso a paso (*Chain-of-Thought*) y código**.
             </p>
           </div>
         </div>
 
-        <div class="card" style="margin-top:14px; padding:12px 18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-          <span style="font-size:13.5px; color:#E2E8F0;">
-            🎯 <strong>¿Con cuál trabajaremos en nuestro programa corporativo Adecco?</strong> Con <strong>Microsoft Copilot (Versión Gratuita)</strong>, que nos entrega gratis el poder de los modelos de <strong>OpenAI (GPT-4o + Modelo Razonador Think Deeper)</strong> directamente en Windows y Edge.
-          </span>
+        <!-- Flujo inferior conectando OpenAI -> Microsoft Copilot -> Adecco -->
+        <div class="flow-banner" style="margin-top:12px; margin-bottom:0;">
+          <div class="flow-node active-node">
+            <div class="flow-icon">🟢</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">MOTOR BASE</span>
+              <span class="flow-step-title">OpenAI (GPT-4o + o3)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">INTEGRADO GRATIS EN</span>
+              <span class="flow-step-title">Microsoft Copilot (Web / Edge)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">APLICADO HOY EN</span>
+              <span class="flow-step-title">Excel + Macros VBA (Adecco Claro)</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 8: QUÉ MODELOS TENEMOS EN COPILOT GRATUITO ==================== -->
+    <!-- ==================== SLIDE 8: QUÉ MODELOS TENEMOS EN COPILOT GRATUITO + FLUJO DE DECISIÓN ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">BLOQUE 4 · NUESTRA HERRAMIENTA EN ADECCO Y CONFIGURACIÓN DEL ENTORNO</span>
-        <h2 class="slide-h2">¿Qué Modelos Tenemos a Disposición Dentro de <span style="color:#38BDF8;">Microsoft Copilot Gratis</span>?</h2>
-        <p class="lead">
-          Aunque usemos la <strong>versión gratuita de Microsoft Copilot</strong> (<a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8;">copilot.microsoft.com</a> / Microsoft Edge), por dentro tenemos acceso gratuito a <strong>dos motores de OpenAI</strong> que debemos saber alternar según la tarea:
-        </p>
+        <span class="eyebrow green">BLOQUE 4 · NUESTRO MOTOR EN ADECCO: MICROSOFT COPILOT GRATUITO</span>
+        <h2 class="slide-h2">Flujo de Decisión: ¿Qué Modelo Usar Dentro de <span style="color:#38BDF8;">Copilot Gratis</span>?</h2>
+
+        <!-- Flujo Dinámico de Elección de Modelo en Copilot -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PUNTO DE PARTIDA</span>
+              <span class="flow-step-title">Abres copilot.microsoft.com</span>
+              <span class="flow-step-sub">2 Motores OpenAI incluidos gratis</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon" style="background:rgba(56,189,248,0.2);">⚡</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#38BDF8;">OPCIÓN A · TAREA ÁGIL</span>
+              <span class="flow-step-title">Modo Respuesta Rápida (GPT-4o)</span>
+              <span class="flow-step-sub">Fórmulas · Tablas · Correos (2 seg)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">ó</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon" style="background:rgba(168,85,247,0.22);">🧠</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">OPCIÓN B · ALTA COMPLEJIDAD</span>
+              <span class="flow-step-title">Modo "Think Deeper" (o1 / o3)</span>
+              <span class="flow-step-sub">Macros VBA y Lógica Compleja (15 seg)</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="card accent-cyan">
             <h3>⚡ 1. Modo Respuesta Rápida (Motor GPT-4o)</h3>
             <ul>
-              <li><strong>¿Qué modelo es por dentro?:</strong> Es el modelo multimodal de alta velocidad de OpenAI conectado al buscador Bing.</li>
-              <li><strong>¿Cuándo usarlo en nuestro trabajo diario?:</strong>
+              <li><strong>Velocidad instantánea (1 a 3 segundos):</strong> Predice tokens de forma directa sin etapa intermedia de reflexión larga.</li>
+              <li><strong>Úsalo siempre para:</strong>
                 <ul>
-                  <li>Para pedir <strong>fórmulas de Excel rápidas</strong> (<code>SI</code>, <code>BUSCARX</code>, <code>TEXTO</code>, <code>NOMPROPIO</code>).</li>
-                  <li>Para pegar una tabla de Excel (<code>Ctrl+C</code> / <code>Ctrl+V</code>) y pedir un cuadro resumen.</li>
-                  <li>Para redactar correos formales a Jefes de Ventas, Supervisores o Cadenas Retail.</li>
+                  <li>Pedir fórmulas de limpieza o cruce (<code>TEXTO</code>, <code>NOMPROPIO</code>, <code>SI</code>, <code>BUSCARX</code>).</li>
+                  <li>Pegar un rango de celdas (<code>Ctrl+C</code> / <code>Ctrl+V</code>) y pedir un cuadro resumen de incidencias.</li>
+                  <li>Redactar correos ejecutivos para Supervisores o el portal SMA.</li>
                 </ul>
               </li>
             </ul>
           </div>
 
           <div class="card accent-purple">
-            <h3>🧠 2. Modo "Think Deeper" / Pensar más a fondo (Motor Razonador o1/o3)</h3>
+            <h3>🧠 2. Modo "Think Deeper" / Razonar (Motor Razonador)</h3>
             <ul>
-              <li><strong>¿Qué modelo es por dentro?:</strong> Activa el modelo de <strong>Razonamiento Profundo (*Chain-of-Thought*)</strong> de OpenAI de forma 100 % gratuita.</li>
-              <li><strong>¿Cómo funciona?:</strong> Antes de escribirte la respuesta, se toma entre 10 y 25 segundos para <strong>planificar la lógica, verificar variables y probar mentalmente si el código fallará</strong>.</li>
-              <li><strong>¿Cuándo activarlo obligatoriamente?:</strong>
+              <li><strong>Razonamiento Paso a Paso (*Chain-of-Thought*):</strong> Antes de mostrarte el código, genera un borrador interno donde verifica variables, bucles `For...Next` y posibles errores.</li>
+              <li><strong>Actívalo obligatoriamente en la caja de chat cuando:</strong>
                 <ul>
-                  <li>Cuando pidamos <strong>Macros VBA completas</strong> que crean hojas, filtran estados y calculan totales.</li>
-                  <li>Cuando necesitemos cruzar múltiples reglas del Manual Operativo sin errores.</li>
+                  <li>Pidas **Macros VBA completas** (como nuestra Macro separadora de hojas por Jefatura).</li>
+                  <li>Pidas auditar más de 3 reglas simultáneas del Manual Operativo.</li>
                 </ul>
               </li>
             </ul>
@@ -988,46 +1466,81 @@
       </div>
     </section>
 
-    <!-- ==================== SLIDE 9: CONFIGURACIÓN DEL ENTORNO COPILOT (PASO A PASO) ==================== -->
+    <!-- ==================== SLIDE 9: CONFIGURACIÓN DEL ENTORNO COPILOT (FLUJO EN 4 PASOS) ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">CONFIGURACIÓN DEL ENTORNO COPILOT · PARTE 1</span>
-        <h2 class="slide-h2">Cómo Configurar y Potenciar tu Entorno Copilot en 4 Simples Pasos</h2>
-        <p class="lead">
-          La mayoría de usuarios abre Copilot y escribe preguntas sueltas, obteniendo resultados mediocres. Hagamos juntos esta configuración en nuestras laptops para multiplicar por 10 su precisión:
-        </p>
+        <span class="eyebrow green">BLOQUE 4 · CONFIGURACIÓN ESPECÍFICA DEL ENTORNO COPILOT (PARTE 1)</span>
+        <h2 class="slide-h2">Flujo de Configuración del Entorno Copilot en 4 Simples Pasos</h2>
+
+        <!-- Flujo Dinámico de Configuración -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🔑</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PASO 01</span>
+              <span class="flow-step-title">Iniciar Sesión Web / Edge</span>
+              <span class="flow-step-sub">Activa historial y Think Deeper</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">🖥️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">PASO 02</span>
+              <span class="flow-step-title">Pantalla 50/50 (Win + ⬅️/➡️)</span>
+              <span class="flow-step-sub">Excel Izq · Copilot Der</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">📌</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">PASO 03</span>
+              <span class="flow-step-title">Chat Maestro Calibrado</span>
+              <span class="flow-step-sub">Fijar Español y Punto y Coma (;)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📋</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">PASO 04</span>
+              <span class="flow-step-title">Truco "Cabecera + 1 Fila"</span>
+              <span class="flow-step-sub">Copia A1:I2 para dar contexto</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-4">
           <div class="card accent-cyan">
             <h3>1️⃣ Acceso e Inicio de Sesión</h3>
             <ul>
-              <li>Entra a <a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8; font-weight:700;">copilot.microsoft.com</a> o abre el ícono de Copilot arriba a la derecha en <strong>Microsoft Edge</strong>.</li>
-              <li><strong>Inicia sesión siempre:</strong> Desbloquea el historial de chats, permite pegar tablas más largas y habilita el botón <strong>Think Deeper</strong>.</li>
+              <li>Abre <a href="https://copilot.microsoft.com" target="_blank" style="color:#38BDF8; font-weight:700;">copilot.microsoft.com</a> o la barra lateral en **Microsoft Edge**.</li>
+              <li>Al iniciar sesión desbloqueas turnos largos, historial guardado y el botón **Think Deeper**.</li>
             </ul>
           </div>
 
           <div class="card accent-green">
-            <h3>2️⃣ Pantalla Dividida 50 / 50</h3>
+            <h3>2️⃣ Pantalla Dividida 50/50</h3>
             <ul>
-              <li>Abre tu <strong>Excel</strong> y presiona <strong><code>Windows + Flecha Izquierda ⬅️</code></strong>.</li>
-              <li>Abre <strong>Copilot Gratis</strong> y presiona <strong><code>Windows + Flecha Derecha ➡️</code></strong>.</li>
-              <li>Nunca trabajes cambiando con <code>Alt+Tab</code> a ciegas; ten tus columnas a la vista.</li>
+              <li>En **Excel**: presiona <code>Windows + Flecha Izquierda ⬅️</code>.</li>
+              <li>En **Copilot**: presiona <code>Windows + Flecha Derecha ➡️</code>.</li>
+              <li>Trabaja viendo las letras exactas de tus columnas sin cambiar de ventana.</li>
             </ul>
           </div>
 
           <div class="card accent-purple">
-            <h3>3️⃣ Crea un "Chat Maestro de Excel"</h3>
+            <h3>3️⃣ Chat Maestro Fijo</h3>
             <ul>
-              <li>No abras un chat nuevo para cada fórmula.</li>
-              <li>Dedica <strong>una conversación fija</strong> llamada <em>"Copiloto Excel Adecco"</em> donde en el primer mensaje configures el idioma y separador de tu Excel.</li>
+              <li>No abras un chat en blanco cada vez; usa un hilo llamado **"Copiloto Excel Adecco"**.</li>
+              <li>Así Copilot conserva en su memoria vectorial el idioma y separador de tu Excel.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>4️⃣ El Truco "Cabecera + 1 Fila"</h3>
+            <h3>4️⃣ Truco de las 2 Filas</h3>
             <ul>
-              <li>En vez de explicarle tu tabla con palabras largas, selecciona en Excel las celdas <strong><code>A1:I2</code></strong> (Encabezados + 1 fila ficticia), cópialas y pégalas en el chat.</li>
-              <li>¡Copilot mapeará las letras de tus columnas al instante!</li>
+              <li>En vez de redactar qué hay en cada columna, selecciona en tu Excel **`A1:I2`** (Encabezados + 1 fila ficticia), cópialo y pégalo en el chat.</li>
             </ul>
           </div>
         </div>
@@ -1037,16 +1550,16 @@
     <!-- ==================== SLIDE 10: PROMPT DE CALIBRACIÓN DEL ENTORNO COPILOT ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow amber">CONFIGURACIÓN DEL ENTORNO COPILOT · PARTE 2 (¡HAGÁMOSLO AHORA!)</span>
-        <h2 class="slide-h2">El "Prompt de Calibración": Configura la Memoria de tu Copilot en 1 Clic</h2>
-        <p class="lead" style="margin-bottom:10px;">
-          ¿Por qué a veces Copilot te da fórmulas en inglés (<code>=IF(...)</code>) o con coma cuando tu Excel usa punto y coma? Porque no ha sido calibrado. <strong>Copia este prompt de configuración y pégalo como primer mensaje en tu Copilot Gratis ahora mismo:</strong>
+        <span class="eyebrow amber">BLOQUE 4 · CONFIGURACIÓN DEL ENTORNO COPILOT (PARTE 2 · ¡EN VIVO!)</span>
+        <h2 class="slide-h2">Calibración del Entorno: Configura la Memoria de Copilot en 1 Clic</h2>
+        <p class="lead" style="margin-bottom:8px;">
+          Copia este **Prompt de Configuración de Entorno** y pégalo como primer mensaje en tu Copilot Gratis para fijar los vectores de **Excel en Español (`;`)** y **Macros VBA sin errores**:
         </p>
 
         <div class="grid-2">
           <div class="prompt-box">
             <div class="prompt-header">
-              <span class="prompt-tag">⚙️ PASO INICIAL: COPIAR Y PEGAR EN COPILOT GRATIS</span>
+              <span class="prompt-tag">⚙️ PASO 0: COPIAR Y PEGAR EN COPILOT GRATIS AL INICIAR</span>
               <button class="btn-copy" onclick="copyText('promptSetupCopilot')">📋 Copiar Prompt de Configuración</button>
             </div>
             <div class="prompt-text" id="promptSetupCopilot">CONFIGURACIÓN DE MI ENTORNO DE TRABAJO (MANTENER EN TODA LA SESIÓN):
@@ -1062,12 +1575,11 @@ Responde únicamente: "✅ Entorno Copilot calibrado para Excel en Español (;) 
           </div>
 
           <div class="card accent-green">
-            <h3>🚀 ¿Qué logramos con esta configuración?</h3>
+            <h3>🔄 Flujo de lo que ocurre dentro de Copilot al pegar esto:</h3>
             <ul>
-              <li><strong>Alineas los Vectores desde el Minuto 1:</strong> Ya activaste en la memoria de contexto de Copilot los clústeres de <em>Excel en Español</em>, <em>Separador punto y coma (;)</em> y <em>Macros VBA corporativas</em>.</li>
-              <li><strong>Cero errores de traducción:</strong> Nunca más tendrás que traducir manualmente un <code>VLOOKUP</code> o un <code>TRIM</code>.</li>
-              <li><strong>Nota importante sobre VBA:</strong> Observa la Regla #2 del prompt: le recordamos que las fórmulas de celda van en español con <code>;</code>, pero cuando genere fórmulas <em>dentro de una Macro VBA</em> (<code>.Formula = "=SUM(...)"</code>) use el estándar interno de VBA para que no falle en ninguna PC.</li>
-              <li><strong>¿Tu laptop usa coma (<code>,</code>) en vez de punto y coma (<code>;</code>)?</strong> Solo cambia la palabra <code>PUNTO Y COMA (;)</code> por <code>COMA (,)</code> en la Regla #2 o usa el conmutador de la barra superior.</li>
+              <li><strong>1. Fija el Contexto de Atención:</strong> Todos los siguientes tokens que prediga el modelo estarán condicionados a **Excel en Español** (`SI`, `BUSCARX`) y nunca a inglés (`IF`, `XLOOKUP`).</li>
+              <li><strong>2. Separa Fórmulas de Celda vs. Código VBA:</strong> Le enseña que en las celdas de Excel usamos `;`, pero cuando escribe código interno de Macro VBA (`ws.Cells(...).Formula = "=SUM(...)"`) use el estándar interno de VBA para evitar el error `1004`.</li>
+              <li><strong>3. Disponible también en tu Excel:</strong> Este mismo prompt ya está guardado en la celda `B2` de la Hoja `4_Prompts_y_Macro_Guia` de tu archivo descargable.</li>
             </ul>
           </div>
         </div>
@@ -1077,84 +1589,141 @@ Responde únicamente: "✅ Entorno Copilot calibrado para Excel en Español (;) 
     <!-- ==================== SLIDE 11: CONFIGURACIÓN DEL ENTORNO EXCEL + SEGURIDAD ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow red">CONFIGURACIÓN DEL ENTORNO EXCEL + SEGURIDAD CORPORATIVA</span>
-        <h2 class="slide-h2">Dejando Listo Nuestro Excel de Escritorio y Reglas de Privacidad</h2>
+        <span class="eyebrow red">BLOQUE 4 · CONFIGURACIÓN DEL ENTORNO EXCEL LOCAL Y SEGURIDAD</span>
+        <h2 class="slide-h2">Flujo de Preparación en Microsoft Excel + Privacidad de Datos</h2>
 
-        <div class="grid-3" style="margin-top:12px;">
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">AJUSTE EXCEL 01</span>
+              <span class="flow-step-title">Pestaña Programador</span>
+              <span class="flow-step-sub">Habilitar cinta de Macros</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">🔍</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">AJUSTE EXCEL 02</span>
+              <span class="flow-step-title">Probar =SI( en celda</span>
+              <span class="flow-step-sub">Confirmar ; vs ,</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">💾</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">AJUSTE EXCEL 03</span>
+              <span class="flow-step-title">Guardar como .xlsm</span>
+              <span class="flow-step-sub">Libro habilitado para macros</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon">🔒</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">PRIVACIDAD</span>
+              <span class="flow-step-title">Solo Estructura / Ficticios</span>
+              <span class="flow-step-sub">Cero subida de bases sensibles</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
           <div class="card accent-cyan">
-            <h3>🛠️ 1. Habilitar Pestaña "Programador"</h3>
+            <h3>🛠️ 1. Activar "Programador"</h3>
             <ul>
-              <li>Abre el archivo descargado <code>Practica_Clase01_Operaciones_Adecco_Claro.xlsx</code>.</li>
-              <li>Haz <strong>clic derecho</strong> sobre cualquier pestaña del menú superior (ej. <em>Inicio</em>) → <strong>"Personalizar la cinta de opciones..."</strong>.</li>
-              <li>En el panel derecho marca la casilla <strong>☑️ Programador</strong> (o <strong>Desarrollador</strong>) y haz clic en <strong>Aceptar</strong>.</li>
+              <li>Abre <code>Practica_Clase01_Operaciones_Adecco_Claro.xlsx</code>.</li>
+              <li>Haz **clic derecho** sobre cualquier pestaña del menú superior (ej. *Inicio*) → **"Personalizar la cinta de opciones..."**.</li>
+              <li>Marca la casilla **☑️ Programador** (o **Desarrollador**) y pulsa **Aceptar**.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>💾 2. Verificar tu Separador y Formato</h3>
+            <h3>⚙️ 2. Confirmar Separador (`;` vs `,`)</h3>
             <ul>
-              <li>En cualquier celda vacía escribe <code>=SI(</code> y mira el recuadro flotante debajo de la celda:
-                <ul>
-                  <li>Si dice <code>prueba_lógica; [valor_si_verdadero]</code> → usas <strong>punto y coma (<code>;</code>)</strong>.</li>
-                  <li>Si dice <code>prueba_lógica, [valor_si_verdadero]</code> → usas <strong>coma (<code>,</code>)</strong>.</li>
-                </ul>
-              </li>
-              <li>Cuando pasemos a Macros, guardaremos con <code>F12</code> como <strong>Libro habilitado para macros (<code>.xlsm</code>)</strong>.</li>
+              <li>Escribe `=SI(` en cualquier celda vacía y mira la ayuda flotante:</li>
+              <li>Si ves `prueba_lógica; [valor...]` → usas **punto y coma (`;`)**.</li>
+              <li>Si ves `prueba_lógica, [valor...]` → haz clic en el botón **⚙️ Separador** arriba en esta pantalla para cambiar todas las fórmulas a **coma (`,`)**.</li>
             </ul>
           </div>
 
           <div class="card accent-red">
-            <h3>🔒 3. Regla de Oro de Seguridad en IA</h3>
+            <h3>🔒 3. Privacidad Corporativa</h3>
             <ul>
-              <li><strong>Protección de Datos Comerciales:</strong> Al usar Copilot Gratis, nunca subas archivos completos con datos confidenciales de clientes ni planillas reales.</li>
-              <li><strong>Para pedir Fórmulas y Macros:</strong> Copilot solo necesita conocer las <strong>letras de columna y el nombre de tus encabezados</strong> (o 2 filas con datos ficticios).</li>
-              <li>Toda la ejecución real ocurre dentro de tu propio Excel local.</li>
+              <li>En Copilot Gratis jamás subas archivos completos con datos personales reales ni planillas confidenciales.</li>
+              <li>Para crear fórmulas y Macros VBA, Copilot solo necesita los **nombres de tus columnas** (`D2 = DNI, H2 = Marcacion_2233`).</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 12: MAPA DE CASOS PRÁCTICOS DE NUESTRA OPERACIÓN ==================== -->
+    <!-- ==================== SLIDE 12: MAPA DE CASOS PRÁCTICOS CON FLUJO OPERATIVO ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow red">BLOQUE 5 · INICIAMOS CON COPILOT + EXCEL · CASOS PRÁCTICOS REALES</span>
-        <h2 class="slide-h2">Los 4 Casos Prácticos de la Cuenta América Móvil (Claro) que Abarcaremos Hoy</h2>
-        <p class="lead">
-          Con nuestro entorno de Copilot ya calibrado y el archivo <code>Practica_Clase01_Operaciones_Adecco_Claro.xlsx</code> abierto, resolveremos en vivo estos 4 dolores reales extraídos de nuestro <strong>Manual Operativo Canal Cadenas</strong>:
-        </p>
+        <span class="eyebrow red">BLOQUE 5 · INICIAMOS COPILOT + EXCEL · CASOS PRÁCTICOS REALES</span>
+        <h2 class="slide-h2">Flujo de los 4 Casos Prácticos de la Cuenta América Móvil (Claro)</h2>
+
+        <!-- Flujo Dinámico de los 4 Laboratorios Prácticos -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📍</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">CASO PRÁCTICO 1 (HOJA 1)</span>
+              <span class="flow-step-title">Asistencia GPS + 2233</span>
+              <span class="flow-step-sub">Limpieza + Alerta Comisión</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon">🧾</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">CASO PRÁCTICO 2 (HOJA 2)</span>
+              <span class="flow-step-title">Cruce SISCAD vs. Retail</span>
+              <span class="flow-step-sub">Penalidades Anexo 1 (S/)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📧</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">CASO PRÁCTICO 3 (CHAT)</span>
+              <span class="flow-step-title">Tabla Pegada + Correo SMA</span>
+              <span class="flow-step-sub">S/ 4,927 en riesgo en 10 seg</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">⚡</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">CASO PRÁCTICO 4 (HOJA 3)</span>
+              <span class="flow-step-title">Macro VBA Separadora</span>
+              <span class="flow-step-sub">5 Jefaturas + Resumen Gerencial</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="card accent-cyan">
-            <h3>📍 Caso Práctico 1: Asistencia GPS + Marcación 2233 (Hoja 1)</h3>
-            <ul>
-              <li><strong>Problema Real (Cap. 07 del Manual):</strong> DNIs que pierden el cero inicial al exportar, nombres desordenados y promotores que registran ventas en la App Comercial pero <strong>olvidaron marcar el código <code>2233</code> desde la red fija del PDV</strong>.</li>
-              <li><strong>Impacto:</strong> Venta sin <code>2233</code> <strong>no comisiona de forma irreversible</strong>. Crearemos con Copilot las fórmulas que lo detectan al instante.</li>
-            </ul>
+            <h3>📍 Caso 1: Asistencia GPS + Marcación 2233 (Cap. 07)</h3>
+            <p><strong>Flujo Antes vs. Con IA:</strong> De revisar manualmente quién vendió sin marcar el `2233` en la red fija del PDV (causando pérdida irreversible de comisión) a auditar toda la sábana diaria en 10 segundos con 3 fórmulas generadas por Copilot.</p>
           </div>
 
           <div class="card accent-red">
-            <h3>🧾 Caso Práctico 2: Cruce Liquidaciones SISCAD vs. Retail (Hoja 2)</h3>
-            <ul>
-              <li><strong>Problema Real (Cap. 28 y Anexo 1):</strong> Cruzar las ventas en <em>Saga, Ripley, Tottus, Plaza Vea, Metro, Sodimac, Estilos, Carsa</em> contra <strong>SISCAD</strong>.</li>
-              <li><strong>Impacto (Penalidades Anexo 1):</strong> Serie pendiente de cobro el mismo día = <strong>Precio Lista del Equipo</strong>; Ticket mal digitado = <strong>S/ 100</strong>; SKU errado en caja = <strong>S/ 100</strong>.</li>
-            </ul>
+            <h3>🧾 Caso 2: Liquidaciones SISCAD vs. Cadena Retail (Cap. 28)</h3>
+            <p><strong>Flujo Antes vs. Con IA:</strong> De cruzar a mano tickets y SKUs de *Saga, Ripley, Tottus, Plaza Vea, Metro, Sodimac, Estilos y Carsa* a detectar automáticamente **Series pendientes de cobro (Precio Lista)** y **Tickets/SKUs errados (S/ 100)**.</p>
           </div>
 
           <div class="card accent-amber">
-            <h3>📊 Caso Práctico 3: Resumen de Riesgo + Correo SMA con Copilot (Hoja 2)</h3>
-            <ul>
-              <li><strong>Problema Real:</strong> Una vez detectadas las observaciones en Excel, toma media mañana armar el cuadro resumen por cadena y redactar el correo exigiendo el sustento en el portal <strong>SMA</strong>.</li>
-              <li><strong>Impacto:</strong> Copiaremos la tabla auditada al chat de Copilot para obtener el resumen de <strong>S/ 4,927 en riesgo</strong> y el correo ejecutivo en 10 segundos.</li>
-            </ul>
+            <h3>📊 Caso 3: Resumen Ejecutivo + Correo SMA en el Chat</h3>
+            <p><strong>Flujo Antes vs. Con IA:</strong> Copiar el rango auditado (`A1:N16`) y pegarlo en el chat de Copilot Gratis para que arme la tabla filtrada por Cadena, sume los **S/ 4,927** expuestos y redacte el correo para sustento en el portal **SMA**.</p>
           </div>
 
           <div class="card accent-green">
-            <h3>⚡ Caso Práctico 4: Macro VBA Separadora de Pendientes por Área (Hoja 3)</h3>
-            <ul>
-              <li><strong>Problema Real (Cap. 15–25):</strong> Filtrar manualmente una sábana general de incidencias (Actas 24h, Videos Gama Alta 30 min, Expedientes BPO 5 días, DOAs 7 días, Rotación FIFO) para cada jefatura.</li>
-              <li><strong>Impacto:</strong> Crearemos con Copilot (en modo <em>Think Deeper</em>) un botón que separa automáticamente las hojas por área y crea un <code>RESUMEN_GERENCIAL</code>.</li>
-            </ul>
+            <h3>⚡ Caso 4: Macro VBA Separadora por Jefatura (Cap. 15–25)</h3>
+            <p><strong>Flujo Antes vs. Con IA:</strong> Usar el modo **Think Deeper** de Copilot para escribir una Macro VBA que filtre las incidencias `PENDIENTE` y cree automáticamente las hojas de `Liquidaciones`, `Logistica`, `Ventas_Lima`, `Macro_Sur`, `Multimarca` y `RESUMEN_GERENCIAL`.</p>
           </div>
         </div>
       </div>
@@ -1164,15 +1733,38 @@ Responde únicamente: "✅ Entorno Copilot calibrado para Excel en Español (;) 
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow green">CASO PRÁCTICO 1 · HOJA "1_Asistencia_2233" + COPILOT CALIBRADO</span>
-        <h2 class="slide-h2">Limpieza Express de Base + Alerta Crítica de Comisión 2233</h2>
-        <p class="lead" style="margin-bottom:10px;">
-          Ve a la Hoja <code>1_Asistencia_2233</code> de tu Excel. Copia este prompt con el botón rojo, pégalo en tu <strong>Copilot Gratis</strong> y pega las 3 fórmulas resultantes en las celdas <code>J2</code>, <code>K2</code> y <code>L2</code>:
-        </p>
+        <h2 class="slide-h2">Caso 1: Limpieza Express + Alerta Crítica de Comisión 2233</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📥</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ENTRADA (HOJA 1)</span>
+              <span class="flow-step-title">D2 (DNI) · E2 (Nombre) · G2/H2/I2</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">COPILOT (MODO RÁPIDO)</span>
+              <span class="flow-step-title">Genera 3 Fórmulas en Español (;)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon">🚨</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">SALIDA (CELDAS J2, K2, L2)</span>
+              <span class="flow-step-title">Detecta 4 Ventas sin 2233</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="prompt-box">
             <div class="prompt-header">
-              <span class="prompt-tag">🤖 PEGAR EN TU CHAT CALIBRADO DE COPILOT GRATIS</span>
+              <span class="prompt-tag">🤖 COPIAR Y PEGAR EN TU CHAT CALIBRADO DE COPILOT</span>
               <button class="btn-copy" onclick="copyText('promptLab1A')">📋 Copiar Prompt Caso 1</button>
             </div>
             <div class="prompt-text" id="promptLab1A">En mi hoja '1_Asistencia_2233' mis datos inician en la fila 2:
@@ -1189,16 +1781,14 @@ Dame las 3 fórmulas exactas en español (con separador punto y coma ;) listas p
           </div>
 
           <div class="card accent-green">
-            <h3>✅ Resultado para Pegar en <code>J2</code>, <code>K2</code> y <code>L2</code></h3>
-            <p>Copia desde Copilot Gratis y pega en las celdas verdes de la Hoja 1:</p>
-
-            <p style="margin-top:9px; font-weight:700; color:#fff;">1. En <code>J2</code> (DNI 8 dígitos con cero a la izquierda):</p>
+            <h3>✅ Pega las 3 Fórmulas en <code>J2</code>, <code>K2</code> y <code>L2</code></h3>
+            <p style="margin-top:6px; font-weight:700; color:#fff;">1. En <code>J2</code> (DNI 8 dígitos):</p>
             <div class="formula-pill" data-semi='=TEXTO(D2;"00000000")' data-comma='=TEXTO(D2,"00000000")'>=TEXTO(D2;"00000000")</div>
 
-            <p style="margin-top:9px; font-weight:700; color:#fff;">2. En <code>K2</code> (Nombre limpio sin espacios dobles):</p>
+            <p style="margin-top:8px; font-weight:700; color:#fff;">2. En <code>K2</code> (Nombre Propio sin espacios dobles):</p>
             <div class="formula-pill">=NOMPROPIO(ESPACIOS(E2))</div>
 
-            <p style="margin-top:9px; font-weight:700; color:#fff;">3. En <code>L2</code> (Auditoría Automática 2233):</p>
+            <p style="margin-top:8px; font-weight:700; color:#fff;">3. En <code>L2</code> (Auditoría Automática 2233):</p>
             <div class="formula-pill" data-semi='=SI(Y(I2>0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))' data-comma='=SI(Y(I2>0,H2="NO"),"ALERTA CRITICA: VENTA SIN 2233",SI(Y(G2="NO",H2="NO"),"INASISTENCIA","OK CORRECTO"))'>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";SI(Y(G2="NO";H2="NO");"INASISTENCIA";"OK CORRECTO"))</div>
           </div>
         </div>
@@ -1209,10 +1799,45 @@ Dame las 3 fórmulas exactas en español (con separador punto y coma ;) listas p
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow green">CASO PRÁCTICO 2 · HOJA "2_Cruce_SISCAD_Retail"</span>
-        <h2 class="slide-h2">Auditoría Automática: Liquidaciones SISCAD vs. Cadena Retail (Anexo 1)</h2>
-        <p class="lead" style="margin-bottom:10px;">
-          Pasa a la Hoja <code>2_Cruce_SISCAD_Retail</code>. Vamos a pedirle a Copilot las dos fórmulas que cruzan tickets, SKUs y series pendientes calculando la penalidad exacta en Soles:
-        </p>
+        <h2 class="slide-h2">Caso 2: Auditoría Automática SISCAD vs. Cadena Retail (Anexo 1)</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🧾</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">REGLA 1 (PRIORIDAD ALTA)</span>
+              <span class="flow-step-title">¿Cobrado Mismo Día = "NO"?</span>
+              <span class="flow-step-sub">Penalidad = Precio Lista (K2)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">🎫</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">REGLA 2</span>
+              <span class="flow-step-title">¿Ticket SISCAD ≠ Cadena?</span>
+              <span class="flow-step-sub">Penalidad = S/ 100 (Anexo 1)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">📦</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">REGLA 3</span>
+              <span class="flow-step-title">¿SKU SISCAD ≠ Caja?</span>
+              <span class="flow-step-sub">Penalidad = S/ 100 (Anexo 1)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">✅</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">SI TODO COINCIDE</span>
+              <span class="flow-step-title">"CONCILIADO OK"</span>
+              <span class="flow-step-sub">Penalidad = S/ 0.00</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="prompt-box">
@@ -1236,17 +1861,15 @@ Dame 2 fórmulas exactas en español (separador ;) listas para pegar en M2 y N2 
           </div>
 
           <div class="card accent-cyan">
-            <h3>✅ Fórmulas Listas para Pegar en <code>M2</code> y <code>N2</code></h3>
-            <p>Copia desde Copilot Gratis y pega en las columnas rojas de la Hoja 2:</p>
-
-            <p style="margin-top:9px; font-weight:700; color:#fff;">1. En <code>M2</code> (Estado Auditoría):</p>
+            <h3>✅ Fórmulas para Pegar en <code>M2</code> y <code>N2</code></h3>
+            <p style="margin-top:6px; font-weight:700; color:#fff;">1. En <code>M2</code> (Estado Auditoría):</p>
             <div class="formula-pill" data-semi='=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2<>J2;"TICKET ERRADO SISCAD";SI(G2<>H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))' data-comma='=SI(L2="NO","SERIE PENDIENTE COBRO",SI(I2<>J2,"TICKET ERRADO SISCAD",SI(G2<>H2,"SKU INCORRECTO CAJA","CONCILIADO OK")))'>=SI(L2="NO";"SERIE PENDIENTE COBRO";SI(I2&lt;&gt;J2;"TICKET ERRADO SISCAD";SI(G2&lt;&gt;H2;"SKU INCORRECTO CAJA";"CONCILIADO OK")))</div>
 
-            <p style="margin-top:9px; font-weight:700; color:#fff;">2. En <code>N2</code> (Penalidad Estimada S/):</p>
+            <p style="margin-top:8px; font-weight:700; color:#fff;">2. En <code>N2</code> (Penalidad Estimada S/):</p>
             <div class="formula-pill" data-semi='=SI(L2="NO";K2;SI(O(I2<>J2;G2<>H2);100;0))' data-comma='=SI(L2="NO",K2,SI(O(I2<>J2,G2<>H2),100,0))'>=SI(L2="NO";K2;SI(O(I2&lt;&gt;J2;G2&lt;&gt;H2);100;0))</div>
 
-            <p style="margin-top:9px; font-size:12.5px; color:#FDE68A;">
-              💰 Al arrastrar hasta la fila 16 descubrirás inmediatamente <strong>S/ 4,927.00 en penalidades expuestas</strong> (2 series sin cobro en Saga y Estilos + 3 errores de Ticket/SKU de S/ 100).
+            <p style="margin-top:8px; font-size:12px; color:#FDE68A;">
+              💰 <strong>Hallazgo automático:</strong> 5 ventas observadas que suman <strong>S/ 4,927.00 en riesgo</strong> (Saga San Isidro S/ 2,699, Estilos Arequipa S/ 1,928 y 3 errores de S/ 100).
             </p>
           </div>
         </div>
@@ -1257,10 +1880,36 @@ Dame 2 fórmulas exactas en español (separador ;) listas para pegar en M2 y N2 
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow amber">CASO PRÁCTICO 3 · SUPERPODER DEL CHAT DE COPILOT GRATIS</span>
-        <h2 class="slide-h2">Analizar la Tabla Auditada en el Chat y Generar el Correo de Alerta SMA</h2>
-        <p class="lead" style="margin-bottom:10px;">
-          Ahora aprovechemos la ventana de contexto de Copilot Gratis: copiemos la tabla auditada de la Hoja 2 (<code>A1:N16</code>) y peguémosla en el chat para que arme el cuadro ejecutivo y el correo de descargo:
-        </p>
+        <h2 class="slide-h2">Caso 3: Analizar la Tabla Auditada en el Chat y Generar Correo SMA</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📋</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PASO 1</span>
+              <span class="flow-step-title">Copiar Prompt Caso 3</span>
+              <span class="flow-step-sub">Pegar en Copilot Gratis</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">PASO 2</span>
+              <span class="flow-step-title">Seleccionar A1:N16 (Hoja 2)</span>
+              <span class="flow-step-sub">Presionar Ctrl + C en Excel</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📧</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">PASO 3</span>
+              <span class="flow-step-title">Ctrl + V en Copilot y Enviar</span>
+              <span class="flow-step-sub">Genera Tabla Resumen + Correo SMA</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-2">
           <div class="prompt-box">
@@ -1278,12 +1927,11 @@ A continuación te pego el resultado de nuestra auditoría SISCAD vs. Retail de 
           </div>
 
           <div class="card accent-amber">
-            <h3>⚡ Ejecución en Vivo (2 Minutos)</h3>
+            <h3>⚡ ¿Qué hace internamente Copilot en este Caso?</h3>
             <ul>
-              <li><strong>Paso 1:</strong> Haz clic en <strong>"📋 Copiar Prompt Caso 3"</strong> y pégalo en el cuadro de chat de <strong>Copilot Gratis</strong>.</li>
-              <li><strong>Paso 2:</strong> En tu Excel (Hoja <code>2_Cruce_SISCAD_Retail</code>), selecciona el rango <strong><code>A1:N16</code></strong> y presiona <strong><code>Ctrl + C</code></strong>.</li>
-              <li><strong>Paso 3:</strong> Vuelve a Copilot Gratis, presiona <strong><code>Ctrl + V</code></strong> debajo del texto y presiona <strong>Enter</strong>.</li>
-              <li>¡Observa cómo los vectores de atención filtran las 10 filas conciliadas, aíslan las <strong>5 observaciones críticas</strong>, suman los <strong>S/ 4,927</strong> y te entregan el correo listo para enviar por Outlook!</li>
+              <li><strong>1. Parsea las Tabulaciones de Excel:</strong> Al pegar con `Ctrl+V`, Copilot reconoce automáticamente los saltos de columna de Excel como una matriz estructurada.</li>
+              <li><strong>2. Filtra por Atención Semántica:</strong> Descarta las 10 filas donde lee `"CONCILIADO OK"` y agrupa las 5 incidencias críticas.</li>
+              <li><strong>3. Redacta con Contexto Corporativo:</strong> Genera el correo mencionando los montos exactos (`S/ 4,927.00`) y el plazo de descargo en el **portal SMA**.</li>
             </ul>
           </div>
         </div>
@@ -1294,35 +1942,60 @@ A continuación te pego el resultado de nuestra auditoría SISCAD vs. Retail de 
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow red">PREPARACIÓN TÉCNICA ANTES DEL CASO PRÁCTICO 4 (3 MINUTOS)</span>
-        <h2 class="slide-h2">3 Pasos para Ejecutar en Excel una Macro Creada por Copilot</h2>
-        <p class="lead">
-          Para el Caso Práctico 4 activaremos el modo <strong>Think Deeper (Razonamiento Profundo)</strong> en Copilot Gratis para que escriba un robot VBA completo. Prepara tu Excel en 3 pasos:
-        </p>
+        <h2 class="slide-h2">Flujo en 3 Pasos para Pegar una Macro de Copilot en Excel</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">1️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">CINTA DE OPCIONES</span>
+              <span class="flow-step-title">Pestaña Programador</span>
+              <span class="flow-step-sub">Visible en el menú superior</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">2️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">TECLA F12</span>
+              <span class="flow-step-title">Guardar como .xlsm</span>
+              <span class="flow-step-sub">Habilitado para macros</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">3️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">ATAJO ALT + F11</span>
+              <span class="flow-step-title">Insertar → Módulo</span>
+              <span class="flow-step-sub">Pegar código y pulsar F5</span>
+            </div>
+          </div>
+        </div>
 
         <div class="grid-3">
           <div class="card accent-cyan">
-            <h3>1️⃣ Verifica "Programador"</h3>
+            <h3>1️⃣ Pestaña "Programador"</h3>
             <ul>
-              <li>Confirma que ya ves la pestaña <strong>Programador</strong> (o <strong>Desarrollador</strong>) arriba en tu Excel.</li>
-              <li>Si aún no aparece: Clic derecho en el menú superior → <em>Personalizar la cinta de opciones...</em> → marca <strong>☑️ Programador</strong>.</li>
+              <li>Verifica que ya aparece **Programador** (o **Desarrollador**) en tu barra superior de Excel.</li>
+              <li>Desde ahí abriremos el editor de Visual Basic y crearemos botones.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>2️⃣ Guarda como <code>.xlsm</code></h3>
+            <h3>2️⃣ Guardar como <code>.xlsm</code></h3>
             <ul>
-              <li>Presiona la tecla <strong><code>F12</code></strong> (Guardar como).</li>
-              <li>En el desplegable <em>Tipo de archivo</em>, elige:<br><strong style="color:#FDE68A;">Libro de Excel habilitado para macros (*.xlsm)</strong>.</li>
-              <li>Guárdalo en tu Escritorio o carpeta de trabajo.</li>
+              <li>Presiona <strong><code>F12</code></strong> (Guardar como).</li>
+              <li>Cambia de `.xlsx` a:<br><strong style="color:#FDE68A;">Libro de Excel habilitado para macros (*.xlsm)</strong>.</li>
             </ul>
           </div>
 
           <div class="card accent-green">
-            <h3>3️⃣ Abre <code>Alt + F11</code> → Módulo</h3>
+            <h3>3️⃣ Abrir <code>Alt + F11</code> → Módulo</h3>
             <ul>
-              <li>Presiona <strong><code>Alt + F11</code></strong> para abrir el Editor de Visual Basic.</li>
-              <li>En la barra superior del editor haz clic en <strong>Insertar → Módulo</strong>.</li>
-              <li>Dejaremos lista esa hoja blanca para pegar el código que nos dará Copilot y pulsar <strong>▶️ Ejecutar (<code>F5</code>)</strong>.</li>
+              <li>Presiona <strong><code>Alt + F11</code></strong>.</li>
+              <li>En el menú superior haz clic en <strong>Insertar → Módulo</strong>.</li>
+              <li>Ahí pegaremos el bloque VBA que creará Copilot.</li>
             </ul>
           </div>
         </div>
@@ -1333,14 +2006,40 @@ A continuación te pego el resultado de nuestra auditoría SISCAD vs. Retail de 
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow purple">CASO PRÁCTICO 4 (ENTREGABLE) · HOJA "3_Pendientes_Macro_VBA"</span>
-        <h2 class="slide-h2">Pídele a Copilot (Modo <em>Think Deeper</em>) la Macro Separadora por Área</h2>
-        <p class="lead" style="margin-bottom:10px;">
-          En la Hoja 3 tenemos 24 incidencias de <strong>Liquidaciones, Logistica, Ventas_Lima, Macro_Sur y Multimarca</strong>. Activa <strong>Think Deeper</strong> en Copilot Gratis y pega este Prompt Maestro:
-        </p>
+        <h2 class="slide-h2">Caso 4: Pídele a Copilot (Modo <em>Think Deeper</em>) la Macro Separadora</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📋</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ENTRADA (HOJA 3)</span>
+              <span class="flow-step-title">24 Incidencias (A1:J25)</span>
+              <span class="flow-step-sub">5 Áreas Responsables</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🧠</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">COPILOT THINK DEEPER</span>
+              <span class="flow-step-title">Escribe Macro VBA Completa</span>
+              <span class="flow-step-sub">Filtra Estado = "PENDIENTE"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">🚀</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">SALIDA AUTOMÁTICA</span>
+              <span class="flow-step-title">5 Hojas por Área + Resumen</span>
+              <span class="flow-step-sub">21 Casos · S/ 14,913.00</span>
+            </div>
+          </div>
+        </div>
 
         <div class="prompt-box">
           <div class="prompt-header">
-            <span class="prompt-tag">🧠 PEGAR EN COPILOT GRATIS (MODO THINK DEEPER RECOMENDADO)</span>
+            <span class="prompt-tag">🧠 PEGAR EN COPILOT GRATIS (ACTIVANDO MODO THINK DEEPER)</span>
             <button class="btn-copy" onclick="copyText('promptLab2VBA')">📋 Copiar Prompt Maestro VBA (Caso 4)</button>
           </div>
           <div class="prompt-text" id="promptLab2VBA">Actúa como desarrollador experto en Excel VBA. Tengo una hoja llamada '3_Pendientes_Macro_VBA' con encabezados en A1:J1:
@@ -1361,8 +2060,8 @@ Escribe únicamente el bloque de código de una Macro VBA completa y sin errores
       <div class="slide-inner">
         <span class="eyebrow green">EJECUCIÓN EN VIVO · CÓDIGO VBA VERIFICADO AL 100%</span>
         <h2 class="slide-h2">Pega el Código en tu Módulo (<code>Alt + F11</code>) y Presiona <code>F5</code></h2>
-        <p class="lead" style="margin-bottom:8px;">
-          Puedes pegar el código generado por tu Copilot Gratis o usar directamente este bloque oficial verificado para comparar resultados:
+        <p class="lead" style="margin-bottom:6px;">
+          Pega el código generado por tu Copilot Gratis o usa este bloque oficial verificado en tu ventana de Módulo:
         </p>
 
         <div class="prompt-box" style="border-color:rgba(16,185,129,0.5);">
@@ -1469,32 +2168,61 @@ End Sub</div>
       </div>
     </section>
 
-    <!-- ==================== SLIDE 19: BOTÓN EJECUTIVO Y DEPURACIÓN CON COPILOT ==================== -->
+    <!-- ==================== SLIDE 19: BOTÓN EJECUTIVO Y FLUJO DE DEPURACIÓN ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow">CONTROL DE CALIDAD + BOTÓN EJECUTIVO EN EXCEL</span>
-        <h2 class="slide-h2">Asigna la Macro a un Botón y Aprende a Depurar con Copilot</h2>
+        <span class="eyebrow">CONTROL DE CALIDAD + FLUJO DE DEPURACIÓN CON COPILOT</span>
+        <h2 class="slide-h2">Asigna la Macro a un Botón y Depura Líneas Amarillas con IA</h2>
 
-        <div class="grid-2" style="margin-top:12px;">
+        <div class="flow-banner">
+          <div class="flow-node red-node">
+            <div class="flow-icon">⚠️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">SI SALE ERROR VBA</span>
+              <span class="flow-step-title">Clic en "Depurar" (Debug)</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">🟨</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">IDENTIFICACIÓN</span>
+              <span class="flow-step-title">Copia la Línea Amarilla</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">CORRECCIÓN EN COPILOT</span>
+              <span class="flow-step-title">"Falló esta línea: [pegar]"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">✅</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">CÓDIGO CORREGIDO</span>
+              <span class="flow-step-title">Reemplazar y pulsar F5</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
           <div class="card accent-cyan">
             <h3>🔘 Crea tu Botón Ejecutivo en 1 Minuto</h3>
             <ul>
               <li>En la Hoja <code>3_Pendientes_Macro_VBA</code> ve a <strong>Insertar → Ilustraciones → Formas → Rectángulo redondeado</strong>.</li>
               <li>Dibújalo arriba a la derecha con el texto: <strong>"⚡ GENERAR REPORTES"</strong>.</li>
-              <li>Haz <strong>clic derecho sobre la forma → Asignar macro...</strong></li>
-              <li>Selecciona <strong><code>GenerarReportesPendientes</code></strong> y pulsa <strong>Aceptar</strong>. ¡Al hacer clic creará las 5 pestañas por área y el <code>RESUMEN_GERENCIAL</code> en 1 segundo!</li>
+              <li>Haz <strong>clic derecho sobre la forma → Asignar macro...</strong> y elige <strong><code>GenerarReportesPendientes</code></strong>.</li>
             </ul>
           </div>
 
           <div class="card accent-amber">
-            <h3>🛠️ ¿Qué hacer si un código de IA marca error?</h3>
+            <h3>🛠️ Validación Humana Obligatoria</h3>
             <ul>
-              <li>Haz clic en el botón <strong>"Depurar" (Debug)</strong> de la ventana emergente de Excel.</li>
-              <li>Copia la línea que se resaltó en color <strong style="color:#FDE68A;">amarillo</strong>.</li>
-              <li>Regresa al mismo chat de <strong>Copilot Gratis</strong> y escríbele:<br>
-                <em>"Me salió error en esta línea amarilla: [pega la línea]. Corrige el código completo para que no falle."</em>
-              </li>
-              <li><strong>Validación humana:</strong> Comprueba que <code>RESUMEN_GERENCIAL</code> sume exactamente <strong>21 casos pendientes</strong> y <strong>S/ 14,913.00</strong>.</li>
+              <li>Verifica siempre la hoja <code>RESUMEN_GERENCIAL</code> generada al inicio del libro:</li>
+              <li>Debe mostrar exactamente **5 Áreas** (`Liquidaciones`, `Logistica`, `Ventas_Lima`, `Macro_Sur`, `Multimarca`), **21 casos pendientes** y **S/ 14,913.00** expuestos.</li>
             </ul>
           </div>
         </div>
@@ -1505,12 +2233,12 @@ End Sub</div>
     <section class="slide">
       <div class="slide-inner">
         <span class="eyebrow green">CIERRE DE LA SESIÓN 01 · TALLER DE PROYECTOS Y ARENA KAHOOT LIVE</span>
-        <h2 class="slide-h2">¿Qué otros Casos Reales Podemos Abarcar para el Concurso Final?</h2>
-        <p class="lead" style="margin-bottom:12px;">
-          En equipos elijan hoy qué proceso de su área automatizarán rumbo a la Sustentación Final (🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong>) y cerramos jugando en la <strong>Arena Kahoot Live</strong>:
+        <h2 class="slide-h2">¿Qué otros Casos Reales Abarcaremos para el Concurso Final?</h2>
+        <p class="lead" style="margin-bottom:10px;">
+          En equipos seleccionen el proceso de su área que automatizarán rumbo a la Sustentación Final (🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong>) y pasemos a competir en la **Arena Kahoot Live**:
         </p>
 
-        <div class="grid-4" style="margin-bottom:16px;">
+        <div class="grid-4" style="margin-bottom:14px;">
           <div class="card accent-red">
             <h3>💳 Liquidaciones / SMA</h3>
             <p>Cruzar automáticamente <strong>SISCAD vs. Retail</strong>, detectar series sin cobro y armar plantillas de descargo por Supervisor.</p>
@@ -1532,12 +2260,15 @@ End Sub</div>
           </div>
         </div>
 
-        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
           <a class="cta-hero" href="index.html#kahoot-arena" style="background:#DA291C; border-color:#FCA5A5;">
             ⚡ Lanzar Arena Kahoot Live — Sesión 01
           </a>
+          <a class="cta-doc" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" target="_blank">
+            📘 Guía Técnica con Ejemplos
+          </a>
           <a class="cta-ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
-            📊 Descargar Presentación PPT (.pptx)
+            📊 Descargar PPT (.pptx)
           </a>
           <a class="cta-copilot" href="https://copilot.microsoft.com" target="_blank">
             🤖 Abrir Microsoft Copilot Gratis
@@ -1613,6 +2344,26 @@ End Sub</div>
       });
     }
 
+    document.querySelectorAll('.slide p, .slide li').forEach(el => {
+      if (!el.closest('.prompt-box')) {
+        el.innerHTML = el.innerHTML
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/`([^`]+)`/g, '<code style="background:rgba(56,189,248,0.14);padding:1px 5px;border-radius:4px;font-family:monospace;color:#38BDF8;">$1</code>');
+      }
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('slide')) {
+      const sNum = parseInt(urlParams.get('slide'), 10);
+      if (sNum >= 1 && sNum <= slides.length) currentIndex = sNum - 1;
+    }
+    if (urlParams.get('ppt') === '1') {
+      document.querySelector('.topbar').style.display = 'none';
+      document.querySelector('.bottombar').style.display = 'none';
+      document.querySelector('.progress-track').style.display = 'none';
+      document.querySelector('.deck-stage').style.top = '0';
+      document.querySelector('.deck-stage').style.bottom = '0';
+    }
     updateDeck();
   </script>
 </body>

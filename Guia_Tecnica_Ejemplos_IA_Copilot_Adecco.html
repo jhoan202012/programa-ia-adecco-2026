@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía Técnica con Ejemplos Prácticos — Cómo Funciona la IA, GPT, Embeddings y Copilot | Lic. Jhoan Taboada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0B172A;
+      --card: #112240;
+      --red: #DA291C;
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --purple: #A855F7;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --border: rgba(255,255,255,0.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      padding: 36px 20px 80px;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 13px;
+      text-decoration: none;
+      color: #fff;
+      background: var(--red);
+      border: 1px solid #FCA5A5;
+      cursor: pointer;
+    }
+    .btn.secondary {
+      background: #183059;
+      border-color: var(--cyan);
+    }
+    .btn.word {
+      background: #1D4ED8;
+      border-color: #93C5FD;
+    }
+    .hero {
+      background: linear-gradient(135deg, #112240, #183059);
+      border: 1px solid rgba(56,189,248,0.4);
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(56,189,248,0.14);
+      border: 1px solid rgba(56,189,248,0.4);
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3 {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      margin: 14px 0 6px;
+    }
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .analogy-box {
+      background: rgba(16, 185, 129, 0.11);
+      border-left: 4px solid var(--emerald);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 12px 0;
+    }
+    .example-box {
+      background: rgba(245, 158, 11, 0.11);
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 12px 0;
+    }
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+    .flow-item {
+      flex: 1;
+      min-width: 160px;
+      background: #081223;
+      border: 1px solid rgba(56,189,248,0.35);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .flow-arrow {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--cyan);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 13.5px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 13px;
+      text-align: left;
+    }
+    th {
+      background: #081223;
+      color: var(--cyan);
+      font-weight: 800;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0,0,0,0.35);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #A7F3D0;
+      font-size: 12.5px;
+    }
+    @media print {
+      body { background: #fff; color: #0f172a; padding: 0; }
+      .section-card, .hero { background: #f8fafc; border-color: #cbd5e1; color: #0f172a; }
+      h1, h2, h3 { color: #0f172a; }
+      .top-actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-actions">
+      <div>
+        <strong style="color:var(--cyan);">ADECCO AI CO-PILOT LAB</strong> · Documento Pedagógico de Apoyo (Sesión 01)
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn word" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.docx" download>📄 Descargar en Word (.docx)</a>
+        <button class="btn secondary" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+        <a class="btn" href="clase1.html">⬅️ Volver a las Diapositivas</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <span class="badge">GUÍA TÉCNICA EXPLICADA EN SENCILLO · CON EJEMPLOS DE NUESTRA OPERACIÓN</span>
+      <h1>¿Cómo Funciona Realmente la IA por Dentro? (GPT, Tokens, Vectores Embeddings y Predicción)</h1>
+      <p style="color:#CBD5E1; font-size:15px;">
+        <strong>Autor:</strong> Lic. Jhoan Taboada Huamán (<em>Licenciado en Economía PUCP — Octubre 2026 | Diplomatura en IA PUCP | Analista BI Adecco Perú - Cuenta América Móvil Claro</em>)<br>
+        Esta guía traduce los conceptos matemáticos de la Inteligencia Artificial a <strong>ejemplos cotidianos de nuestra operación en Claro Cadenas</strong> para que todo el equipo comprenda por qué la IA responde como responde y cómo dominarla.
+      </p>
+    </div>
+
+    <!-- SECCIÓN 1: HISTORIA DE LA IA -->
+    <div class="section-card">
+      <h2>1️⃣ De las Reglas Fijas a los Modelos Modernos (Breve Historia con un Ejemplo)</h2>
+      <p>
+        Muchas personas se preguntan: <em>"¿Cuál es la diferencia entre una fórmula o macro tradicional y la Inteligencia Artificial moderna?"</em>. La respuesta está en cómo evolucionó la tecnología en 5 etapas:
+      </p>
+
+      <div class="flow-row">
+        <div class="flow-item">
+          <strong style="color:#94A3B8;">1. IA de Reglas (1950–1980)</strong>
+          <p style="font-size:12.5px; margin-top:4px;">Sigue órdenes rígidas: <code>SI pasa A → haz B</code>. No tolera errores de escritura.</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-item">
+          <strong style="color:var(--cyan);">2. Machine Learning (1990–2010)</strong>
+          <p style="font-size:12.5px; margin-top:4px;">Aprende patrones de datos históricos para pronosticar números (ej. ventas del mes).</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-item">
+          <strong style="color:var(--amber);">3. Transformer (2017 · Hito)</strong>
+          <p style="font-size:12.5px; margin-top:4px;">Inventa la <strong>Auto-Atención</strong>: lee textos enteros de golpe entendiendo el contexto.</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-item">
+          <strong style="color:var(--emerald);">4. GPTs y Copilotos (Hoy)</strong>
+          <p style="font-size:12.5px; margin-top:4px;">Generan código, fórmulas y análisis razonando paso a paso.</p>
+        </div>
+      </div>
+
+      <div class="analogy-box">
+        <strong>💡 Ejemplo cotidiano en Adecco Claro:</strong><br>
+        • <strong>El sistema antiguo (Reglas Fijas):</strong> Si en una hoja de Excel un supervisor escribe <code>"Saga Falabella Miraflores"</code> y en otra hoja escribe <code>"S.F. Miraflores"</code>, un cruce tradicional da <code>#N/D</code> porque las letras no son idénticas.<br>
+        • <strong>El sistema moderno (Transformer / GPT):</strong> Entiende por contexto que <code>"Saga Falabella Miraflores"</code> y <code>"S.F. Miraflores"</code> representan el mismo Punto de Venta (PDV).
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: QUÉ ES UN GPT -->
+    <div class="section-card">
+      <h2>2️⃣ ¿Qué significa realmente la sigla G - P - T?</h2>
+      <p>Cuando abrimos ChatGPT o Microsoft Copilot, estamos usando un modelo <strong>GPT</strong>. Así funciona cada una de sus 3 letras con una analogía sencilla:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sigla</th>
+            <th>Significado Técnico</th>
+            <th>Analogía Fácil para Entenderlo</th>
+            <th>Ejemplo en Nuestro Trabajo Diario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>G</strong><br><em>Generative</em></td>
+            <td><strong>Generativo:</strong> Produce texto o código nuevo token por token.</td>
+            <td><strong>El Chef a pedido vs. el Menú fijo:</strong> Google tradicional busca páginas ya escritas; un GPT "cocina" una respuesta nueva desde cero para ti.</td>
+            <td>Te escribe una Macro VBA específica para tus 10 columnas de la Hoja 3 que no existía en internet.</td>
+          </tr>
+          <tr>
+            <td><strong>P</strong><br><em>Pre-trained</em></td>
+            <td><strong>Pre-entrenado:</strong> Entrenado previamente con billones de textos y códigos.</td>
+            <td><strong>El Practicante que ya leyó toda la Biblioteca Mundial:</strong> Antes de entrar a Adecco ya leyó todos los manuales de Microsoft Excel y VBA del mundo.</td>
+            <td>Por eso no necesitas explicarle cómo funciona <code>BUSCARX</code> ni cómo se abre un bucle <code>For...Next</code> en VBA.</td>
+          </tr>
+          <tr>
+            <td><strong>T</strong><br><em>Transformer</em></td>
+            <td><strong>Transformador:</strong> Arquitectura neuronal basada en <em>Atención</em>.</td>
+            <td><strong>Lectura Panorámica 360°:</strong> En vez de leer palabra por palabra olvidando el inicio, conecta todas las palabras de tu mensaje al mismo tiempo.</td>
+            <td>Si en la línea 1 le dices <em>"Mi Excel usa punto y coma (;)"</em>, lo recuerda perfectamente cuando escribe la fórmula en la línea 15.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SECCIÓN 3: TOKENS Y VECTORES EMBEDDINGS -->
+    <div class="section-card">
+      <h2>3️⃣ ¿Qué son los Tokens y los Vectores (Embeddings)? (El GPS del Significado)</h2>
+      <p>
+        Aquí está el secreto técnico más importante de toda la sesión: <strong>las computadoras no entienden palabras humanas, solo entienden números</strong>. ¿Cómo hace entonces Copilot para saber que <code>"SISCAD"</code>, <code>"Boleta"</code> y <code>"Liquidación"</code> están relacionados?
+      </p>
+
+      <h3>Paso A: La Tokenización (Cortar las palabras en piezas numéricas)</h3>
+      <p>
+        Cuando escribes una frase en Copilot, lo primero que hace es dividirla en fragmentos llamados <strong>Tokens</strong> (aproximadamente 1 token = ¾ de palabra) y asignarle su número de catálogo:
+      </p>
+      <div class="example-box">
+        <strong>Ejemplo de Tokenización:</strong><br>
+        Texto que tú escribes: <code>"Auditar liquidación SISCAD en Excel"</code><br>
+        Lo que recibe el modelo: <code>[Token #19402: "Auditar"]</code> + <code>[Token #48912: "liquidación"]</code> + <code>[Token #91044: "SISCAD"]</code> + <code>[Token #301: "en"]</code> + <code>[Token #8812: "Excel"]</code>
+      </div>
+
+      <h3>Paso B: Los Vectores o Embeddings (Convertir cada palabra en Coordenadas GPS)</h3>
+      <p>
+        Un número de serie suelto (como <code>#91044</code>) no le dice a la computadora qué significa la palabra. Por eso, la IA transforma cada token en una <strong>lista de más de 1,500 números decimales</strong> llamada <strong>Vector Embedding</strong>.
+      </p>
+
+      <div class="analogy-box">
+        <strong>🧭 La Analogía de la Marcación GPS (GeoVictoria):</strong><br>
+        Cuando un promotor marca asistencia en <strong>Saga Miraflores</strong>, el GPS guarda dos números: <code>Latitud: -12.1215, Longitud: -77.0297</code>. Si otro promotor marca en <strong>Ripley Miraflores</strong> (a una cuadra), sus coordenadas son casi iguales (<code>-12.1221, -77.0299</code>). Mirando solo los números sabemos que están en el mismo barrio.<br><br>
+        <strong>¡Un Vector Embedding hace exactamente lo mismo, pero con el significado de las palabras!</strong> En lugar de 2 coordenadas (Norte/Sur y Este/Oeste), le asigna a cada palabra <strong>1,536 coordenadas de significado</strong> (¿habla de dinero?, ¿habla de telecomunicaciones?, ¿habla de Excel?, ¿es una alerta?).
+      </div>
+
+      <p>Mira este ejemplo simplificado a <strong>3 dimensiones</strong> (con puntajes de <code>0.00</code> a <code>1.00</code>) usando palabras reales de nuestra operación:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Palabra / Concepto</th>
+            <th>Dimensión X:<br>¿Es de Telecom / Claro?</th>
+            <th>Dimensión Y:<br>¿Es de Caja / Pagos Retail?</th>
+            <th>Dimensión Z:<br>¿Es de Excel / Programación?</th>
+            <th>Vector Embedding Resultante</th>
+            <th>Vecindario en el Mapa de la IA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><code>SISCAD</code></strong></td>
+            <td><code>0.95</code> (Muy alto)</td>
+            <td><code>0.88</code> (Muy alto)</td>
+            <td><code>0.10</code> (Bajo)</td>
+            <td><code>[0.95, 0.88, 0.10]</code></td>
+            <td>🟦 Clúster Operación Claro</td>
+          </tr>
+          <tr>
+            <td><strong><code>Boleta Cadena</code></strong></td>
+            <td><code>0.80</code> (Alto)</td>
+            <td><code>0.94</code> (Muy alto)</td>
+            <td><code>0.08</code> (Bajo)</td>
+            <td><code>[0.80, 0.94, 0.08]</code></td>
+            <td>🟦 Clúster Operación Claro</td>
+          </tr>
+          <tr>
+            <td><strong><code>Marcación 2233</code></strong></td>
+            <td><code>0.98</code> (Muy alto)</td>
+            <td><code>0.35</code> (Medio)</td>
+            <td><code>0.05</code> (Bajo)</td>
+            <td><code>[0.98, 0.35, 0.05]</code></td>
+            <td>🟦 Clúster Operación Claro</td>
+          </tr>
+          <tr>
+            <td><strong><code>BUSCARX / SI</code></strong></td>
+            <td><code>0.05</code> (Bajo)</td>
+            <td><code>0.12</code> (Bajo)</td>
+            <td><code>0.97</code> (Muy alto)</td>
+            <td><code>[0.05, 0.12, 0.97]</code></td>
+            <td>🟩 Clúster Excel & VBA</td>
+          </tr>
+          <tr>
+            <td><strong><code>Macro VBA</code></strong></td>
+            <td><code>0.04</code> (Bajo)</td>
+            <td><code>0.09</code> (Bajo)</td>
+            <td><code>0.99</code> (Muy alto)</td>
+            <td><code>[0.04, 0.09, 0.99]</code></td>
+            <td>🟩 Clúster Excel & VBA</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>¿Por qué es tan útil entender esto?:</strong> Porque cada palabra que tú escribes en tu prompt activa sus coordenadas en ese mapa. Cuando usas términos precisos (<em>"Macro VBA", "Excel en español", "separador punto y coma", "celda H2"</em>), llevas a la IA directamente a las coordenadas exactas donde están las soluciones técnicas sin errores.
+      </p>
+    </div>
+
+    <!-- SECCIÓN 4: ATENCIÓN Y PREDICCIÓN DE LA SIGUIENTE PALABRA -->
+    <div class="section-card">
+      <h2>4️⃣ ¿Cómo usa esos Vectores para Predecir la Siguiente Palabra?</h2>
+      <p>
+        Una vez que tus palabras fueron convertidas en vectores, el modelo realiza dos operaciones matemáticas para escribirte la respuesta:
+      </p>
+
+      <h3>Operación 1: El Mecanismo de Atención (Resolver palabras con doble sentido)</h3>
+      <div class="example-box">
+        <strong>Ejemplo en Vivo con la palabra "CLARO":</strong><br>
+        La palabra <strong>"Claro"</strong> sola en español tiene muchos significados:<br>
+        • <em>"Me quedó todo muy <strong>claro</strong>"</em> (Evidente / entendido).<br>
+        • <em>"Pinta el botón de azul <strong>claro</strong>"</em> (Tono de color).<br>
+        • <em>"El promotor vendió un chip postpago en <strong>Claro</strong> marcando el <strong>2233</strong> en el <strong>PDV</strong>"</em> (Operador de telecomunicaciones América Móvil).<br><br>
+        <strong>¿Cómo sabe la IA cuál es cuál?</strong> El <strong>Mecanismo de Atención (Self-Attention)</strong> cruza el vector de <code>"Claro"</code> con los vectores de las palabras vecinas (<code>"chip"</code>, <code>"postpago"</code>, <code>"2233"</code>, <code>"PDV"</code>). Esas palabras vecinas "empujan" matemáticamente el vector de <code>"Claro"</code> hacia las coordenadas de Telecomunicaciones.
+      </div>
+
+      <h3>Operación 2: La Predicción Probabilística de la Siguiente Palabra (Next-Token Prediction)</h3>
+      <p>
+        La IA <strong>no tiene respuestas guardadas en un cajón</strong>. Escribe su respuesta calculando en cada fracción de segundo: <strong><em>"Según todos los vectores del prompt y lo que llevo escrito hasta aquí, ¿cuál es la palabra más probable que debe ir después?"</em></strong>
+      </p>
+
+      <div class="analogy-box">
+        <strong>🎲 Ejemplo paso a paso cuando Copilot te escribe una fórmula de Excel:</strong><br>
+        Tú le diste en el prompt: <em>"I2 son las ventas del día y H2 es la marcación 2233 ('SI' o 'NO'). Si I2 &gt; 0 y H2 = 'NO', muestra 'ALERTA CRITICA: VENTA SIN 2233'"</em>.<br><br>
+        Mira lo que calcula el cerebro de Copilot palabra por palabra:<br>
+        1. Empieza escribiendo: <code>=SI(Y(I2&gt;0;</code><br>
+        2. Se detiene un milisegundo y calcula las probabilidades de qué debe ir después del punto y coma:<br>
+           • <strong>Candidato A:</strong> <code>H2="NO")</code> → <strong>94.2 % de probabilidad ✅ (¡Ganador!)</strong><br>
+           • <strong>Candidato B:</strong> <code>G2="NO")</code> → <strong>4.5 % de probabilidad</strong><br>
+           • <strong>Candidato C:</strong> <code>I2=0)</code> → <strong>1.3 % de probabilidad</strong><br>
+        3. Coloca <code>H2="NO")</code> y vuelve a calcular cuál es el siguiente token después del punto y coma: <code>;"ALERTA CRITICA: VENTA SIN 2233"</code> (<strong>98.7 % de probabilidad</strong>).
+      </div>
+
+      <p>
+        <strong>🚨 ¿Por qué a veces la IA "alucina" (inventa datos o fórmulas malas)?</strong><br>
+        Porque si tú le das un prompt incompleto (ej. <em>"Dame una fórmula para ver si marcó el 2233"</em> sin decirle en qué columna está el 2233), cuando la IA llega a <code>=SI(</code>, todas las celdas del abecedario (<code>A2, B2, C2, D2...</code>) tienen <code>5 %</code> de probabilidad cada una. Como está obligada a predecir la siguiente palabra, **elige cualquiera al azar**. **Moraleja: Darle las columnas exactas (`D2`, `H2`, `I2`) convierte una adivinanza en una certeza del 99 %.**
+      </p>
+    </div>
+
+    <!-- SECCIÓN 5: MODELOS EN EL MUNDO Y EN COPILOT -->
+    <div class="section-card">
+      <h2>5️⃣ Guía Rápida de Modelos de IA en el Mundo y Dentro de Microsoft Copilot</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Familia / Empresa</th>
+            <th>Modelos Principales</th>
+            <th>Especialidad y Fortaleza Principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🟢 <strong>OpenAI (ChatGPT)</strong></td>
+            <td><code>GPT-4o</code>, Serie <code>o3</code>, <code>GPT-5</code></td>
+            <td><strong>Es el motor interno que usa Microsoft Copilot.</strong> Sobresaliente en fórmulas de Excel, programación de Macros VBA y análisis de tablas.</td>
+          </tr>
+          <tr>
+            <td>🟠 <strong>Anthropic (Claude)</strong></td>
+            <td><code>Claude 3.7 / 4 Sonnet & Opus</code></td>
+            <td>Destaca por su redacción ejecutiva muy natural, lectura de contratos o manuales extensos y código limpio.</td>
+          </tr>
+          <tr>
+            <td>🔵 <strong>Google (Gemini)</strong></td>
+            <td><code>Gemini 2.5 Pro / Flash</code></td>
+            <td>Ventana de memoria gigante: capaz de leer manuales PDF de cientos de páginas, audios o videos enteros de una sola vez.</td>
+          </tr>
+          <tr>
+            <td>⚫ <strong>xAI (Grok)</strong></td>
+            <td><code>Grok 3</code> + <code>DeepSearch</code></td>
+            <td>Gran velocidad de respuesta, razonamiento directo y conexión en tiempo real con noticias y tendencias.</td>
+          </tr>
+          <tr>
+            <td>🔴 <strong>Modelos Chinos</strong></td>
+            <td><code>DeepSeek R1 / V3</code>, <code>Qwen</code> (Alibaba), <code>Kimi</code></td>
+            <td>Modelos abiertos de altísima eficiencia en matemáticas, lógica paso a paso (<em>Chain-of-Thought</em>) y programación.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example-box">
+        <strong>⚙️ ¿Cómo aprovechamos esto dentro de Microsoft Copilot Versión Gratuita?</strong><br>
+        Dentro de <a href="https://copilot.microsoft.com" target="_blank" style="color:var(--cyan);">copilot.microsoft.com</a> tenemos dos modos gratuitos de OpenAI:<br>
+        • <strong>Modo Respuesta Rápida (GPT-4o):</strong> Úsalo para fórmulas de Excel (Casos 1 y 2) y para resumir tablas pegadas y redactar correos (Caso 3).<br>
+        • <strong>Modo "Think Deeper" / Pensar más a fondo (Motor Razonador):</strong> Actívalo cuando pidas **Macros VBA completas** (Caso 4), porque hace que la IA revise su propio código antes de entregártelo.
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
