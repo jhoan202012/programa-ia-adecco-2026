@@ -128,6 +128,18 @@
       border-color: #38BDF8;
       color: #fff;
     }
+    .btn-top.portal {
+      background: linear-gradient(135deg, #DA291C, #991B1B);
+      border-color: #FCA5A5;
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(218, 41, 28, 0.45);
+    }
+    .btn-top.portal:hover {
+      background: linear-gradient(135deg, #EF4444, #B91C1C);
+      border-color: #FECACA;
+      transform: translateY(-1px);
+    }
 
     /* PROGRESS BAR */
     .progress-track {
@@ -679,22 +691,28 @@
   <!-- BARRA SUPERIOR CON LOGOS Y ACCESOS -->
   <header class="topbar">
     <div class="brand-left">
+      <a class="btn-top portal" href="index.html" title="Volver al Portal Principal del Programa" style="margin-right:4px;">
+        🏠 Portal Principal
+      </a>
       <span class="badge-red">ADECCO</span>
       <span class="badge-free">CLARO CADENAS</span>
-      <div class="brand-title">Adecco <span>AI Co-Pilot Lab</span> · Sesión 01 · Lic. Jhoan Taboada</div>
+      <a href="index.html" class="brand-title" style="text-decoration:none; color:inherit;" title="Ir al Portal Principal">Adecco <span>AI Co-Pilot Lab</span> · Sesión 01</a>
     </div>
     <div class="topbar-right">
+      <a class="btn-top portal" href="index.html" title="Volver a la página principal del programa">
+        🏠 Portal Principal
+      </a>
       <button class="btn-top" onclick="toggleSep()" id="sepToggleBtn" title="Cambia entre punto y coma (;) y coma (,) según tu Excel">
         ⚙️ Separador: <strong id="sepLabel">; (Punto y coma)</strong>
       </button>
       <a class="btn-top doc" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" target="_blank">
-        📘 Guía Técnica con Ejemplos
+        📘 Guía Técnica
       </a>
       <a class="btn-top ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
-        📊 PPT (.pptx)
+        📊 PPT
       </a>
       <a class="btn-top excel" href="Practica_Clase01_Operaciones_Adecco_Claro.xlsx" download>
-        📥 Excel (.xlsx)
+        📥 Excel
       </a>
       <a class="btn-top copilot" href="https://copilot.microsoft.com" target="_blank">
         🤖 Copilot Gratis
@@ -768,6 +786,9 @@
               Domina desde los fundamentos matemáticos de los Grandes Modelos de Lenguaje (**Vectores, Atención y Predicción de la Siguiente Palabra**) hasta la **configuración profesional de Microsoft Copilot Gratuito** aplicada a los procesos críticos de **Adecco Sales & Marketing — Cuenta América Móvil (Claro)**.
             </p>
             <div style="display:flex; flex-wrap:wrap; gap:9px; align-items:center;">
+              <a class="cta-hero" href="index.html" style="background:#DA291C; border-color:#FCA5A5; color:#FFF; font-weight:800; box-shadow:0 0 15px rgba(218,41,28,0.5);">
+                🏠 Portal del Programa (Inicio)
+              </a>
               <a class="cta-ppt" href="Clase_01_Adecco_AI_Copilot_Lab.pptx" download>
                 📊 Descargar PPT (.pptx)
               </a>
@@ -2455,6 +2476,9 @@ End Sub</div>
           <a class="cta-hero" href="index.html#kahoot-arena" style="background:#DA291C; border-color:#FCA5A5;">
             ⚡ Lanzar Arena Kahoot Live — Sesión 01
           </a>
+          <a class="cta-hero" href="index.html" style="background:#1E293B; border-color:#38BDF8; color:#38BDF8; font-weight:800;">
+            🏠 Volver al Portal del Programa
+          </a>
           <a class="cta-doc" href="Guia_Tecnica_Ejemplos_IA_Copilot_Adecco.html" target="_blank">
             📘 Guía Técnica con Ejemplos
           </a>
@@ -2472,11 +2496,12 @@ End Sub</div>
 
   <!-- CONTROLES INFERIORES -->
   <footer class="bottombar">
-    <div class="slide-counter" id="slideCounter">Diapositiva 01 / 20</div>
+    <div class="slide-counter" id="slideCounter">Diapositiva 01 / 22</div>
     <div style="font-size:12.5px; color:#94A3B8;">
       Usa las flechas del teclado <strong>⬅️ ➡️</strong> · Ponente: <strong style="color:#38BDF8;">Lic. Jhoan Taboada Huamán</strong>
     </div>
     <div class="nav-btns">
+      <a href="index.html" class="btn-nav" style="text-decoration:none; display:inline-flex; align-items:center; gap:5px; background:rgba(218,41,28,0.2); border-color:#DA291C; color:#FCA5A5; font-weight:800;" title="Ir al Portal Principal">🏠 Portal</a>
       <button class="btn-nav" onclick="changeSlide(-1)">⬅️ Anterior</button>
       <button class="btn-nav primary" onclick="changeSlide(1)">Siguiente ➡️</button>
     </div>
