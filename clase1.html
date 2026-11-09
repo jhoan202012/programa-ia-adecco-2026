@@ -1586,6 +1586,197 @@ Responde únicamente: "✅ Entorno Copilot calibrado para Excel en Español (;) 
       </div>
     </section>
 
+    <!-- ==================== SLIDE 10B: ESTRUCTURA BÁSICA DE PROMPTING R-C-T-F + 3 PLANTILLAS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">BLOQUE 4 · ESTRUCTURA BÁSICA PARA PEDIR CUALQUIER COSA A COPILOT</span>
+        <h2 class="slide-h2">Fórmula Básica de Prompting <span style="color:var(--cyan);">R - C - T - F</span> + 3 Plantillas Comodín</h2>
+        <p class="lead" style="margin-bottom:8px;">
+          Nunca le pidas a Copilot <em>"hazme una fórmula"</em> a secas. Escríbele siempre estos **4 renglones (`R - C - T - F`)** o usa cualquiera de estas **3 plantillas listas para copiar**:
+        </p>
+
+        <!-- Flujo Dinámico R-C-T-F -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🎭</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">1. [R] ROL</span>
+              <span class="flow-step-title">¿Quién es Copilot?</span>
+              <span class="flow-step-sub">"Experto en Excel y BI Adecco..."</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📊</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">2. [C] CONTEXTO</span>
+              <span class="flow-step-title">Tus Columnas y Filas</span>
+              <span class="flow-step-sub">"Fila 2: Col D=DNI, Col H=2233"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🎯</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">3. [T] TAREA</span>
+              <span class="flow-step-title">Reglas de Negocio</span>
+              <span class="flow-step-sub">"Si pasa X devuelve Y, sino Z"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">🛑</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">4. [F] FORMATO</span>
+              <span class="flow-step-title">Idioma y Separador</span>
+              <span class="flow-step-sub">"Excel Español (;), sin teoría"</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">📗 PLANTILLA A: PEDIR FÓRMULA</span>
+              <button class="btn-copy" onclick="copyText('tplFormulaBasic')">📋 Copiar Plantilla A</button>
+            </div>
+            <div class="prompt-text" id="tplFormulaBasic" style="max-height:175px; font-size:11.5px;">[ROL] Actúa como experto en Excel en Español (separador punto y coma ;).
+[CONTEXTO] Tengo una tabla que empieza en la fila 2 donde:
+- Columna [LETRA]: [EJ: Estado GPS GeoVictoria]
+- Columna [LETRA]: [EJ: Marcación 2233]
+[TAREA] Necesito una fórmula para la celda [EJ: L2] que evalúe:
+- Si [CONDICIÓN 1], devuelva "[RESULTADO 1]".
+- Si [CONDICIÓN 2], devuelva "[RESULTADO 2]".
+- Caso contrario, devuelva "[RESULTADO 3]".
+[FORMATO] Dame solo la fórmula lista para copiar y pegar.</div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag" style="color:#FDE68A;">📊 PLANTILLA B: ANALIZAR TABLA</span>
+              <button class="btn-copy" onclick="copyText('tplTablaBasic')">📋 Copiar Plantilla B</button>
+            </div>
+            <div class="prompt-text" id="tplTablaBasic" style="max-height:175px; font-size:11.5px;">[ROL] Actúa como Coordinador de Operaciones de Claro Cadenas.
+[CONTEXTO] Te pego abajo una tabla copiada de mi Excel con datos de [EJ: asistencias / liquidaciones SISCAD / SMA].
+[TAREA] Analiza los datos y:
+1. Filtra únicamente los casos observados o pendientes.
+2. Agrúpalos por [Supervisor / Cadena / PDV] de mayor a menor impacto en Soles (S/).
+[FORMATO] Entrégame una tabla resumen ejecutiva y un mensaje corto listo para enviar por correo o WhatsApp.
+[PEGAR AQUÍ TABLA CON CTRL+V]</div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag" style="color:#E9D5FF;">⚡ PLANTILLA C: MACRO VBA</span>
+              <button class="btn-copy" onclick="copyText('tplMacroBasic')">📋 Copiar Plantilla C</button>
+            </div>
+            <div class="prompt-text" id="tplMacroBasic" style="max-height:175px; font-size:11.5px;">[ROL] Actúa como programador experto en Macros VBA para Excel.
+[CONTEXTO] Mi hoja tiene encabezados en la fila 1 y datos desde la fila 2. La columna a evaluar es la Columna [LETRA] ([NOMBRE]).
+[TAREA] Escribe una Macro VBA que:
+1. Identifique todas las filas donde la Columna [LETRA] sea "[EJ: PENDIENTE]".
+2. Cree o actualice una hoja por cada [Jefatura / Supervisor] copiando sus filas y encabezados.
+[FORMATO] Dame el código completo "Sub ... End Sub" comentado en español listo para pegar en Alt+F11.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10C: FORMATO DE RESPUESTA PARA CONFIGURAR COPILOT (EJEMPLO EN VIVO) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">BLOQUE 4 · CONFIGURACIÓN DEL FORMATO DE RESPUESTA EN COPILOT (EJEMPLO EN VIVO)</span>
+        <h2 class="slide-h2">Cómo Configurar el <span style="color:#6EE7B7;">Formato de Respuesta</span> de tu Copilot</h2>
+
+        <!-- Flujo de los 4 Bloques de Respuesta -->
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">🎯</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">BLOQUE 1 DE SALIDA</span>
+              <span class="flow-step-title">Solución en 1 Línea</span>
+              <span class="flow-step-sub">Cero relleno ni saludos</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📋</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">BLOQUE 2 DE SALIDA</span>
+              <span class="flow-step-title">Código / Fórmula Copiable</span>
+              <span class="flow-step-sub">Español (;) o Sub...End Sub</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📍</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">BLOQUE 3 DE SALIDA</span>
+              <span class="flow-step-title">Dónde Pegarlo (3 Pasos)</span>
+              <span class="flow-step-sub">Celda exacta o Alt + F11</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node red-node">
+            <div class="flow-icon">⚠️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">BLOQUE 4 DE SALIDA</span>
+              <span class="flow-step-title">Alerta de Validación</span>
+              <span class="flow-step-sub">Qué revisar si sale #¡VALOR!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div class="prompt-box">
+              <div class="prompt-header">
+                <span class="prompt-tag">📌 CAJA 1: ¿QUÉ DEBE SABER COPILOT DE TI? (CONTEXTO)</span>
+                <button class="btn-copy" onclick="copyText('cfgBox1')">📋 Copiar Caja 1</button>
+              </div>
+              <div class="prompt-text" id="cfgBox1" style="max-height:78px; font-size:11.5px;">Trabajo en Operaciones Comerciales y BI de Adecco Perú para la cuenta América Móvil (Claro) - Canal Cadenas. Uso Microsoft Excel en Español (configuración regional Perú, separador de fórmulas punto y coma ";" y moneda Soles "S/"). Manejo reportes diarios de asistencia (GeoVictoria y marcación 2233), liquidaciones (SISCAD vs Retail - Anexo 1), solicitudes SMA y Macros VBA.</div>
+            </div>
+
+            <div class="prompt-box" style="border-color:rgba(16,185,129,0.5);">
+              <div class="prompt-header">
+                <span class="prompt-tag" style="color:#6EE7B7;">🎨 CAJA 2: ¿CÓMO DEBE RESPONDERTE? (FORMATO DE RESPUESTA)</span>
+                <button class="btn-copy green" onclick="copyText('cfgBox2')">📋 Copiar Formato de Respuesta</button>
+              </div>
+              <div class="prompt-text" id="cfgBox2" style="max-height:115px; font-size:11.5px;">Responde SIEMPRE siguiendo estrictamente esta estructura visual de 4 bloques cortos, sin introducciones largas:
+1. 🎯 SOLUCIÓN DIRECTA (1 línea): Qué hace la fórmula, macro o análisis.
+2. 📋 BLOQUE LISTO PARA COPIAR:
+   - Si es fórmula de Excel: en Español, usando punto y coma (;), en recuadro de código.
+   - Si es Macro VBA: código completo "Sub ... End Sub" comentado en español.
+   - Si es análisis de tabla: en Tabla Markdown con semáforo (🔴 Crítico, 🟡 Alerta, 🟢 OK).
+3. 📍 DÓNDE Y CÓMO APLICARLO (Máximo 3 pasos): En qué celda o menú de Excel pegarlo.
+4. ⚠️ ALERTA DE VALIDACIÓN (1 línea): Qué revisar si aparece error (#¡VALOR!, #N/D o espacios vacíos).</div>
+            </div>
+          </div>
+
+          <div class="card accent-cyan">
+            <h3>👀 Ejemplo en Vivo: Antes ❌ vs. Después de Configurar ✅</h3>
+            <div style="background:rgba(218,41,28,0.12); border:1px solid rgba(218,41,28,0.4); border-radius:10px; padding:8px 11px; margin-bottom:8px;">
+              <div style="font-size:11px; font-weight:800; color:#FCA5A5; margin-bottom:3px;">❌ SIN CONFIGURAR FORMATO (DA ERROR EN EXCEL PERÚ):</div>
+              <div style="font-size:11.5px; color:#E2E8F0; line-height:1.35;">
+                <em>"¡Hola! Claro que sí, para evaluar múltiples condiciones en Excel puedes usar la función IF combinada con AND..."</em><br>
+                <code style="color:#FCA5A5;">=IF(AND(G2="OK",H2="OK"),"VALIDO","FALTA")</code> ➡️ <strong>¡Falla por estar en inglés y usar comas!</strong>
+              </div>
+            </div>
+
+            <div style="background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:9px 11px;">
+              <div style="font-size:11px; font-weight:800; color:#6EE7B7; margin-bottom:4px;">✅ CON TU FORMATO DE RESPUESTA CONFIGURADO:</div>
+              <div style="font-size:11.5px; color:#F8FAFC; line-height:1.4;">
+                <strong>1. 🎯 Solución Directa:</strong> Evalúa ventas del día contra marcación 2233 y GPS.<br>
+                <strong>2. 📋 Bloque Listo para Copiar:</strong><br>
+                <code style="color:#6EE7B7; background:rgba(0,0,0,0.35); padding:2px 6px; border-radius:4px; display:inline-block; margin:2px 0;">=SI(Y(I2&gt;0;H2="NO");"ALERTA SIN 2233";"OK")</code><br>
+                <strong>3. 📍 Cómo aplicarlo:</strong> Pega en la celda <strong><code>L2</code></strong> y haz doble clic en la esquina inferior.<br>
+                <strong>4. ⚠️ Alerta de Validación:</strong> Verifica que <code>H2</code> no tenga espacios ocultos al final.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== SLIDE 11: CONFIGURACIÓN DEL ENTORNO EXCEL + SEGURIDAD ==================== -->
     <section class="slide">
       <div class="slide-inner">

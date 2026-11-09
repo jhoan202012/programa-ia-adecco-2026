@@ -451,6 +451,95 @@
       </div>
     </div>
 
+    <!-- SECCIÓN 6: ESTRUCTURA BÁSICA R-C-T-F Y FORMATO DE RESPUESTA PARA CONFIGURAR COPILOT -->
+    <div class="section-card">
+      <h2>6️⃣ Estructura Básica de Prompting (<code>R - C - T - F</code>) y Configuración del Formato de Respuesta en Copilot</h2>
+      <p>
+        Para que <strong>Microsoft Copilot</strong> nunca te devuelva fórmulas en inglés (`IF`, `VLOOKUP`) ni textos largos llenos de teoría, aplica siempre la estructura de 4 pasos <strong><code>R - C - T - F</code></strong> y configura tu **Formato Estándar de Respuesta**:
+      </p>
+
+      <div class="flow-diagram">
+        <div class="flow-box">
+          <strong>1. 🎭 [R] ROL</strong>
+          <span>"Actúa como experto en Excel y BI de Adecco..."</span>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-box">
+          <strong>2. 📊 [C] CONTEXTO</strong>
+          <span>"Fila 2: Col D=DNI, Col H=Marcación 2233..."</span>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-box">
+          <strong>3. 🎯 [T] TAREA</strong>
+          <span>"Si I2&gt;0 y H2='NO' devuelve 'ALERTA'..."</span>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-box">
+          <strong>4. 🛑 [F] FORMATO</strong>
+          <span>"Excel Español (;), en 4 bloques sin relleno"</span>
+        </div>
+      </div>
+
+      <h3>⚙️ A. Configuración del Perfil o Inicio de Chat en Copilot (2 Cajas Listas para Copiar)</h3>
+      <div class="example-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>📌 CAJA 1: ¿Qué te gustaría que Copilot supiera sobre ti y tu trabajo? (Contexto)</strong>
+          <button onclick="copyGuideBlock('guideBox1')" style="background:#0284C7; color:#fff; border:none; padding:5px 12px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px;">📋 Copiar Caja 1</button>
+        </div>
+        <pre id="guideBox1" style="white-space:pre-wrap; background:#091326; padding:12px; border-radius:8px; border:1px solid rgba(56,189,248,0.3); font-family:monospace; font-size:12.5px; color:#E2E8F0;">Trabajo en Operaciones Comerciales y BI de Adecco Perú para la cuenta América Móvil (Claro) - Canal Cadenas. Uso Microsoft Excel en Español (configuración regional Perú, separador de fórmulas punto y coma ";" y moneda Soles "S/"). Manejo reportes diarios de asistencia (GeoVictoria y marcación 2233), ventas y liquidaciones (SISCAD vs Retail - Anexo 1), solicitudes en sistema SMA y automatizaciones con Macros VBA.</pre>
+      </div>
+
+      <div class="analogy-box">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>🎨 CAJA 2: ¿Cómo te gustaría que responda Copilot? (Formato de Respuesta en 4 Bloques)</strong>
+          <button onclick="copyGuideBlock('guideBox2')" style="background:#10B981; color:#fff; border:none; padding:5px 12px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px;">📋 Copiar Formato de Respuesta</button>
+        </div>
+        <pre id="guideBox2" style="white-space:pre-wrap; background:#091326; padding:12px; border-radius:8px; border:1px solid rgba(16,185,129,0.35); font-family:monospace; font-size:12.5px; color:#E2E8F0;">Responde SIEMPRE siguiendo estrictamente esta estructura visual de 4 bloques cortos, sin introducciones ni saludos largos:
+
+1. 🎯 SOLUCIÓN DIRECTA (1 línea): Qué hace la fórmula, macro o análisis que me estás entregando.
+2. 📋 BLOQUE LISTO PARA COPIAR (Código o Tabla):
+   - Si es fórmula de Excel: en Español, usando punto y coma (;), dentro de un recuadro de código para copiar con 1 clic.
+   - Si es Macro VBA: código completo desde "Sub" hasta "End Sub", comentado en español y con "On Error Resume Next".
+   - Si es análisis de datos: entrégalo siempre en una Tabla Markdown con semáforo (🔴 Crítico, 🟡 Alerta, 🟢 OK).
+3. 📍 DÓNDE Y CÓMO APLICARLO (Máximo 3 pasos): Indica en qué celda o menú de Excel pegarlo (ej. "Pega en L2 y arrastra" o "Presiona Alt+F11 > Insertar Módulo").
+4. ⚠️ ALERTA DE VALIDACIÓN (1 línea): Qué debo revisar si sale error (#¡VALOR!, #N/D, espacios vacíos o formatos de texto).</pre>
+      </div>
+
+      <h3>👀 B. Comparativa Real: Respuesta de Copilot Antes ❌ vs. Después de Configurar ✅</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:45%;">❌ Sin Configurar Formato (Respuesta por Defecto)</th>
+            <th style="width:55%;">✅ Con tu Formato de 4 Bloques Configurado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <em>"¡Hola! Con gusto te ayudo. Para evaluar varias condiciones en Excel puedes usar la función IF anidada con AND..."</em> (5 párrafos de teoría)<br><br>
+              <code>=IF(AND(I2&gt;0,H2="NO"),"ALERTA","OK")</code><br><br>
+              <strong style="color:#FCA5A5;">Resultado: Da error en Excel Perú por estar en inglés (IF/AND) y usar comas (,).</strong>
+            </td>
+            <td>
+              <strong>1. 🎯 Solución Directa:</strong> Detecta ventas del día sin marcación 2233.<br>
+              <strong>2. 📋 Bloque Listo para Copiar:</strong><br>
+              <code>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";"OK CORRECTO")</code><br>
+              <strong>3. 📍 Cómo aplicarlo:</strong> Pega en la celda <strong><code>L2</code></strong> y haz doble clic en la esquina inferior derecha.<br>
+              <strong>4. ⚠️ Alerta de Validación:</strong> Revisa que <code>H2</code> no tenga espacios en blanco al final.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
+  <script>
+    function copyGuideBlock(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ ¡Copiado al portapapeles! Ya puedes pegarlo en Microsoft Copilot.');
+      });
+    }
+  </script>
 </body>
 </html>
