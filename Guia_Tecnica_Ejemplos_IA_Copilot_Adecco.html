@@ -196,8 +196,8 @@
       <span class="badge">GUÍA TÉCNICA EXPLICADA EN SENCILLO · CON EJEMPLOS DE NUESTRA OPERACIÓN</span>
       <h1>¿Cómo Funciona Realmente la IA por Dentro? (GPT, Tokens, Vectores Embeddings y Predicción)</h1>
       <p style="color:#CBD5E1; font-size:15px;">
-        <strong>Autor:</strong> Lic. Jhoan Taboada Huamán (<em>Licenciado en Economía PUCP — Octubre 2026 | Diplomatura en IA PUCP | Analista BI Adecco Perú - Cuenta América Móvil Claro</em>)<br>
-        Esta guía traduce los conceptos matemáticos de la Inteligencia Artificial a <strong>ejemplos cotidianos de nuestra operación en Claro Cadenas</strong> para que todo el equipo comprenda por qué la IA responde como responde y cómo dominarla.
+        <strong>Autor:</strong> Lic. Jhoan Taboada Huamán (<em>Licenciado en Economía PUCP — Octubre 2026 | Diplomatura en IA PUCP | Analista BI Adecco Perú - Cuenta Operación Comercial Claro</em>)<br>
+        Esta guía traduce los conceptos matemáticos de la Inteligencia Artificial a <strong>ejemplos cotidianos de nuestra operación en Sales & Marketing</strong> para que todo el equipo comprenda por qué la IA responde como responde y cómo dominarla.
       </p>
     </div>
 
@@ -231,9 +231,9 @@
       </div>
 
       <div class="analogy-box">
-        <strong>💡 Ejemplo cotidiano en Adecco Claro:</strong><br>
-        • <strong>El sistema antiguo (Reglas Fijas):</strong> Si en una hoja de Excel un supervisor escribe <code>"Saga Falabella Miraflores"</code> y en otra hoja escribe <code>"S.F. Miraflores"</code>, un cruce tradicional da <code>#N/D</code> porque las letras no son idénticas.<br>
-        • <strong>El sistema moderno (Transformer / GPT):</strong> Entiende por contexto que <code>"Saga Falabella Miraflores"</code> y <code>"S.F. Miraflores"</code> representan el mismo Punto de Venta (PDV).
+        <strong>💡 Ejemplo cotidiano en Adecco S&M:</strong><br>
+        • <strong>El sistema antiguo (Reglas Fijas):</strong> Si en una hoja de Excel un supervisor escribe <code>"Cadena Alpha Miraflores"</code> y en otra hoja escribe <code>"S.F. Miraflores"</code>, un cruce tradicional da <code>#N/D</code> porque las letras no son idénticas.<br>
+        • <strong>El sistema moderno (Transformer / GPT):</strong> Entiende por contexto que <code>"Cadena Alpha Miraflores"</code> y <code>"S.F. Miraflores"</code> representan el mismo Punto de Venta (PDV).
       </div>
     </div>
 
@@ -278,7 +278,7 @@
     <div class="section-card">
       <h2>3️⃣ ¿Qué son los Tokens y los Vectores (Embeddings)? (El GPS del Significado)</h2>
       <p>
-        Aquí está el secreto técnico más importante de toda la sesión: <strong>las computadoras no entienden palabras humanas, solo entienden números</strong>. ¿Cómo hace entonces Copilot para saber que <code>"SISCAD"</code>, <code>"Boleta"</code> y <code>"Liquidación"</code> están relacionados?
+        Aquí está el secreto técnico más importante de toda la sesión: <strong>las computadoras no entienden palabras humanas, solo entienden números</strong>. ¿Cómo hace entonces Copilot para saber que <code>"Sistema ERP"</code>, <code>"Boleta"</code> y <code>"Liquidación"</code> están relacionados?
       </p>
 
       <h3>Paso A: La Tokenización (Cortar las palabras en piezas numéricas)</h3>
@@ -287,8 +287,8 @@
       </p>
       <div class="example-box">
         <strong>Ejemplo de Tokenización:</strong><br>
-        Texto que tú escribes: <code>"Auditar liquidación SISCAD en Excel"</code><br>
-        Lo que recibe el modelo: <code>[Token #19402: "Auditar"]</code> + <code>[Token #48912: "liquidación"]</code> + <code>[Token #91044: "SISCAD"]</code> + <code>[Token #301: "en"]</code> + <code>[Token #8812: "Excel"]</code>
+        Texto que tú escribes: <code>"Auditar liquidación Sistema ERP en Excel"</code><br>
+        Lo que recibe el modelo: <code>[Token #19402: "Auditar"]</code> + <code>[Token #48912: "liquidación"]</code> + <code>[Token #91044: "Sistema ERP"]</code> + <code>[Token #301: "en"]</code> + <code>[Token #8812: "Excel"]</code>
       </div>
 
       <h3>Paso B: Los Vectores o Embeddings (Convertir cada palabra en Coordenadas GPS)</h3>
@@ -297,8 +297,8 @@
       </p>
 
       <div class="analogy-box">
-        <strong>🧭 La Analogía de la Marcación GPS (GeoVictoria):</strong><br>
-        Cuando un promotor marca asistencia en <strong>Saga Miraflores</strong>, el GPS guarda dos números: <code>Latitud: -12.1215, Longitud: -77.0297</code>. Si otro promotor marca en <strong>Ripley Miraflores</strong> (a una cuadra), sus coordenadas son casi iguales (<code>-12.1221, -77.0299</code>). Mirando solo los números sabemos que están en el mismo barrio.<br><br>
+        <strong>🧭 La Analogía de la Marcación GPS (App de Asistencia):</strong><br>
+        Cuando un promotor marca asistencia en <strong>Tienda Alpha Miraflores</strong>, el GPS guarda dos números: <code>Latitud: -12.1215, Longitud: -77.0297</code>. Si otro promotor marca en <strong>Tienda Beta Miraflores</strong> (a una cuadra), sus coordenadas son casi iguales (<code>-12.1221, -77.0299</code>). Mirando solo los números sabemos que están en el mismo barrio.<br><br>
         <strong>¡Un Vector Embedding hace exactamente lo mismo, pero con el significado de las palabras!</strong> En lugar de 2 coordenadas (Norte/Sur y Este/Oeste), le asigna a cada palabra <strong>1,536 coordenadas de significado</strong> (¿habla de dinero?, ¿habla de telecomunicaciones?, ¿habla de Excel?, ¿es una alerta?).
       </div>
 
@@ -317,7 +317,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong><code>SISCAD</code></strong></td>
+            <td><strong><code>Sistema ERP</code></strong></td>
             <td><code>0.95</code> (Muy alto)</td>
             <td><code>0.88</code> (Muy alto)</td>
             <td><code>0.10</code> (Bajo)</td>
@@ -333,7 +333,7 @@
             <td>🟦 Clúster Operación Claro</td>
           </tr>
           <tr>
-            <td><strong><code>Marcación 2233</code></strong></td>
+            <td><strong><code>registro en terminal PDV</code></strong></td>
             <td><code>0.98</code> (Muy alto)</td>
             <td><code>0.35</code> (Medio)</td>
             <td><code>0.05</code> (Bajo)</td>
@@ -377,8 +377,8 @@
         La palabra <strong>"Claro"</strong> sola en español tiene muchos significados:<br>
         • <em>"Me quedó todo muy <strong>claro</strong>"</em> (Evidente / entendido).<br>
         • <em>"Pinta el botón de azul <strong>claro</strong>"</em> (Tono de color).<br>
-        • <em>"El promotor vendió un chip postpago en <strong>Claro</strong> marcando el <strong>2233</strong> en el <strong>PDV</strong>"</em> (Operador de telecomunicaciones América Móvil).<br><br>
-        <strong>¿Cómo sabe la IA cuál es cuál?</strong> El <strong>Mecanismo de Atención (Self-Attention)</strong> cruza el vector de <code>"Claro"</code> con los vectores de las palabras vecinas (<code>"chip"</code>, <code>"postpago"</code>, <code>"2233"</code>, <code>"PDV"</code>). Esas palabras vecinas "empujan" matemáticamente el vector de <code>"Claro"</code> hacia las coordenadas de Telecomunicaciones.
+        • <em>"El promotor vendió un chip postpago en <strong>Claro</strong> marcando el <strong>Check-PDV</strong> en el <strong>PDV</strong>"</em> (Operador de telecomunicaciones Operación Comercial).<br><br>
+        <strong>¿Cómo sabe la IA cuál es cuál?</strong> El <strong>Mecanismo de Atención (Self-Attention)</strong> cruza el vector de <code>"Claro"</code> con los vectores de las palabras vecinas (<code>"chip"</code>, <code>"postpago"</code>, <code>"Check-PDV"</code>, <code>"PDV"</code>). Esas palabras vecinas "empujan" matemáticamente el vector de <code>"Claro"</code> hacia las coordenadas de Telecomunicaciones.
       </div>
 
       <h3>Operación 2: La Predicción Probabilística de la Siguiente Palabra (Next-Token Prediction)</h3>
@@ -388,19 +388,19 @@
 
       <div class="analogy-box">
         <strong>🎲 Ejemplo paso a paso cuando Copilot te escribe una fórmula de Excel:</strong><br>
-        Tú le diste en el prompt: <em>"I2 son las ventas del día y H2 es la marcación 2233 ('SI' o 'NO'). Si I2 &gt; 0 y H2 = 'NO', muestra 'ALERTA CRITICA: VENTA SIN 2233'"</em>.<br><br>
+        Tú le diste en el prompt: <em>"I2 son las ventas del día y H2 es la marcación Check-PDV ('SI' o 'NO'). Si I2 &gt; 0 y H2 = 'NO', muestra 'ALERTA CRITICA: VENTA SIN CHECK PDV'"</em>.<br><br>
         Mira lo que calcula el cerebro de Copilot palabra por palabra:<br>
         1. Empieza escribiendo: <code>=SI(Y(I2&gt;0;</code><br>
         2. Se detiene un milisegundo y calcula las probabilidades de qué debe ir después del punto y coma:<br>
            • <strong>Candidato A:</strong> <code>H2="NO")</code> → <strong>94.2 % de probabilidad ✅ (¡Ganador!)</strong><br>
            • <strong>Candidato B:</strong> <code>G2="NO")</code> → <strong>4.5 % de probabilidad</strong><br>
            • <strong>Candidato C:</strong> <code>I2=0)</code> → <strong>1.3 % de probabilidad</strong><br>
-        3. Coloca <code>H2="NO")</code> y vuelve a calcular cuál es el siguiente token después del punto y coma: <code>;"ALERTA CRITICA: VENTA SIN 2233"</code> (<strong>98.7 % de probabilidad</strong>).
+        3. Coloca <code>H2="NO")</code> y vuelve a calcular cuál es el siguiente token después del punto y coma: <code>;"ALERTA CRITICA: VENTA SIN CHECK PDV"</code> (<strong>98.7 % de probabilidad</strong>).
       </div>
 
       <p>
         <strong>🚨 ¿Por qué a veces la IA "alucina" (inventa datos o fórmulas malas)?</strong><br>
-        Porque si tú le das un prompt incompleto (ej. <em>"Dame una fórmula para ver si marcó el 2233"</em> sin decirle en qué columna está el 2233), cuando la IA llega a <code>=SI(</code>, todas las celdas del abecedario (<code>A2, B2, C2, D2...</code>) tienen <code>5 %</code> de probabilidad cada una. Como está obligada a predecir la siguiente palabra, **elige cualquiera al azar**. **Moraleja: Darle las columnas exactas (`D2`, `H2`, `I2`) convierte una adivinanza en una certeza del 99 %.**
+        Porque si tú le das un prompt incompleto (ej. <em>"Dame una fórmula para ver si marcó el terminal PDV"</em> sin decirle en qué columna está el terminal PDV), cuando la IA llega a <code>=SI(</code>, todas las celdas del abecedario (<code>A2, B2, C2, D2...</code>) tienen <code>5 %</code> de probabilidad cada una. Como está obligada a predecir la siguiente palabra, **elige cualquiera al azar**. **Moraleja: Darle las columnas exactas (`D2`, `H2`, `I2`) convierte una adivinanza en una certeza del 99 %.**
       </p>
     </div>
 
@@ -467,7 +467,7 @@
         <div class="flow-arrow">➔</div>
         <div class="flow-box">
           <strong>2. 📊 [C] CONTEXTO</strong>
-          <span>"Fila 2: Col D=DNI, Col H=Marcación 2233..."</span>
+          <span>"Fila 2: Col D=DNI, Col H=registro en terminal PDV..."</span>
         </div>
         <div class="flow-arrow">➔</div>
         <div class="flow-box">
@@ -487,7 +487,7 @@
           <strong>📌 CAJA 1: ¿Qué te gustaría que Copilot supiera sobre ti y tu trabajo? (Contexto)</strong>
           <button onclick="copyGuideBlock('guideBox1')" style="background:#0284C7; color:#fff; border:none; padding:5px 12px; border-radius:6px; font-weight:700; cursor:pointer; font-size:12px;">📋 Copiar Caja 1</button>
         </div>
-        <pre id="guideBox1" style="white-space:pre-wrap; background:#091326; padding:12px; border-radius:8px; border:1px solid rgba(56,189,248,0.3); font-family:monospace; font-size:12.5px; color:#E2E8F0;">Trabajo en Operaciones Comerciales y BI de Adecco Perú para la cuenta América Móvil (Claro) - Canal Cadenas. Uso Microsoft Excel en Español (configuración regional Perú, separador de fórmulas punto y coma ";" y moneda Soles "S/"). Manejo reportes diarios de asistencia (GeoVictoria y marcación 2233), ventas y liquidaciones (SISCAD vs Retail - Anexo 1), solicitudes en sistema SMA y automatizaciones con Macros VBA.</pre>
+        <pre id="guideBox1" style="white-space:pre-wrap; background:#091326; padding:12px; border-radius:8px; border:1px solid rgba(56,189,248,0.3); font-family:monospace; font-size:12.5px; color:#E2E8F0;">Trabajo en Operaciones Comerciales y BI de Adecco Perú para la cuenta Operaciones Comerciales (Demo) - Canal Cadenas. Uso Microsoft Excel en Español (configuración regional Perú, separador de fórmulas punto y coma ";" y moneda Soles "S/"). Manejo reportes diarios de asistencia (App de Asistencia y marcación Check-PDV), ventas y liquidaciones (Sistema vs Tienda - Tabla de Reglas), solicitudes en Sistema de Gestion y automatizaciones con Macros VBA.</pre>
       </div>
 
       <div class="analogy-box">
@@ -522,9 +522,9 @@
               <strong style="color:#FCA5A5;">Resultado: Da error en Excel Perú por estar en inglés (IF/AND) y usar comas (,).</strong>
             </td>
             <td>
-              <strong>1. 🎯 Solución Directa:</strong> Detecta ventas del día sin marcación 2233.<br>
+              <strong>1. 🎯 Solución Directa:</strong> Detecta ventas del día sin marcación Check-PDV.<br>
               <strong>2. 📋 Bloque Listo para Copiar:</strong><br>
-              <code>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN 2233";"OK CORRECTO")</code><br>
+              <code>=SI(Y(I2&gt;0;H2="NO");"ALERTA CRITICA: VENTA SIN CHECK PDV";"OK CORRECTO")</code><br>
               <strong>3. 📍 Cómo aplicarlo:</strong> Pega en la celda <strong><code>L2</code></strong> y haz doble clic en la esquina inferior derecha.<br>
               <strong>4. ⚠️ Alerta de Validación:</strong> Revisa que <code>H2</code> no tenga espacios en blanco al final.
             </td>
