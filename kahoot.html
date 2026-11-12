@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Arena Kahoot Live — Adecco AI Co-Pilot Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070D18;
+      --bg-card: rgba(13, 23, 42, 0.88);
+      --red-adecco: #DA291C;
+      --red-bright: #EF4444;
+      --cyan-glow: #38BDF8;
+      --blue-pad: #2563EB;
+      --amber-pad: #D97706;
+      --green-pad: #059669;
+      --border-hairline: rgba(255, 255, 255, 0.12);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* BACKGROUND CANVAS */
+    #fx-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* TOP HEADER */
+    .arena-header {
+      position: relative;
+      z-index: 10;
+      background: rgba(7, 13, 24, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #DA291C, #991B1B);
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      letter-spacing: 0.8px;
+      border: 1px solid rgba(254, 202, 202, 0.3);
+      box-shadow: 0 0 16px rgba(218, 41, 28, 0.4);
+    }
+
+    .arena-title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+    .arena-title span { color: var(--cyan-glow); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-top {
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-top:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--cyan-glow);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* MAIN CONTAINER */
+    .arena-main {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* VIEWS */
+    .view-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hairline);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      padding: 32px;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* LOBBY VIEW */
+    .lobby-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+    }
+    @media (max-width: 900px) {
+      .lobby-layout { grid-template-columns: 1fr; }
+    }
+
+    .hero-h1 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .hero-h1 .red { color: #FF473A; }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      line-height: 1.55;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--cyan-glow);
+      margin-bottom: 8px;
+    }
+
+    .pack-selector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .pack-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: left;
+      cursor: pointer;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .pack-btn:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      background: rgba(30, 41, 59, 0.7);
+    }
+    .pack-btn.active {
+      border-color: var(--red-adecco);
+      background: linear-gradient(145deg, rgba(218, 41, 28, 0.22), rgba(15, 23, 42, 0.9));
+      box-shadow: 0 0 16px rgba(218, 41, 28, 0.3);
+    }
+    .pack-title { font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 3px; }
+    .pack-sub { font-size: 11.5px; color: var(--text-secondary); }
+
+    .input-box {
+      width: 100%;
+      background: rgba(8, 14, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14.5px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-box:focus {
+      border-color: var(--cyan-glow);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-play-big {
+      width: 100%;
+      background: linear-gradient(135deg, #DA291C, #B91C1C);
+      color: #fff;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      padding: 16px 24px;
+      border: 1px solid #FCA5A5;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(218, 41, 28, 0.45);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn-play-big:hover {
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(218, 41, 28, 0.6);
+    }
+
+    /* RIGHT LOBBY: QR & ROOM PIN */
+    .room-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .pin-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #FDE68A;
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px dashed #F59E0B;
+      border-radius: 10px;
+      padding: 8px 24px;
+      margin: 12px 0 16px;
+      display: inline-block;
+    }
+
+    .qr-box {
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* GAMEPLAY STAGE */
+    .game-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .hud-stat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-hairline);
+    }
+
+    .timer-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .timer-circle-box {
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    .timer-circle-box svg {
+      transform: rotate(-90deg);
+    }
+    .timer-sec-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .question-banner {
+      background: radial-gradient(800px circle at 50% 0%, rgba(56, 189, 248, 0.15), transparent 70%), rgba(11, 20, 38, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      margin-bottom: 24px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .q-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 23px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #FFFFFF;
+      max-width: 900px;
+    }
+
+    /* 4 PADS GRID */
+    .pads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 768px) {
+      .pads-grid { grid-template-columns: 1fr; }
+    }
+
+    .pad-btn {
+      font-family: inherit;
+      border: none;
+      border-radius: 14px;
+      padding: 22px 24px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      line-height: 1.35;
+      transition: transform 0.12s ease, filter 0.15s ease, opacity 0.2s;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .pad-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.01);
+      filter: brightness(1.12);
+    }
+    .pad-btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+    .pad-glyph {
+      font-size: 26px;
+      line-height: 1;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    .pad-red { background: linear-gradient(135deg, #DA291C, #991B1B); border: 2px solid #FCA5A5; }
+    .pad-blue { background: linear-gradient(135deg, #2563EB, #1D4ED8); border: 2px solid #93C5FD; }
+    .pad-amber { background: linear-gradient(135deg, #D97706, #B45309); border: 2px solid #FDE68A; }
+    .pad-green { background: linear-gradient(135deg, #059669, #047857); border: 2px solid #A7F3D0; }
+
+    .pad-btn.correct-reveal {
+      outline: 5px solid #10B981;
+      filter: brightness(1.25);
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.7);
+    }
+    .pad-btn.wrong-reveal {
+      outline: 4px solid #EF4444;
+      opacity: 0.45;
+      filter: grayscale(0.5);
+    }
+
+    /* EXPLANATION TOAST */
+    .explanation-toast {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .exp-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .exp-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      max-width: 800px;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 12px 24px;
+      border: 1px solid #93C5FD;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-next:hover {
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      transform: translateY(-2px);
+    }
+
+    /* PODIUM STAGE */
+    .podium-wrap {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .podium-h2 {
+      font-size: 32px;
+      font-weight: 900;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+    .podium-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      color: var(--cyan-glow);
+      margin-bottom: 30px;
+    }
+
+    .podium-pillars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 36px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pillar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pillar-name {
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .pillar-team {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .pillar-block {
+      width: 100%;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .pillar-gold {
+      height: 180px;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.5), rgba(180, 83, 9, 0.95));
+      border-color: #F59E0B;
+    }
+    .pillar-silver {
+      height: 135px;
+      background: linear-gradient(180deg, rgba(148, 163, 184, 0.4), rgba(51, 65, 85, 0.95));
+      border-color: #CBD5E1;
+    }
+    .pillar-bronze {
+      height: 100px;
+      background: linear-gradient(180deg, rgba(218, 41, 28, 0.4), rgba(127, 29, 29, 0.95));
+      border-color: #FCA5A5;
+    }
+
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 13.5px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-hairline);
+    }
+    .rank-table th {
+      background: rgba(8, 14, 26, 0.9);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 800;
+      color: var(--cyan-glow);
+    }
+    .rank-table td {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .podium-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CONFETTI / PARTICLES CANVAS -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- ARENA TOP BAR -->
+  <header class="arena-header">
+    <a href="index.html" class="brand-wrap">
+      <span class="logo-badge">ADECCO</span>
+      <div class="arena-title">AI Co-Pilot Lab <span>· ARENA KAHOOT LIVE</span></div>
+    </a>
+    <div class="header-actions">
+      <button class="btn-top" id="btn-audio-toggle" onclick="toggleAudio()">🔊 Sonido: ON</button>
+      <button class="btn-top" onclick="toggleFullscreen()">⛶ Pantalla Completa</button>
+      <a href="clase1.html" class="btn-top">🚀 Volver a Clase 01</a>
+      <a href="index.html" class="btn-top">🏠 Portal del Programa</a>
+    </div>
+  </header>
+
+  <!-- MAIN INTERACTIVE ARENA -->
+  <main class="arena-main">
+
+    <!-- VIEW 1: LOBBY DE SESIÓN -->
+    <div class="view-card" id="view-lobby">
+      <div class="lobby-layout">
+        <div>
+          <h1 class="hero-h1">⚡ Arena Kahoot Live · <span class="red">Ponte a Prueba</span></h1>
+          <p class="hero-desc">
+            Competencia interactiva en tiempo real para <strong>Sala Oslo - Viena - Dublín</strong>. Responde con rapidez y precisión para acumular puntos, mantener tu racha y llevar a tu equipo al podio.
+          </p>
+
+          <label class="field-label">1. Módulo Oficial de la Sesión</label>
+          <div class="pack-selector">
+            <button type="button" class="pack-btn" id="pbtn-0" onclick="selectPack(0)">
+              <span class="pack-title">📊 Sesión 01 · 09 Nov</span>
+              <span class="pack-sub">Excel, Macros VBA &amp; Copilot (Realizada)</span>
+            </button>
+            <button type="button" class="pack-btn active" id="pbtn-1" onclick="selectPack(1)">
+              <span class="pack-title">📈 Sesión 02 · 13 Nov (Este Viernes)</span>
+              <span class="pack-sub">Power BI, Word &amp; Reportes DAX (8 Preguntas)</span>
+            </button>
+            <button type="button" class="pack-btn" id="pbtn-2" onclick="selectPack(2)">
+              <span class="pack-title">⚡ Sesión 03 · 16 Nov</span>
+              <span class="pack-sub">Power Automate &amp; Flujos de Trabajo</span>
+            </button>
+            <button type="button" class="pack-btn" id="pbtn-3" onclick="selectPack(3)">
+              <span class="pack-title">🏆 Sesión 04 · 18 Nov</span>
+              <span class="pack-sub">Torneo Master Final S&amp;M</span>
+            </button>
+          </div>
+
+          <label class="field-label" for="player-name">2. Tu Nombre y Apellido</label>
+          <input type="text" id="player-name" class="input-box" placeholder="Ej. Valeria Gómez / Juan Morales" />
+
+          <label class="field-label" for="player-team">3. Tu Equipo de Sales &amp; Marketing</label>
+          <select id="player-team" class="input-box">
+            <option value="Retail Cadenas">🔵 Retail Cadenas</option>
+            <option value="Trade Marketing">🟢 Trade Marketing</option>
+            <option value="Operaciones Comerciales">🟣 Operaciones Comerciales</option>
+            <option value="BI & Control de Gestión">🟡 BI & Control de Gestión</option>
+            <option value="Multimarca & Fuerza de Ventas">🟠 Multimarca & Fuerza de Ventas</option>
+          </select>
+
+          <button class="btn-play-big" onclick="startGame()">
+            <span>🚀 ENTRAR A LA ARENA Y JUGAR</span>
+          </button>
+        </div>
+
+        <!-- RIGHT PANEL: ROOM INFO & QR -->
+        <div class="room-card">
+          <span style="font-size:12px; font-weight:800; letter-spacing:1px; color:var(--text-secondary); text-transform:uppercase;">
+            📍 SALA OSLO - VIENA - DUBLÍN · PIN OFICIAL
+          </span>
+          <div class="pin-badge">BACK-2026</div>
+
+          <!-- SVG QR CODE -->
+          <div class="qr-box">
+            <svg width="140" height="140" viewBox="0 0 100 100" fill="#0B172A">
+              <!-- Simulated High-tech QR Pattern -->
+              <rect x="0" y="0" width="30" height="30" rx="3" fill="#0B172A"/>
+              <rect x="5" y="5" width="20" height="20" rx="2" fill="#FFFFFF"/>
+              <rect x="9" y="9" width="12" height="12" rx="1" fill="#DA291C"/>
+
+              <rect x="70" y="0" width="30" height="30" rx="3" fill="#0B172A"/>
+              <rect x="75" y="5" width="20" height="20" rx="2" fill="#FFFFFF"/>
+              <rect x="79" y="9" width="12" height="12" rx="1" fill="#DA291C"/>
+
+              <rect x="0" y="70" width="30" height="30" rx="3" fill="#0B172A"/>
+              <rect x="5" y="75" width="20" height="20" rx="2" fill="#FFFFFF"/>
+              <rect x="9" y="79" width="12" height="12" rx="1" fill="#DA291C"/>
+
+              <!-- Grid elements -->
+              <rect x="36" y="8" width="6" height="6"/>
+              <rect x="46" y="8" width="6" height="14"/>
+              <rect x="56" y="8" width="6" height="6"/>
+
+              <rect x="36" y="24" width="12" height="6"/>
+              <rect x="8" y="36" width="6" height="12"/>
+              <rect x="18" y="36" width="6" height="6"/>
+              <rect x="28" y="44" width="8" height="8"/>
+
+              <rect x="42" y="38" width="16" height="16" fill="#DA291C" rx="2"/>
+              <rect x="64" y="36" width="8" height="8"/>
+              <rect x="78" y="36" width="14" height="6"/>
+              <rect x="78" y="48" width="8" height="14"/>
+
+              <rect x="36" y="60" width="8" height="16"/>
+              <rect x="50" y="62" width="14" height="6"/>
+              <rect x="70" y="66" width="10" height="10"/>
+
+              <rect x="36" y="82" width="14" height="8"/>
+              <rect x="56" y="78" width="8" height="14"/>
+              <rect x="78" y="82" width="14" height="10"/>
+            </svg>
+          </div>
+
+          <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.45;">
+            Escanea desde tu móvil o laptop en Sala Estocolmo para jugar en simultáneo.
+          </p>
+
+          <div style="margin-top:20px; width:100%; border-top:1px solid var(--border-hairline); padding-top:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; margin-bottom:8px;">
+              <span style="font-weight:700; color:var(--cyan-glow);">🏆 Top Histórico de Sala</span>
+              <button onclick="resetLeaderboard()" style="background:none; border:none; color:#EF4444; cursor:pointer; font-size:11px;">Resetear</button>
+            </div>
+            <div id="mini-lb" style="text-align:left; font-size:12px; color:var(--text-secondary);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: GAMEPLAY EN VIVO -->
+    <div class="view-card" id="view-game" style="display:none;">
+      <div class="game-hud">
+        <div class="hud-stat" id="hud-qnum" style="color:var(--cyan-glow);">PREGUNTA 1 / 8</div>
+        <div class="timer-wrap">
+          <div class="timer-circle-box">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+              <circle id="svg-timer-circle" cx="32" cy="32" r="28" fill="none" stroke="#DA291C" stroke-width="4"
+                      stroke-dasharray="176" stroke-dashoffset="0" stroke-linecap="round"
+                      style="transition: stroke-dashoffset 1s linear, stroke 0.3s;"/>
+            </svg>
+            <div class="timer-sec-text" id="hud-seconds">20</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <div class="hud-stat" id="hud-streak" style="color:#FBBF24;">🔥 RACHA: 0</div>
+          <div class="hud-stat" id="hud-score" style="color:#34D399;">0 PTS</div>
+        </div>
+      </div>
+
+      <div class="question-banner">
+        <div class="q-cat" id="q-category">SESIÓN 01 · EXCEL &amp; COPILOT</div>
+        <div class="q-text" id="q-headline">Cargando pregunta...</div>
+      </div>
+
+      <!-- 4 PADS -->
+      <div class="pads-grid">
+        <button class="pad-btn pad-red" id="pad-0" onclick="answer(0)">
+          <span class="pad-glyph">▲</span>
+          <span id="opt-0">Opción 1</span>
+        </button>
+        <button class="pad-btn pad-blue" id="pad-1" onclick="answer(1)">
+          <span class="pad-glyph">◆</span>
+          <span id="opt-1">Opción 2</span>
+        </button>
+        <button class="pad-btn pad-amber" id="pad-2" onclick="answer(2)">
+          <span class="pad-glyph">●</span>
+          <span id="opt-2">Opción 3</span>
+        </button>
+        <button class="pad-btn pad-green" id="pad-3" onclick="answer(3)">
+          <span class="pad-glyph">■</span>
+          <span id="opt-3">Opción 4</span>
+        </button>
+      </div>
+
+      <!-- EXPLANATION TOAST -->
+      <div class="explanation-toast" id="exp-toast" style="display:none;">
+        <div>
+          <div class="exp-title" id="toast-title">✓ ¡Respuesta Correcta!</div>
+          <div class="exp-body" id="toast-desc">Explicación técnica de la IA...</div>
+        </div>
+        <button class="btn-next" onclick="nextQuestion()">
+          <span>Siguiente Pregunta ➔</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 3: PODIUM Y RESULTADOS -->
+    <div class="view-card" id="view-podium" style="display:none;">
+      <div class="podium-wrap">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:800; color:var(--cyan-glow); letter-spacing:1px;">
+          ARENA COMPLETA · RESULTADOS OFICIALES
+        </span>
+        <h2 class="podium-h2" id="podium-hero-title">¡Gran Desempeño!</h2>
+        <div class="podium-sub" id="podium-hero-stats">SCORE: 0 PTS · PRECISIÓN: 0%</div>
+
+        <!-- 3D PILLARS -->
+        <div class="podium-pillars">
+          <!-- 2nd -->
+          <div class="pillar-col">
+            <div class="pillar-name" id="pod-2-name">---</div>
+            <div class="pillar-team" id="pod-2-team">---</div>
+            <div class="pillar-block pillar-silver">
+              <span style="font-size:24px;">🥈</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px;" id="pod-2-score">0</span>
+            </div>
+          </div>
+          <!-- 1st -->
+          <div class="pillar-col">
+            <div style="font-size:22px; margin-bottom:2px;">👑</div>
+            <div class="pillar-name" style="color:#FDE68A; font-size:16px;" id="pod-1-name">---</div>
+            <div class="pillar-team" id="pod-1-team">---</div>
+            <div class="pillar-block pillar-gold">
+              <span style="font-size:32px;">🥇</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-weight:900; font-size:15px; color:#FDE68A;" id="pod-1-score">0</span>
+            </div>
+          </div>
+          <!-- 3rd -->
+          <div class="pillar-col">
+            <div class="pillar-name" id="pod-3-name">---</div>
+            <div class="pillar-team" id="pod-3-team">---</div>
+            <div class="pillar-block pillar-bronze">
+              <span style="font-size:22px;">🥉</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px;" id="pod-3-score">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL SCOREBOARD TABLE -->
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th width="12%">Puesto</th>
+              <th>Participante</th>
+              <th>Equipo / Área</th>
+              <th width="20%">Puntaje Total</th>
+            </tr>
+          </thead>
+          <tbody id="full-rank-body"></tbody>
+        </table>
+
+        <div class="podium-actions">
+          <button class="btn-top" onclick="exportRankingCSV()" style="padding:12px 20px; font-size:14px; border-color:#34D399; color:#6EE7B7;">
+            📥 Exportar Resultados (CSV)
+          </button>
+          <button class="btn-top" onclick="returnLobby()" style="padding:12px 20px; font-size:14px;">
+            🔄 Jugar Nueva Ronda
+          </button>
+          <a href="clase1.html" class="btn-top" style="padding:12px 20px; font-size:14px; background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5; color:#fff;">
+            🚀 Volver a la Presentación
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= LOGIC & AUDIO ENGINE SCRIPT ================= -->
+  <script>
+    // ---------------------------------------------------------------
+    // 1. QUESTION BANKS
+    // ---------------------------------------------------------------
+    const QUESTION_PACKS = [
+      {
+        title: "Sesión 01 — Excel, Macros VBA & Copilot",
+        questions: [
+          {
+            cat: "SESIÓN 01 · ARQUITECTURA COPILOT",
+            q: "¿Cómo protege Microsoft Copilot la confidencialidad de los datos operativos de Adecco y de las cuentas de Retail?",
+            opts: [
+              "Entrena modelos públicos de OpenAI con nuestras bases",
+              "Garantiza Commercial Data Protection: los datos están cifrados y jamás se usan para reentrenar modelos públicos",
+              "Guarda los archivos en servidores no autorizados",
+              "Requiere subir la información a redes sociales"
+            ],
+            ans: 1,
+            exp: "Bajo la gobernanza corporativa, Copilot opera con aislamiento de datos comercial: tus tablas y reportes de Adecco nunca salen a alimentar la IA pública."
+          },
+          {
+            cat: "SESIÓN 01 · INGENIERÍA DE PROMPTS",
+            q: "Para que Copilot redacte una Macro VBA precisa sin inventar datos ni dar errores de rango, ¿cuál es la estructura de instrucción recomendada?",
+            opts: [
+              "Escribir únicamente: 'Automatiza este archivo de inmediato'",
+              "Especificar Contexto de la cuenta + Nombres exactos de hojas/columnas + Regla lógica paso a paso + Formato de salida",
+              "Adjuntar una captura de pantalla sin explicar las columnas",
+              "Pedirle que adivine la estructura de las celdas"
+            ],
+            ans: 1,
+            exp: "El método de instrucción técnica (Contexto + Columnas + Regla + Salida) elimina alucinaciones y entrega código VBA que corre a la primera."
+          },
+          {
+            cat: "SESIÓN 01 · ENTORNO DE DESARROLLO",
+            q: "¿Qué atajo de teclado abre instantáneamente el editor de Visual Basic (VBA) en Microsoft Excel?",
+            opts: [
+              "Ctrl + Shift + V",
+              "Alt + F11",
+              "Ctrl + Alt + Supr",
+              "F12 + Tab"
+            ],
+            ans: 1,
+            exp: "Alt + F11 es el acceso universal para abrir el entorno VBA de Excel donde insertas módulos para pegar y depurar el código de Copilot."
+          },
+          {
+            cat: "SESIÓN 01 · DEPURACIÓN EN VIVO",
+            q: "Si al ejecutar una Macro en Excel la pantalla se detiene con una línea resaltada en AMARILLO (Run-time error), ¿cómo se procede con Copilot?",
+            opts: [
+              "Cerrar Excel y borrar todo el trabajo",
+              "Ignorar la línea y seguir ejecutando",
+              "Copiar el código de la macro y el texto exacto del error en Copilot para que diagnostique la causa y entregue la línea corregida",
+              "Reescribir las fórmulas a mano desde cero"
+            ],
+            ans: 2,
+            exp: "Copilot actúa como copiloto de depuración: comprende el código de error (como Error 9 o 13) y corrige la sintaxis en segundos."
+          },
+          {
+            cat: "SESIÓN 01 · FORMATO OBLIGATORIO",
+            q: "Al terminar de automatizar un archivo con macros VBA, ¿en qué formato OBLIGATORIO debes guardar el libro para no perder el código?",
+            opts: [
+              "Libro de Excel normal (.xlsx)",
+              "Libro de Excel habilitado para macros (.xlsm) o Binario (.xlsb)",
+              "Documento de Word (.docx)",
+              "Texto delimitado por tabulaciones (.txt)"
+            ],
+            ans: 1,
+            exp: "Los archivos estándar .xlsx eliminan el código VBA por seguridad. Siempre debes elegir 'Libro de Excel habilitado para macros (*.xlsm)'."
+          },
+          {
+            cat: "SESIÓN 01 · CONTROL DE CALIDAD",
+            q: "En la validación humana de resultados, ¿cuál es el protocolo obligatorio antes de correr una macro nueva en el reporte oficial de tu cuenta?",
+            opts: [
+              "Correrla directamente en el archivo compartido original sin respaldo",
+              "Probarla primero en una copia de respaldo y auditar que la suma total y conteo coincidan con el cálculo manual",
+              "Enviarla al cliente sin revisar los números",
+              "Modificar las fórmulas finales para forzar que cuadren"
+            ],
+            ans: 1,
+            exp: "El principio de control de calidad exige probar en una copia de respaldo y conciliar sumatorias antes de actualizar cualquier entregable oficial."
+          },
+          {
+            cat: "SESIÓN 01 · DINÁMICA DE TABLAS",
+            q: "En el ejercicio práctico de supervisores y pendientes, ¿por qué es clave usar última fila dinámica (End(xlUp).Row) en VBA?",
+            opts: [
+              "Porque la macro solo funciona si siempre hay exactamente 10 filas",
+              "Porque permite que la macro se adapte automáticamente al volumen variable de filas que reporte cada supervisor cada semana",
+              "Para cambiar los colores de la hoja",
+              "Es una instrucción opcional sin ningún impacto"
+            ],
+            ans: 1,
+            exp: "El cálculo dinámico de rangos garantiza que tu automatización procese 10 o 10,000 registros sin cortar datos ni generar celdas vacías."
+          },
+          {
+            cat: "SESIÓN 01 · CONCURSO FINAL",
+            q: "Para ganar el Concurso de Mejora (1.er Puesto S/ 300 y 2.° Puesto S/ 200), ¿cuál es el factor determinante que evaluará el jurado?",
+            opts: [
+              "Hacer muchas diapositivas sin mostrar el archivo funcionando",
+              "Demostrar una solución real aplicada a tu cuenta con reducción medible de tiempo manual (Antes vs. Después) y sin errores",
+              "Copiar un ejemplo teórico genérico de internet",
+              "Usar la mayor cantidad de código sin que resuelva un problema real"
+            ],
+            ans: 1,
+            exp: "El concurso premia el impacto operativo real en Adecco: medir cuánto tiempo manual se ahorra semanalmente y la fiabilidad de la solución."
+          }
+        ]
+      },
+      {
+        title: "Sesión 02 — Power BI, Word & Reportería DAX",
+        questions: [
+          {
+            cat: "SESIÓN 02 · POWER BI & DAX",
+            q: "¿Cómo ayuda Copilot a formular medidas en Power BI para el seguimiento de puntos de venta?",
+            opts: [
+              "Generando expresiones DAX (cobertura, cumplimiento, rotación) a partir de los nombres de tus tablas y campos",
+              "Creando presentaciones sin datos",
+              "Modificando la tarjeta gráfica",
+              "Eliminando las relaciones del modelo"
+            ],
+            ans: 0,
+            exp: "Copilot redacta medidas DAX complejas explicándote cada función (CALCULATE, DIVIDE, FILTER) adaptada a tu modelo de datos."
+          },
+          {
+            cat: "SESIÓN 02 · INFORMES EN WORD",
+            q: "¿Cómo agiliza Microsoft Word con IA la redacción de informes ejecutivos de fin de mes?",
+            opts: [
+              "Copiando y pegando datos sin formato",
+              "Transformando tablas numéricas en un resumen narrativo estructurado (contexto, causas y plan de acción) en segundos",
+              "Omitiendo la sección de conclusiones",
+              "Imprimiendo en blanco y negro"
+            ],
+            ans: 1,
+            exp: "Word + Copilot permite convertir métricas operativas en un resumen ejecutivo formal alineado a la imagen de Adecco."
+          },
+          {
+            cat: "SESIÓN 02 · CALIDAD DE DATOS",
+            q: "¿Por qué es crucial que la base de datos de origen esté limpia antes de cargarla a Power BI?",
+            opts: [
+              "Para evitar duplicados y errores de relación en las medidas calculadas",
+              "Solo para que el archivo ocupe menos espacio",
+              "Porque Power BI no admite fechas",
+              "No tiene relevancia"
+            ],
+            ans: 0,
+            exp: "Un modelo tabular limpio y sin celdas combinadas asegura que los dashboards se actualicen sin errores de cálculo."
+          },
+          {
+            cat: "SESIÓN 02 · AUTOMATIZACIÓN PDF",
+            q: "¿Qué ventaja tiene automatizar la exportación a PDF desde Word mediante macro?",
+            opts: [
+              "Asegura nomenclatura estándar, formato no editable y reduce el tiempo manual de entrega al cliente",
+              "Aumenta el tamaño del archivo innecesariamente",
+              "Desconfigura las fuentes",
+              "Ninguna"
+            ],
+            ans: 0,
+            exp: "Estandariza los entregables corporativos garantizando que el cliente reciba un archivo formal y protegido."
+          },
+          {
+            cat: "SESIÓN 02 · MÉTRICAS DE IMPACTO",
+            q: "Al presentar una desviación en el cumplimiento de cobertura, ¿cuál es la estructura de comunicación ejecutiva?",
+            opts: [
+              "Pegar tablas extensas sin conclusiones",
+              "Métrica visual clara + Explicación de causa raíz + Acción correctiva acordada con la cuenta",
+              "Omitir el porcentaje real",
+              "Cambiar de tema"
+            ],
+            ans: 1,
+            exp: "La reportería de alto valor en Adecco combina el dato exacto con la interpretación y la propuesta de solución."
+          },
+          {
+            cat: "SESIÓN 02 · CÁLCULO SEGURO EN DAX",
+            q: "¿Por qué en DAX siempre se debe formular con DIVIDE(Numerador, Denominador, 0) en lugar del operador /?",
+            opts: [
+              "Para evitar errores de división entre cero cuando no hay ventas o visitas en una tienda o supervisor",
+              "Porque el símbolo / está prohibido en Power BI",
+              "Solo para que la fórmula sea más larga",
+              "Para cambiar el idioma de la aplicación"
+            ],
+            ans: 0,
+            exp: "DIVIDE maneja automáticamente los denominadores en cero o nulos, evitando que las tarjetas y gráficos muestren errores 'Infinity' o 'NaN'."
+          },
+          {
+            cat: "SESIÓN 02 · CONTEXTO DE FILTRO",
+            q: "Al seleccionar un Supervisor en el segmentador (slicer) de Power BI, ¿cómo interactúa el modelo de datos?",
+            opts: [
+              "Borra los datos de los demás supervisores del archivo",
+              "Aplica el contexto de filtro recalculando dinámicamente todas las medidas DAX y visuales para ese supervisor",
+              "Requiere volver a cargar el archivo de Excel",
+              "Solo cambia el color de los gráficos"
+            ],
+            ans: 1,
+            exp: "Power BI recalcula al instante en memoria todas las medidas según el contexto de filtro activo."
+          },
+          {
+            cat: "SESIÓN 02 · INTEGRACIÓN S1 + S2",
+            q: "¿Cómo se integra la macro de Excel desarrollada en la Sesión 1 con el Tablero de la Sesión 2?",
+            opts: [
+              "No tienen ninguna relación",
+              "La macro de Excel consolida y limpia la base de tiendas cada semana, sirviendo como origen de datos listo para actualizar Power BI con 1 clic",
+              "Hay que volver a escribir los datos a mano en Power BI",
+              "Obliga a imprimir la hoja antes de abrir Power BI"
+            ],
+            ans: 1,
+            exp: "La macro de la Sesión 1 genera el insumo limpio y estandarizado que alimenta el modelo analítico de la Sesión 2."
+          }
+        ]
+      },
+      {
+        title: "Sesión 03 — Power Automate & Flujos",
+        questions: [
+          {
+            cat: "SESIÓN 03 · DISPARADORES (TRIGGERS)",
+            q: "En Power Automate, ¿qué función cumple un Disparador?",
+            opts: [
+              "Inicia la ejecución automática del flujo según un horario o evento (ej. nuevo correo o archivo modificado)",
+              "Elimina registros de Excel",
+              "Diseña la interfaz gráfica",
+              "Apaga el servidor"
+            ],
+            ans: 0,
+            exp: "El trigger es el detonante que arranca el proceso automático sin intervención humana."
+          },
+          {
+            cat: "SESIÓN 03 · ALERTAS INTELIGENTES",
+            q: "¿Cómo evitamos enviar alertas masivas innecesarias en un flujo de Power Automate?",
+            opts: [
+              "Agregando una Condición lógica que filtre únicamente los registros con estado 'Pendiente' o 'Crítico'",
+              "Enviando copias a todos los contactos de la libreta",
+              "Desactivando el disparador",
+              "No usando Power Automate"
+            ],
+            ans: 0,
+            exp: "Las condiciones lógicas aseguran que solo se notifique a los responsables cuando se requiere una acción."
+          },
+          {
+            cat: "SESIÓN 03 · PRUEBAS DE SEGURIDAD",
+            q: "¿Cuál es la regla de oro al probar un flujo que envía correos por Outlook?",
+            opts: [
+              "Configurar tu propio correo como destinatario de prueba antes del lanzamiento oficial a la cuenta",
+              "Enviar la primera prueba directa a la gerencia del cliente",
+              "Omitir el asunto del correo",
+              "Borrar el historial de ejecución"
+            ],
+            ans: 0,
+            exp: "Probar siempre hacia tu buzón personal previene comunicaciones erróneas con el cliente o equipo de campo."
+          },
+          {
+            cat: "SESIÓN 03 · GOBERNANZA",
+            q: "¿Por qué se debe asignar un responsable y documentar cada flujo creado en la cuenta?",
+            opts: [
+              "Para asegurar continuidad operativa si el creador del flujo cambia de rol o área",
+              "Es un trámite opcional",
+              "Para bloquear a los demás usuarios",
+              "Para ralentizar el flujo"
+            ],
+            ans: 0,
+            exp: "La gobernanza garantiza que las soluciones sigan funcionando de forma sostenible dentro de la operación."
+          },
+          {
+            cat: "SESIÓN 03 · COPILOT EN AUTOMATE",
+            q: "¿Cómo ayuda Copilot al diseñar un flujo de trabajo?",
+            opts: [
+              "Traduciendo una instrucción en lenguaje natural en la secuencia de conectores y acciones adecuada",
+              "Escribiendo correos informales",
+              "Descargando videos",
+              "No tiene integración con Automate"
+            ],
+            ans: 0,
+            exp: "Copilot crea la estructura del flujo y sugiere las expresiones necesarias para conectar Excel, Outlook y Teams."
+          }
+        ]
+      },
+      {
+        title: "Sesión 04 — Torneo Master PROGRAMA BACK",
+        questions: [
+          {
+            cat: "TORNEO MASTER · ECOSISTEMA ADECCO",
+            q: "¿Cuál es el valor integral de combinar Excel (VBA) + Power BI + Word + Power Automate?",
+            opts: [
+              "Construir un ecosistema sin fisuras donde los datos se limpian, analizan, reportan y alertan de forma automática",
+              "Obligar al usuario a usar todos los programas a la vez",
+              "Duplicar el tiempo de trabajo",
+              "Complicar la operación"
+            ],
+            ans: 0,
+            exp: "La interoperabilidad de la suite Microsoft maximiza la productividad y reduce el error manual en toda la cuenta."
+          },
+          {
+            cat: "TORNEO MASTER · CRITERIO DE ÉXITO",
+            q: "El verdadero éxito de un proyecto de automatización con IA en Adecco se mide en:",
+            opts: [
+              "Horas hombre liberadas para análisis estratégico y cero fallas en el reporte al cliente",
+              "El número de líneas de código generadas",
+              "La cantidad de gráficos de colores",
+              "La velocidad con la que se cierran las ventanas"
+            ],
+            ans: 0,
+            exp: "El fin último del programa es devolver tiempo de valor al equipo y garantizar la exactitud de los datos entregados."
+          }
+        ]
+      }
+    ];
+
+    // ---------------------------------------------------------------
+    // 2. SYNTHESIZED SOUND ENGINE (Web Audio API - 100% Offline)
+    // ---------------------------------------------------------------
+    let audioCtx = null;
+    let audioEnabled = true;
+    let lobbyMusicTimer = null;
+    let tensionTimer = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const btn = document.getElementById('btn-audio-toggle');
+      btn.textContent = audioEnabled ? "🔊 Sonido: ON" : "🔇 Sonido: OFF";
+      if (!audioEnabled) {
+        stopLobbyMusic();
+      } else {
+        if (currentStage === 'lobby') startLobbyMusic();
+      }
+    }
+
+    function playTone(freq, type, duration, startTime = 0, gainLevel = 0.15) {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + startTime);
+        gain.gain.setValueAtTime(gainLevel, ctx.currentTime + startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + startTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + startTime);
+        osc.stop(ctx.currentTime + startTime + duration);
+      } catch (e) {}
+    }
+
+    // Upbeat synthesized Lobby loop
+    function startLobbyMusic() {
+      if (!audioEnabled) return;
+      stopLobbyMusic();
+      const notes = [261.6, 329.6, 392.0, 523.3, 440.0, 392.0, 329.6, 293.7];
+      let step = 0;
+      lobbyMusicTimer = setInterval(() => {
+        if (!audioEnabled || currentStage !== 'lobby') {
+          stopLobbyMusic();
+          return;
+        }
+        playTone(notes[step % notes.length], 'triangle', 0.18, 0, 0.08);
+        playTone(notes[step % notes.length] / 2, 'sine', 0.22, 0, 0.1);
+        step++;
+      }, 260);
+    }
+
+    function stopLobbyMusic() {
+      if (lobbyMusicTimer) {
+        clearInterval(lobbyMusicTimer);
+        lobbyMusicTimer = null;
+      }
+    }
+
+    function playSuccessChord() {
+      if (!audioEnabled) return;
+      playTone(523.25, 'triangle', 0.35, 0.0, 0.2); // C5
+      playTone(659.25, 'triangle', 0.35, 0.08, 0.2); // E5
+      playTone(783.99, 'triangle', 0.45, 0.16, 0.25); // G5
+      playTone(1046.50, 'triangle', 0.6, 0.24, 0.3); // C6
+    }
+
+    function playErrorBuzzer() {
+      if (!audioEnabled) return;
+      playTone(220, 'sawtooth', 0.2, 0, 0.2);
+      playTone(196, 'sawtooth', 0.35, 0.15, 0.22);
+    }
+
+    function playPodiumFanfare() {
+      if (!audioEnabled) return;
+      const melody = [
+        { f: 523.3, d: 0.15, t: 0.0 },
+        { f: 523.3, d: 0.15, t: 0.18 },
+        { f: 523.3, d: 0.15, t: 0.36 },
+        { f: 659.3, d: 0.45, t: 0.54 },
+        { f: 587.3, d: 0.2,  t: 1.05 },
+        { f: 659.3, d: 0.2,  t: 1.28 },
+        { f: 783.9, d: 0.7,  t: 1.50 }
+      ];
+      melody.forEach(n => playTone(n.f, 'triangle', n.d, n.t, 0.25));
+    }
+
+    // ---------------------------------------------------------------
+    // 3. CONFETTI & VISUAL EFFECTS ENGINE
+    // ---------------------------------------------------------------
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function fireConfetti(burstCount = 60) {
+      const colors = ['#DA291C', '#38BDF8', '#F59E0B', '#10B981', '#F43F5E', '#FFFFFF'];
+      for (let i = 0; i < burstCount; i++) {
+        particles.push({
+          x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+          y: canvas.height * 0.45,
+          vx: (Math.random() - 0.5) * 14,
+          vy: Math.random() * -12 - 4,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 12,
+          life: 1.0,
+          decay: Math.random() * 0.015 + 0.01
+        });
+      }
+    }
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.35; // gravity
+        p.rotation += p.vRot;
+        p.life -= p.decay;
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        ctx.restore();
+      }
+      requestAnimationFrame(renderParticles);
+    }
+    requestAnimationFrame(renderParticles);
+
+    // ---------------------------------------------------------------
+    // 4. GAME STATE & LEADERBOARD DATA
+    // ---------------------------------------------------------------
+    let currentPack = 1;
+    let currentStage = 'lobby';
+    let qIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let correctCount = 0;
+    let timerRef = null;
+    let secLeft = 20;
+    let playerName = "Participante Adecco";
+    let playerTeam = "Retail Cadenas";
+
+    const defaultLeaderboard = [
+      { name: "Lucía Paredes", team: "Retail Cadenas", score: 7620 },
+      { name: "Carlos Mendoza", team: "Trade Marketing", score: 7180 },
+      { name: "Jorge Salazar", team: "Operaciones Comerciales", score: 6840 },
+      { name: "Daniela Ríos", team: "BI & Control de Gestión", score: 6420 },
+      { name: "Renzo Castillo", team: "Multimarca & Fuerza de Ventas", score: 5950 }
+    ];
+
+    function getStoredLB() {
+      try {
+        const data = localStorage.getItem('adecco_kahoot_lb_v2');
+        return data ? JSON.parse(data) : defaultLeaderboard;
+      } catch (e) {
+        return defaultLeaderboard;
+      }
+    }
+
+    function saveStoredLB(data) {
+      try {
+        localStorage.setItem('adecco_kahoot_lb_v2', JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function renderMiniLB() {
+      const data = getStoredLB();
+      const top3 = data.slice(0, 3);
+      const container = document.getElementById('mini-lb');
+      container.innerHTML = top3.map((p, idx) => `
+        <div style="display:flex; justify-content:space-between; padding:4px 0;">
+          <span>${idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'} <strong>${p.name}</strong> (${p.team})</span>
+          <span style="font-family:'JetBrains Mono',monospace; color:var(--text-primary);">${p.score.toLocaleString()} pts</span>
+        </div>
+      `).join('');
+    }
+    renderMiniLB();
+
+    function resetLeaderboard() {
+      if (confirm("¿Deseas reiniciar el ranking de la sala para la sesión en vivo?")) {
+        localStorage.removeItem('adecco_kahoot_lb_v2');
+        renderMiniLB();
+      }
+    }
+
+    function selectPack(idx) {
+      currentPack = idx;
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`pbtn-${i}`).classList.toggle('active', i === idx);
+      }
+    }
+
+    function switchView(viewId) {
+      currentStage = viewId.replace('view-', '');
+      ['view-lobby', 'view-game', 'view-podium'].forEach(id => {
+        document.getElementById(id).style.display = id === viewId ? 'block' : 'none';
+      });
+      if (currentStage === 'lobby') {
+        startLobbyMusic();
+      } else {
+        stopLobbyMusic();
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // 5. GAME FLOW CONTROLLER
+    // ---------------------------------------------------------------
+    function startGame() {
+      playerName = document.getElementById('player-name').value.trim() || "Ejecutivo Adecco";
+      playerTeam = document.getElementById('player-team').value;
+      qIndex = 0;
+      score = 0;
+      streak = 0;
+      correctCount = 0;
+      switchView('view-game');
+      mountQuestion();
+    }
+
+    function mountQuestion() {
+      const pack = QUESTION_PACKS[currentPack];
+      const item = pack.questions[qIndex];
+
+      document.getElementById('hud-qnum').textContent = `PREGUNTA ${qIndex + 1} / ${pack.questions.length}`;
+      document.getElementById('hud-streak').textContent = `🔥 RACHA: ${streak}`;
+      document.getElementById('hud-score').textContent = `${score.toLocaleString()} PTS`;
+
+      document.getElementById('q-category').textContent = item.cat;
+      document.getElementById('q-headline').textContent = item.q;
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`pad-${i}`);
+        document.getElementById(`opt-${i}`).textContent = item.opts[i];
+        btn.disabled = false;
+        btn.style.opacity = "1";
+        btn.classList.remove('correct-reveal', 'wrong-reveal');
+      }
+
+      document.getElementById('exp-toast').style.display = 'none';
+
+      // TIMER INITIALIZATION
+      clearInterval(timerRef);
+      secLeft = 20;
+      const circle = document.getElementById('svg-timer-circle');
+      document.getElementById('hud-seconds').textContent = secLeft;
+      circle.style.strokeDashoffset = '0';
+      circle.style.stroke = '#DA291C';
+
+      timerRef = setInterval(() => {
+        secLeft--;
+        document.getElementById('hud-seconds').textContent = secLeft;
+        circle.style.strokeDashoffset = String(176 * (1 - secLeft / 20));
+
+        if (secLeft <= 5 && secLeft > 0) {
+          circle.style.stroke = '#EF4444';
+          playTone(880, 'sine', 0.05, 0, 0.15); // tension ticking
+        }
+        if (secLeft <= 0) {
+          clearInterval(timerRef);
+          answer(-1);
+        }
+      }, 1000);
+    }
+
+    function answer(choice) {
+      clearInterval(timerRef);
+      const pack = QUESTION_PACKS[currentPack];
+      const item = pack.questions[qIndex];
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`pad-${i}`);
+        btn.disabled = true;
+        if (i === item.ans) {
+          btn.classList.add('correct-reveal');
+        } else if (i === choice) {
+          btn.classList.add('wrong-reveal');
+        } else {
+          btn.style.opacity = "0.3";
+        }
+      }
+
+      const toast = document.getElementById('exp-toast');
+      const title = document.getElementById('toast-title');
+      const desc = document.getElementById('toast-desc');
+
+      if (choice === item.ans) {
+        playSuccessChord();
+        fireConfetti(45);
+        streak++;
+        correctCount++;
+        const speedPoints = Math.round(500 + (secLeft / 20) * 500);
+        const streakBonus = streak > 1 ? streak * 75 : 0;
+        const totalEarned = speedPoints + streakBonus;
+        score += totalEarned;
+
+        title.style.color = "#10B981";
+        title.textContent = `✓ ¡Respuesta Exacta! (+${totalEarned} pts)${streakBonus ? ` · Racha x${streak}` : ''}`;
+      } else {
+        playErrorBuzzer();
+        streak = 0;
+        title.style.color = "#EF4444";
+        title.textContent = choice === -1 ? "⏰ ¡Tiempo Agotado!" : "✕ Respuesta Incorrecta";
+      }
+
+      document.getElementById('hud-streak').textContent = `🔥 RACHA: ${streak}`;
+      document.getElementById('hud-score').textContent = `${score.toLocaleString()} PTS`;
+      desc.textContent = item.exp;
+      toast.style.display = 'flex';
+    }
+
+    function nextQuestion() {
+      const pack = QUESTION_PACKS[currentPack];
+      qIndex++;
+      if (qIndex < pack.questions.length) {
+        mountQuestion();
+      } else {
+        showPodium();
+      }
+    }
+
+    function showPodium() {
+      switchView('view-podium');
+      playPodiumFanfare();
+      fireConfetti(100);
+      setTimeout(() => fireConfetti(80), 800);
+
+      const pack = QUESTION_PACKS[currentPack];
+      const acc = Math.round((correctCount / pack.questions.length) * 100);
+
+      document.getElementById('podium-hero-title').textContent = `¡Excelente Desempeño, ${playerName}!`;
+      document.getElementById('podium-hero-stats').textContent =
+        `SCORE FINAL: ${score.toLocaleString()} PTS · PRECISIÓN: ${correctCount}/${pack.questions.length} (${acc}%) · EQUIPO: ${playerTeam}`;
+
+      // UPDATE LEADERBOARD
+      let data = getStoredLB();
+      data.push({ name: playerName, team: playerTeam, score: score });
+      data.sort((a, b) => b.score - a.score);
+      data = data.slice(0, 15);
+      saveStoredLB(data);
+      renderMiniLB();
+
+      // RENDER PODIUM PILLARS
+      const t = data.slice(0, 3);
+      if (t[0]) {
+        document.getElementById('pod-1-name').textContent = t[0].name;
+        document.getElementById('pod-1-team').textContent = t[0].team;
+        document.getElementById('pod-1-score').textContent = `${t[0].score.toLocaleString()} pts`;
+      }
+      if (t[1]) {
+        document.getElementById('pod-2-name').textContent = t[1].name;
+        document.getElementById('pod-2-team').textContent = t[1].team;
+        document.getElementById('pod-2-score').textContent = `${t[1].score.toLocaleString()} pts`;
+      }
+      if (t[2]) {
+        document.getElementById('pod-3-name').textContent = t[2].name;
+        document.getElementById('pod-3-team').textContent = t[2].team;
+        document.getElementById('pod-3-score').textContent = `${t[2].score.toLocaleString()} pts`;
+      }
+
+      // RENDER FULL TABLE
+      const tableBody = document.getElementById('full-rank-body');
+      tableBody.innerHTML = data.map((p, idx) => `
+        <tr style="${p.name === playerName ? 'background:rgba(218,41,28,0.18); font-weight:800;' : ''}">
+          <td>${idx === 0 ? '🥇 1°' : idx === 1 ? '🥈 2°' : idx === 2 ? '🥉 3°' : `${idx + 1}°`}</td>
+          <td><strong>${p.name}</strong> ${p.name === playerName ? '<span style="color:var(--cyan-glow); font-size:11px;">(TÚ)</span>' : ''}</td>
+          <td>${p.team}</td>
+          <td style="font-family:'JetBrains Mono',monospace; color:var(--cyan-glow); font-weight:800;">
+            ${p.score.toLocaleString()} pts
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function returnLobby() {
+      switchView('view-lobby');
+      renderMiniLB();
+    }
+
+    function exportRankingCSV() {
+      const data = getStoredLB();
+      const csv = ["Puesto,Nombre,Equipo,Puntaje"]
+        .concat(data.map((p, idx) => `${idx + 1},"${p.name}","${p.team}",${p.score}`))
+        .join("\n");
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Resultados_Kahoot_Adecco_Sesion01_${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Auto start ambient on first user interaction
+    document.addEventListener('click', () => {
+      getAudioCtx();
+      if (currentStage === 'lobby' && !lobbyMusicTimer && audioEnabled) {
+        startLobbyMusic();
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>

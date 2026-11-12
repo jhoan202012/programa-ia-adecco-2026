@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 02 — Analizar y Comunicar: Power BI (DAX) & Word con Copilot | Lic. Jhoan Taboada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-navy: #0B172A;
+      --card-navy: #112240;
+      --card-navy-light: #183059;
+      --adecco-red: #DA291C;
+      --adecco-red-bright: #EF3326;
+      --cyan: #38BDF8;
+      --blue-pbi: #2563EB;
+      --amber-pbi: #F59E0B;
+      --emerald: #10B981;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.13);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-navy);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 62px;
+      background: #081120;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 100;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-red {
+      background: var(--adecco-red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-pbi {
+      background: rgba(37, 99, 235, 0.22);
+      border: 1px solid #3B82F6;
+      color: #93C5FD;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+    .brand-title span { color: var(--cyan); }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-top {
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-top:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+    }
+    .btn-top.active-session {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border-color: #93C5FD;
+      color: #fff;
+    }
+
+    /* DECK STAGE */
+    .deck-stage {
+      position: absolute;
+      top: 62px;
+      bottom: 56px;
+      left: 0; right: 0;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1180px;
+      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active { display: block; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide-inner {
+      background: var(--card-navy);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 34px 40px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .eyebrow.blue { background: rgba(37, 99, 235, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .eyebrow.red { background: rgba(218, 41, 28, 0.2); color: #FCA5A5; border: 1px solid rgba(218, 41, 28, 0.4); }
+    .eyebrow.green { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+    .slide-h2 {
+      font-size: 27px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      color: #FFFFFF;
+    }
+    .lead {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    /* GRID & CARDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .slide-inner { padding: 22px; }
+    }
+
+    .card {
+      background: var(--card-navy-light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .card h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+    .card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* PROMPT BOX */
+    .prompt-box {
+      background: #060D1A;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 14px 0;
+      position: relative;
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .prompt-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: 0.8px;
+    }
+    .btn-copy {
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 12px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #fff;
+      border: 1px solid #93C5FD;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+    .prompt-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #E2E8F0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    /* BOTTOM BAR NAVIGATION */
+    .bottombar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 56px;
+      background: #081120;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+    .nav-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--cyan);
+    }
+    .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #10B981;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 200;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cta-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-weight: 800;
+      font-size: 14.5px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand-left">
+      <span class="badge-red">Adecco S&M</span>
+      <span class="badge-pbi">SESIÓN 02 · EN VIVO</span>
+      <div class="brand-title">AI Co-Pilot Lab <span>· Power BI (DAX) & Word con Copilot</span></div>
+    </div>
+    <div class="top-actions">
+      <a href="index.html" class="btn-top">🏠 Portal</a>
+      <a href="clase1.html" class="btn-top">📁 Clase 01</a>
+      <a href="kahoot.html" class="btn-top active-session">⚡ Arena Kahoot S2</a>
+    </div>
+  </header>
+
+  <!-- STAGE -->
+  <main class="deck-stage">
+
+    <!-- SLIDE 1: PORTADA -->
+    <section class="slide active">
+      <div class="slide-inner">
+        <span class="eyebrow blue">SESIÓN 02 · VIERNES 13 NOVIEMBRE 2026 · SALA OSLO - VIENA - DUBLÍN</span>
+        <h2 class="slide-h2" style="font-size:32px;">Analizar y Comunicar: <span style="color:#60A5FA;">Power BI (DAX)</span> &amp; <span style="color:#38BDF8;">Word con Copilot</span></h2>
+        <p class="lead">
+          De la automatización de datos en Excel al modelado visual de alto impacto y la redacción instantánea de Informes Ejecutivos para clientes y dirección.
+        </p>
+        <div class="grid-3" style="margin-bottom:20px;">
+          <div class="card" style="border-left:4px solid #3B82F6;">
+            <h3>📊 1. Power BI &amp; Medidas DAX</h3>
+            <p>Formulación asistida por Copilot: Cumplimiento de cuota, semáforos de cobertura y tasa de rotación de promotores.</p>
+          </div>
+          <div class="card" style="border-left:4px solid #38BDF8;">
+            <h3>📝 2. Resumen Ejecutivo en Word</h3>
+            <p>Transformación de tablas frías en un Executive Summary estructurado (Hallazgos, Causas y Plan de Acción).</p>
+          </div>
+          <div class="card" style="border-left:4px solid #10B981;">
+            <h3>⚡ 3. Exportación y Kahoot</h3>
+            <p>Macro VBA en Word para generar PDF oficial con 1 clic y competencia interactiva en la Arena Kahoot.</p>
+          </div>
+        </div>
+        <p style="font-size:12.5px; color:var(--text-muted);">
+          👨‍🏫 <strong>Ponente:</strong> Lic. Jhoan Taboada Huamán · Business Intelligence Analyst (Adecco Perú)
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: CONEXIÓN SESIÓN 1 Y SESIÓN 2 -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">CONEXIÓN DE PROCESOS OPERATIVOS</span>
+        <h2 class="slide-h2">¿Cómo se articula la Sesión 01 con la Sesión 02?</h2>
+        <p class="lead">
+          En la Sesión 01 aprendimos a limpiar y consolidar archivos de Excel con Macros VBA asistidas por Copilot. Ahora ese archivo limpio se convierte en el motor analítico de la cuenta:
+        </p>
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="color:#34D399;">Paso 1: El insumo limpio (Sesión 01)</h3>
+            <p>La macro de Excel consolida semanalmente los reportes de supervisores, elimina celdas vacías y estandariza los códigos de tienda (PDV) y ventas.</p>
+          </div>
+          <div class="card">
+            <h3 style="color:#60A5FA;">Paso 2: La visualización y reporte (Sesión 02)</h3>
+            <p>Power BI lee automáticamente esa base consolidada, calcula indicadores de negocio con DAX y Word genera el informe mensual en PDF para el cliente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: REGLAS DE ORO PROMPTS DAX -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow blue">INGENIERÍA DE PROMPTS PARA POWER BI</span>
+        <h2 class="slide-h2">Cómo solicitar medidas DAX a Copilot sin errores</h2>
+        <p class="lead">
+          Para que Microsoft Copilot redacte código DAX compatible con tu modelo de Power BI, tu prompt debe contener estos 4 componentes indispensables:
+        </p>
+        <div class="grid-4" style="margin-bottom:14px;">
+          <div class="card">
+            <span style="color:#60A5FA; font-weight:800; font-size:12px;">1. TABLA</span>
+            <p>Nombre exacto de la tabla de hechos (ej. <code>Fact_Operaciones</code>).</p>
+          </div>
+          <div class="card">
+            <span style="color:#60A5FA; font-weight:800; font-size:12px;">2. CAMPOS</span>
+            <p>Columnas numéricas requeridas (ej. <code>Ventas_Real</code>, <code>Meta_Ventas</code>).</p>
+          </div>
+          <div class="card">
+            <span style="color:#60A5FA; font-weight:800; font-size:12px;">3. CONDICIÓN</span>
+            <p>Filtros de estado o fechas (ej. solo tiendas con estado 'Activa').</p>
+          </div>
+          <div class="card">
+            <span style="color:#60A5FA; font-weight:800; font-size:12px;">4. FUNCIÓN</span>
+            <p>Exigir explícitamente el uso de <code>DIVIDE</code> para evitar división por cero.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LAB 01 PROMPT DAX CUMPLIMIENTO -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow blue">LAB 01 · MEDIDA DAX DE CUMPLIMIENTO</span>
+        <h2 class="slide-h2">Cálculo de Cumplimiento de Ventas (%) con Copilot</h2>
+        <p class="lead">Copia este prompt exacto y pégalo en Microsoft Copilot para generar la medida:</p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">PROMPT LISTO PARA COPILOT (DAX 01)</span>
+            <button class="btn-copy" onclick="copyPrompt('pbiPrompt1')">📋 Copiar Prompt</button>
+          </div>
+          <div class="prompt-text" id="pbiPrompt1">Actúa como consultor senior de Business Intelligence en Power BI para Adecco Sales & Marketing.
+Tengo una tabla llamada "Fact_Operaciones" con las columnas:
+- "Venta_Real_Soles" (Numérico)
+- "Cuota_Meta_Soles" (Numérico)
+- "Supervisor" (Texto)
+- "Canal" (Texto)
+
+Por favor, escribe la fórmula en lenguaje DAX para crear la medida:
+[% Cumplimiento Cuota]
+
+Requisitos:
+1. Usa la función DIVIDE para manejar con seguridad denominadores en cero o nulos, retornando 0 en caso de error.
+2. Suma las ventas y las cuotas de forma agregada (SUM).
+3. Agrega comentarios breves explicando la lógica de la medida.</div>
+        </div>
+
+        <div class="card" style="background:#06101E; border-color:rgba(59,130,246,0.4);">
+          <h4 style="color:#93C5FD; font-size:13px; margin-bottom:4px;">💡 Código DAX Resultante:</h4>
+          <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#34D399;">
+            % Cumplimiento Cuota = <br>
+            DIVIDE(<br>
+            &nbsp;&nbsp;SUM(Fact_Operaciones[Venta_Real_Soles]),<br>
+            &nbsp;&nbsp;SUM(Fact_Operaciones[Cuota_Meta_Soles]),<br>
+            &nbsp;&nbsp;0<br>
+            )
+          </code>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: LAB 02 PROMPT DAX COBERTURA -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow blue">LAB 02 · MEDIDA DAX DE COBERTURA</span>
+        <h2 class="slide-h2">Cálculo de Cobertura de Tiendas Activas (PDV)</h2>
+        <p class="lead">Prompt para calcular el % de tiendas cubiertas por la fuerza de ventas:</p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">PROMPT LISTO PARA COPILOT (DAX 02)</span>
+            <button class="btn-copy" onclick="copyPrompt('pbiPrompt2')">📋 Copiar Prompt</button>
+          </div>
+          <div class="prompt-text" id="pbiPrompt2">En mi modelo de Power BI para Adecco Cadenas, tengo la tabla "Dim_PuntosDeVenta" con las columnas:
+- "ID_Tienda"
+- "Estado_Visita" (Valores: 'Visitada', 'Pendiente', 'No Programada')
+- "Zona" (Lima, Norte, Sur)
+
+Escribe la medida DAX [% Cobertura PDV] que calcule el porcentaje de tiendas con estado 'Visitada' respecto al total de tiendas del universo filtrado.
+Usa DIVIDE y COUNTROWS con FILTER.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: EL SALTO A WORD CON COPILOT -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">COMUNICACIÓN EJECUTIVA CON IA</span>
+        <h2 class="slide-h2">De los Gráficos al Informe Ejecutivo en Microsoft Word</h2>
+        <p class="lead">
+          Los gerentes y clientes de las cuentas no tienen tiempo de explorar cada filtro de un tablero. Necesitan un **Resumen Ejecutivo formal en Word y PDF** con conclusiones claras:
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. Estado General</h3>
+            <p>Métricas consolidadas de venta, cuota alcanzada y nivel de cobertura del mes.</p>
+          </div>
+          <div class="card">
+            <h3>2. Análisis de Desviaciones</h3>
+            <p>Identificación de las zonas o tiendas que no alcanzaron el objetivo y sus causas operativas.</p>
+          </div>
+          <div class="card">
+            <h3>3. Plan de Acción</h3>
+            <p>Compromisos concretos del equipo Adecco para recuperar la cobertura la siguiente semana.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: LAB 03 PROMPT EXECUTIVE SUMMARY -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow blue">LAB 03 · PROMPT DE RESUMEN EJECUTIVO</span>
+        <h2 class="slide-h2">Prompt para Redactar el Informe de Cuenta en Word</h2>
+        <p class="lead">Pega las cifras de tu Power BI en este prompt para que Copilot redacte el informe oficial:</p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">PROMPT PARA COPILOT EN WORD</span>
+            <button class="btn-copy" onclick="copyPrompt('wordPrompt1')">📋 Copiar Prompt</button>
+          </div>
+          <div class="prompt-text" id="wordPrompt1">Actúa como Analista de Operaciones de Adecco Perú para la cuenta Sales & Marketing.
+Con base en los siguientes resultados del mes de Noviembre:
+- Cumplimiento de Cuota Global: 94.2% (Meta: 100%)
+- Cobertura de Tiendas: 91.5% (Total 140 PDVs visitados de 153 programados)
+- Zona con mayor rendimiento: Lima Centro (103.4%)
+- Zona con desviación: Sur (82.1% debido a quiebres de stock en tienda)
+
+Redacta un Informe Ejecutivo formal de 3 párrafos para presentar al Cliente:
+Párrafo 1: Resumen ejecutivo del desempeño mensual y logros clave.
+Párrafo 2: Explicación transparente de la desviación en Zona Sur (causa raíz).
+Párrafo 3: Plan de acción y refuerzo operativo de Adecco para el siguiente periodo.
+Tono: Corporativo, analítico y propositivo.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: LAB 04 MACRO WORD A PDF -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LAB 04 · MACRO EN WORD (VBA)</span>
+        <h2 class="slide-h2">Exportación Automatizada a PDF con Nomenclatura Estándar</h2>
+        <p class="lead">Esta macro en Word guarda automáticamente el informe con la fecha de hoy y lo exporta a PDF:</p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">CÓDIGO VBA PARA MICROSOFT WORD</span>
+            <button class="btn-copy" onclick="copyPrompt('vbaWordCode')">📋 Copiar Código</button>
+          </div>
+          <div class="prompt-text" id="vbaWordCode">Sub ExportarInformePDF_Adecco()
+    Dim rutaCarpeta As String
+    Dim nombrePDF As String
+    
+    ' Carpeta donde está guardado el documento actual
+    rutaCarpeta = ActiveDocument.Path & Application.PathSeparator
+    
+    ' Nombre estándar corporativo con fecha
+    nombrePDF = rutaCarpeta & "Informe_Ejecutivo_Adecco_SM_" & Format(Date, "yyyymmdd") & ".pdf"
+    
+    ' Exportar a PDF inalterable
+    ActiveDocument.ExportAsFixedFormat OutputFileName:=nombrePDF, _
+        ExportFormat:=wdExportFormatPDF, _
+        OpenAfterExport:=True, _
+        OptimizeFor:=wdExportOptimizeForPrint
+        
+    MsgBox "¡Informe exportado con éxito a PDF!" & vbCrLf & nombrePDF, vbInformation, "Adecco AI Co-Pilot Lab"
+End Sub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: TALLER Y ARENA KAHOOT SESION 2 -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="eyebrow red">CIERRE DE LA SESIÓN 02 · SALA OSLO - VIENA - DUBLÍN</span>
+        <h2 class="slide-h2">¡Hora de Competir en la Arena Kahoot Live!</h2>
+        <p class="lead" style="max-width:750px; margin:0 auto 24px;">
+          Pon a prueba tus conocimientos sobre medidas DAX, visualizaciones en Power BI, informes ejecutivos en Word y exportación a PDF. ¡Suma puntos para tu equipo rumbo al concurso final!
+        </p>
+
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:24px;">
+          <a class="cta-hero" href="kahoot.html" style="background:#2563EB; border-color:#93C5FD; box-shadow:0 8px 24px rgba(37,99,235,0.45);">
+            ⚡ LANZAR ARENA KAHOOT LIVE — SESIÓN 02
+          </a>
+          <a class="cta-hero" href="index.html" style="background:rgba(255,255,255,0.08); border-color:var(--border);">
+            🏠 Portal del Programa
+          </a>
+          <a class="cta-hero" href="clase1.html" style="background:rgba(255,255,255,0.08); border-color:var(--border);">
+            📁 Repasar Clase 01
+          </a>
+        </div>
+
+        <div class="card" style="display:inline-block; max-width:550px; text-align:left;">
+          <h4 style="color:#FDE68A; margin-bottom:4px;">🏆 Recordatorio del Concurso Final</h4>
+          <p style="font-size:12.5px;">
+            1.er Puesto: <strong>S/ 300</strong> · 2.° Puesto: <strong>S/ 200</strong>.<br>
+            Sustentación oficial: <strong>Miércoles 18 de Noviembre</strong> en Sala Oslo - Viena - Dublín.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM BAR -->
+  <footer class="bottombar">
+    <button class="nav-btn" id="btnPrev" onclick="prevSlide()">◀ Anterior</button>
+    <div class="slide-counter" id="slideIndicator">DIAPOSITIVA 1 / 9</div>
+    <button class="nav-btn" id="btnNext" onclick="nextSlide()">Siguiente ▶</button>
+  </footer>
+
+  <!-- COPIED TOAST -->
+  <div class="toast" id="toast">✓ ¡Copiado al portapapeles!</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slides.length) index = slides.length - 1;
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === index);
+      });
+      currentIndex = index;
+      document.getElementById('slideIndicator').textContent = `DIAPOSITIVA ${currentIndex + 1} / ${slides.length}`;
+      document.getElementById('btnPrev').disabled = currentIndex === 0;
+      document.getElementById('btnNext').disabled = currentIndex === slides.length - 1;
+    }
+
+    function prevSlide() { showSlide(currentIndex - 1); }
+    function nextSlide() { showSlide(currentIndex + 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+    });
+
+    function copyPrompt(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2200);
+      });
+    }
+
+    showSlide(0);
+  </script>
+</body>
+</html>

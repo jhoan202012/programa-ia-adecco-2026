@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Correo Recordatorio Sesión 02 — Adecco AI Co-Pilot Lab (Listo para Outlook)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B1120;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      padding: 28px 16px 60px;
+    }
+    .toolbar {
+      max-width: 820px;
+      margin: 0 auto 20px;
+      background: #131D31;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    }
+    .toolbar-left h1 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .toolbar-left p {
+      font-size: 12.5px;
+      color: #94A3B8;
+    }
+    .btn-action {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #FFFFFF;
+      border: 1px solid #93C5FD;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-action:hover {
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      transform: translateY(-1px);
+    }
+    .subject-bar {
+      max-width: 820px;
+      margin: 0 auto 16px;
+      background: #060D1A;
+      border: 1px dashed rgba(56,189,248,0.4);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #CBD5E1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .email-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      color: #1E293B;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h1>📧 Plantilla Oficial de Convocatoria — Sesión 02</h1>
+      <p>Copia y pega directamente en Microsoft Outlook para convocar al equipo.</p>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-action" onclick="copyEmail()">📋 Copiar Todo para Outlook</button>
+      <a class="btn-action" href="clase2.html" style="background:#0F172A; border-color:#38BDF8; color:#38BDF8;">🚀 Abrir Clase 02</a>
+    </div>
+  </div>
+
+  <div class="subject-bar">
+    <div><strong>ASUNTO:</strong> <span id="emailSubject">🚀 ¡Este viernes! Sesión 02: Analizar y Comunicar con Power BI (DAX) & Word con Copilot — Adecco AI Co-Pilot Lab (11:00 AM | Sala Oslo - Viena - Dublín)</span></div>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('emailSubject').innerText); alert('Asunto copiado')" style="background:none; border:none; color:#38BDF8; font-weight:700; cursor:pointer;">Copiar Asunto</button>
+  </div>
+
+  <div class="email-container" id="emailBody">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:'Segoe UI', Arial, sans-serif; background-color:#FFFFFF;">
+      <!-- CABECERA ROJA CORPORATIVA -->
+      <tr>
+        <td style="background-color:#DA291C; height:6px;"></td>
+      </tr>
+      <!-- ENCABEZADO -->
+      <tr>
+        <td style="background-color:#0B172A; padding:28px 32px; text-align:center;">
+          <div style="display:inline-block; background-color:#2563EB; color:#FFFFFF; font-size:11px; font-weight:bold; letter-spacing:1px; padding:4px 12px; border-radius:4px; text-transform:uppercase; margin-bottom:10px;">
+            ESTE VIERNES · SESIÓN 02 PRESENCIAL
+          </div>
+          <h1 style="color:#FFFFFF; font-size:24px; font-weight:800; margin:0 0 6px;">
+            Adecco <span style="color:#38BDF8;">AI Co-Pilot</span> <span style="color:#EF3326;">Lab</span>
+          </h1>
+          <p style="color:#94A3B8; font-size:13.5px; margin:0;">
+            Sesión 02: Analizar y Comunicar con Power BI (DAX) y Reportes Automatizados en Word con Copilot
+          </p>
+        </td>
+      </tr>
+      <!-- CUERPO -->
+      <tr>
+        <td style="padding:28px 32px; color:#1E293B; font-size:14px; line-height:1.6;">
+          <p style="margin:0 0 14px;"><strong>Estimado equipo de Sales & Marketing,</strong></p>
+          <p style="margin:0 0 14px;">
+            Continuando con nuestro programa de entrenamiento práctico, los esperamos este <strong>Viernes 13 de Noviembre a las 11:00 AM</strong> en la <strong>Sala Oslo - Viena - Dublín</strong> para llevar a cabo la <strong>Sesión 02</strong>.
+          </p>
+          <p style="margin:0 0 16px;">
+            En esta sesión conectaremos la base que automatizamos en Excel durante la Sesión 01 para construir un <strong>Tablero Ejecutivo en Power BI</strong> mediante fórmulas DAX asistidas por Copilot, y aprenderemos a generar <strong>Informes Ejecutivos en Word con exportación automática a PDF</strong>.
+          </p>
+
+          <!-- FICHA DE CITA -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8FAFC; border:1px solid #CBD5E1; border-left:5px solid #2563EB; border-radius:8px; margin:16px 0;">
+            <tr>
+              <td style="padding:16px 20px;">
+                <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:13.5px;">
+                  <tr>
+                    <td width="30%"><strong>📅 Fecha y Hora:</strong></td>
+                    <td><strong>Viernes 13 de Noviembre — 11:00 AM a 1:00 PM</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>🏢 Lugar / Sala:</strong></td>
+                    <td><strong>Sala Oslo - Viena - Dublín</strong> (100% Práctica con Laptop)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>👨‍🏫 Ponente:</strong></td>
+                    <td><strong>Lic. Jhoan Taboada Huamán</strong> — Business Intelligence Analyst</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <h3 style="color:#0B172A; font-size:15px; font-weight:800; margin:20px 0 10px;">📋 Temas Clave de la Sesión:</h3>
+          <ul style="margin:0 0 18px 20px; padding:0;">
+            <li>Formulación de medidas DAX con Copilot (Cumplimiento de cuota y Cobertura con función segura <code>DIVIDE</code>).</li>
+            <li>Diseño de Dashboards ejecutivos con segmentadores interactivos por supervisor.</li>
+            <li>Transformación de tablas de datos en un Executive Summary formal en Microsoft Word.</li>
+            <li>Macro VBA en Word para guardar y exportar a PDF corporativo con un solo clic.</li>
+            <li><strong>Competencia en vivo en la Arena Kahoot Live — Sesión 02</strong>.</li>
+          </ul>
+
+          <div style="text-align:center; margin:24px 0;">
+            <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/clase2.html" style="display:inline-block; background-color:#2563EB; color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:14px; padding:12px 24px; border-radius:8px; margin:4px;">
+              🚀 Acceder a la Clase 02 (Slides y Prompts)
+            </a>
+            <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/kahoot.html" style="display:inline-block; background-color:#0B172A; color:#38BDF8; text-decoration:none; font-weight:bold; font-size:14px; padding:12px 24px; border-radius:8px; margin:4px; border:1px solid #38BDF8;">
+              ⚡ Arena Kahoot Live
+            </a>
+          </div>
+
+          <p style="margin:0; font-size:12.5px; color:#64748B;">
+            * Se solicita traer laptop con acceso a Power BI Desktop y Microsoft Word.
+          </p>
+        </td>
+      </tr>
+      <!-- FOOTER -->
+      <tr>
+        <td style="background-color:#F1F5F9; padding:16px 32px; text-align:center; font-size:12px; color:#64748B; border-top:1px solid #E2E8F0;">
+          Adecco Sales &amp; Marketing · Programa Adecco AI Co-Pilot Lab 2026
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function copyEmail() {
+      const el = document.getElementById('emailBody');
+      const range = document.createRange();
+      range.selectNode(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      alert('¡Contenido del correo copiado! Pégalo directamente en Microsoft Outlook.');
+    }
+  </script>
+</body>
+</html>

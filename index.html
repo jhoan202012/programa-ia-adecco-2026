@@ -1606,14 +1606,15 @@
       </a>
 
       <div class="nav-links">
-        <a href="clase1.html" class="nav-item" style="color:#6EE7B7; background:rgba(16,185,129,0.18); border:1px solid #10B981; border-radius:8px; padding:6px 14px; font-weight:800; display:inline-flex; align-items:center; gap:6px;">🚀 Clase 01 En Vivo</a>
+        <a href="clase2.html" class="nav-item" style="color:#93C5FD; background:rgba(37,99,235,0.22); border:1px solid #3B82F6; border-radius:8px; padding:6px 14px; font-weight:800; display:inline-flex; align-items:center; gap:6px;">🚀 Clase 02 (Este Viernes 13)</a>
+        <a href="clase1.html" class="nav-item" style="color:#6EE7B7;">📁 Clase 01 (Materiales)</a>
         <a href="presentacion.html" class="nav-item" style="color:var(--cyan-glow);">📊 Presentación (Slides)</a>
         <a href="#cronograma" class="nav-item">Sesiones y Salas</a>
         <a href="#ecosistema" class="nav-item">Arquitectura Copilot</a>
         <a href="#proyecto" class="nav-item">Sustentación 18 Nov</a>
       </div>
 
-      <a href="#kahoot-arena" class="btn-kinetic">
+      <a href="kahoot.html" class="btn-kinetic">
         <span>⚡ Arena Kahoot Live</span>
       </a>
     </nav>
@@ -1644,11 +1645,11 @@
           <div class="scanline-sweep" id="scanline-sweep"></div>
           <div class="telemetry-top">
             <div class="telemetry-indicator">
-              <span class="live-beacon"></span>
-              <span id="cd-session-label">CUENTA REGRESIVA · SESIÓN 01</span>
+              <span class="live-beacon" style="background:#38BDF8;"></span>
+              <span id="cd-session-label">CUENTA REGRESIVA · SESIÓN 02</span>
             </div>
             <div class="telemetry-badge" id="cd-room-label">
-              Lunes 09 Nov · 15:00 hrs · SALA ESTOCOLMO
+              Viernes 13 Nov · 11:00 hrs · OSLO - VIENA - DUBLÍN
             </div>
           </div>
 
@@ -1671,25 +1672,25 @@
             </div>
           </div>
 
-          <!-- BOTÓN DE ACCESO DIRECTO A LA SESIÓN 01 -->
+          <!-- BOTÓN DE ACCESO DIRECTO A LA SESIÓN 02 -->
           <div style="margin-top:14px; text-align:center;">
-            <a href="clase1.html" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:11px 18px; border-radius:10px; background:linear-gradient(135deg, #10B981, #059669); color:#FFF; font-weight:800; font-size:13.5px; text-decoration:none; box-shadow:0 8px 24px rgba(16,185,129,0.45); border:1px solid #6EE7B7; transition:all 0.2s ease;">
-              🚀 ABRIR PLATAFORMA DE LA SESIÓN 01 (EXCEL + COPILOT EN VIVO) ➔
+            <a href="clase2.html" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:11px 18px; border-radius:10px; background:linear-gradient(135deg, #2563EB, #1D4ED8); color:#FFF; font-weight:800; font-size:13.5px; text-decoration:none; box-shadow:0 8px 24px rgba(37,99,235,0.45); border:1px solid #93C5FD; transition:all 0.2s ease;">
+              🚀 ABRIR PLATAFORMA DE LA SESIÓN 02 (POWER BI + WORD EN VIVO) ➔
             </a>
           </div>
         </div>
 
         <div class="hero-cta-row">
-          <a href="clase1.html" class="btn-kinetic" style="background:linear-gradient(135deg, #10B981, #059669); border-color:#34D399; box-shadow:0 0 25px rgba(16,185,129,0.45); font-weight:800;">
-            <span>🚀 ENTRAR A LA CLASE 01 (SLIDES + PROMPTS)</span>
+          <a href="clase2.html" class="btn-kinetic" style="background:linear-gradient(135deg, #2563EB, #1D4ED8); border-color:#93C5FD; box-shadow:0 0 25px rgba(37,99,235,0.45); font-weight:800;">
+            <span>🚀 ENTRAR A LA CLASE 02 (SLIDES + PROMPTS DAX)</span>
           </a>
-          <a href="presentacion.html" class="btn-kinetic secondary">
-            <span>📊 Presentación Ejecutiva</span>
+          <a href="clase1.html" class="btn-kinetic secondary">
+            <span>📁 Materiales Clase 01</span>
           </a>
           <a href="#cronograma" class="btn-kinetic secondary">
             <span>📍 Salas y Cronograma</span>
           </a>
-          <a href="#kahoot-arena" class="btn-kinetic secondary">
+          <a href="kahoot.html" class="btn-kinetic secondary">
             <span>🎮 Modo Kahoot</span>
           </a>
         </div>
@@ -1809,16 +1810,16 @@
         </div>
 
         <div class="back-matrix-grid">
-          <div class="matrix-cell selected" id="mcell-0" onclick="selectSessionCountdown(0)">
-            <div class="m-session-tag"><span>SESIÓN 01</span><span>LUNES</span></div>
+          <div class="matrix-cell" id="mcell-0" onclick="selectSessionCountdown(0)">
+            <div class="m-session-tag"><span style="color:#10B981;">SESIÓN 01 · REALIZADA</span><span>LUNES</span></div>
             <div class="m-date">09 / 11 / 2026</div>
             <div class="m-room">📍 SALA ESTOCOLMO</div>
             <div class="m-time">15:00 — 17:00 (3PM a 5PM)</div>
           </div>
 
-          <div class="matrix-cell" id="mcell-1" onclick="selectSessionCountdown(1)">
-            <div class="m-session-tag"><span>SESIÓN 02</span><span>MIÉRCOLES</span></div>
-            <div class="m-date">11 / 11 / 2026</div>
+          <div class="matrix-cell selected" id="mcell-1" onclick="selectSessionCountdown(1)">
+            <div class="m-session-tag"><span style="color:#F59E0B;">SESIÓN 02 · ESTE VIERNES</span><span>VIERNES</span></div>
+            <div class="m-date">13 / 11 / 2026</div>
             <div class="m-room">📍 OSLO - VIENA - DUBLÍN</div>
             <div class="m-time">11:00 — 13:00 (11AM a 1PM)</div>
           </div>
@@ -1846,7 +1847,7 @@
         <div class="spotlight-card session-bento-card">
           <div>
             <div class="sb-header">
-              <span class="sb-badge">Sesión 01 · 09 Nov</span>
+              <span class="sb-badge" style="background:rgba(16,185,129,0.18); border-color:#10B981; color:#6EE7B7;">Sesión 01 · 09 Nov (Completada)</span>
               <div class="sb-Chips">
                 <span class="sb-chip room">Sala Estocolmo</span>
                 <span class="sb-chip">3:00 PM – 5:00 PM</span>
@@ -1863,28 +1864,28 @@
           </div>
           <div>
             <div class="sb-outcome">
-              <strong>Entregable práctico:</strong> Macro funcional que automatiza un reporte operativo de pendientes por responsable.
+              <strong>Entregable de la sesión:</strong> Macro funcional que automatiza un reporte operativo de pendientes por responsable.
             </div>
             <div class="sb-actions" style="flex-wrap:wrap;">
-              <a class="btn-ghost accent" href="clase1.html" style="text-decoration:none;">🚀 Abrir Clase 1 (Slides + Prompts)</a>
+              <a class="btn-ghost" href="clase1.html" style="text-decoration:none;">📁 Diapositivas Clase 1 (Materiales)</a>
               <a class="btn-ghost" href="Practica_Clase01_Operaciones_Adecco.xlsx" download style="text-decoration:none; border-color:#34D399; color:#6EE7B7;">📥 Excel Práctica S1</a>
-              <button class="btn-ghost accent" onclick="jumpToKahootPack(0)">⚡ Kahoot Sesión 1</button>
+              <a class="btn-ghost" href="kahoot.html" style="text-decoration:none;">⚡ Repasar Kahoot S1</a>
             </div>
           </div>
         </div>
 
         <!-- S2 -->
-        <div class="spotlight-card session-bento-card">
+        <div class="spotlight-card session-bento-card highlight-card" style="border-color:rgba(56,189,248,0.45); background:radial-gradient(600px circle at 50% 0%, rgba(37,99,235,0.18), transparent 70%), rgba(11,20,38,0.9);">
           <div>
             <div class="sb-header">
-              <span class="sb-badge">Sesión 02 · 11 Nov</span>
+              <span class="sb-badge" style="background:rgba(37,99,235,0.25); border-color:#60A5FA; color:#93C5FD;">Sesión 02 · 13 Nov · Este Viernes (En Vivo)</span>
               <div class="sb-Chips">
-                <span class="sb-chip room">Oslo - Viena - Dublín</span>
+                <span class="sb-chip room" style="border-color:#38BDF8; color:#38BDF8;">Oslo - Viena - Dublín</span>
                 <span class="sb-chip">11:00 AM – 1:00 PM</span>
               </div>
             </div>
             <h3 class="sb-title">Analizar y Comunicar: Power BI &amp; Word</h3>
-            <div class="sb-stack">POWER BI (DAX) + MICROSOFT WORD + COPILOT</div>
+            <div class="sb-stack" style="color:var(--cyan-glow);">POWER BI (DAX) + MICROSOFT WORD + COPILOT</div>
             <ul class="sb-points">
               <li>Lectura de indicadores clave de S&amp;M: cobertura de PDV, rotación, dotación y productividad.</li>
               <li>Formulación de medidas DAX y visualizaciones ejecutivas asistidas paso a paso por Copilot.</li>
@@ -1893,12 +1894,13 @@
             </ul>
           </div>
           <div>
-            <div class="sb-outcome">
+            <div class="sb-outcome" style="border-left-color:var(--cyan-glow);">
               <strong>Entregable práctico:</strong> Tablero de indicadores en Power BI + documento ejecutivo en Word listo para cliente.
             </div>
-            <div class="sb-actions">
+            <div class="sb-actions" style="flex-wrap:wrap;">
+              <a class="btn-ghost accent" href="clase2.html" style="text-decoration:none; background:#2563EB; border-color:#93C5FD; color:#fff; font-weight:800;">🚀 Abrir Clase 2 (Slides + Prompts)</a>
               <button class="btn-ghost" onclick="downloadICS(1)">📅 Agendar (.ics)</button>
-              <button class="btn-ghost accent" onclick="jumpToKahootPack(1)">⚡ Kahoot Sesión 2</button>
+              <a class="btn-ghost accent" href="kahoot.html" style="text-decoration:none;">⚡ Kahoot Sesión 2</a>
             </div>
           </div>
         </div>
@@ -2117,6 +2119,7 @@
             </span>
           </div>
           <div class="k-toolbar">
+            <a class="btn-ghost" href="kahoot.html" style="background:#DA291C; border-color:#FCA5A5; color:#fff; text-decoration:none;">⛶ Abrir Modo Proyector Fullscreen</a>
             <button class="btn-ghost" id="btn-sound" onclick="toggleAudio()">🔊 Audio: ON</button>
             <button class="btn-ghost" onclick="toggleHostPanel()">👨‍🏫 Modo Expositor (+Pregunta)</button>
             <button class="btn-ghost" onclick="returnToLobby()">🔄 Lobby</button>
@@ -2136,13 +2139,13 @@
             <div class="field-group">
               <label>1. Selecciona el Módulo de Preguntas</label>
               <div class="pack-grid">
-                <button type="button" class="pack-tile active" id="ptile-0" onclick="choosePack(0)">
+                <button type="button" class="pack-tile" id="ptile-0" onclick="choosePack(0)">
                   <span class="pt-title">📊 Sesión 01 · 09 Nov</span>
-                  <span class="pt-sub">Excel, Macros VBA &amp; Copilot</span>
+                  <span class="pt-sub">Excel, Macros VBA &amp; Copilot (Realizada)</span>
                 </button>
-                <button type="button" class="pack-tile" id="ptile-1" onclick="choosePack(1)">
-                  <span class="pt-title">📈 Sesión 02 · 11 Nov</span>
-                  <span class="pt-sub">Power BI, Word &amp; Reportes</span>
+                <button type="button" class="pack-tile active" id="ptile-1" onclick="choosePack(1)">
+                  <span class="pt-title">📈 Sesión 02 · 13 Nov</span>
+                  <span class="pt-sub">Power BI, Word &amp; Reportes DAX (Este Viernes)</span>
                 </button>
                 <button type="button" class="pack-tile" id="ptile-2" onclick="choosePack(2)">
                   <span class="pt-title">⚡ Sesión 03 · 16 Nov</span>
@@ -2294,7 +2297,7 @@
       ADECCO PERÚ — SALES &amp; MARKETING · PROGRAMA BACK 2026
     </div>
     <div>
-      IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot · 9, 11, 16 y 18 de Noviembre de 2026
+      IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot · 13, 16, 18 y 20 de Noviembre de 2026
     </div>
   </footer>
 
@@ -2413,15 +2416,15 @@
         title: "Automatización en Excel con Microsoft Copilot",
         dateISO: "2026-11-09T15:00:00-05:00",
         endISO:  "2026-11-09T17:00:00-05:00",
-        badge: "Lunes 09 Nov · 15:00 a 17:00 hrs · SALA ESTOCOLMO",
+        badge: "Lunes 09 Nov · 15:00 a 17:00 hrs · SALA ESTOCOLMO (Completada)",
         room: "SALA ESTOCOLMO"
       },
       {
         num: "SESIÓN 02",
         title: "Analizar y Comunicar: Power BI + Word + Copilot",
-        dateISO: "2026-11-11T11:00:00-05:00",
-        endISO:  "2026-11-11T13:00:00-05:00",
-        badge: "Miércoles 11 Nov · 11:00 a 13:00 hrs · OSLO - VIENA - DUBLÍN",
+        dateISO: "2026-11-13T11:00:00-05:00",
+        endISO:  "2026-11-13T13:00:00-05:00",
+        badge: "Viernes 13 Nov · 11:00 a 13:00 hrs · OSLO - VIENA - DUBLÍN",
         room: "OSLO - VIENA - DUBLÍN"
       },
       {
@@ -2442,7 +2445,7 @@
       }
     ];
 
-    let currentTargetIdx = 0;
+    let currentTargetIdx = 1;
     let prevDigits = { d: '', h: '', m: '', s: '' };
 
     function selectSessionCountdown(idx) {
@@ -2579,64 +2582,100 @@
         title: "Sesión 01 — Excel, Macros VBA & Copilot",
         questions: [
           {
-            cat: "SESIÓN 01 · MOTOR COPILOT",
-            q: "¿Cuál es el rol de Microsoft Copilot en el programa de Adecco Sales & Marketing?",
+            cat: "SESIÓN 01 · ARQUITECTURA COPILOT",
+            q: "¿Cómo protege Microsoft Copilot la confidencialidad de los datos operativos de Adecco y de las cuentas de Retail?",
             opts: [
-              "Sustituir la validación del responsable de cuenta",
-              "Actuar como motor para construir fórmulas, código VBA, informes y flujos sobre nuestras herramientas",
-              "Usarse solo para redactar textos informales",
-              "Modificar archivos en producción sin pruebas"
+              "Entrena modelos públicos de OpenAI con nuestras bases",
+              "Garantiza Commercial Data Protection: los datos están cifrados y jamás se usan para reentrenar modelos públicos",
+              "Guarda los archivos en servidores no autorizados",
+              "Requiere subir la información a redes sociales"
             ],
             ans: 1,
-            exp: "Copilot es el motor técnico que acelera la creación de soluciones en Excel, Word, Power BI y Automate bajo supervisión humana."
+            exp: "Bajo la gobernanza corporativa, Copilot opera con aislamiento de datos comercial: tus tablas y reportes de Adecco nunca salen a alimentar la IA pública."
           },
           {
-            cat: "SESIÓN 01 · PROMPTS PARA VBA",
-            q: "Para que Copilot escriba una Macro VBA precisa en Excel, ¿qué elementos debe incluir tu instrucción?",
+            cat: "SESIÓN 01 · INGENIERÍA DE PROMPTS",
+            q: "Para que Copilot redacte una Macro VBA precisa sin inventar datos ni dar errores de rango, ¿cuál es la estructura de instrucción recomendada?",
             opts: [
-              "Solo poner: 'Automatiza mi Excel'",
-              "Contexto del libro + Nombres de hojas/columnas + Regla lógica + Resultado esperado",
-              "Adjuntar bases sin explicar las columnas",
-              "Pedirle que invente las reglas del negocio"
+              "Escribir únicamente: 'Automatiza este archivo de inmediato'",
+              "Especificar Contexto de la cuenta + Nombres exactos de hojas/columnas + Regla lógica paso a paso + Formato de salida",
+              "Adjuntar una captura de pantalla sin explicar las columnas",
+              "Pedirle que adivine la estructura de las celdas"
             ],
             ans: 1,
-            exp: "Especificar hojas, rangos, condiciones y salida esperada permite a Copilot entregar código VBA listo para probar."
+            exp: "El método de instrucción técnica (Contexto + Columnas + Regla + Salida) elimina alucinaciones y entrega código VBA que corre a la primera."
+          },
+          {
+            cat: "SESIÓN 01 · ENTORNO DE DESARROLLO",
+            q: "¿Qué atajo de teclado abre instantáneamente el editor de Visual Basic (VBA) en Microsoft Excel?",
+            opts: [
+              "Ctrl + Shift + V",
+              "Alt + F11",
+              "Ctrl + Alt + Supr",
+              "F12 + Tab"
+            ],
+            ans: 1,
+            exp: "Alt + F11 es el acceso universal para abrir el entorno VBA de Excel donde insertas módulos para pegar y depurar el código de Copilot."
+          },
+          {
+            cat: "SESIÓN 01 · DEPURACIÓN EN VIVO",
+            q: "Si al ejecutar una Macro en Excel la pantalla se detiene con una línea resaltada en AMARILLO (Run-time error), ¿cómo se procede con Copilot?",
+            opts: [
+              "Cerrar Excel y borrar todo el trabajo",
+              "Ignorar la línea y seguir ejecutando",
+              "Copiar el código de la macro y el texto exacto del error en Copilot para que diagnostique la causa y entregue la línea corregida",
+              "Reescribir las fórmulas a mano desde cero"
+            ],
+            ans: 2,
+            exp: "Copilot actúa como copiloto de depuración: comprende el código de error (como Error 9 o 13) y corrige la sintaxis en segundos."
+          },
+          {
+            cat: "SESIÓN 01 · FORMATO OBLIGATORIO",
+            q: "Al terminar de automatizar un archivo con macros VBA, ¿en qué formato OBLIGATORIO debes guardar el libro para no perder el código?",
+            opts: [
+              "Libro de Excel normal (.xlsx)",
+              "Libro de Excel habilitado para macros (.xlsm) o Binario (.xlsb)",
+              "Documento de Word (.docx)",
+              "Texto delimitado por tabulaciones (.txt)"
+            ],
+            ans: 1,
+            exp: "Los archivos estándar .xlsx eliminan el código VBA por seguridad. Siempre debes elegir 'Libro de Excel habilitado para macros (*.xlsm)'."
           },
           {
             cat: "SESIÓN 01 · CONTROL DE CALIDAD",
-            q: "Antes de correr una macro nueva en el reporte oficial de tu cuenta, ¿cuál es el paso obligatorio?",
+            q: "En la validación humana de resultados, ¿cuál es el protocolo obligatorio antes de correr una macro nueva en el reporte oficial de tu cuenta?",
             opts: [
-              "Eliminar la base histórica",
-              "Ejecutarla primero en una copia de prueba y auditar que los totales cuadren",
-              "Enviarla al cliente sin revisar",
-              "Omitir el manejo de errores"
+              "Correrla directamente en el archivo compartido original sin respaldo",
+              "Probarla primero en una copia de respaldo y auditar que la suma total y conteo coincidan con el cálculo manual",
+              "Enviarla al cliente sin revisar los números",
+              "Modificar las fórmulas finales para forzar que cuadren"
             ],
             ans: 1,
-            exp: "Toda automatización se valida primero en un entorno de prueba verificando la integridad de los datos."
+            exp: "El principio de control de calidad exige probar en una copia de respaldo y conciliar sumatorias antes de actualizar cualquier entregable oficial."
           },
           {
-            cat: "SESIÓN 01 · IMPACTO EN CUENTAS",
-            q: "¿Qué proceso de Sales & Marketing obtiene el mayor retorno al automatizarse con Macros VBA?",
+            cat: "SESIÓN 01 · DINÁMICA DE TABLAS",
+            q: "En el ejercicio práctico de supervisores y pendientes, ¿por qué es clave usar última fila dinámica (End(xlUp).Row) en VBA?",
             opts: [
-              "Cambiar un título una vez al mes",
-              "Consolidar y formatear semanalmente múltiples reportes de cobertura/asistencia con estructura repetitiva",
-              "Responder un mensaje puntual",
-              "Abrir una presentación"
+              "Porque la macro solo funciona si siempre hay exactamente 10 filas",
+              "Porque permite que la macro se adapte automáticamente al volumen variable de filas que reporte cada supervisor cada semana",
+              "Para cambiar los colores de la hoja",
+              "Es una instrucción opcional sin ningún impacto"
             ],
             ans: 1,
-            exp: "Las tareas operativas repetitivas y basadas en reglas pasan de horas manuales a segundos con una macro verificada."
+            exp: "El cálculo dinámico de rangos garantiza que tu automatización procese 10 o 10,000 registros sin cortar datos ni generar celdas vacías."
           },
           {
-            cat: "SESIÓN 01 · CORRECCIÓN DE CÓDIGO",
-            q: "Si una macro detiene su ejecución mostrando una línea en amarillo, ¿cómo lo resuelves con Copilot?",
+            cat: "SESIÓN 01 · CONCURSO FINAL",
+            q: "Para ganar el Concurso de Mejora (1.er Puesto S/ 300 y 2.° Puesto S/ 200), ¿cuál es el factor determinante que evaluará el jurado?",
             opts: [
-              "Abandonando la automatización",
-              "Copiando el bloque de código y el mensaje de error en Copilot para que identifique el fallo y lo corrija",
-              "Reinstalando Office",
-              "Borrando las hojas del archivo"
+              "Hacer muchas diapositivas sin mostrar el archivo funcionando",
+              "Demostrar una solución real aplicada a tu cuenta con reducción medible de tiempo manual (Antes vs. Después) y sin errores",
+              "Copiar un ejemplo teórico genérico de internet",
+              "Usar la mayor cantidad de código sin que resuelva un problema real"
             ],
             ans: 1,
-            exp: "Copilot explica la causa exacta del error VBA y propone la línea corregida en segundos."
+            exp: "El concurso premia el impacto operativo real en Adecco: medir cuánto tiempo manual se ahorra semanalmente y la fiabilidad de la solución."
           }
         ]
       },
@@ -2702,6 +2741,42 @@
             ],
             ans: 0,
             exp: "Estandarizar el entregable final evita errores manuales y profesionaliza la comunicación con el cliente."
+          },
+          {
+            cat: "SESIÓN 02 · CÁLCULO SEGURO EN DAX",
+            q: "¿Por qué en DAX siempre se debe formular con DIVIDE(Numerador, Denominador, 0) en lugar del operador /?",
+            opts: [
+              "Para evitar errores de división entre cero cuando no hay ventas o visitas en una tienda o supervisor",
+              "Porque el símbolo / está prohibido en Power BI",
+              "Solo para que la fórmula sea más larga",
+              "Para cambiar el idioma de la aplicación"
+            ],
+            ans: 0,
+            exp: "DIVIDE maneja automáticamente los denominadores en cero o nulos, evitando que las tarjetas y gráficos muestren errores 'Infinity' o 'NaN'."
+          },
+          {
+            cat: "SESIÓN 02 · CONTEXTO DE FILTRO",
+            q: "Al seleccionar un Supervisor en el segmentador (slicer) de Power BI, ¿cómo interactúa el modelo de datos?",
+            opts: [
+              "Borra los datos de los demás supervisores del archivo",
+              "Aplica el contexto de filtro recalculando dinámicamente todas las medidas DAX y visuales para ese supervisor",
+              "Requiere volver a cargar el archivo de Excel",
+              "Solo cambia el color de los gráficos"
+            ],
+            ans: 1,
+            exp: "Power BI recalcula al instante en memoria todas las medidas según el contexto de filtro activo."
+          },
+          {
+            cat: "SESIÓN 02 · INTEGRACIÓN S1 + S2",
+            q: "¿Cómo se integra la macro de Excel desarrollada en la Sesión 1 con el Tablero de la Sesión 2?",
+            opts: [
+              "No tienen ninguna relación",
+              "La macro de Excel consolida y limpia la base de tiendas cada semana, sirviendo como origen de datos listo para actualizar Power BI con 1 clic",
+              "Hay que volver a escribir los datos a mano en Power BI",
+              "Obliga a imprimir la hoja antes de abrir Power BI"
+            ],
+            ans: 1,
+            exp: "La macro de la Sesión 1 genera el insumo limpio y estandarizado que alimenta el modelo analítico de la Sesión 2."
           }
         ]
       },
@@ -2844,7 +2919,7 @@
       { name: "Diego Quispe", account: "BI & Reporting S&M", score: 4050 }
     ];
 
-    let activePack = 0;
+    let activePack = 1;
     let qIndex = 0;
     let score = 0;
     let streak = 0;
