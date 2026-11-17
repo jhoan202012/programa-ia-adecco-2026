@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clase 02 — Analizar y Comunicar: Power BI (DAX) & Word con Copilot | Lic. Jhoan Taboada</title>
+  <title>Clase 02 — Automatización Excel VBA a Word (Cartas) & Power BI (DAX) con Copilot | Lic. Jhoan Taboada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,8 +16,9 @@
       --adecco-red-bright: #EF3326;
       --cyan: #38BDF8;
       --blue-pbi: #2563EB;
-      --amber-pbi: #F59E0B;
       --emerald: #10B981;
+      --amber: #F59E0B;
+      --purple: #A855F7;
       --text-main: #F8FAFC;
       --text-muted: #94A3B8;
       --border: rgba(255, 255, 255, 0.13);
@@ -44,14 +45,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 18px;
       z-index: 100;
     }
 
     .brand-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .badge-red {
@@ -69,6 +70,7 @@
       background: rgba(37, 99, 235, 0.22);
       border: 1px solid #3B82F6;
       color: #93C5FD;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 800;
       font-size: 11px;
       padding: 4px 10px;
@@ -77,157 +79,272 @@
 
     .brand-title {
       font-weight: 800;
-      font-size: 14px;
-      color: var(--text-main);
+      font-size: 13.5px;
+      color: #fff;
     }
     .brand-title span { color: var(--cyan); }
 
-    .top-actions {
+    .topbar-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .btn-top {
-      font-family: inherit;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 7px 12px;
-      border-radius: 9px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-main);
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      font-family: inherit;
+      font-size: 11.2px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: #E2E8F0;
       text-decoration: none;
-      transition: all 0.2s;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .btn-top:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--cyan);
-      transform: translateY(-1px);
+    .btn-top:hover { background: rgba(255,255,255,0.14); border-color: var(--cyan); transform: translateY(-1px); }
+    .btn-top.portal {
+      background: linear-gradient(135deg, #DA291C, #991B1B);
+      border-color: #FCA5A5;
+      color: #fff;
+      font-weight: 800;
     }
-    .btn-top.active-session {
-      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+    .btn-top.excel {
+      background: #107C41;
+      border-color: #33C481;
+      color: #fff;
+    }
+    .btn-top.word {
+      background: #1D4ED8;
+      border-color: #93C5FD;
+      color: #fff;
+    }
+    .btn-top.pbi {
+      background: #D97706;
+      border-color: #FDE68A;
+      color: #fff;
+    }
+    .btn-top.copilot {
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
       border-color: #93C5FD;
       color: #fff;
     }
 
-    /* DECK STAGE */
+    /* PROGRESS BAR */
+    .progress-track {
+      position: fixed;
+      top: 62px; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      z-index: 100;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 6%;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan), var(--emerald));
+      transition: width 0.35s ease;
+    }
+
+    /* STAGE */
     .deck-stage {
-      position: absolute;
-      top: 62px;
-      bottom: 56px;
-      left: 0; right: 0;
-      overflow-y: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      position: fixed;
+      top: 66px;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      overflow: hidden;
     }
 
     .slide {
-      display: none;
-      width: 100%;
-      max-width: 1180px;
-      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: absolute;
+      inset: 0;
+      padding: 18px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(42px);
+      transition: opacity 0.32s ease, transform 0.32s ease;
+      overflow-y: auto;
     }
-    .slide.active { display: block; }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(12px) scale(0.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
     }
 
     .slide-inner {
-      background: var(--card-navy);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 34px 40px;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
-      position: relative;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
     }
 
+    /* TYPOGRAPHY */
     .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.13);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
       margin-bottom: 8px;
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
     }
-    .eyebrow.blue { background: rgba(37, 99, 235, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); }
-    .eyebrow.red { background: rgba(218, 41, 28, 0.2); color: #FCA5A5; border: 1px solid rgba(218, 41, 28, 0.4); }
-    .eyebrow.green { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .eyebrow.red { color: #FCA5A5; background: rgba(218, 41, 28, 0.18); border-color: rgba(218, 41, 28, 0.5); }
+    .eyebrow.green { color: #6EE7B7; background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.45); }
+    .eyebrow.amber { color: #FDE68A; background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); }
+    .eyebrow.purple { color: #E9D5FF; background: rgba(168, 85, 247, 0.18); border-color: rgba(168, 85, 247, 0.48); }
 
-    .slide-h2 {
-      font-size: 27px;
+    h1.hero-h1 {
+      font-size: clamp(25px, 3.1vw, 39px);
       font-weight: 900;
-      margin-bottom: 12px;
-      line-height: 1.25;
-      color: #FFFFFF;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+    h2.slide-h2 {
+      font-size: clamp(20px, 2.3vw, 29px);
+      font-weight: 900;
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
     }
     .lead {
-      font-size: 14.5px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 22px;
+      font-size: 13.8px;
+      line-height: 1.5;
+      color: #CBD5E1;
+      max-width: 1060px;
+      margin-bottom: 12px;
     }
 
-    /* GRID & CARDS */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    /* GRIDS & CARDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      .slide-inner { padding: 22px; }
+      .slide { justify-content: flex-start; padding: 16px; }
     }
 
     .card {
-      background: var(--card-navy-light);
+      background: var(--card-navy);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 18px 20px;
+      padding: 15px 17px;
     }
-    .card h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: #fff; }
-    .card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .card.accent-red { border-left: 4px solid var(--adecco-red); }
+    .card.accent-cyan { border-left: 4px solid var(--cyan); }
+    .card.accent-green { border-left: 4px solid var(--emerald); }
+    .card.accent-amber { border-left: 4px solid var(--amber); }
+    .card.accent-purple { border-left: 4px solid var(--purple); }
 
-    /* PROMPT BOX */
+    .card h3 {
+      font-size: 14.8px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .card p, .card li {
+      font-size: 12.6px;
+      line-height: 1.48;
+      color: #CBD5E1;
+    }
+    .card ul { padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
+
+    /* FLOW BANNER */
+    .flow-banner {
+      background: linear-gradient(90deg, rgba(17,34,64,0.95), rgba(24,48,89,0.95));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 13px;
+      padding: 10px 15px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .flow-node {
+      flex: 1;
+      min-width: 140px;
+      background: #081223;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .flow-node.active-node { border-color: var(--emerald); box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+    .flow-node.red-node { border-color: rgba(218, 41, 28, 0.65); }
+    .flow-node.amber-node { border-color: rgba(245, 158, 11, 0.65); }
+    .flow-node.purple-node { border-color: rgba(168, 85, 247, 0.65); }
+
+    .flow-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: rgba(56, 189, 248, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .flow-text { display: flex; flex-direction: column; }
+    .flow-step-tag { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 800; color: var(--cyan); text-transform: uppercase; }
+    .flow-step-title { font-size: 12.2px; font-weight: 800; color: #fff; }
+    .flow-step-sub { font-size: 10.8px; color: #94A3B8; }
+    .flow-arrow { font-size: 17px; font-weight: 900; color: var(--cyan); }
+
+    /* PROMPT & CODE BOXES */
     .prompt-box {
       background: #060D1A;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 12px;
-      padding: 18px;
-      margin: 14px 0;
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      border-radius: 13px;
+      padding: 13px 15px;
       position: relative;
     }
     .prompt-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .prompt-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 10.8px;
       font-weight: 800;
       color: var(--cyan);
-      letter-spacing: 0.8px;
+      letter-spacing: 0.05em;
     }
     .btn-copy {
       font-family: inherit;
-      font-size: 11.5px;
+      font-size: 11.2px;
       font-weight: 800;
-      padding: 5px 12px;
+      padding: 5px 11px;
       background: linear-gradient(135deg, #2563EB, #1D4ED8);
       color: #fff;
       border: 1px solid #93C5FD;
-      border-radius: 6px;
+      border-radius: 7px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -235,20 +352,78 @@
       transition: all 0.2s;
     }
     .btn-copy:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn-copy.green { background: linear-gradient(135deg, #059669, #047857); border-color: #6EE7B7; }
+    .btn-copy.amber { background: linear-gradient(135deg, #D97706, #B45309); border-color: #FDE68A; }
 
     .prompt-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12.5px;
+      font-size: 11.7px;
       color: #E2E8F0;
-      line-height: 1.6;
+      line-height: 1.52;
       white-space: pre-wrap;
+      max-height: 255px;
+      overflow-y: auto;
     }
 
-    /* BOTTOM BAR NAVIGATION */
+    .formula-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.6px;
+      background: #060D1A;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #6EE7B7;
+      padding: 8px 11px;
+      border-radius: 8px;
+      margin-top: 4px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* MINI TABLE */
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+    .mini-table th, .mini-table td {
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 8px;
+      text-align: left;
+    }
+    .mini-table th {
+      background: #081223;
+      color: var(--cyan);
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* CTA HERO BUTTONS */
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12.8px;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    /* BOTTOM BAR */
     .bottombar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 56px;
+      height: 58px;
       background: #081120;
       border-top: 1px solid var(--border);
       display: flex;
@@ -257,67 +432,54 @@
       padding: 0 24px;
       z-index: 100;
     }
-    .nav-btn {
-      font-family: inherit;
-      font-size: 13px;
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
       font-weight: 800;
-      padding: 8px 18px;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+    .nav-btns { display: flex; align-items: center; gap: 8px; }
+    .btn-nav {
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 8px 15px;
       border-radius: 9px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.07);
       color: #fff;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .nav-btn:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.16);
-      border-color: var(--cyan);
-    }
-    .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-    .slide-counter {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
+    .btn-nav:hover { background: rgba(255,255,255,0.15); border-color: var(--cyan); }
+    .btn-nav.primary {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border-color: #93C5FD;
     }
 
     /* TOAST */
     .toast {
       position: fixed;
-      bottom: 70px;
+      bottom: 72px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       background: #10B981;
-      color: #fff;
-      font-weight: 800;
+      color: #042F2E;
+      font-weight: 900;
       font-size: 13px;
       padding: 10px 22px;
       border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
       opacity: 0;
       pointer-events: none;
       transition: all 0.25s ease;
-      z-index: 200;
+      z-index: 250;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .cta-hero {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      font-weight: 800;
-      font-size: 14.5px;
-      border-radius: 10px;
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
@@ -325,277 +487,1009 @@
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="brand-left">
-      <span class="badge-red">Adecco S&M</span>
-      <span class="badge-pbi">SESIÓN 02 · EN VIVO</span>
-      <div class="brand-title">AI Co-Pilot Lab <span>· Power BI (DAX) & Word con Copilot</span></div>
+      <span class="badge-red">ADECCO S&amp;M</span>
+      <span class="badge-pbi">SESIÓN 02 · SALA ESTOCOLMO</span>
+      <div class="brand-title">AI Co-Pilot Lab <span>· Excel VBA a Word (Cartas) + Power BI (DAX)</span></div>
     </div>
-    <div class="top-actions">
-      <a href="index.html" class="btn-top">🏠 Portal</a>
+    <div class="topbar-right">
+      <a href="index.html" class="btn-top portal">🏠 Portal</a>
       <a href="clase1.html" class="btn-top">📁 Clase 01</a>
-      <a href="kahoot.html" class="btn-top active-session">⚡ Arena Kahoot S2</a>
+      <button class="btn-top" onclick="toggleSep()" title="Cambiar separador de fórmulas DAX entre Punto y coma (;) y Coma (,)">
+        ⚙️ Separador DAX: <strong id="sepLabel" style="color:#6EE7B7;">, (Coma)</strong>
+      </button>
+      <a href="Practica_Clase02_BI_Word_Adecco.xlsx" download class="btn-top excel">📗 Excel Práctica S2</a>
+      <a href="Tema_Corporativo_Adecco_PowerBI.json" download class="btn-top pbi">🎨 Tema BI (.json)</a>
+      <a href="Modelo_Informe_y_Cartas_Adecco_S2.docx" download class="btn-top word">📄 Modelo Word</a>
+      <a href="https://copilot.microsoft.com" target="_blank" class="btn-top copilot">🤖 Abrir Copilot</a>
+      <a href="kahoot.html" class="btn-top" style="border-color:#F59E0B; color:#FDE68A;">⚡ Kahoot S2</a>
     </div>
   </header>
 
-  <!-- STAGE -->
+  <div class="progress-track">
+    <div class="progress-fill" id="progressBar"></div>
+  </div>
+
+  <!-- DECK STAGE -->
   <main class="deck-stage">
 
-    <!-- SLIDE 1: PORTADA -->
+    <!-- ==================== SLIDE 1: PORTADA E INSUMOS DESCARGABLES ==================== -->
     <section class="slide active">
       <div class="slide-inner">
-        <span class="eyebrow blue">SESIÓN 02 · MARTES 17 NOVIEMBRE 2026 · 11:00 AM A 1:00 PM · SALA ESTOCOLMO</span>
-        <h2 class="slide-h2" style="font-size:32px;">Analizar y Comunicar: <span style="color:#60A5FA;">Power BI (DAX)</span> &amp; <span style="color:#38BDF8;">Word con Copilot</span></h2>
+        <span class="eyebrow">SESIÓN 02 · MARTES 17 DE NOVIEMBRE 2026 · 11:00 AM A 1:00 PM · SALA ESTOCOLMO</span>
+        <h1 class="hero-h1">
+          De Datos en Excel a <span style="color:#38BDF8;">Cartas Masivas en Word</span> &amp; <span style="color:#FBBF24;">Dashboards en Power BI (DAX)</span> con Copilot
+        </h1>
         <p class="lead">
-          De la automatización de datos en Excel al modelado visual de alto impacto y la redacción instantánea de Informes Ejecutivos para clientes y dirección.
+          Como ya dominamos Excel y Macros VBA en la Sesión 01, hoy daremos dos saltos prácticos de alto impacto para nuestras cuentas: <strong>generar Cartas y Actas Oficiales en Word desde cero con un botón en Excel</strong> y construir un <strong>Dashboard Ejecutivo en Power BI con Medidas DAX + Resumen Gerencial en Word</strong>.
         </p>
-        <div class="grid-3" style="margin-bottom:20px;">
-          <div class="card" style="border-left:4px solid #3B82F6;">
-            <h3>📊 1. Power BI &amp; Medidas DAX</h3>
-            <p>Formulación asistida por Copilot: Cumplimiento de cuota, semáforos de cobertura y tasa de rotación de promotores.</p>
-          </div>
-          <div class="card" style="border-left:4px solid #38BDF8;">
-            <h3>📝 2. Resumen Ejecutivo en Word</h3>
-            <p>Transformación de tablas frías en un Executive Summary estructurado (Hallazgos, Causas y Plan de Acción).</p>
-          </div>
-          <div class="card" style="border-left:4px solid #10B981;">
-            <h3>⚡ 3. Exportación y Kahoot</h3>
-            <p>Macro VBA en Word para generar PDF oficial con 1 clic y competencia interactiva en la Arena Kahoot.</p>
-          </div>
-        </div>
-        <p style="font-size:12.5px; color:var(--text-muted);">
-          👨‍🏫 <strong>Ponente:</strong> Lic. Jhoan Taboada Huamán · Business Intelligence Analyst (Adecco Perú)
-        </p>
-      </div>
-    </section>
 
-    <!-- SLIDE 2: CONEXIÓN SESIÓN 1 Y SESIÓN 2 -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow green">CONEXIÓN DE PROCESOS OPERATIVOS</span>
-        <h2 class="slide-h2">¿Cómo se articula la Sesión 01 con la Sesión 02?</h2>
-        <p class="lead">
-          En la Sesión 01 aprendimos a limpiar y consolidar archivos de Excel con Macros VBA asistidas por Copilot. Ahora ese archivo limpio se convierte en el motor analítico de la cuenta:
-        </p>
-        <div class="grid-2">
-          <div class="card">
-            <h3 style="color:#34D399;">Paso 1: El insumo limpio (Sesión 01)</h3>
-            <p>La macro de Excel consolida semanalmente los reportes de supervisores, elimina celdas vacías y estandariza los códigos de tienda (PDV) y ventas.</p>
-          </div>
-          <div class="card">
-            <h3 style="color:#60A5FA;">Paso 2: La visualización y reporte (Sesión 02)</h3>
-            <p>Power BI lee automáticamente esa base consolidada, calcula indicadores de negocio con DAX y Word genera el informe mensual en PDF para el cliente.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 3: REGLAS DE ORO PROMPTS DAX -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow blue">INGENIERÍA DE PROMPTS PARA POWER BI</span>
-        <h2 class="slide-h2">Cómo solicitar medidas DAX a Copilot sin errores</h2>
-        <p class="lead">
-          Para que Microsoft Copilot redacte código DAX compatible con tu modelo de Power BI, tu prompt debe contener estos 4 componentes indispensables:
-        </p>
-        <div class="grid-4" style="margin-bottom:14px;">
-          <div class="card">
-            <span style="color:#60A5FA; font-weight:800; font-size:12px;">1. TABLA</span>
-            <p>Nombre exacto de la tabla de hechos (ej. <code>Fact_Operaciones</code>).</p>
-          </div>
-          <div class="card">
-            <span style="color:#60A5FA; font-weight:800; font-size:12px;">2. CAMPOS</span>
-            <p>Columnas numéricas requeridas (ej. <code>Ventas_Real</code>, <code>Meta_Ventas</code>).</p>
-          </div>
-          <div class="card">
-            <span style="color:#60A5FA; font-weight:800; font-size:12px;">3. CONDICIÓN</span>
-            <p>Filtros de estado o fechas (ej. solo tiendas con estado 'Activa').</p>
-          </div>
-          <div class="card">
-            <span style="color:#60A5FA; font-weight:800; font-size:12px;">4. FUNCIÓN</span>
-            <p>Exigir explícitamente el uso de <code>DIVIDE</code> para evitar división por cero.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4: LAB 01 PROMPT DAX CUMPLIMIENTO -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow blue">LAB 01 · MEDIDA DAX DE CUMPLIMIENTO</span>
-        <h2 class="slide-h2">Cálculo de Cumplimiento de Ventas (%) con Copilot</h2>
-        <p class="lead">Copia este prompt exacto y pégalo en Microsoft Copilot para generar la medida:</p>
-
-        <div class="prompt-box">
-          <div class="prompt-header">
-            <span class="prompt-tag">PROMPT LISTO PARA COPILOT (DAX 01)</span>
-            <button class="btn-copy" onclick="copyPrompt('pbiPrompt1')">📋 Copiar Prompt</button>
-          </div>
-          <div class="prompt-text" id="pbiPrompt1">Actúa como consultor senior de Business Intelligence en Power BI para Adecco Sales & Marketing.
-Tengo una tabla llamada "Fact_Operaciones" con las columnas:
-- "Venta_Real_Soles" (Numérico)
-- "Cuota_Meta_Soles" (Numérico)
-- "Supervisor" (Texto)
-- "Canal" (Texto)
-
-Por favor, escribe la fórmula en lenguaje DAX para crear la medida:
-[% Cumplimiento Cuota]
-
-Requisitos:
-1. Usa la función DIVIDE para manejar con seguridad denominadores en cero o nulos, retornando 0 en caso de error.
-2. Suma las ventas y las cuotas de forma agregada (SUM).
-3. Agrega comentarios breves explicando la lógica de la medida.</div>
-        </div>
-
-        <div class="card" style="background:#06101E; border-color:rgba(59,130,246,0.4);">
-          <h4 style="color:#93C5FD; font-size:13px; margin-bottom:4px;">💡 Código DAX Resultante:</h4>
-          <code style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#34D399;">
-            % Cumplimiento Cuota = <br>
-            DIVIDE(<br>
-            &nbsp;&nbsp;SUM(Fact_Operaciones[Venta_Real_Soles]),<br>
-            &nbsp;&nbsp;SUM(Fact_Operaciones[Cuota_Meta_Soles]),<br>
-            &nbsp;&nbsp;0<br>
-            )
-          </code>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 5: LAB 02 PROMPT DAX COBERTURA -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow blue">LAB 02 · MEDIDA DAX DE COBERTURA</span>
-        <h2 class="slide-h2">Cálculo de Cobertura de Tiendas Activas (PDV)</h2>
-        <p class="lead">Prompt para calcular el % de tiendas cubiertas por la fuerza de ventas:</p>
-
-        <div class="prompt-box">
-          <div class="prompt-header">
-            <span class="prompt-tag">PROMPT LISTO PARA COPILOT (DAX 02)</span>
-            <button class="btn-copy" onclick="copyPrompt('pbiPrompt2')">📋 Copiar Prompt</button>
-          </div>
-          <div class="prompt-text" id="pbiPrompt2">En mi modelo de Power BI para Adecco Cadenas, tengo la tabla "Dim_PuntosDeVenta" con las columnas:
-- "ID_Tienda"
-- "Estado_Visita" (Valores: 'Visitada', 'Pendiente', 'No Programada')
-- "Zona" (Lima, Norte, Sur)
-
-Escribe la medida DAX [% Cobertura PDV] que calcule el porcentaje de tiendas con estado 'Visitada' respecto al total de tiendas del universo filtrado.
-Usa DIVIDE y COUNTROWS con FILTER.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 6: EL SALTO A WORD CON COPILOT -->
-    <section class="slide">
-      <div class="slide-inner">
-        <span class="eyebrow red">COMUNICACIÓN EJECUTIVA CON IA</span>
-        <h2 class="slide-h2">De los Gráficos al Informe Ejecutivo en Microsoft Word</h2>
-        <p class="lead">
-          Los gerentes y clientes de las cuentas no tienen tiempo de explorar cada filtro de un tablero. Necesitan un **Resumen Ejecutivo formal en Word y PDF** con conclusiones claras:
-        </p>
         <div class="grid-3">
-          <div class="card">
-            <h3>1. Estado General</h3>
-            <p>Métricas consolidadas de venta, cuota alcanzada y nivel de cobertura del mes.</p>
+          <div class="card accent-cyan">
+            <h3>📝 Bloque 1: Excel VBA ➔ Cartas en Word</h3>
+            <p>Usa tu tabla de Excel para que una Macro creada por Copilot abra Microsoft Word desde cero (sin requerir plantillas previas), redacte Cartas de Descargo, Actas de Equipos o Reconocimientos y los exporte a PDF.</p>
           </div>
-          <div class="card">
-            <h3>2. Análisis de Desviaciones</h3>
-            <p>Identificación de las zonas o tiendas que no alcanzaron el objetivo y sus causas operativas.</p>
+          <div class="card accent-amber">
+            <h3>📊 Bloque 2: Power BI &amp; 3 Medidas DAX</h3>
+            <p>Carga la base operativa limpia, aplica el <strong>Tema Oficial Adecco (.json)</strong> en 1 clic y genera con Copilot las 3 medidas clave: <code>% Cumplimiento</code>, <code>Brecha S/</code> y <code>Semáforo SWITCH 🔴🟡🟢</code>.</p>
           </div>
-          <div class="card">
-            <h3>3. Plan de Acción</h3>
-            <p>Compromisos concretos del equipo Adecco para recuperar la cobertura la siguiente semana.</p>
+          <div class="card accent-green">
+            <h3>📑 Bloque 3: De Power BI a Informe Word + PDF</h3>
+            <p>Transforma los indicadores del Dashboard en un <strong>Informe Ejecutivo Mensual</strong> (Hallazgos, Causa Raíz en Macro Sur y Plan de Acción) con exportación automática a PDF.</p>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a href="Practica_Clase02_BI_Word_Adecco.xlsx" download class="cta-btn" style="background:#107C41; border-color:#33C481;">
+            📗 1. Descargar Excel de Práctica S2 (.xlsx)
+          </a>
+          <a href="Tema_Corporativo_Adecco_PowerBI.json" download class="cta-btn" style="background:#D97706; border-color:#FDE68A;">
+            🎨 2. Descargar Tema Adecco Power BI (.json)
+          </a>
+          <a href="Modelo_Informe_y_Cartas_Adecco_S2.docx" download class="cta-btn" style="background:#1D4ED8; border-color:#93C5FD;">
+            📄 3. Descargar Modelo Word (.docx)
+          </a>
+          <a href="https://copilot.microsoft.com" target="_blank" class="cta-btn" style="background:linear-gradient(135deg,#2563EB,#7C3AED); border-color:#93C5FD;">
+            🤖 4. Abrir Microsoft Copilot Gratis
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: CONEXIÓN SESIÓN 1 Y SESIÓN 2 ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green"> CONTINUIDAD OPERATIVA · DE LA SESIÓN 01 A LA SESIÓN 02</span>
+        <h2 class="slide-h2">¿Cómo Conectamos lo Aprendido en Excel con Word y Power BI?</h2>
+        <p class="lead">
+          En la Sesión 01 auditamos asistencias `Check-PDV`, cruzamos liquidaciones Sistema vs. Tienda y separamos pendientes con Macros VBA. Hoy convertiremos esos hallazgos en **documentos formales firmables** y **tableros gerenciales**:
+        </p>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">INSUMO (SESIÓN 01)</span>
+              <span class="flow-step-title">Base Auditada en Excel</span>
+              <span class="flow-step-sub">Incidencias, Ventas y PDVs</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">📄</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">RUTA A (OPERATIVA)</span>
+              <span class="flow-step-title">Macro Excel ➔ Cartas Word</span>
+              <span class="flow-step-sub">Descargos, Actas y Memos en PDF</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">📊</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">RUTA B (ANALÍTICA)</span>
+              <span class="flow-step-title">Modelo DAX en Power BI</span>
+              <span class="flow-step-sub">% Cuota, Brecha y Semáforo</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📑</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">CIERRE EJECUTIVO</span>
+              <span class="flow-step-title">Executive Summary Word</span>
+              <span class="flow-step-sub">Reporte Mensual Cliente en PDF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>📂 Estructura de tu archivo <code>Practica_Clase02_BI_Word_Adecco.xlsx</code></h3>
+            <ul>
+              <li><strong>Hoja 1 (<code>1_Cartas_Word_Macro</code>):</strong> 10 registros de colaboradores con incidencias de liquidación, omisión de Check-PDV, entrega de equipos y reconocimientos Top Ventas.</li>
+              <li><strong>Hoja 2 (<code>2_Fact_Operaciones_BI</code>):</strong> 24 registros consolidados de ventas, cuotas, visitas programadas y marcaciones efectivas por PDV, Supervisor y Zona.</li>
+              <li><strong>Hoja 3 (<code>3_Dim_PuntosDeVenta</code>):</strong> Catálogo maestro de los 14 Puntos de Venta (`ID_PDV`) para relacionar en el modelo de Power BI.</li>
+              <li><strong>Hoja 4 (<code>4_Prompts_y_Macros_S2</code>):</strong> Chuleta de respaldo con todos los prompts y fórmulas de hoy.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>💡 ¿Por qué hacer Cartas en Word con Macro desde Excel?</h3>
+            <ul>
+              <li><strong>Aprovecha lo que ya sabes:</strong> Tus bases de personal, equipos e incidencias ya viven en Excel.</li>
+              <li><strong>Cero plantillas desconfiguradas:</strong> A diferencia de "Combinar correspondencia" (que falla si mueves la plantilla de carpeta), nuestra Macro VBA <strong>crea el documento Word desde cero por código</strong> con membrete, tabla resumen y firmas listos para imprimir o enviar en PDF.</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 7: LAB 03 PROMPT EXECUTIVE SUMMARY -->
+    <!-- ==================== SLIDE 3: CALIBRACIÓN DE COPILOT PARA SESIÓN 02 ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow blue">LAB 03 · PROMPT DE RESUMEN EJECUTIVO</span>
-        <h2 class="slide-h2">Prompt para Redactar el Informe de Cuenta en Word</h2>
-        <p class="lead">Pega las cifras de tu Power BI en este prompt para que Copilot redacte el informe oficial:</p>
+        <span class="eyebrow purple">PASO PREVIO (2 MINUTOS) · CALIBRACIÓN DE MICROSOFT COPILOT</span>
+        <h2 class="slide-h2">Configura tu Chat de Copilot para Excel-Word VBA + Power BI DAX</h2>
+        <p class="lead">
+          Igual que en la Sesión 01, antes de pedir código o fórmulas pegamos este bloque de calibración en <a href="https://copilot.microsoft.com" target="_blank" style="color:var(--cyan);">copilot.microsoft.com</a> para que responda directo al grano y sin errores de sintaxis:
+        </p>
 
         <div class="prompt-box">
           <div class="prompt-header">
-            <span class="prompt-tag">PROMPT PARA COPILOT EN WORD</span>
-            <button class="btn-copy" onclick="copyPrompt('wordPrompt1')">📋 Copiar Prompt</button>
+            <span class="prompt-tag">⚙️ PASO 0: COPIAR Y PEGAR AL INICIO DE TU CHAT EN COPILOT GRATIS</span>
+            <button class="btn-copy" onclick="copyText('promptSetupS2')">📋 Copiar Calibración Sesión 02</button>
           </div>
-          <div class="prompt-text" id="wordPrompt1">Actúa como Analista de Operaciones de Adecco Perú para la cuenta Sales & Marketing.
-Con base en los siguientes resultados del mes de Noviembre:
-- Cumplimiento de Cuota Global: 94.2% (Meta: 100%)
-- Cobertura de Tiendas: 91.5% (Total 140 PDVs visitados de 153 programados)
-- Zona con mayor rendimiento: Lima Centro (103.4%)
-- Zona con desviación: Sur (82.1% debido a quiebres de stock en tienda)
-
-Redacta un Informe Ejecutivo formal de 3 párrafos para presentar al Cliente:
-Párrafo 1: Resumen ejecutivo del desempeño mensual y logros clave.
-Párrafo 2: Explicación transparente de la desviación en Zona Sur (causa raíz).
-Párrafo 3: Plan de acción y refuerzo operativo de Adecco para el siguiente periodo.
-Tono: Corporativo, analítico y propositivo.</div>
+          <div class="prompt-text" id="promptSetupS2">Actúa como Consultor Senior en Automatización Office (Excel + Word VBA) y Business Intelligence (Power BI DAX) para Adecco Sales & Marketing en Perú.
+En esta sesión trabajaremos 3 tareas técnicas y quiero que respondas SIEMPRE en bloques listos para copiar, sin introducciones largas:
+1) Cuando te pida Macros VBA que conecten Excel con Microsoft Word: usa Late Binding (CreateObject("Word.Application")) para que funcione en cualquier versión de Office sin activar librerías manuales, incluye manejo de errores y comenta el código en español.
+2) Cuando te pida Medidas DAX para Power BI Desktop: usa nombres exactos de tablas y columnas, aplica siempre la función DIVIDE(..., ..., 0) para divisiones seguras y utiliza variables (VAR / RETURN) con SWITCH(TRUE(), ...) para semáforos ejecutivos.
+3) Cuando te pida Informes Ejecutivos para Word: redacta con tono corporativo, analítico y orientado a la acción (Hallazgos, Causa Raíz y Plan de Acción) usando moneda Soles (S/).
+Confirma con un "Listo y calibrado para la Sesión 02 de Adecco" para enviarte el primer caso.</div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 8: LAB 04 MACRO WORD A PDF -->
+    <!-- ==================== SLIDE 4: BLOQUE 1 - CASO DE NEGOCIO EXCEL A WORD ==================== -->
     <section class="slide">
       <div class="slide-inner">
-        <span class="eyebrow green">LAB 04 · MACRO EN WORD (VBA)</span>
-        <h2 class="slide-h2">Exportación Automatizada a PDF con Nomenclatura Estándar</h2>
-        <p class="lead">Esta macro en Word guarda automáticamente el informe con la fecha de hoy y lo exporta a PDF:</p>
+        <span class="eyebrow red">BLOQUE 1 · AUTOMATIZACIÓN DOCUMENTAL DESDE EXCEL CON MACRO VBA</span>
+        <h2 class="slide-h2">Caso Real: Generar Cartas y Actas Oficiales en Word desde una Tabla de Excel</h2>
+        <p class="lead">
+          Abre tu archivo <code>Practica_Clase02_BI_Word_Adecco.xlsx</code> en la hoja <strong><code>1_Cartas_Word_Macro</code></strong>. Observa cómo tenemos 10 registros con 4 tipos de documentos que toda operación emite a diario:
+        </p>
+
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>Col A: ID_Documento</th>
+              <th>Col C: Tipo_Carta</th>
+              <th>Col D-E: Colaborador</th>
+              <th>Col H-I: Zona / PDV_Tienda</th>
+              <th>Col J: Detalle_Motivo_Operativo</th>
+              <th>Col K: Monto (S/)</th>
+              <th>Col L: Emitir_Carta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DOC-2026-101</code></td>
+              <td><strong style="color:#FCA5A5;">CARTA DE DESCARGO OPERATIVO</strong></td>
+              <td>45892103 · Carlos Mendoza</td>
+              <td>Lima Centro · Cadena Alpha San Isidro</td>
+              <td>Serie #IMEI-89401203 pendiente de liquidación en caja</td>
+              <td><code>S/ 2,699.00</code></td>
+              <td><strong style="color:#6EE7B7;">SI</strong></td>
+            </tr>
+            <tr>
+              <td><code>DOC-2026-102</code></td>
+              <td><strong style="color:#FDE68A;">MEMORANDUM ASISTENCIA CHECK-PDV</strong></td>
+              <td>71204982 · Lucía Quispe</td>
+              <td>Macro Sur · Tienda Sur Arequipa Mall</td>
+              <td>Registro de 3 ventas en App sin marcación Check-PDV</td>
+              <td><code>S/ 1,928.00</code></td>
+              <td><strong style="color:#6EE7B7;">SI</strong></td>
+            </tr>
+            <tr>
+              <td><code>DOC-2026-103</code></td>
+              <td><strong style="color:#93C5FD;">ACTA DE ENTREGA DE EQUIPO</strong></td>
+              <td>48102934 · Miguel Rojas</td>
+              <td>Lima Norte · Supermercado Norte MegaPlaza</td>
+              <td>Asignación Terminal Biométrico + Chip Corporativo 5G</td>
+              <td><code>S/ 850.00</code></td>
+              <td><strong style="color:#6EE7B7;">SI</strong></td>
+            </tr>
+            <tr>
+              <td><code>DOC-2026-104</code></td>
+              <td>CARTA DE DESCARGO OPERATIVO</td>
+              <td>73910485 · Diana Torres</td>
+              <td>Lima Centro · Cadena Beta Miraflores</td>
+              <td>Diferencia de Ticket Sistema vs. Boleta Caja</td>
+              <td><code>S/ 100.00</code></td>
+              <td><span style="color:#94A3B8;">NO (Cerrado)</span></td>
+            </tr>
+            <tr>
+              <td><code>DOC-2026-105</code></td>
+              <td><strong style="color:#6EE7B7;">CARTA RECONOCIMIENTO TOP VENTAS</strong></td>
+              <td>46920183 · Diego Salazar</td>
+              <td>Lima Este · Cadena Alpha Puruchuco</td>
+              <td>Superación del 122% de cuota mensual y 100% Check-PDV</td>
+              <td><code>S/ 1,500.00</code></td>
+              <td><strong style="color:#6EE7B7;">SI</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid-3" style="margin-top:12px;">
+          <div class="card accent-cyan">
+            <h3>🎯 1. Filtro Inteligente (<code>Col L = "SI"</code>)</h3>
+            <p>De las 10 filas de la tabla, la macro procesará únicamente las <strong>7 filas marcadas con <code>"SI"</code></strong> en la columna <code>L</code> (ignorando los casos ya cerrados).</p>
+          </div>
+          <div class="card accent-purple">
+            <h3>🪄 2. Creación en Word desde Cero</h3>
+            <p>No necesitas tener ningún archivo Word previo: la macro invoca <code>Word.Application</code>, dibuja el membrete de Adecco, llena los datos de cada trabajador e inserta saltos de página.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>📕 3. Doble Entregable Automático</h3>
+            <p>Al terminar de redactar las 7 cartas, guarda automáticamente tanto el editable <strong><code>.docx</code></strong> como el archivo oficial inalterable en <strong><code>.pdf</code></strong> en tu misma carpeta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: LAB 01 PROMPT MACRO EXCEL A WORD ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">LAB 01 · PROMPT MAESTRO (MODO THINK DEEPER EN COPILOT)</span>
+        <h2 class="slide-h2">Pídele a Copilot la Macro que Crea las Cartas en Word desde Excel</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ORIGEN EN EXCEL</span>
+              <span class="flow-step-title">Hoja 1_Cartas_Word_Macro</span>
+              <span class="flow-step-sub">Columnas A1:L1 (Filtra L="SI")</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🧠</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">COPILOT THINK DEEPER</span>
+              <span class="flow-step-title">Genera Macro Inter-App</span>
+              <span class="flow-step-sub">CreateObject("Word.Application")</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📄</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">RESULTADO EN 5 SEGUNDOS</span>
+              <span class="flow-step-title">7 Cartas en Word + PDF</span>
+              <span class="flow-step-sub">Con membrete, datos y firmas</span>
+            </div>
+          </div>
+        </div>
 
         <div class="prompt-box">
           <div class="prompt-header">
-            <span class="prompt-tag">CÓDIGO VBA PARA MICROSOFT WORD</span>
-            <button class="btn-copy" onclick="copyPrompt('vbaWordCode')">📋 Copiar Código</button>
+            <span class="prompt-tag">🧠 COPIAR Y PEGAR EN COPILOT (ACTIVANDO THINK DEEPER)</span>
+            <button class="btn-copy" onclick="copyText('promptLabWordVBA')">📋 Copiar Prompt Macro Excel ➔ Word</button>
           </div>
-          <div class="prompt-text" id="vbaWordCode">Sub ExportarInformePDF_Adecco()
-    Dim rutaCarpeta As String
-    Dim nombrePDF As String
-    
-    ' Carpeta donde está guardado el documento actual
-    rutaCarpeta = ActiveDocument.Path & Application.PathSeparator
-    
-    ' Nombre estándar corporativo con fecha
-    nombrePDF = rutaCarpeta & "Informe_Ejecutivo_Adecco_SM_" & Format(Date, "yyyymmdd") & ".pdf"
-    
-    ' Exportar a PDF inalterable
-    ActiveDocument.ExportAsFixedFormat OutputFileName:=nombrePDF, _
-        ExportFormat:=wdExportFormatPDF, _
-        OpenAfterExport:=True, _
-        OptimizeFor:=wdExportOptimizeForPrint
-        
-    MsgBox "¡Informe exportado con éxito a PDF!" & vbCrLf & nombrePDF, vbInformation, "Adecco AI Co-Pilot Lab"
+          <div class="prompt-text" id="promptLabWordVBA">Actúa como desarrollador experto en Excel y Word VBA. Tengo una hoja llamada '1_Cartas_Word_Macro' con encabezados en A1:L1:
+A=ID_Documento, B=Fecha_Emision, C=Tipo_Carta, D=DNI_Colaborador, E=Nombre_Colaborador, F=Cargo, G=Supervisor_Responsable, H=Zona_Red, I=PDV_Tienda, J=Detalle_Motivo_Operativo, K=Monto_Involucrado_Soles, L=Emitir_Carta.
+
+Escribe una Macro VBA en Excel llamada GenerarCartasWordDesdeCero que haga lo siguiente sin requerir ninguna plantilla Word previa:
+1) Filtre y procese únicamente las filas donde la columna L (Emitir_Carta) sea igual a "SI".
+2) Abra Microsoft Word de forma visible usando Late Binding: CreateObject("Word.Application") y cree un documento nuevo en blanco.
+3) Por cada fila con "SI", redacte una carta corporativa formal en una página que incluya:
+   - Encabezado en negrita color rojo Adecco RGB(218,41,28): "ADECCO PERÚ S.A. — DIRECCIÓN DE SALES & MARKETING"
+   - Subtítulo con el Tipo_Carta (Col C) y el ID_Documento (Col A) + Fecha_Emision (Col B).
+   - Bloque de destinatario con Nombre_Colaborador, DNI_Colaborador, Cargo, PDV_Tienda, Zona_Red y Supervisor_Responsable.
+   - Cuerpo formal explicando el Detalle_Motivo_Operativo (Col J) y el Monto_Involucrado_Soles (Col K) formateado en Soles (S/ #,##0.00).
+   - Pie de firma doble para el Supervisor Responsable y el Colaborador.
+   - Inserte un salto de página (wdPageBreak = 7) entre cada carta (excepto después de la última).
+4) Guarde automáticamente el documento consolidado en la misma carpeta del Excel en formato Word (.docx) y también lo exporte a PDF (ExportAsFixedFormat con OutputFileName y ExportFormat:=17).
+5) Muestre un MsgBox final confirmando cuántas cartas se generaron.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6: LAB 01 CÓDIGO VBA VERIFICADO (CARTAS CONSOLIDADAS) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">EJECUCIÓN EN VIVO · CÓDIGO VBA VERIFICADO AL 100%</span>
+        <h2 class="slide-h2">Pega esta Macro en tu Módulo de Excel (<code>Alt + F11</code>) y Pulsa <code>F5</code></h2>
+        <p class="lead" style="margin-bottom:8px;">
+          Recuerda: <strong>1)</strong> Guarda tu libro como <code>.xlsm</code> (con <code>F12</code>), <strong>2)</strong> Presiona <code>Alt + F11</code> ➔ <strong>Insertar → Módulo</strong>, <strong>3)</strong> Pega este código y ejecuta con <code>F5</code>. ¡Verás cómo Word se abre solo y escribe las 7 cartas!
+        </p>
+
+        <div class="prompt-box" style="border-color:rgba(16,185,129,0.55);">
+          <div class="prompt-header">
+            <span class="prompt-tag" style="color:#6EE7B7;">🛡️ MACRO VBA OFICIAL PROBADA — Sub GenerarCartasWordDesdeCero()</span>
+            <button class="btn-copy green" onclick="copyText('vbaExcelToWordVerified')">📋 Copiar Macro Excel ➔ Word</button>
+          </div>
+          <div class="prompt-text" id="vbaExcelToWordVerified" style="max-height:265px;">Sub GenerarCartasWordDesdeCero()
+    Dim ws As Worksheet
+    Dim ultimaFila As Long, f As Long, totalEmitir As Long, contador As Long
+    Dim wdApp As Object, wdDoc As Object, sel As Object
+    Dim rutaBase As String, rutaDocx As String, rutaPdf As String
+    Dim idDoc As String, fechaEm As String, tipoCarta As String, dni As String
+    Dim colaborador As String, cargo As String, supervisor As String
+    Dim zona As String, pdv As String, detalle As String, monto As Double
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets("1_Cartas_Word_Macro")
+    On Error GoTo 0
+    If ws Is Nothing Then
+        MsgBox "No se encontro la hoja '1_Cartas_Word_Macro'.", vbCritical, "Adecco AI Co-Pilot Lab"
+        Exit Sub
+    End If
+
+    ultimaFila = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    totalEmitir = 0
+    For f = 2 To ultimaFila
+        If UCase(Trim(CStr(ws.Cells(f, 12).Value))) = "SI" Then totalEmitir = totalEmitir + 1
+    Next f
+
+    If totalEmitir = 0 Then
+        MsgBox "No hay filas marcadas con 'SI' en la columna L (Emitir_Carta).", vbExclamation, "Adecco"
+        Exit Sub
+    End If
+
+    ' Iniciar Microsoft Word desde cero (Late Binding - sin requerir plantilla previa)
+    Set wdApp = CreateObject("Word.Application")
+    wdApp.Visible = True
+    Set wdDoc = wdApp.Documents.Add
+    Set sel = wdApp.Selection
+
+    contador = 0
+    For f = 2 To ultimaFila
+        If UCase(Trim(CStr(ws.Cells(f, 12).Value))) = "SI" Then
+            contador = contador + 1
+            idDoc = Trim(CStr(ws.Cells(f, 1).Value))
+            fechaEm = Trim(CStr(ws.Cells(f, 2).Value))
+            tipoCarta = UCase(Trim(CStr(ws.Cells(f, 3).Value)))
+            dni = Trim(CStr(ws.Cells(f, 4).Value))
+            colaborador = Trim(CStr(ws.Cells(f, 5).Value))
+            cargo = Trim(CStr(ws.Cells(f, 6).Value))
+            supervisor = Trim(CStr(ws.Cells(f, 7).Value))
+            zona = Trim(CStr(ws.Cells(f, 8).Value))
+            pdv = Trim(CStr(ws.Cells(f, 9).Value))
+            detalle = Trim(CStr(ws.Cells(f, 10).Value))
+            If IsNumeric(ws.Cells(f, 11).Value) Then monto = CDbl(ws.Cells(f, 11).Value) Else monto = 0
+
+            ' Membrete Corporativo Adecco
+            sel.Font.Name = "Segoe UI"
+            sel.Font.Size = 13
+            sel.Font.Bold = True
+            sel.Font.Color = RGB(218, 41, 28)
+            sel.TypeText "ADECCO PERU S.A. — DIRECCION DE SALES & MARKETING" & vbCrLf
+
+            sel.Font.Size = 10
+            sel.Font.Color = RGB(100, 116, 139)
+            sel.TypeText "Gestion Operativa de Cadenas y Puntos de Venta | Documento Oficial Automatizado" & vbCrLf & vbCrLf
+
+            ' Titulo de la Carta y Codigo
+            sel.Font.Size = 13
+            sel.Font.Bold = True
+            sel.Font.Color = RGB(11, 23, 42)
+            sel.TypeText tipoCarta & "  |  Nro: " & idDoc & vbCrLf
+
+            sel.Font.Size = 10.5
+            sel.Font.Bold = False
+            sel.TypeText "Fecha de emision: Lima, " & fechaEm & vbCrLf & vbCrLf
+
+            ' Datos del Destinatario
+            sel.Font.Bold = True
+            sel.TypeText "DATOS DEL COLABORADOR Y PUNTO DE VENTA:" & vbCrLf
+            sel.Font.Bold = False
+            sel.TypeText "• Colaborador(a): " & colaborador & " (DNI: " & dni & ")" & vbCrLf
+            sel.TypeText "• Cargo Operativo: " & cargo & vbCrLf
+            sel.TypeText "• Punto de Venta (PDV): " & pdv & " (" & zona & ")" & vbCrLf
+            sel.TypeText "• Supervisor Responsable: " & supervisor & vbCrLf & vbCrLf
+
+            ' Cuerpo Formal
+            sel.TypeText "Estimado(a) " & colaborador & ":" & vbCrLf & vbCrLf
+            sel.TypeText "Por medio del presente documento oficial, la coordinacion de Operaciones Comerciales de Adecco Sales & Marketing deja constancia formal del siguiente registro en nuestro sistema de control:" & vbCrLf & vbCrLf
+
+            sel.Font.Bold = True
+            sel.Font.Color = RGB(218, 41, 28)
+            sel.TypeText "DETALLE OPERATIVO REGISTRADO:" & vbCrLf
+            sel.Font.Color = RGB(11, 23, 42)
+            sel.TypeText "» " & detalle & vbCrLf
+            sel.TypeText "» Monto / Valor Valorizado Asociado: S/ " & Format(monto, "#,##0.00") & " Soles." & vbCrLf & vbCrLf
+
+            sel.Font.Bold = False
+            sel.TypeText "Agradecemos proceder con la validacion, firma de recepcion o sustento correspondiente en el Portal Operativo dentro de las proximas 24 horas en coordinacion con su supervisor asignado." & vbCrLf & vbCrLf & vbCrLf & vbCrLf
+
+            ' Bloque de Firmas
+            sel.Font.Bold = True
+            sel.TypeText "____________________________________          ____________________________________" & vbCrLf
+            sel.Font.Bold = False
+            sel.TypeText "   " & supervisor & "                       " & colaborador & vbCrLf
+            sel.TypeText "   Supervisor(a) de Operaciones Adecco                    DNI: " & dni & " (Firma y Huella)" & vbCrLf
+
+            ' Salto de pagina si hay mas cartas por emitir
+            If contador < totalEmitir Then
+                sel.InsertBreak Type:=7 ' wdPageBreak
+            End If
+        End If
+    Next f
+
+    ' Guardar en la misma carpeta del Excel (si el libro ya fue guardado)
+    If Len(ThisWorkbook.Path) > 0 Then
+        rutaBase = ThisWorkbook.Path & Application.PathSeparator & "Cartas_Oficiales_Adecco_" & Format(Date, "yyyymmdd")
+        rutaDocx = rutaBase & ".docx"
+        rutaPdf = rutaBase & ".pdf"
+        On Error Resume Next
+        wdDoc.SaveAs2 Filename:=rutaDocx
+        wdDoc.ExportAsFixedFormat OutputFileName:=rutaPdf, ExportFormat:=17 ' 17 = wdExportFormatPDF
+        On Error GoTo 0
+        MsgBox "¡Proceso completado con exito!" & vbCrLf & _
+               "• Cartas generadas en Word: " & contador & vbCrLf & _
+               "• Archivo PDF creado en: " & rutaPdf, vbInformation, "Adecco AI Co-Pilot Lab"
+    Else
+        MsgBox "¡Se generaron " & contador & " cartas en Word!" & vbCrLf & _
+               "(Guarda primero tu Excel en una carpeta si deseas que tambien exporte el PDF automatico).", vbInformation, "Adecco AI Co-Pilot Lab"
+    End If
 End Sub</div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 9: TALLER Y ARENA KAHOOT SESION 2 -->
+    <!-- ==================== SLIDE 7: LAB 01 BONUS - 1 PDF INDIVIDUAL POR COLABORADOR ==================== -->
     <section class="slide">
-      <div class="slide-inner" style="text-align:center;">
-        <span class="eyebrow red">CIERRE DE LA SESIÓN 02 · SALA ESTOCOLMO</span>
-        <h2 class="slide-h2">¡Hora de Competir en la Arena Kahoot Live!</h2>
-        <p class="lead" style="max-width:750px; margin:0 auto 24px;">
-          Pon a prueba tus conocimientos sobre medidas DAX, visualizaciones en Power BI, informes ejecutivos en Word y exportación a PDF. ¡Suma puntos para tu equipo rumbo al concurso final!
+      <div class="slide-inner">
+        <span class="eyebrow amber">LAB 01 BONUS · ¿Y SI NECESITO 1 ARCHIVO PDF SEPARADO POR CADA TRABAJADOR?</span>
+        <h2 class="slide-h2">Variante Pro: Guardar 1 PDF Individual con el DNI y Nombre de cada Colaborador</h2>
+        <p class="lead">
+          Para enviar cada carta por WhatsApp corporativo o subirla individualmente al portal de RRHH / Liquidaciones, esta segunda macro crea una subcarpeta <code>/Cartas_PDF_Individuales/</code> y genera un PDF independiente por cada fila con <code>"SI"</code>:
         </p>
 
-        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:24px;">
-          <a class="cta-hero" href="kahoot.html" style="background:#2563EB; border-color:#93C5FD; box-shadow:0 8px 24px rgba(37,99,235,0.45);">
-            ⚡ LANZAR ARENA KAHOOT LIVE — SESIÓN 02
-          </a>
-          <a class="cta-hero" href="index.html" style="background:rgba(255,255,255,0.08); border-color:var(--border);">
-            🏠 Portal del Programa
-          </a>
-          <a class="cta-hero" href="clase1.html" style="background:rgba(255,255,255,0.08); border-color:var(--border);">
-            📁 Repasar Clase 01
-          </a>
+        <div class="prompt-box" style="border-color:rgba(245,158,11,0.5);">
+          <div class="prompt-header">
+            <span class="prompt-tag" style="color:#FDE68A;">⚡ MACRO BONUS — Sub GenerarPDFsIndividualesPorColaborador()</span>
+            <button class="btn-copy amber" onclick="copyText('vbaIndividualPdfs')">📋 Copiar Macro PDFs Individuales</button>
+          </div>
+          <div class="prompt-text" id="vbaIndividualPdfs" style="max-height:260px;">Sub GenerarPDFsIndividualesPorColaborador()
+    Dim ws As Worksheet, wdApp As Object, wdDoc As Object, sel As Object
+    Dim ultimaFila As Long, f As Long, creados As Long
+    Dim carpetaSalida As String, archivoPdf As String
+
+    Set ws = ThisWorkbook.Worksheets("1_Cartas_Word_Macro")
+    If Len(ThisWorkbook.Path) = 0 Then
+        MsgBox "Primero guarda tu archivo de Excel en una carpeta para poder crear los PDFs individuales.", vbExclamation
+        Exit Sub
+    End If
+
+    carpetaSalida = ThisWorkbook.Path & Application.PathSeparator & "Cartas_PDF_Individuales"
+    If Dir(carpetaSalida, vbDirectory) = "" Then MkDir carpetaSalida
+
+    Set wdApp = CreateObject("Word.Application")
+    wdApp.Visible = False ' Corre en segundo plano ultra rapido
+    ultimaFila = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    creados = 0
+
+    For f = 2 To ultimaFila
+        If UCase(Trim(CStr(ws.Cells(f, 12).Value))) = "SI" Then
+            Set wdDoc = wdApp.Documents.Add
+            Set sel = wdApp.Selection
+
+            sel.Font.Name = "Segoe UI": sel.Font.Size = 13: sel.Font.Bold = True: sel.Font.Color = RGB(218, 41, 28)
+            sel.TypeText "ADECCO PERU S.A. — SALES & MARKETING" & vbCrLf & vbCrLf
+            sel.Font.Color = RGB(11, 23, 42): sel.Font.Size = 12
+            sel.TypeText UCase(ws.Cells(f, 3).Value) & " (" & ws.Cells(f, 1).Value & ")" & vbCrLf
+            sel.Font.Bold = False: sel.Font.Size = 10.5
+            sel.TypeText "Fecha: " & ws.Cells(f, 2).Value & " | Zona: " & ws.Cells(f, 8).Value & " | PDV: " & ws.Cells(f, 9).Value & vbCrLf
+            sel.TypeText "Colaborador: " & ws.Cells(f, 5).Value & " (DNI: " & ws.Cells(f, 4).Value & ") - " & ws.Cells(f, 6).Value & vbCrLf
+            sel.TypeText "Supervisor: " & ws.Cells(f, 7).Value & vbCrLf & vbCrLf
+            sel.Font.Bold = True
+            sel.TypeText "Motivo / Detalle Operativo:" & vbCrLf
+            sel.Font.Bold = False
+            sel.TypeText ws.Cells(f, 10).Value & vbCrLf
+            sel.TypeText "Monto Asociado: S/ " & Format(Val(ws.Cells(f, 11).Value), "#,##0.00") & vbCrLf & vbCrLf & vbCrLf
+            sel.TypeText "___________________________               ___________________________" & vbCrLf
+            sel.TypeText "Firma Supervisor: " & ws.Cells(f, 7).Value & "          Firma Colaborador DNI " & ws.Cells(f, 4).Value
+
+            archivoPdf = carpetaSalida & Application.PathSeparator & _
+                         ws.Cells(f, 1).Value & "_" & ws.Cells(f, 4).Value & ".pdf"
+            wdDoc.ExportAsFixedFormat OutputFileName:=archivoPdf, ExportFormat:=17
+            wdDoc.Close SaveChanges:=False
+            creados = creados + 1
+        End If
+    Next f
+
+    wdApp.Quit
+    MsgBox "¡Se crearon " & creados & " archivos PDF individuales en la carpeta:" & vbCrLf & carpetaSalida, vbInformation, "Adecco AI Co-Pilot Lab"
+End Sub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8: BLOQUE 2 - ENTRAMOS A POWER BI + TEMA ADECCO JSON ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">BLOQUE 2 · DE EXCEL A POWER BI DESKTOP EN 3 CLICS</span>
+        <h2 class="slide-h2">Carga la Base Operativa y Aplica el Tema Corporativo Adecco (<code>.json</code>)</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📥</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PASO 1 EN POWER BI</span>
+              <span class="flow-step-title">Obtener datos ➔ Excel</span>
+              <span class="flow-step-sub">Elegir Practica_Clase02...xlsx</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">☑️</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">PASO 2</span>
+              <span class="flow-step-title">Marcar Hojas 2 y 3</span>
+              <span class="flow-step-sub">2_Fact_Operaciones_BI + 3_Dim</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">🎨</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">PASO 3 (EFECTO WOW)</span>
+              <span class="flow-step-title">Ver ➔ Temas ➔ Buscar temas</span>
+              <span class="flow-step-sub">Cargar Tema_Corporativo_Adecco.json</span>
+            </div>
+          </div>
         </div>
 
-        <div class="card" style="display:inline-block; max-width:620px; text-align:left;">
-          <h4 style="color:#FDE68A; margin-bottom:4px;">🏆 Próximas Fechas y Concurso Final</h4>
-          <p style="font-size:12.5px;">
-            • <strong>Sesión 03 (Power Automate):</strong> Miércoles 18 de Noviembre (11:00 AM a 1:00 PM · Sala Oslo).<br>
-            • <strong>Sustentación Final de Proyectos (1.° S/ 300 · 2.° S/ 200):</strong> Lunes 23 de Noviembre (11:00 AM a 1:00 PM · Sala Oslo).
-          </p>
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>🛠️ 1. ¿Cómo cargamos los datos sin sufrir?</h3>
+            <ul>
+              <li>Abre <strong>Power BI Desktop</strong> y haz clic en <strong>Libro de Excel</strong>.</li>
+              <li>Selecciona <code>Practica_Clase02_BI_Word_Adecco.xlsx</code>.</li>
+              <li>Marca la casilla de <strong><code>2_Fact_Operaciones_BI</code></strong> y <strong><code>3_Dim_PuntosDeVenta</code></strong> y pulsa el botón amarillo <strong>Cargar</strong>.</li>
+              <li>Power BI detectará automáticamente la relación entre ambas tablas por la columna <strong><code>ID_PDV</code></strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>🎨 2. Truco Pro: El Tema Corporativo con IA (<code>.json</code>)</h3>
+            <ul>
+              <li>Por defecto, Power BI usa colores celestes y morados genéricos.</li>
+              <li>Descarga el archivo <a href="Tema_Corporativo_Adecco_PowerBI.json" download style="color:#FDE68A; font-weight:800;">Tema_Corporativo_Adecco_PowerBI.json</a> desde el botón naranja de arriba.</li>
+              <li>En Power BI ve a la pestaña <strong>Ver → desplegar Temas → Buscar temas</strong> y selecciona ese archivo `.json`.</li>
+              <li>¡De inmediato tu lienzo adopta la paleta oficial de Adecco (`#DA291C`, `#0B172A`, `#2563EB`, `#10B981`) y bordes redondeados!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 9: REGLAS DE ORO PARA PEDIR MEDIDAS DAX A COPILOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">INGENIERÍA DE PROMPTS PARA POWER BI (DAX)</span>
+        <h2 class="slide-h2">Las 4 Reglas para que Copilot Escriba Código DAX que Funcione a la Primera</h2>
+        <p class="lead">
+          En Excel las fórmulas miran celdas sueltas (`I2`, `H2`); en cambio, en <strong>Power BI (lenguaje DAX)</strong> las medidas operan sobre <strong>Columnas Completas entre corchetes</strong> (`'Tabla'[Columna]`). Esto es lo que debes darle siempre a Copilot:
+        </p>
+
+        <div class="grid-4">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Tabla Exacta</h3>
+            <p>Indica siempre el nombre exacto de la hoja o tabla entre comillas simples:<br><code>'2_Fact_Operaciones_BI'</code></p>
+          </div>
+          <div class="card accent-green">
+            <h3>2️⃣ Columnas Base</h3>
+            <p>Nombra las columnas numéricas que debe sumar:<br><code>[Venta_Real_Soles]</code><br><code>[Cuota_Meta_Soles]</code></p>
+          </div>
+          <div class="card accent-amber">
+            <h3>3️⃣ Función <code>DIVIDE</code></h3>
+            <p>Exige usar <code>DIVIDE(num, den, 0)</code> en lugar de <code>/</code> para que nunca aparezca <em>"Infinity"</em> o <em>"NaN"</em> en tiendas nuevas.</p>
+          </div>
+          <div class="card accent-purple">
+            <h3>4️⃣ Separador Local</h3>
+            <p>Si tu Power BI pide coma (<code>,</code>) o punto y coma (<code>;</code>), cámbialo arriba con el botón <strong>⚙️ Separador DAX</strong>.</p>
+          </div>
+        </div>
+
+        <div class="card accent-red" style="margin-top:12px;">
+          <h3>💡 ¿Dónde se pega una Medida DAX en Power BI Desktop? (En 2 clics)</h3>
+          <p>En el panel derecho <strong>Datos</strong>, haz <strong>clic derecho sobre la tabla <code>2_Fact_Operaciones_BI</code> → Nueva medida</strong>. Se abrirá la barra de fórmulas arriba (igual que en Excel): ahí pegas el código de Copilot y presionas <strong>Enter</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10: LAB 02 - LAS 3 MEDIDAS DAX ESTRELLA CON COPILOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LAB 02 · FORMULACIÓN ASISTIDA POR COPILOT EN POWER BI</span>
+        <h2 class="slide-h2">Genera las 3 Medidas DAX Fundamentales de la Operación</h2>
+
+        <div class="grid-2">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">🤖 COPIAR Y PEGAR EN TU CHAT DE COPILOT</span>
+              <button class="btn-copy" onclick="copyText('promptDaxBasicas')">📋 Copiar Prompt DAX (3 Medidas)</button>
+            </div>
+            <div class="prompt-text" id="promptDaxBasicas">En mi modelo de Power BI Desktop tengo la tabla '2_Fact_Operaciones_BI' con las columnas numéricas:
+- [Venta_Real_Soles]
+- [Cuota_Meta_Soles]
+- [Visitas_Programadas]
+- [Visitas_CheckPDV_OK]
+
+Escríbeme 3 medidas DAX listas para copiar y pegar (usando coma "," como separador de argumentos):
+1) [% Cumplimiento Cuota]: División segura (DIVIDE) de la suma de Venta_Real_Soles entre la suma de Cuota_Meta_Soles, devolviendo 0 si hay error.
+2) [Brecha Meta S/]: Diferencia entre la suma de Venta_Real_Soles menos la suma de Cuota_Meta_Soles.
+3) [% Cobertura CheckPDV]: División segura (DIVIDE) de la suma de Visitas_CheckPDV_OK entre la suma de Visitas_Programadas.</div>
+          </div>
+
+          <div class="card accent-green">
+            <h3>✅ Pega cada Medida en <code>Nueva medida</code>:</h3>
+
+            <p style="margin-top:6px; font-weight:800; color:#fff;">1. Medida <code>% Cumplimiento Cuota</code> (Formato <code>%</code>):</p>
+            <div class="formula-pill" data-comma="% Cumplimiento Cuota = DIVIDE(SUM('2_Fact_Operaciones_BI'[Venta_Real_Soles]), SUM('2_Fact_Operaciones_BI'[Cuota_Meta_Soles]), 0)" data-semi="% Cumplimiento Cuota = DIVIDE(SUM('2_Fact_Operaciones_BI'[Venta_Real_Soles]); SUM('2_Fact_Operaciones_BI'[Cuota_Meta_Soles]); 0)">% Cumplimiento Cuota = DIVIDE(SUM('2_Fact_Operaciones_BI'[Venta_Real_Soles]), SUM('2_Fact_Operaciones_BI'[Cuota_Meta_Soles]), 0)</div>
+
+            <p style="margin-top:8px; font-weight:800; color:#fff;">2. Medida <code>Brecha Meta S/</code> (Formato Moneda <code>S/</code>):</p>
+            <div class="formula-pill">Brecha Meta S/ = SUM('2_Fact_Operaciones_BI'[Venta_Real_Soles]) - SUM('2_Fact_Operaciones_BI'[Cuota_Meta_Soles])</div>
+
+            <p style="margin-top:8px; font-weight:800; color:#fff;">3. Medida <code>% Cobertura CheckPDV</code> (Formato <code>%</code>):</p>
+            <div class="formula-pill" data-comma="% Cobertura CheckPDV = DIVIDE(SUM('2_Fact_Operaciones_BI'[Visitas_CheckPDV_OK]), SUM('2_Fact_Operaciones_BI'[Visitas_Programadas]), 0)" data-semi="% Cobertura CheckPDV = DIVIDE(SUM('2_Fact_Operaciones_BI'[Visitas_CheckPDV_OK]); SUM('2_Fact_Operaciones_BI'[Visitas_Programadas]); 0)">% Cobertura CheckPDV = DIVIDE(SUM('2_Fact_Operaciones_BI'[Visitas_CheckPDV_OK]), SUM('2_Fact_Operaciones_BI'[Visitas_Programadas]), 0)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 11: LAB 03 - SEMÁFORO SWITCH CON EMOJIS Y TÍTULO DINÁMICO ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">LAB 03 · MEDIDAS DAX DE IMPACTO VISUAL (EL SECRETO DE LOS DASHBOARDS PRO)</span>
+        <h2 class="slide-h2">Semáforo Ejecutivo con <code>SWITCH(TRUE())</code> y Título Dinámico Inteligente</h2>
+        <p class="lead">
+          ¿Cómo logramos que una matriz de Power BI muestre automáticamente alertas visuales **🟢 / 🟡 / 🔴** y que el título del reporte cambie solo al elegir una Zona o Supervisor? Con estas dos medidas generadas por Copilot:
+        </p>
+
+        <div class="grid-2">
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">🤖 PROMPT PARA SEMÁFORO Y TÍTULO DINÁMICO</span>
+              <button class="btn-copy" onclick="copyText('promptDaxSemaforo')">📋 Copiar Prompt Semáforo DAX</button>
+            </div>
+            <div class="prompt-text" id="promptDaxSemaforo">Usando la medida [% Cumplimiento Cuota] que ya creamos en la tabla '2_Fact_Operaciones_BI', escríbeme 2 medidas DAX adicionales:
+1) [Semaforo Cumplimiento]: Usa una variable VAR Pct = [% Cumplimiento Cuota] y la función SWITCH(TRUE(), ...) para devolver:
+   - Si Pct >= 1: "🟢 SOBRECUMPLE (>=100%)"
+   - Si Pct >= 0.90: "🟡 EN RIESGO (90%-99%)"
+   - Si es menor a 0.90: "🔴 CRITICO (<90%)"
+2) [Titulo Dinamico Dashboard]: Usa SELECTEDVALUE('2_Fact_Operaciones_BI'[Zona_Geografica], "Todas las Zonas Nacionales") para mostrar un texto dinámico con la zona seleccionada y su % de cumplimiento formateado con FORMAT([% Cumplimiento Cuota], "0.0%").</div>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>🌟 Pega estas 2 Medidas de Alto Impacto:</h3>
+
+            <p style="margin-top:4px; font-weight:800; color:#fff;">4. Medida <code>Semaforo Cumplimiento</code> (Con Emojis):</p>
+            <div class="formula-pill" data-comma='Semaforo Cumplimiento = 
+VAR Pct = [% Cumplimiento Cuota]
+RETURN
+SWITCH(
+    TRUE(),
+    Pct >= 1, "🟢 SOBRECUMPLE (>=100%)",
+    Pct >= 0.90, "🟡 EN RIESGO (90%-99%)",
+    "🔴 CRITICO (<90%)"
+)' data-semi='Semaforo Cumplimiento = 
+VAR Pct = [% Cumplimiento Cuota]
+RETURN
+SWITCH(
+    TRUE();
+    Pct >= 1; "🟢 SOBRECUMPLE (>=100%)";
+    Pct >= 0.90; "🟡 EN RIESGO (90%-99%)";
+    "🔴 CRITICO (<90%)"
+)'>Semaforo Cumplimiento = 
+VAR Pct = [% Cumplimiento Cuota]
+RETURN
+SWITCH(
+    TRUE(),
+    Pct &gt;= 1, "🟢 SOBRECUMPLE (&gt;=100%)",
+    Pct &gt;= 0.90, "🟡 EN RIESGO (90%-99%)",
+    "🔴 CRITICO (&lt;90%)"
+)</div>
+
+            <p style="margin-top:8px; font-weight:800; color:#fff;">5. Medida <code>Titulo Dinamico Dashboard</code>:</p>
+            <div class="formula-pill" data-comma='Titulo Dinamico Dashboard = "📊 Estado Operativo: " & SELECTEDVALUE(&apos;2_Fact_Operaciones_BI&apos;[Zona_Geografica], "Consolidado Nacional") & " | Cumplimiento: " & FORMAT([% Cumplimiento Cuota], "0.0%")' data-semi='Titulo Dinamico Dashboard = "📊 Estado Operativo: " & SELECTEDVALUE(&apos;2_Fact_Operaciones_BI&apos;[Zona_Geografica]; "Consolidado Nacional") & " | Cumplimiento: " & FORMAT([% Cumplimiento Cuota]; "0.0%")'>Titulo Dinamico Dashboard = "📊 Estado Operativo: " &amp; SELECTEDVALUE('2_Fact_Operaciones_BI'[Zona_Geografica], "Consolidado Nacional") &amp; " | Cumplimiento: " &amp; FORMAT([% Cumplimiento Cuota], "0.0%")</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 12: MAQUETA VISUAL DEL DASHBOARD EN 5 MINUTOS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">DISEÑO EJECUTIVO EN POWER BI · ARMA TU TABLERO EN 5 MINUTOS</span>
+        <h2 class="slide-h2">Estructura Visual Recomendada para tu Dashboard de Operaciones</h2>
+        <p class="lead">
+          Arrastra tus medidas recién creadas siguiendo este mapa de 3 niveles para que tu tablero responda en 5 segundos cualquier pregunta del gerente de cuenta:
+        </p>
+
+        <!-- Mockup interactivo del Dashboard -->
+        <div style="background:#081223; border:1px solid rgba(56,189,248,0.4); border-radius:14px; padding:14px 16px;">
+          <!-- Barra de Título Dinámico + Segmentador -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.12); margin-bottom:12px;">
+            <div style="font-weight:800; font-size:13.5px; color:#fff;">
+              📊 Estado Operativo: <span style="color:#38BDF8;">Consolidado Nacional</span> | Cumplimiento: <span style="color:#6EE7B7;">95.3%</span> <span style="font-size:11px; color:#94A3B8;">(Tarjeta con medida [Titulo Dinamico Dashboard])</span>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(218,41,28,0.2); border:1px solid #DA291C; padding:4px 10px; border-radius:6px; color:#FCA5A5;">
+              🎛️ Segmentadores (Slicers): [Zona_Geografica] · [Supervisor]
+            </div>
+          </div>
+
+          <!-- 4 KPI Cards -->
+          <div class="grid-4" style="margin-bottom:12px;">
+            <div style="background:#112240; border-top:3px solid #2563EB; padding:10px 12px; border-radius:9px;">
+              <div style="font-size:10.5px; color:#94A3B8; font-weight:700;">VENTA REAL ACUMULADA</div>
+              <div style="font-size:20px; font-weight:900; color:#fff;">S/ 727,850</div>
+              <div style="font-size:10.5px; color:#93C5FD;">Meta: S/ 763,500</div>
+            </div>
+            <div style="background:#112240; border-top:3px solid #F59E0B; padding:10px 12px; border-radius:9px;">
+              <div style="font-size:10.5px; color:#94A3B8; font-weight:700;">% CUMPLIMIENTO CUOTA</div>
+              <div style="font-size:20px; font-weight:900; color:#FDE68A;">95.3 %</div>
+              <div style="font-size:10.5px; color:#FDE68A;">🟡 EN RIESGO (90%-99%)</div>
+            </div>
+            <div style="background:#112240; border-top:3px solid #DA291C; padding:10px 12px; border-radius:9px;">
+              <div style="font-size:10.5px; color:#94A3B8; font-weight:700;">BRECHA META SOLES</div>
+              <div style="font-size:20px; font-weight:900; color:#FCA5A5;">-S/ 35,650</div>
+              <div style="font-size:10.5px; color:#FCA5A5;">Foco: Macro Sur (-S/ 24.5K)</div>
+            </div>
+            <div style="background:#112240; border-top:3px solid #10B981; padding:10px 12px; border-radius:9px;">
+              <div style="font-size:10.5px; color:#94A3B8; font-weight:700;">% COBERTURA CHECK-PDV</div>
+              <div style="font-size:20px; font-weight:900; color:#6EE7B7;">93.4 %</div>
+              <div style="font-size:10.5px; color:#6EE7B7;">564 / 604 Visitas OK</div>
+            </div>
+          </div>
+
+          <!-- Matriz Resumen por Zona -->
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Zona_Geografica</th>
+                <th>Supervisor</th>
+                <th>Cuota_Meta_Soles</th>
+                <th>Venta_Real_Soles</th>
+                <th>% Cumplimiento Cuota</th>
+                <th>Brecha Meta S/</th>
+                <th>% Cobertura CheckPDV</th>
+                <th>Semaforo Cumplimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lima Centro</strong></td>
+                <td>Jorge Luis Paredes</td>
+                <td>S/ 257,000</td>
+                <td>S/ 270,650</td>
+                <td><strong>105.3%</strong></td>
+                <td style="color:#6EE7B7;">+S/ 13,650</td>
+                <td>97.8%</td>
+                <td>🟢 SOBRECUMPLE (&gt;=100%)</td>
+              </tr>
+              <tr>
+                <td><strong>Lima Este</strong></td>
+                <td>Patricia Huamán</td>
+                <td>S/ 113,000</td>
+                <td>S/ 114,200</td>
+                <td><strong>101.1%</strong></td>
+                <td style="color:#6EE7B7;">+S/ 1,200</td>
+                <td>95.0%</td>
+                <td>🟢 SOBRECUMPLE (&gt;=100%)</td>
+              </tr>
+              <tr>
+                <td><strong>Lima Norte</strong></td>
+                <td>Roberto Sánchez</td>
+                <td>S/ 149,000</td>
+                <td>S/ 144,900</td>
+                <td><strong>97.2%</strong></td>
+                <td style="color:#FDE68A;">-S/ 4,100</td>
+                <td>94.4%</td>
+                <td>🟡 EN RIESGO (90%-99%)</td>
+              </tr>
+              <tr>
+                <td><strong>Macro Norte</strong></td>
+                <td>Patricia Huamán</td>
+                <td>S/ 75,500</td>
+                <td>S/ 72,800</td>
+                <td><strong>96.4%</strong></td>
+                <td style="color:#FDE68A;">-S/ 2,700</td>
+                <td>92.0%</td>
+                <td>🟡 EN RIESGO (90%-99%)</td>
+              </tr>
+              <tr>
+                <td><strong>Macro Sur</strong></td>
+                <td>Valeria Gómez</td>
+                <td>S/ 137,000</td>
+                <td>S/ 112,500</td>
+                <td><strong style="color:#FCA5A5;">82.1%</strong></td>
+                <td style="color:#FCA5A5;">-S/ 24,500</td>
+                <td style="color:#FCA5A5;">80.8%</td>
+                <td>🔴 CRITICO (&lt;90%)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 13: BLOQUE 3 - EL PUENTE DE POWER BI A WORD ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">BLOQUE 3 · DE LOS GRÁFICOS DE POWER BI AL INFORME EJECUTIVO EN WORD</span>
+        <h2 class="slide-h2">Cómo Transformar tu Matriz de Power BI en un Informe Gerencial en 30 Segundos</h2>
+        <p class="lead">
+          Un Dashboard muestra <strong>qué pasó</strong>, pero el Comité Directivo y el Cliente exigen un <strong>Informe Ejecutivo en Word/PDF</strong> que explique <strong>por qué pasó y qué acciones correctivas tomaremos mañana</strong>.
+        </p>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📊</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">PASO 1 EN POWER BI</span>
+              <span class="flow-step-title">Clic derecho en tu Matriz</span>
+              <span class="flow-step-sub">"Copiar visuales / tabla"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">PASO 2 EN COPILOT</span>
+              <span class="flow-step-title">Pegar Tabla + Prompt Ejecutivo</span>
+              <span class="flow-step-sub">Estructura en 3 secciones</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📑</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">PASO 3 EN WORD</span>
+              <span class="flow-step-title">Pegar en Modelo Word + Macro PDF</span>
+              <span class="flow-step-sub">Entregable oficial cerrado</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Resumen Ejecutivo Global</h3>
+            <p>Síntesis de Venta Real (`S/ 727,850` vs. Meta `S/ 763,500`), Cumplimiento (`95.3%`) y reconocimiento a las zonas sobrecumplidas (`Lima Centro 105.3%` y `Lima Este 101.1%`).</p>
+          </div>
+          <div class="card accent-red">
+            <h3>2️⃣ Diagnóstico de Desviación</h3>
+            <p>Foco analítico en <strong>Macro Sur (`82.1%`, brecha de `-S/ 24,500`)</strong> conectando la baja cobertura de marcación `Check-PDV` (`80.8%`) con las observaciones en Arequipa y Cusco.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>3️⃣ Plan de Acción Adecco</h3>
+            <p>Compromisos medibles: envío diario de cartas de descargo automatizadas (Bloque 1), refuerzo de supervisión en campo y reposición de stock de Equipos Liberados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 14: LAB 04 - PROMPT DE INFORME EJECUTIVO EN WORD ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">LAB 04 · PROMPT LISTO PARA REDACTAR EL INFORME EJECUTIVO MENSUAL</span>
+        <h2 class="slide-h2">Genera el Informe Ejecutivo con Copilot y Pégalo en Word</h2>
+        <p class="lead">
+          Copia este prompt (ya incluye los resultados exactos de nuestro modelo de Power BI) y pégalo en Copilot para obtener el informe listo para llevar a <code>Modelo_Informe_y_Cartas_Adecco_S2.docx</code>:
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🤖 COPIAR Y PEGAR EN COPILOT PARA GENERAR EL INFORME WORD</span>
+            <button class="btn-copy" onclick="copyText('promptExecutiveWord')">📋 Copiar Prompt Informe Ejecutivo</button>
+          </div>
+          <div class="prompt-text" id="promptExecutiveWord">Actúa como Gerente de Operaciones y Business Intelligence de Adecco Perú para la cuenta Sales & Marketing (Canal Cadenas y Retail).
+A partir de esta matriz consolidada de nuestro Dashboard en Power BI (Noviembre 2026):
+- Consolidado Nacional: Venta Real S/ 727,850 vs. Cuota Meta S/ 763,500 (Cumplimiento: 95.3% | Brecha: -S/ 35,650 | Cobertura Check-PDV: 93.4%).
+- Lima Centro (Sup. Jorge Paredes): S/ 270,650 vs. S/ 257,000 (105.3% - 🟢 SOBRECUMPLE | Check-PDV: 97.8%).
+- Lima Este (Sup. Patricia Huamán): S/ 114,200 vs. S/ 113,000 (101.1% - 🟢 SOBRECUMPLE | Check-PDV: 95.0%).
+- Lima Norte (Sup. Roberto Sánchez): S/ 144,900 vs. S/ 149,000 (97.2% - 🟡 EN RIESGO | Check-PDV: 94.4%).
+- Macro Norte (Sup. Patricia Huamán): S/ 72,800 vs. S/ 75,500 (96.4% - 🟡 EN RIESGO | Check-PDV: 92.0%).
+- Macro Sur (Sup. Valeria Gómez): S/ 112,500 vs. S/ 137,000 (82.1% - 🔴 CRÍTICO | Brecha: -S/ 24,500 | Check-PDV: 80.8% | Penalidades en riesgo: S/ 2,028 en Arequipa y Cusco).
+
+Redacta un Informe Ejecutivo formal en Microsoft Word estructurado en 4 bloques listos para presentar al Cliente:
+1) RESUMEN EJECUTIVO DEL PERIODO: Desempeño global y zonas líderes.
+2) TABLA RESUMEN GERENCIAL: Con semáforos y brechas en Soles.
+3) ANÁLISIS DE CAUSA RAÍZ (FOCO MACRO SUR): Explicación técnica vinculando la caída en cobertura Check-PDV (80.8%) y quiebres de stock con la brecha de -S/ 24,500.
+4) PLAN DE ACCIÓN INMEDIATO (3 COMPROMISOS): Incluyendo el despliegue de nuestra nueva automatización de Cartas de Descargo y Control Check-PDV en menos de 24 horas.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 15: LAB 05 - MACRO EN WORD PARA EXPORTAR A PDF OFICIAL ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LAB 05 · MACRO DIRECTA EN MICROSOFT WORD</span>
+        <h2 class="slide-h2">Macro en Word para Sellar Pie de Página y Exportar a PDF con 1 Clic</h2>
+        <p class="lead">
+          También puedes usar <code>Alt + F11</code> directamente dentro de <strong>Microsoft Word</strong>. Esta macro agrega automáticamente el pie de página de confidencialidad de Adecco y exporta tu informe a un PDF inalterable con la fecha del día:
+        </p>
+
+        <div class="prompt-box" style="border-color:rgba(16,185,129,0.5);">
+          <div class="prompt-header">
+            <span class="prompt-tag" style="color:#6EE7B7;">📄 CÓDIGO VBA PARA MICROSOFT WORD — Sub ExportarInformePDF_Adecco()</span>
+            <button class="btn-copy green" onclick="copyText('vbaWordDirectPDF')">📋 Copiar Macro para Word</button>
+          </div>
+          <div class="prompt-text" id="vbaWordDirectPDF">Sub ExportarInformePDF_Adecco()
+    Dim rutaCarpeta As String
+    Dim nombrePDF As String
+    Dim sec As Section
+
+    ' 1. Insertar pie de pagina corporativo automatico en todas las secciones
+    For Each sec In ActiveDocument.Sections
+        With sec.Footers(1).Range ' 1 = wdHeaderFooterPrimary
+            .Text = "ADECCO PERU S.A. · Sales & Marketing | Informe Ejecutivo Confidencial | Generado el " & Format(Date, "dd/mm/yyyy")
+            .Font.Name = "Segoe UI"
+            .Font.Size = 8.5
+            .Font.Color = RGB(100, 116, 139)
+            .ParagraphFormat.Alignment = 1 ' Centrado
+        End With
+    Next sec
+
+    ' 2. Definir carpeta de salida (Escritorio o carpeta del documento)
+    If Len(ActiveDocument.Path) > 0 Then
+        rutaCarpeta = ActiveDocument.Path & Application.PathSeparator
+    Else
+        rutaCarpeta = CreateObject("WScript.Shell").SpecialFolders("Desktop") & Application.PathSeparator
+    End If
+
+    nombrePDF = rutaCarpeta & "Informe_Ejecutivo_Adecco_SM_" & Format(Date, "yyyymmdd") & ".pdf"
+
+    ' 3. Exportar a PDF de alta calidad y abrirlo en pantalla
+    ActiveDocument.ExportAsFixedFormat OutputFileName:=nombrePDF, _
+        ExportFormat:=17, _
+        OpenAfterExport:=True
+
+    MsgBox "¡Informe Ejecutivo sellado y exportado con exito a PDF!" & vbCrLf & nombrePDF, vbInformation, "Adecco AI Co-Pilot Lab"
+End Sub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 16: CIERRE + IDEAS PROYECTO FINAL + ARENA KAHOOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">CIERRE DE LA SESIÓN 02 · RUMBO AL CONCURSO FINAL Y ARENA KAHOOT LIVE</span>
+        <h2 class="slide-h2">¿Cómo Integrar Excel + Word + Power BI en su Proyecto Final?</h2>
+        <p class="lead">
+          Para la <strong>Sustentación Final del Lunes 23 de Noviembre (🥇 1.° S/ 300 · 🥈 2.° S/ 200)</strong>, los equipos que combinen su automatización de Excel con generación de Cartas en Word o un Dashboard DAX en Power BI tendrán puntaje extra en impacto operativo:
+        </p>
+
+        <div class="grid-3" style="margin-bottom:14px;">
+          <div class="card accent-cyan">
+            <h3>🏆 Idea 1: Liquidaciones &amp; Cadenas</h3>
+            <p>Cruce automático Sistema vs. Tienda en Excel + <strong>Macro que emite las Cartas de Descargo en PDF por cada PDV observado</strong> + Tablero DAX de penalidades recuperadas.</p>
+          </div>
+          <div class="card accent-amber">
+            <h3>🏆 Idea 2: Operaciones &amp; Asistencia</h3>
+            <p>Auditoría de marcación <strong>GPS + Check-PDV</strong> + <strong>Emisión automática de Memorándums o Reconocimientos Top Ventas en Word</strong> + Semáforo DAX por Supervisor.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>🏆 Idea 3: Logística &amp; RRHH</h3>
+            <p>Control de <strong>IMEIs / Equipos asignados</strong> + <strong>Macro generadora de Actas de Entrega listas para firmar en PDF</strong> + Dashboard de cobertura y rotación.</p>
+          </div>
+        </div>
+
+        <div class="cta-row" style="justify-content:center;">
+          <a href="kahoot.html" class="cta-btn" style="background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5; font-size:14.5px; padding:12px 24px; box-shadow:0 8px 25px rgba(218,41,28,0.5);">
+            ⚡ LANZAR ARENA KAHOOT LIVE — SESIÓN 02
+          </a>
+          <a href="Practica_Clase02_BI_Word_Adecco.xlsx" download class="cta-btn" style="background:#107C41; border-color:#33C481;">
+            📗 Descargar Excel S2 (.xlsx)
+          </a>
+          <a href="Tema_Corporativo_Adecco_PowerBI.json" download class="cta-btn" style="background:#D97706; border-color:#FDE68A;">
+            🎨 Tema Power BI (.json)
+          </a>
+          <a href="index.html" class="cta-btn" style="background:#1E293B; border-color:#38BDF8; color:#38BDF8;">
+            🏠 Volver al Portal del Programa
+          </a>
         </div>
       </div>
     </section>
@@ -604,48 +1498,79 @@ End Sub</div>
 
   <!-- BOTTOM BAR -->
   <footer class="bottombar">
-    <button class="nav-btn" id="btnPrev" onclick="prevSlide()">◀ Anterior</button>
-    <div class="slide-counter" id="slideIndicator">DIAPOSITIVA 1 / 9</div>
-    <button class="nav-btn" id="btnNext" onclick="nextSlide()">Siguiente ▶</button>
+    <div class="slide-counter" id="slideCounter">Diapositiva 01 / 16</div>
+    <div style="font-size:12.2px; color:#94A3B8;">
+      Usa las flechas <strong>⬅️ ➡️</strong> · Ponente: <strong style="color:#38BDF8;">Lic. Jhoan Taboada Huamán</strong> (BI Analyst — Adecco Perú)
+    </div>
+    <div class="nav-btns">
+      <a href="index.html" class="btn-nav" style="text-decoration:none; background:rgba(218,41,28,0.2); border-color:#DA291C; color:#FCA5A5;">🏠 Portal</a>
+      <button class="btn-nav" onclick="changeSlide(-1)">⬅️ Anterior</button>
+      <button class="btn-nav primary" onclick="changeSlide(1)">Siguiente ➡️</button>
+    </div>
   </footer>
 
-  <!-- COPIED TOAST -->
-  <div class="toast" id="toast">✓ ¡Copiado al portapapeles!</div>
+  <div class="toast" id="toastMsg">✅ ¡Copiado al portapapeles! Listo para pegar en Copilot, Excel, Word o Power BI</div>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slideCounter');
+    const progressEl = document.getElementById('progressBar');
     let currentIndex = 0;
+    let useSemi = false;
 
-    function showSlide(index) {
-      if (index < 0) index = 0;
-      if (index >= slides.length) index = slides.length - 1;
-      slides.forEach((s, idx) => {
-        s.classList.toggle('active', idx === index);
-      });
-      currentIndex = index;
-      document.getElementById('slideIndicator').textContent = `DIAPOSITIVA ${currentIndex + 1} / ${slides.length}`;
-      document.getElementById('btnPrev').disabled = currentIndex === 0;
-      document.getElementById('btnNext').disabled = currentIndex === slides.length - 1;
+    function updateDeck() {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentIndex));
+      const num = String(currentIndex + 1).padStart(2, '0');
+      const total = String(slides.length).padStart(2, '0');
+      counterEl.textContent = `Diapositiva ${num} / ${total}`;
+      progressEl.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
     }
 
-    function prevSlide() { showSlide(currentIndex - 1); }
-    function nextSlide() { showSlide(currentIndex + 1); }
+    function changeSlide(delta) {
+      const next = currentIndex + delta;
+      if (next >= 0 && next < slides.length) {
+        currentIndex = next;
+        updateDeck();
+      }
+    }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
-      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
     });
 
-    function copyPrompt(elementId) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const t = document.getElementById('toast');
-        t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 2200);
+    function toggleSep() {
+      useSemi = !useSemi;
+      const label = document.getElementById('sepLabel');
+      label.textContent = useSemi ? '; (Punto y coma)' : ', (Coma)';
+      document.querySelectorAll('.formula-pill[data-comma]').forEach(el => {
+        el.textContent = useSemi ? el.getAttribute('data-semi') : el.getAttribute('data-comma');
       });
     }
 
-    showSlide(0);
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      let text = el.innerText;
+      if (useSemi && (elementId === 'promptDaxBasicas' || elementId === 'promptDaxSemaforo')) {
+        text = text.replace(/coma ","/gi, 'punto y coma ";"').replace(/,/g, ';');
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toastMsg');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    document.querySelectorAll('.slide p, .slide li').forEach(el => {
+      if (!el.closest('.prompt-box')) {
+        el.innerHTML = el.innerHTML
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/`([^`]+)`/g, '<code style="background:rgba(56,189,248,0.14);padding:1px 5px;border-radius:4px;font-family:monospace;color:#38BDF8;">$1</code>');
+      }
+    });
+
+    updateDeck();
   </script>
 </body>
 </html>

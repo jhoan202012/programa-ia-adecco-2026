@@ -823,8 +823,8 @@
           <button class="btn-top" onclick="returnLobby()" style="padding:12px 20px; font-size:14px;">
             🔄 Jugar Nueva Ronda
           </button>
-          <a href="clase1.html" class="btn-top" style="padding:12px 20px; font-size:14px; background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5; color:#fff;">
-            🚀 Volver a la Presentación
+          <a href="clase2.html" class="btn-top" style="padding:12px 20px; font-size:14px; background:linear-gradient(135deg,#2563EB,#1D4ED8); border-color:#93C5FD; color:#fff;">
+            🚀 Volver a la Clase 02
           </a>
         </div>
       </div>
@@ -940,103 +940,103 @@
         ]
       },
       {
-        title: "Sesión 02 — Power BI, Word & Reportería DAX",
+        title: "Sesión 02 — Excel a Word (Cartas VBA), Power BI DAX & Reportes",
         questions: [
           {
-            cat: "SESIÓN 02 · POWER BI & DAX",
-            q: "¿Cómo ayuda Copilot a formular medidas en Power BI para el seguimiento de puntos de venta?",
+            cat: "SESIÓN 02 · EXCEL VBA A WORD DESDE CERO",
+            q: "¿Qué instrucción de VBA permite que Excel abra Microsoft Word y cree cartas desde cero sin requerir ninguna plantilla previa?",
             opts: [
-              "Generando expresiones DAX (cobertura, cumplimiento, rotación) a partir de los nombres de tus tablas y campos",
-              "Creando presentaciones sin datos",
-              "Modificando la tarjeta gráfica",
-              "Eliminando las relaciones del modelo"
+              "CreateObject(\"Word.Application\") con Late Binding",
+              "BUSCARV(\"Word.docx\")",
+              "Format(Date, \"yyyymmdd\")",
+              "No es posible conectar Excel con Word"
             ],
             ans: 0,
-            exp: "Copilot redacta medidas DAX complejas explicándote cada función (CALCULATE, DIVIDE, FILTER) adaptada a tu modelo de datos."
+            exp: "CreateObject(\"Word.Application\") inicia Word directamente desde la macro de Excel, creando documentos y saltos de página sin depender de plantillas externas."
           },
           {
-            cat: "SESIÓN 02 · INFORMES EN WORD",
-            q: "¿Cómo agiliza Microsoft Word con IA la redacción de informes ejecutivos de fin de mes?",
+            cat: "SESIÓN 02 · FILTRO DE CARTAS MASIVAS",
+            q: "En la hoja '1_Cartas_Word_Macro', ¿cómo evita la macro emitir cartas para casos que ya fueron cerrados o regularizados?",
             opts: [
-              "Copiando y pegando datos sin formato",
-              "Transformando tablas numéricas en un resumen narrativo estructurado (contexto, causas y plan de acción) en segundos",
-              "Omitiendo la sección de conclusiones",
-              "Imprimiendo en blanco y negro"
+              "Borrando toda la hoja antes de ejecutar",
+              "Evaluando con un condicional If que la columna L (Emitir_Carta) sea exactamente igual a 'SI'",
+              "Imprimiendo todas las filas sin excepción",
+              "Ocultando las columnas con color blanco"
             ],
             ans: 1,
-            exp: "Word + Copilot permite convertir métricas operativas en un resumen ejecutivo formal alineado a la imagen de Adecco."
+            exp: "El filtro condicional en el bucle For garantiza que solo se redacten y exporten las cartas de los casos activos marcados con 'SI'."
           },
           {
-            cat: "SESIÓN 02 · CALIDAD DE DATOS",
-            q: "¿Por qué es crucial que la base de datos de origen esté limpia antes de cargarla a Power BI?",
+            cat: "SESIÓN 02 · TEMA CORPORATIVO POWER BI",
+            q: "¿Cuál es la forma más rápida de aplicar los colores oficiales de Adecco (#DA291C y #0B172A) a todo un Dashboard de Power BI?",
             opts: [
-              "Para evitar duplicados y errores de relación en las medidas calculadas",
-              "Solo para que el archivo ocupe menos espacio",
-              "Porque Power BI no admite fechas",
-              "No tiene relevancia"
-            ],
-            ans: 0,
-            exp: "Un modelo tabular limpio y sin celdas combinadas asegura que los dashboards se actualicen sin errores de cálculo."
-          },
-          {
-            cat: "SESIÓN 02 · AUTOMATIZACIÓN PDF",
-            q: "¿Qué ventaja tiene automatizar la exportación a PDF desde Word mediante macro?",
-            opts: [
-              "Asegura nomenclatura estándar, formato no editable y reduce el tiempo manual de entrega al cliente",
-              "Aumenta el tamaño del archivo innecesariamente",
-              "Desconfigura las fuentes",
-              "Ninguna"
-            ],
-            ans: 0,
-            exp: "Estandariza los entregables corporativos garantizando que el cliente reciba un archivo formal y protegido."
-          },
-          {
-            cat: "SESIÓN 02 · MÉTRICAS DE IMPACTO",
-            q: "Al presentar una desviación en el cumplimiento de cobertura, ¿cuál es la estructura de comunicación ejecutiva?",
-            opts: [
-              "Pegar tablas extensas sin conclusiones",
-              "Métrica visual clara + Explicación de causa raíz + Acción correctiva acordada con la cuenta",
-              "Omitir el porcentaje real",
-              "Cambiar de tema"
+              "Pintar manualmente barra por barra durante media hora",
+              "Importar el archivo Tema_Corporativo_Adecco_PowerBI.json desde la pestaña Ver -> Temas -> Buscar temas",
+              "Tomar una foto y pegarla de fondo",
+              "Reinstalar Power BI Desktop"
             ],
             ans: 1,
-            exp: "La reportería de alto valor en Adecco combina el dato exacto con la interpretación y la propuesta de solución."
+            exp: "Un archivo de tema .json generado con IA estandariza colores, fuentes y bordes redondeados de todo el reporte en un solo clic."
           },
           {
             cat: "SESIÓN 02 · CÁLCULO SEGURO EN DAX",
-            q: "¿Por qué en DAX siempre se debe formular con DIVIDE(Numerador, Denominador, 0) en lugar del operador /?",
+            q: "¿Por qué en DAX siempre se debe formular el % de Cumplimiento con DIVIDE(Numerador, Denominador, 0) en lugar del operador /?",
             opts: [
-              "Para evitar errores de división entre cero cuando no hay ventas o visitas en una tienda o supervisor",
+              "Para manejar automáticamente divisiones entre cero o nulos sin mostrar errores 'Infinity' o 'NaN' en las tarjetas",
               "Porque el símbolo / está prohibido en Power BI",
-              "Solo para que la fórmula sea más larga",
-              "Para cambiar el idioma de la aplicación"
+              "Solo para que la fórmula se vea más extensa",
+              "Para cambiar el idioma del reporte"
             ],
             ans: 0,
-            exp: "DIVIDE maneja automáticamente los denominadores en cero o nulos, evitando que las tarjetas y gráficos muestren errores 'Infinity' o 'NaN'."
+            exp: "DIVIDE protege las visualizaciones devolviendo 0 de forma segura cuando una tienda nueva aún no registra cuota o visitas programadas."
           },
           {
-            cat: "SESIÓN 02 · CONTEXTO DE FILTRO",
-            q: "Al seleccionar un Supervisor en el segmentador (slicer) de Power BI, ¿cómo interactúa el modelo de datos?",
+            cat: "SESIÓN 02 · SEMÁFORO EJECUTIVO DAX",
+            q: "¿Qué combinación de funciones DAX usamos con Copilot para crear el Semáforo Ejecutivo (🟢 SOBRECUMPLE, 🟡 EN RIESGO, 🔴 CRÍTICO)?",
             opts: [
-              "Borra los datos de los demás supervisores del archivo",
-              "Aplica el contexto de filtro recalculando dinámicamente todas las medidas DAX y visuales para ese supervisor",
-              "Requiere volver a cargar el archivo de Excel",
-              "Solo cambia el color de los gráficos"
+              "Variables (VAR / RETURN) combinadas con SWITCH(TRUE(), ...)",
+              "CONCATENAR y LARGO",
+              "Solo la función SUMA",
+              "Un gráfico circular sin medidas"
             ],
-            ans: 1,
-            exp: "Power BI recalcula al instante en memoria todas las medidas según el contexto de filtro activo."
+            ans: 0,
+            exp: "Declarar VAR Pct = [% Cumplimiento Cuota] y evaluar rangos con SWITCH(TRUE(), ...) hace el código DAX limpio, rápido y fácil de mantener."
           },
           {
-            cat: "SESIÓN 02 · INTEGRACIÓN S1 + S2",
-            q: "¿Cómo se integra la macro de Excel desarrollada en la Sesión 1 con el Tablero de la Sesión 2?",
+            cat: "SESIÓN 02 · TÍTULO DINÁMICO INTELIGENTE",
+            q: "¿Qué función DAX detecta qué Zona o Supervisor ha filtrado el usuario para actualizar automáticamente el título del Dashboard?",
             opts: [
-              "No tienen ninguna relación",
-              "La macro de Excel consolida y limpia la base de tiendas cada semana, sirviendo como origen de datos listo para actualizar Power BI con 1 clic",
-              "Hay que volver a escribir los datos a mano en Power BI",
-              "Obliga a imprimir la hoja antes de abrir Power BI"
+              "SELECTEDVALUE('Tabla'[Columna], \"Consolidado Nacional\")",
+              "CONTARA('Tabla'[Columna])",
+              "HOY()",
+              "ALEATORIO()"
+            ],
+            ans: 0,
+            exp: "SELECTEDVALUE captura el valor único seleccionado en el segmentador o muestra el texto por defecto ('Consolidado Nacional') si no hay filtro."
+          },
+          {
+            cat: "SESIÓN 02 · DE POWER BI A WORD CON IA",
+            q: "Al presentar una desviación como el 82.1% de cumplimiento en Macro Sur, ¿qué estructura debe tener el Informe Ejecutivo redactado en Word?",
+            opts: [
+              "Pegar únicamente capturas de pantalla sin texto",
+              "Resumen de resultados globales + Análisis de Causa Raíz (Check-PDV y stock) + Plan de Acción con plazos concretos",
+              "Omitir los datos de la zona en riesgo",
+              "Enviar la base cruda sin resumir"
             ],
             ans: 1,
-            exp: "La macro de la Sesión 1 genera el insumo limpio y estandarizado que alimenta el modelo analítico de la Sesión 2."
+            exp: "La comunicación ejecutiva transforma los indicadores del Dashboard en diagnóstico de causa raíz y compromisos accionables."
+          },
+          {
+            cat: "SESIÓN 02 · EXPORTACIÓN AUTOMÁTICA PDF",
+            q: "¿Qué método de VBA permite que tanto Excel como Word exporten directamente las cartas o el informe gerencial a formato PDF inalterable?",
+            opts: [
+              "ExportAsFixedFormat con ExportFormat:=17 (wdExportFormatPDF)",
+              "ActiveWindow.Zoom = 100",
+              "Application.Quit",
+              "MsgBox \"Hola\""
+            ],
+            ans: 0,
+            exp: "ExportAsFixedFormat genera instantáneamente el entregable en PDF oficial con nomenclatura estándar y fecha del día."
           }
         ]
       },

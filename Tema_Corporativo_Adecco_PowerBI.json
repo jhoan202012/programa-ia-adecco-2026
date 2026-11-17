@@ -1,0 +1,71 @@
+{
+  "name": "Adecco Sales & Marketing — Tema Oficial AI Co-Pilot Lab",
+  "dataColors": [
+    "#DA291C",
+    "#2563EB",
+    "#0B172A",
+    "#10B981",
+    "#F59E0B",
+    "#38BDF8",
+    "#64748B",
+    "#991B1B"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#0B172A",
+  "tableAccent": "#DA291C",
+  "good": "#10B981",
+  "neutral": "#F59E0B",
+  "bad": "#DA291C",
+  "maximum": "#2563EB",
+  "center": "#F59E0B",
+  "minimum": "#DA291C",
+  "null": "#94A3B8",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Bold",
+      "color": "#0B172A"
+    },
+    "title": {
+      "fontSize": 13,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0B172A"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0B172A"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#334155"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#FFFFFF" } },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#E2E8F0" } },
+            "radius": 10
+          }
+        ],
+        "visualHeader": [
+          {
+            "background": { "solid": { "color": "#FFFFFF" } },
+            "border": { "solid": { "color": "#E2E8F0" } }
+          }
+        ]
+      }
+    }
+  }
+}
