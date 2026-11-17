@@ -1725,8 +1725,13 @@
       activeRoomRef.on('value', snap => {
         const val = snap.val();
         const pill = document.getElementById('active-room-pill');
+        const pinInput = document.getElementById('join-pin');
         if (!val || !val.pin) {
           pill.style.display = 'none';
+          if (detectedActivePin && pinInput.value.trim() === detectedActivePin) {
+            pinInput.value = '';
+          }
+          detectedActivePin = '';
           return;
         }
         const ageMs = Date.now() - (val.createdAt || 0);
@@ -1737,7 +1742,6 @@
         detectedActivePin = String(val.pin);
         document.getElementById('active-room-text').textContent = `🟢 Sala en vivo activa: PIN ${detectedActivePin}`;
         pill.style.display = 'flex';
-        const pinInput = document.getElementById('join-pin');
         if (!pinInput.value.trim()) {
           pinInput.value = detectedActivePin;
         }
@@ -2190,11 +2194,23 @@
       }
     }
 
-    function abortHostRoom() {
+    async function abortHostRoom() {
       if (confirm('¿Deseas cerrar esta sala y volver al panel inicial?')) {
+        const pinToClose = hostState.pin;
         clearHostListeners();
         if (currentHostAnsRef) currentHostAnsRef.off();
         sessionStorage.removeItem('adecco_host_room');
+        document.getElementById('host-resume-box').style.display = 'none';
+        if (db && pinToClose) {
+          try {
+            const arSnap = await db.ref('activeRoom').once('value');
+            if (arSnap.val() && String(arSnap.val().pin) === String(pinToClose)) {
+              await db.ref('activeRoom').remove();
+            }
+            await db.ref(`rooms/${pinToClose}`).remove();
+          } catch (e) {}
+        }
+        hostState.pin = '';
         returnToEntry();
       }
     }
