@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clase 03 — Conectividad Inteligente: Power Automate, Excel, Outlook y Teams con Copilot | Lic. Jhoan Taboada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-navy: #0B172A;
+      --card-navy: #112240;
+      --card-navy-light: #183059;
+      --adecco-red: #DA291C;
+      --adecco-red-bright: #EF3326;
+      --cyan: #38BDF8;
+      --blue-pa: #0066FF;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --purple: #A855F7;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.13);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-navy);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 62px;
+      background: #081120;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      z-index: 100;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .badge-red {
+      background: var(--adecco-red);
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-pa {
+      background: rgba(0, 102, 255, 0.22);
+      border: 1px solid #38BDF8;
+      color: #7DD3FC;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 13.5px;
+      color: #fff;
+    }
+    .brand-title span { color: var(--cyan); }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+      font-size: 11.2px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-top:hover { background: rgba(255,255,255,0.14); border-color: var(--cyan); transform: translateY(-1px); }
+    .btn-top.portal {
+      background: linear-gradient(135deg, #DA291C, #991B1B);
+      border-color: #FCA5A5;
+      color: #fff;
+      font-weight: 800;
+    }
+    .btn-top.excel {
+      background: #107C41;
+      border-color: #33C481;
+      color: #fff;
+    }
+    .btn-top.automate {
+      background: linear-gradient(135deg, #0066FF, #0284C7);
+      border-color: #7DD3FC;
+      color: #fff;
+    }
+    .btn-top.copilot {
+      background: linear-gradient(135deg, #2563EB, #7C3AED);
+      border-color: #93C5FD;
+      color: #fff;
+    }
+
+    /* PROGRESS BAR */
+    .progress-track {
+      position: fixed;
+      top: 62px; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      z-index: 100;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 6%;
+      background: linear-gradient(90deg, var(--adecco-red), var(--cyan), var(--emerald));
+      transition: width 0.35s ease;
+    }
+
+    /* STAGE */
+    .deck-stage {
+      position: fixed;
+      top: 66px;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 18px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(42px);
+      transition: opacity 0.32s ease, transform 0.32s ease;
+      overflow-y: auto;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide-inner {
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* TYPOGRAPHY */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.13);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .eyebrow.red { color: #FCA5A5; background: rgba(218, 41, 28, 0.18); border-color: rgba(218, 41, 28, 0.5); }
+    .eyebrow.green { color: #6EE7B7; background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.45); }
+    .eyebrow.amber { color: #FDE68A; background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); }
+    .eyebrow.purple { color: #E9D5FF; background: rgba(168, 85, 247, 0.18); border-color: rgba(168, 85, 247, 0.48); }
+
+    h1.hero-h1 {
+      font-size: clamp(25px, 3.1vw, 39px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+    h2.slide-h2 {
+      font-size: clamp(20px, 2.3vw, 29px);
+      font-weight: 900;
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .lead {
+      font-size: 13.8px;
+      line-height: 1.5;
+      color: #CBD5E1;
+      max-width: 1060px;
+      margin-bottom: 12px;
+    }
+
+    /* GRIDS & CARDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 1024px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .slide { justify-content: flex-start; padding: 16px; }
+    }
+
+    .card {
+      background: var(--card-navy);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 17px;
+    }
+    .card.accent-red { border-left: 4px solid var(--adecco-red); }
+    .card.accent-cyan { border-left: 4px solid var(--cyan); }
+    .card.accent-green { border-left: 4px solid var(--emerald); }
+    .card.accent-amber { border-left: 4px solid var(--amber); }
+    .card.accent-purple { border-left: 4px solid var(--purple); }
+
+    .card h3 {
+      font-size: 14.8px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .card p, .card li {
+      font-size: 12.6px;
+      line-height: 1.48;
+      color: #CBD5E1;
+    }
+    .card ul { padding-left: 16px; display: flex; flex-direction: column; gap: 4px; }
+
+    /* FLOW BANNER */
+    .flow-banner {
+      background: linear-gradient(90deg, rgba(17,34,64,0.95), rgba(24,48,89,0.95));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 13px;
+      padding: 10px 15px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .flow-node {
+      flex: 1;
+      min-width: 140px;
+      background: #081223;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      padding: 8px 11px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .flow-node.active-node { border-color: var(--emerald); box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+    .flow-node.red-node { border-color: rgba(218, 41, 28, 0.65); }
+    .flow-node.amber-node { border-color: rgba(245, 158, 11, 0.65); }
+    .flow-node.purple-node { border-color: rgba(168, 85, 247, 0.65); }
+
+    .flow-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: rgba(56, 189, 248, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .flow-text { display: flex; flex-direction: column; }
+    .flow-step-tag { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 800; color: var(--cyan); text-transform: uppercase; }
+    .flow-step-title { font-size: 12.2px; font-weight: 800; color: #fff; }
+    .flow-step-sub { font-size: 10.8px; color: #94A3B8; }
+    .flow-arrow { font-size: 17px; font-weight: 900; color: var(--cyan); }
+
+    /* PROMPT & CODE BOXES */
+    .prompt-box {
+      background: #060D1A;
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      border-radius: 13px;
+      padding: 13px 15px;
+      position: relative;
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .prompt-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.8px;
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+    }
+    .btn-copy {
+      font-family: inherit;
+      font-size: 11.2px;
+      font-weight: 800;
+      padding: 5px 11px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      color: #fff;
+      border: 1px solid #93C5FD;
+      border-radius: 7px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn-copy.green { background: linear-gradient(135deg, #059669, #047857); border-color: #6EE7B7; }
+    .btn-copy.amber { background: linear-gradient(135deg, #D97706, #B45309); border-color: #FDE68A; }
+
+    .prompt-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.7px;
+      color: #E2E8F0;
+      line-height: 1.52;
+      white-space: pre-wrap;
+      max-height: 255px;
+      overflow-y: auto;
+    }
+
+    .formula-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.6px;
+      background: #060D1A;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #6EE7B7;
+      padding: 8px 11px;
+      border-radius: 8px;
+      margin-top: 4px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* MINI TABLE */
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      margin-top: 6px;
+    }
+    .mini-table th, .mini-table td {
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 8px;
+      text-align: left;
+    }
+    .mini-table th {
+      background: #081223;
+      color: var(--cyan);
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* CTA HERO BUTTONS */
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12.8px;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    /* BOTTOM BAR */
+    .bottombar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 58px;
+      background: #081120;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+    .nav-btns { display: flex; align-items: center; gap: 8px; }
+    .btn-nav {
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 8px 15px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover { background: rgba(255,255,255,0.15); border-color: var(--cyan); }
+    .btn-nav.primary {
+      background: linear-gradient(135deg, #0066FF, #0284C7);
+      border-color: #7DD3FC;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #10B981;
+      color: #042F2E;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 250;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand-left">
+      <span class="badge-red">ADECCO S&amp;M</span>
+      <span class="badge-pa">SESIÓN 03 · SALA OSLO - VIENA - DUBLÍN</span>
+      <div class="brand-title">AI Co-Pilot Lab <span>· Power Automate + Excel + Outlook + Teams</span></div>
+    </div>
+    <div class="topbar-right">
+      <a href="index.html" class="btn-top portal">🏠 Portal</a>
+      <a href="clase1.html" class="btn-top">📁 Clase 01</a>
+      <a href="clase2.html" class="btn-top">📊 Clase 02</a>
+      <a href="Practica_Clase03_PowerAutomate_Adecco.xlsx" download class="btn-top excel">📗 Excel Práctica S3</a>
+      <a href="https://make.powerautomate.com" target="_blank" class="btn-top automate">⚡ Abrir Power Automate</a>
+      <a href="https://copilot.microsoft.com" target="_blank" class="btn-top copilot">🤖 Abrir Copilot</a>
+      <a href="kahoot.html" class="btn-top" style="border-color:#F59E0B; color:#FDE68A;">⚡ Kahoot S3</a>
+    </div>
+  </header>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progressBar"></div>
+  </div>
+
+  <!-- DECK STAGE -->
+  <main class="deck-stage">
+
+    <!-- ==================== SLIDE 1: PORTADA E INSUMOS DESCARGABLES ==================== -->
+    <section class="slide active">
+      <div class="slide-inner">
+        <span class="eyebrow">SESIÓN 03 · MIÉRCOLES 18 DE NOVIEMBRE 2026 · 11:00 AM A 1:00 PM · SALA OSLO - VIENA - DUBLÍN</span>
+        <h1 class="hero-h1">
+          Conectividad Inteligente: <span style="color:#38BDF8;">Power Automate</span>, <span style="color:#34D399;">Excel</span>, <span style="color:#60A5FA;">Outlook</span> y <span style="color:#C084FC;">Teams</span> con Copilot
+        </h1>
+        <p class="lead">
+          En las Sesiones 01 y 02 automatizamos nuestros reportes en Excel, creamos cartas en Word y armamos tableros en Power BI. Hoy cerraremos el ciclo haciendo que **las alertas y notificaciones viajen solas a los Supervisores por Correo y Teams** sin persecución manual.
+        </p>
+
+        <div class="grid-3">
+          <div class="card accent-cyan">
+            <h3>⚡ Bloque 1: Flujos en Power Automate Cloud</h3>
+            <p>Cómo conectar una <strong>Tabla Oficial de Excel (`Tabla_Incidencias`)</strong> en OneDrive con Power Automate usando disparadores, filtros anti-spam (<code>Estado = PENDIENTE</code>) y alertas automáticas.</p>
+          </div>
+          <div class="card accent-purple">
+            <h3>🎨 Bloque 2: Tarjetas HTML y Fechas con Copilot</h3>
+            <p>Usa Copilot para generar el diseño HTML corporativo del correo en Outlook, evita el error de fechas numéricas (<code>46344</code> ➔ <code>ISO 8601</code>) y audita el historial de ejecución.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>📧 Bloque 3: Plan Todoterreno Excel ➔ Outlook Local</h3>
+            <p>¿Tu archivo no está en OneDrive? Te llevamos también la <strong>Macro VBA que conecta Excel directo con tu Outlook de escritorio</strong> para crear los correos HTML en 1 clic.</p>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a href="Practica_Clase03_PowerAutomate_Adecco.xlsx" download class="cta-btn" style="background:#107C41; border-color:#33C481;">
+            📗 1. Descargar Excel Práctica S3 (Con Tabla_Incidencias)
+          </a>
+          <a href="https://make.powerautomate.com" target="_blank" class="cta-btn" style="background:linear-gradient(135deg,#0066FF,#0284C7); border-color:#7DD3FC;">
+            ⚡ 2. Abrir Power Automate (make.powerautomate.com)
+          </a>
+          <a href="https://copilot.microsoft.com" target="_blank" class="cta-btn" style="background:linear-gradient(135deg,#2563EB,#7C3AED); border-color:#93C5FD;">
+            🤖 3. Abrir Microsoft Copilot
+          </a>
+          <a href="kahoot.html" class="cta-btn" style="background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5;">
+            ⚡ 4. Ir a la Arena Kahoot S3
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: CONEXIÓN S1 + S2 + S3 ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">EL ECOSISTEMA COMPLETO DE AUTOMATIZACIÓN EN ADECCO S&amp;M</span>
+        <h2 class="slide-h2">De Procesar Datos Manualmente a un Sistema que Notifica Solo</h2>
+        <p class="lead">
+          Observa cómo se unen las 3 sesiones para construir el proyecto que presentarán este <strong>Lunes 23 de Noviembre (Premios: 1.° S/ 300 y 2.° S/ 200)</strong>:
+        </p>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">SESIÓN 01 (EXCEL + VBA)</span>
+              <span class="flow-step-title">Detecta y Limpia</span>
+              <span class="flow-step-sub">Asistencia, Tickets y Pendientes</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">📊</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">SESIÓN 02 (WORD + POWER BI)</span>
+              <span class="flow-step-title">Analiza y Documenta</span>
+              <span class="flow-step-sub">Cartas PDF + Semáforo DAX</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">⚡</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">SESIÓN 03 (POWER AUTOMATE)</span>
+              <span class="flow-step-title">Notifica y Da Seguimiento</span>
+              <span class="flow-step-sub">Correos Outlook + Alertas Teams</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card accent-red">
+            <h3>❌ Antes (Persecución Manual Diaria)</h3>
+            <ul>
+              <li>Filtrar en Excel cada supervisor uno por uno a las 8:30 AM.</li>
+              <li>Copiar la tabla, abrir Outlook, buscar correos, redactar el texto y pegar capturas 15 veces seguidas.</li>
+              <li><strong>Riesgo operativo:</strong> Equivocarse de destinatario o que se pase la hora de corte de liquidación / SLA de cobertura.</li>
+            </ul>
+          </div>
+
+          <div class="card accent-green">
+            <h3>✅ Ahora (Flujo Automatizado con IA)</h3>
+            <ul>
+              <li>El flujo lee tu tabla `Tabla_Incidencias` a la hora programada o al apretar un botón.</li>
+              <li>Filtra automáticamente solo las filas donde `Estado_Alerta = "PENDIENTE"`.</li>
+              <li>Envía a cada Supervisor su tarjeta de alerta personalizada por **Outlook y/o Microsoft Teams** en 3 segundos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 3: LOS 4 CONCEPTOS CLAVE DE POWER AUTOMATE EN SENCILLO ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">FUNDAMENTOS EN SENCILLO · LENGUAJE DE FLUJOS</span>
+        <h2 class="slide-h2">Las 4 Piezas de Todo Flujo en Power Automate (Como Armar un Lego)</h2>
+        <p class="lead">
+          No necesitas saber programación para dominar Power Automate. Todo flujo se compone únicamente de estos 4 bloques:
+        </p>
+
+        <div class="grid-4">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Disparador (Trigger)</h3>
+            <p><strong>¿Qué arranca el proceso?</strong><br>• <em>Programado:</em> Lunes a Viernes a las 8:30 AM.<br>• <em>Instantáneo:</em> Al pulsar un botón.<br>• <em>Automático:</em> Cuando llega un correo con adjunto.</p>
+          </div>
+          <div class="card accent-amber">
+            <h3>2️⃣ Acción de Lectura</h3>
+            <p><strong>¿De dónde saca los datos?</strong><br>Usa el conector de Excel Online: <code>Enumerar filas presentes en una tabla</code> (lee tu archivo en OneDrive o SharePoint).</p>
+          </div>
+          <div class="card accent-purple">
+            <h3>3️⃣ Condición (Filtro)</h3>
+            <p><strong>¿A quién sí y a quién no?</strong><br>Regla lógica (<code>Si Estado_Alerta es igual a PENDIENTE</code>) para no enviar correos de casos que ya están cerrados.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>4️⃣ Contenido Dinámico</h3>
+            <p><strong>Las etiquetas inteligentes:</strong><br>Inserta los campos <code>[Colaborador]</code>, <code>[PDV_Tienda]</code> y <code>[Monto_Riesgo_Soles]</code> dentro del asunto y cuerpo del correo.</p>
+          </div>
+        </div>
+
+        <div class="card accent-red" style="margin-top:12px;">
+          <h3>⚠️ El Secreto #1 para que Power Automate Lea tu Excel: ¡Debe tener Formato de Tabla Oficial!</h3>
+          <p>Power Automate no lee hojas sueltas; lee <strong>Tablas con nombre</strong> (creadas con <code>Ctrl + T</code> o <em>Insertar → Tabla</em>). Por eso en tu archivo <a href="Practica_Clase03_PowerAutomate_Adecco.xlsx" download style="color:#FCA5A5; font-weight:800;">Practica_Clase03_PowerAutomate_Adecco.xlsx</a> la Hoja 1 ya viene configurada como <strong><code>Tabla_Incidencias</code></strong> lista para usar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4: EXPLORACIÓN DEL EXCEL DE PRÁCTICA S3 + REGLA DE PRUEBA SEGURA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">PREPARACIÓN DEL INSUMO · HOJA "1_Incidencias_PowerAutomate"</span>
+        <h2 class="slide-h2">Revisa tu Tabla y Aplica la Regla de Oro de Pruebas Seguras</h2>
+        <p class="lead">
+          Abre <code>Practica_Clase03_PowerAutomate_Adecco.xlsx</code>. En la Hoja 1 verás 12 registros operativos (8 en estado <code>PENDIENTE</code> y 4 en <code>REGULARIZADO</code>):
+        </p>
+
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>Col A: ID_Alerta</th>
+              <th>Col C-D: Zona / PDV_Tienda</th>
+              <th>Col E-F: Colaborador / Supervisor</th>
+              <th>Col G: Correo_Supervisor (¡CAMBIAR!)</th>
+              <th>Col H: Tipo_Incidencia</th>
+              <th>Col I: Monto (S/)</th>
+              <th>Col K: Estado_Alerta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ALT-2026-001</code></td>
+              <td>Lima Centro · Cadena Alpha San Isidro</td>
+              <td>Carlos Mendoza · Sup: Jorge Paredes</td>
+              <td><code style="color:#FDE68A;">tu.correo@adecco.com</code></td>
+              <td>Serie #IMEI-894012 sin liquidar en caja tienda</td>
+              <td><code>S/ 2,699.00</code></td>
+              <td><strong style="color:#FCA5A5;">PENDIENTE</strong></td>
+            </tr>
+            <tr>
+              <td><code>ALT-2026-002</code></td>
+              <td>Macro Sur · Tienda Sur Arequipa Mall</td>
+              <td>Lucía Quispe · Sup: Valeria Gómez</td>
+              <td><code style="color:#FDE68A;">tu.correo@adecco.com</code></td>
+              <td>3 Ventas en App sin marcación Check-PDV</td>
+              <td><code>S/ 1,928.00</code></td>
+              <td><strong style="color:#FCA5A5;">PENDIENTE</strong></td>
+            </tr>
+            <tr>
+              <td><code>ALT-2026-004</code></td>
+              <td>Lima Centro · Cadena Beta Miraflores</td>
+              <td>Diana Torres · Sup: Jorge Paredes</td>
+              <td><code style="color:#94A3B8;">tu.correo@adecco.com</code></td>
+              <td>Diferencia de Ticket Sistema vs Boleta conciliada</td>
+              <td><code>S/ 0.00</code></td>
+              <td><span style="color:#6EE7B7;">REGULARIZADO</span></td>
+            </tr>
+            <tr>
+              <td><code>ALT-2026-008</code></td>
+              <td>Macro Norte · Tienda Norte Trujillo</td>
+              <td>Andrea Lozada · Sup: Patricia Huamán</td>
+              <td><code style="color:#FDE68A;">tu.correo@adecco.com</code></td>
+              <td>Stock de equipos liberados con rotación &gt; 45 días</td>
+              <td><code>S/ 3,200.00</code></td>
+              <td><strong style="color:#FCA5A5;">PENDIENTE</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="card accent-red">
+            <h3>🛡️ Regla de Oro Antes de Probar Cualquier Flujo</h3>
+            <p>En la columna <strong><code>G (Correo_Supervisor)</code></strong> reemplaza <code>tu.correo@adecco.com</code> por <strong>tu propio correo corporativo</strong>. Así todas las alertas de prueba llegarán a tu bandeja de entrada y jamás enviaremos correos por error a jefes o clientes durante el taller.</p>
+          </div>
+          <div class="card accent-cyan">
+            <h3>☁️ Súbelo a tu Carpeta de OneDrive for Business</h3>
+            <p>Para usar Power Automate en la nube, guarda el archivo <code>Practica_Clase03_PowerAutomate_Adecco.xlsx</code> dentro de tu <strong>OneDrive corporativo</strong> (o usa la Macro Local de la Diapositiva 11 si prefieres correrlo desde tu Escritorio).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: LAB 01 - PROMPT PARA DISEÑAR EL FLUJO CON COPILOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">LAB 01 · ARQUITECTURA DEL FLUJO ASISTIDA POR COPILOT</span>
+        <h2 class="slide-h2">Pídele a Copilot la Estructura Exacta de tu Flujo y el Filtro Anti-Spam</h2>
+        <p class="lead">
+          Aunque tu versión de Power Automate no tenga el chat de Copilot activado dentro del lienzo, puedes usar <strong>Microsoft Copilot Web</strong> como tu Arquitecto de Flujos para que te diga exactamente qué bloques conectar y qué fórmula poner en el filtro:
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🤖 COPIAR Y PEGAR EN MICROSOFT COPILOT GRATIS</span>
+            <button class="btn-copy" onclick="copyText('promptArquitecturaPA')">📋 Copiar Prompt Arquitectura Flujo</button>
+          </div>
+          <div class="prompt-text" id="promptArquitecturaPA">Actúa como Arquitecto Senior de Power Automate para Adecco Sales & Marketing.
+Tengo un archivo Excel en OneDrive llamado 'Practica_Clase03_PowerAutomate_Adecco.xlsx' con una tabla oficial llamada 'Tabla_Incidencias' que contiene las columnas:
+- ID_Alerta
+- Fecha_Corte
+- Zona_Red
+- PDV_Tienda
+- Colaborador
+- Supervisor
+- Correo_Supervisor
+- Tipo_Incidencia
+- Monto_Riesgo_Soles
+- Plazo_Descargo
+- Estado_Alerta (valores: "PENDIENTE" o "REGULARIZADO")
+
+Por favor, entrégame en bloques claros y directos:
+1) La secuencia exacta de pasos en Power Automate para leer la tabla y enviar un correo por Outlook (V2) únicamente a los casos donde Estado_Alerta sea "PENDIENTE".
+2) Qué escribir exactamente en el campo "Consulta de filtro" (Filter Query OData) de la acción de Excel para que filtre los PENDIENTE desde el origen.
+3) Cómo configurar el formato de fecha ISO 8601 para que las fechas de Excel no salgan como números enteros.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6: PASO A PASO EN POWER AUTOMATE CLOUD ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">CONSTRUCCIÓN GUIADA EN VIVO · MAKE.POWERAUTOMATE.COM</span>
+        <h2 class="slide-h2">Armando el Flujo en 4 Pasos dentro de Power Automate</h2>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">1️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">CREAR FLUJO</span>
+              <span class="flow-step-title">Flujo Instantáneo o Programado</span>
+              <span class="flow-step-sub">Botón manual para probar hoy</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">2️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">EXCEL ONLINE (BUSINESS)</span>
+              <span class="flow-step-title">Enumerar filas de una tabla</span>
+              <span class="flow-step-sub">Elegir Tabla_Incidencias</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">3️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">FILTRO / CONDICIÓN</span>
+              <span class="flow-step-title">Estado_Alerta eq 'PENDIENTE'</span>
+              <span class="flow-step-sub">Ignora los REGULARIZADO</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">4️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">OFFICE 365 OUTLOOK</span>
+              <span class="flow-step-title">Enviar correo electrónico (V2)</span>
+              <span class="flow-step-sub">Con variables dinámicas ⚡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card accent-cyan">
+            <h3>⚙️ Ajuste Crítico en el Paso 2 (Excel Online)</h3>
+            <ul>
+              <li><strong>Ubicación:</strong> OneDrive for Business · <strong>Biblioteca:</strong> OneDrive.</li>
+              <li><strong>Archivo:</strong> <code>Practica_Clase03_PowerAutomate_Adecco.xlsx</code>.</li>
+              <li><strong>Tabla:</strong> Selecciona <strong><code>Tabla_Incidencias</code></strong>.</li>
+              <li>Haz clic en <em>"Mostrar opciones avanzadas"</em> (o <em>Parámetros avanzados</em>):
+                <ul>
+                  <li>En <strong>Consulta de filtro (Filter Query)</strong> pega:<br><code>Estado_Alerta eq 'PENDIENTE'</code></li>
+                  <li>En <strong>Formato de fecha y hora (DateTime Format)</strong> elige:<br><strong style="color:#6EE7B7;">ISO 8601</strong> (¡Esto evita que la fecha salga como `46344`!).</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>✉️ Ajuste en el Paso 4 (Enviar un correo V2)</h3>
+            <ul>
+              <li><strong>Para (To):</strong> Haz clic en <em>"Especificar valor personalizado"</em> y selecciona con el rayo ⚡ la columna dinámica <strong><code>Correo_Supervisor</code></strong>.</li>
+              <li><strong>Asunto (Subject):</strong> Copia y pega combinando texto + variables dinámicas:<br><code>🚨 [Alerta Operativa Adecco] Caso PENDIENTE en [PDV_Tienda] — [ID_Alerta]</code></li>
+              <li><strong>Cuerpo (Body):</strong> Activa el botón de vista de código <strong><code>&lt;/&gt;</code></strong> y pega la plantilla HTML ejecutiva de la siguiente diapositiva.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 7: LAB 02 - PLANTILLA HTML PARA EL CORREO DE POWER AUTOMATE ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">LAB 02 · DISEÑO CORPORATIVO EN OUTLOOK CON COPILOT</span>
+        <h2 class="slide-h2">Plantilla HTML Lista para Pegar en el Cuerpo del Correo (<code>&lt;/&gt;</code>)</h2>
+        <p class="lead">
+          Para que tus alertas automáticas se vean como un comunicado oficial de **Adecco Sales & Marketing** (y no como texto plano sin formato), pega este bloque HTML en la acción *Enviar un correo electrónico (V2)* y reemplaza los textos entre corchetes por las etiquetas dinámicas (⚡):
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🎨 CÓDIGO HTML CORPORATIVO ADECCO PARA OUTLOOK / POWER AUTOMATE</span>
+            <button class="btn-copy green" onclick="copyText('htmlEmailTemplatePA')">📋 Copiar Plantilla HTML para Correo</button>
+          </div>
+          <div class="prompt-text" id="htmlEmailTemplatePA">&lt;div style="font-family:'Segoe UI',Arial,sans-serif; max-width:640px; border:1px solid #CBD5E1; border-radius:10px; overflow:hidden;"&gt;
+  &lt;div style="background-color:#DA291C; height:6px;"&gt;&lt;/div&gt;
+  &lt;div style="background-color:#0B172A; color:#FFFFFF; padding:18px 24px;"&gt;
+    &lt;span style="background-color:#DA291C; color:#FFF; font-size:11px; font-weight:bold; padding:3px 8px; border-radius:4px;"&gt;ALERTA OPERATIVA AUTOMÁTICA&lt;/span&gt;
+    &lt;h2 style="margin:8px 0 2px; font-size:19px;"&gt;Adecco Sales &amp;amp; Marketing · Control de Cadenas&lt;/h2&gt;
+    &lt;p style="margin:0; font-size:12.5px; color:#94A3B8;"&gt;Caso detectado en estado PENDIENTE de regularización&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div style="padding:20px 24px; background-color:#FFFFFF; color:#1E293B; font-size:14px; line-height:1.55;"&gt;
+    &lt;p&gt;Estimado(a) &lt;strong&gt;[INSERTAR_SUPERVISOR]&lt;/strong&gt;,&lt;/p&gt;
+    &lt;p&gt;El sistema automático de auditoría ha identificado una incidencia pendiente asignada a tu zona que requiere gestión antes del cierre:&lt;/p&gt;
+    &lt;table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse; margin:14px 0; font-size:13.5px; border:1px solid #E2E8F0;"&gt;
+      &lt;tr style="background-color:#F8FAFC;"&gt;&lt;td width="38%"&gt;&lt;strong&gt;Código de Alerta:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;&lt;strong style="color:#DA291C;"&gt;[INSERTAR_ID_ALERTA]&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Punto de Venta (PDV):&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;[INSERTAR_PDV_TIENDA] ([INSERTAR_ZONA_RED])&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr style="background-color:#F8FAFC;"&gt;&lt;td&gt;&lt;strong&gt;Colaborador:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;[INSERTAR_COLABORADOR]&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Detalle de Incidencia:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;[INSERTAR_TIPO_INCIDENCIA]&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr style="background-color:#FEF2F2;"&gt;&lt;td&gt;&lt;strong&gt;Monto en Riesgo:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;&lt;strong style="color:#B91C1C;"&gt;S/ [INSERTAR_MONTO_RIESGO_SOLES]&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;strong&gt;Plazo Límite:&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;[INSERTAR_PLAZO_DESCARGO]&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p style="margin-bottom:0;"&gt;Por favor, registra el sustento correspondiente en el Portal Operativo hoy mismo para actualizar el estado a &lt;strong style="color:#059669;"&gt;REGULARIZADO&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8: TAMBIÉN EN MICROSOFT TEAMS ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">NOTIFICACIONES EN TIEMPO REAL · CONECTOR DE MICROSOFT TEAMS</span>
+        <h2 class="slide-h2">¿Y si Además del Correo Queremos una Alerta Instantánea en Microsoft Teams?</h2>
+        <p class="lead">
+          En el mismo flujo (justo debajo de *Enviar un correo electrónico V2*), puedes hacer clic en el signo **`+` (Agregar una acción)** y elegir el conector **Microsoft Teams**:
+        </p>
+
+        <div class="grid-2">
+          <div class="card accent-purple">
+            <h3>💬 Acción: "Publicar mensaje en un chat o canal"</h3>
+            <ul>
+              <li><strong>Publicar como:</strong> Bot de Flow (Flow bot).</li>
+              <li><strong>Publicar en:</strong> Chat con el bot de Flow (para pruebas rápidas contigo mismo) o Canal de tu equipo.</li>
+              <li><strong>Recipient (Destinatario):</strong> Selecciona la columna dinámica <code>Correo_Supervisor</code>.</li>
+              <li><strong>Mensaje:</strong> Pega el bloque resumen con las etiquetas dinámicas.</li>
+            </ul>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-header">
+              <span class="prompt-tag">💬 TEXTO LISTO PARA EL MENSAJE DE TEAMS</span>
+              <button class="btn-copy" onclick="copyText('teamsMessageTemplate')">📋 Copiar Mensaje Teams</button>
+            </div>
+            <div class="prompt-text" id="teamsMessageTemplate">🚨 **ALERTA OPERATIVA ADECCO S&M — CASO PENDIENTE**
+Hola **[Supervisor]**, tienes una incidencia activa por regularizar:
+• **Código:** [ID_Alerta] | **Zona:** [Zona_Red]
+• **PDV / Tienda:** [PDV_Tienda]
+• **Colaborador:** [Colaborador]
+• **Observación:** [Tipo_Incidencia]
+• **Monto en Riesgo:** S/ [Monto_Riesgo_Soles]
+• **Plazo máximo:** [Plazo_Descargo]
+
+Por favor coordina el descargo hoy mismo antes del cierre.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 9: SEGUNDO CASO DE NEGOCIO - HOJA 2 (SLA VACANTES RRHH) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">CASO DE USO 02 (HOJA 2) · CONTROL DE SLAs DE COBERTURA Y SELECCIÓN</span>
+        <h2 class="slide-h2">Otro Flujo de Alto Impacto: Alerta de Vacantes con SLA Vencido (&gt;7 Días)</h2>
+        <p class="lead">
+          En la Hoja 2 (<code>2_SLA_Vacantes_y_RRHH</code>) de tu archivo de práctica tienes el caso ideal para los equipos de **Selección, Capacitación y Operaciones Comerciales**:
+        </p>
+
+        <table class="mini-table">
+          <thead>
+            <tr>
+              <th>ID_Requerimiento</th>
+              <th>Zona_Red / PDV_Tienda</th>
+              <th>Cargo_Vacante</th>
+              <th>Supervisor</th>
+              <th>Dias_Transcurridos</th>
+              <th>SLA_Maximo</th>
+              <th>Estado_Cobertura</th>
+              <th>Prioridad_Flujo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>REQ-2026-501</code></td>
+              <td>Macro Sur · Tienda Sur Arequipa Mall</td>
+              <td>Promotor Postpago</td>
+              <td>Valeria Gómez</td>
+              <td><strong style="color:#FCA5A5;">10 días</strong></td>
+              <td>7 días</td>
+              <td>SIN CUBRIR</td>
+              <td><strong style="color:#FCA5A5;">ALTA - SLA VENCIDO</strong></td>
+            </tr>
+            <tr>
+              <td><code>REQ-2026-502</code></td>
+              <td>Macro Sur · Supermercado Sur Cusco</td>
+              <td>Impulsador Retail</td>
+              <td>Valeria Gómez</td>
+              <td><strong style="color:#FCA5A5;">8 días</strong></td>
+              <td>7 días</td>
+              <td>SIN CUBRIR</td>
+              <td><strong style="color:#FCA5A5;">ALTA - SLA VENCIDO</strong></td>
+            </tr>
+            <tr>
+              <td><code>REQ-2026-503</code></td>
+              <td>Lima Norte · Cadena Beta Plaza Norte</td>
+              <td>Promotor Cadenas</td>
+              <td>Roberto Sánchez</td>
+              <td><span style="color:#FDE68A;">4 días</span></td>
+              <td>6 días</td>
+              <td>EN PROCESO</td>
+              <td><span style="color:#FDE68A;">MEDIA - EN PLAZO</span></td>
+            </tr>
+            <tr>
+              <td><code>REQ-2026-505</code></td>
+              <td>Lima Centro · Cadena Alpha San Isidro</td>
+              <td>Promotor Postpago</td>
+              <td>Jorge Paredes</td>
+              <td><span style="color:#6EE7B7;">6 días</span></td>
+              <td>6 días</td>
+              <td>CUBIERTO</td>
+              <td><span style="color:#6EE7B7;">CERRADO OK</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card accent-amber" style="margin-top:12px;">
+          <h3>💡 ¿Cómo se configura la Condición de este Flujo?</h3>
+          <p>En lugar de revisar todos los días qué tiendas siguen sin promotor, el flujo se ejecuta a las 8:00 AM, filtra únicamente donde <strong><code>Estado_Cobertura es igual a SIN CUBRIR</code></strong> y <strong><code>Dias_Transcurridos es mayor que SLA_Maximo_Dias</code></strong>, y dispara la alerta de escalamiento a Selección y Operaciones.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 10: LAB 03 - EL PLAN TODOTERRENO (EXCEL VBA A OUTLOOK LOCAL) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">LAB 03 · PLAN TODOTERRENO DESDE TU ESCRITORIO (EXCEL VBA ➔ OUTLOOK)</span>
+        <h2 class="slide-h2">¿Prefieres Disparar los Correos Directamente desde tu Archivo de Excel?</h2>
+        <p class="lead">
+          Igual que ayer conectamos **Excel con Word** usando una Macro de Copilot, hoy podemos conectar **Excel con Microsoft Outlook Desktop** (`CreateObject("Outlook.Application")`). ¡Funciona sin subir archivos a OneDrive y abre cada correo HTML listo en pantalla!
+        </p>
+
+        <div class="flow-banner">
+          <div class="flow-node">
+            <div class="flow-icon">📗</div>
+            <div class="flow-text">
+              <span class="flow-step-tag">ORIGEN EN TU PC</span>
+              <span class="flow-step-title">Hoja 1_Incidencias_PowerAutomate</span>
+              <span class="flow-step-sub">Filtra Col K = "PENDIENTE"</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">🤖</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">MACRO INTER-APP</span>
+              <span class="flow-step-title">CreateObject("Outlook.Application")</span>
+              <span class="flow-step-sub">Arma tabla HTML por caso</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">📧</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">MODO SEGURO (.Display)</span>
+              <span class="flow-step-title">Abre los Correos en Pantalla</span>
+              <span class="flow-step-sub">O envíalos directo con .Send</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🧠 PROMPT PARA PEDIRLE A COPILOT LA MACRO EXCEL ➔ OUTLOOK</span>
+            <button class="btn-copy" onclick="copyText('promptExcelOutlookVBA')">📋 Copiar Prompt Excel ➔ Outlook</button>
+          </div>
+          <div class="prompt-text" id="promptExcelOutlookVBA">Actúa como desarrollador experto en Excel y Outlook VBA. En mi hoja '1_Incidencias_PowerAutomate' tengo encabezados en A1:K1:
+A=ID_Alerta, B=Fecha_Corte, C=Zona_Red, D=PDV_Tienda, E=Colaborador, F=Supervisor, G=Correo_Supervisor, H=Tipo_Incidencia, I=Monto_Riesgo_Soles, J=Plazo_Descargo, K=Estado_Alerta.
+
+Escribe una Macro VBA llamada GenerarAlertasOutlookDesdeExcel que haga lo siguiente:
+1) Recorra las filas desde la 2 hasta la última fila ocupada y filtre únicamente donde la columna K (Estado_Alerta) sea igual a "PENDIENTE".
+2) Se conecte a Microsoft Outlook usando Late Binding: CreateObject("Outlook.Application").
+3) Por cada fila PENDIENTE, cree un correo (.CreateItem(0)) dirigido a Correo_Supervisor (Col G), con Asunto formal que incluya el ID_Alerta y PDV_Tienda, y Cuerpo en formato HTML (.HTMLBody) con los colores corporativos de Adecco (#DA291C y #0B172A) mostrando una tabla resumen con Colaborador, Tipo_Incidencia, Monto_Riesgo_Soles y Plazo_Descargo.
+4) Use .Display para mostrar los correos abiertos en pantalla (modo seguro de revisión antes de enviar) y explique en un comentario dónde cambiar .Display por .Send si deseo envío directo.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 11: LAB 03 CÓDIGO VBA VERIFICADO EXCEL A OUTLOOK ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow green">EJECUCIÓN EN VIVO · CÓDIGO VBA VERIFICADO AL 100%</span>
+        <h2 class="slide-h2">Pega esta Macro en Excel (<code>Alt + F11</code>) y Genera los Correos en Outlook</h2>
+        <p class="lead" style="margin-bottom:6px;">
+          Guarda tu archivo como <code>.xlsm</code>, abre <code>Alt + F11</code> ➔ <strong>Insertar → Módulo</strong>, pega este código verificado y presiona <code>F5</code>:
+        </p>
+
+        <div class="prompt-box" style="border-color:rgba(16,185,129,0.55);">
+          <div class="prompt-header">
+            <span class="prompt-tag" style="color:#6EE7B7;">🛡️ MACRO VBA OFICIAL PROBADA — Sub GenerarAlertasOutlookDesdeExcel()</span>
+            <button class="btn-copy green" onclick="copyText('vbaExcelOutlookVerified')">📋 Copiar Macro Excel ➔ Outlook</button>
+          </div>
+          <div class="prompt-text" id="vbaExcelOutlookVerified" style="max-height:260px;">Sub GenerarAlertasOutlookDesdeExcel()
+    Dim ws As Worksheet
+    Dim ultimaFila As Long, f As Long, generados As Long
+    Dim outApp As Object, outMail As Object
+    Dim idAlerta As String, zona As String, pdv As String, colab As String
+    Dim sup As String, correo As String, tipoInc As String, plazo As String
+    Dim monto As Double, cuerpoHTML As String
+
+    On Error Resume Next
+    Set ws = ThisWorkbook.Worksheets("1_Incidencias_PowerAutomate")
+    On Error GoTo 0
+    If ws Is Nothing Then
+        MsgBox "No se encontro la hoja '1_Incidencias_PowerAutomate'.", vbCritical, "Adecco AI Co-Pilot Lab"
+        Exit Sub
+    End If
+
+    On Error Resume Next
+    Set outApp = CreateObject("Outlook.Application")
+    On Error GoTo 0
+    If outApp Is Nothing Then
+        MsgBox "No se pudo conectar con Microsoft Outlook Desktop.", vbCritical, "Adecco"
+        Exit Sub
+    End If
+
+    ultimaFila = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
+    generados = 0
+
+    For f = 2 To ultimaFila
+        If UCase(Trim(CStr(ws.Cells(f, 11).Value))) = "PENDIENTE" Then
+            idAlerta = Trim(CStr(ws.Cells(f, 1).Value))
+            zona = Trim(CStr(ws.Cells(f, 3).Value))
+            pdv = Trim(CStr(ws.Cells(f, 4).Value))
+            colab = Trim(CStr(ws.Cells(f, 5).Value))
+            sup = Trim(CStr(ws.Cells(f, 6).Value))
+            correo = Trim(CStr(ws.Cells(f, 7).Value))
+            tipoInc = Trim(CStr(ws.Cells(f, 8).Value))
+            If IsNumeric(ws.Cells(f, 9).Value) Then monto = CDbl(ws.Cells(f, 9).Value) Else monto = 0
+            plazo = Trim(CStr(ws.Cells(f, 10).Value))
+
+            Set outMail = outApp.CreateItem(0) ' 0 = olMailItem
+            cuerpoHTML = "<div style='font-family:Segoe UI,Arial,sans-serif;max-width:620px;border:1px solid #CBD5E1;border-radius:8px;overflow:hidden;'>" & _
+                         "<div style='background:#DA291C;height:5px;'></div>" & _
+                         "<div style='background:#0B172A;color:#FFF;padding:14px 20px;'>" & _
+                         "<strong style='color:#38BDF8;font-size:11px;'>ADECCO SALES &amp; MARKETING · ALERTA AUTOMÁTICA</strong>" & _
+                         "<h3 style='margin:4px 0 0;font-size:17px;'>Incidencia Operativa Pendiente: " & idAlerta & "</h3></div>" & _
+                         "<div style='padding:18px 20px;color:#1E293B;font-size:13.5px;line-height:1.5;'>" & _
+                         "<p>Estimado(a) <strong>" & sup & "</strong>,</p>" & _
+                         "<p>Se registra el siguiente caso <strong>PENDIENTE</strong> en tu zona que requiere sustento hoy mismo:</p>" & _
+                         "<table width='100%' cellpadding='7' cellspacing='0' style='border-collapse:collapse;border:1px solid #E2E8F0;font-size:13px;'>" & _
+                         "<tr style='background:#F8FAFC;'><td><strong>PDV / Zona:</strong></td><td>" & pdv & " (" & zona & ")</td></tr>" & _
+                         "<tr><td><strong>Colaborador:</strong></td><td>" & colab & "</td></tr>" & _
+                         "<tr style='background:#F8FAFC;'><td><strong>Observación:</strong></td><td>" & tipoInc & "</td></tr>" & _
+                         "<tr style='background:#FEF2F2;'><td><strong>Monto en Riesgo:</strong></td><td><strong style='color:#DA291C;'>S/ " & Format(monto, "#,##0.00") & "</strong></td></tr>" & _
+                         "<tr><td><strong>Plazo Límite:</strong></td><td><strong>" & plazo & "</strong></td></tr></table>" & _
+                         "<p style='margin-top:14px;'>Saludos cordiales,<br><strong>Coordinación de Operaciones y BI — Adecco Perú</strong></p></div></div>"
+
+            With outMail
+                .To = correo
+                .Subject = "🚨 [Alerta Adecco S&M] Caso PENDIENTE en " & pdv & " (" & idAlerta & ")"
+                .HTMLBody = cuerpoHTML
+                .Display ' MODO PRUEBA SEGURA: Muestra el correo en pantalla. (Cambia .Display por .Send para envio directo)
+            End With
+
+            generados = generados + 1
+        End If
+    Next f
+
+    MsgBox "¡Se generaron " & generados & " correos de alerta en Microsoft Outlook!" & vbCrLf & _
+           "(Revisa las ventanas abiertas de Outlook o cambia .Display por .Send para envio silencioso).", vbInformation, "Adecco AI Co-Pilot Lab"
+End Sub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 12: DEPURACIÓN DE ERRORES EN POWER AUTOMATE CON COPILOT ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow red">RESOLUCIÓN DE PROBLEMAS · HISTORIAL DE EJECUCIONES</span>
+        <h2 class="slide-h2">Los 3 Errores Más Comunes en Power Automate y Cómo Resolverlos con IA</h2>
+
+        <div class="grid-3">
+          <div class="card accent-red">
+            <h3>1️⃣ "No se encontró ninguna tabla en el archivo"</h3>
+            <p><strong>Causa:</strong> Subiste un Excel con celdas sueltas sin formato de Tabla.<br><strong>Solución:</strong> Abre el Excel, selecciona tus datos, presiona <strong><code>Ctrl + T</code></strong> y ponle nombre en <em>Diseño de tabla</em> (ej. <code>Tabla_Incidencias</code>).</p>
+          </div>
+
+          <div class="card accent-amber">
+            <h3>2️⃣ "La fecha sale como <code>46344</code> en el correo"</h3>
+            <p><strong>Causa:</strong> Excel guarda las fechas internamente como números de serie.<br><strong>Solución:</strong> En el paso <em>Enumerar filas presentes en una tabla</em>, despliega las opciones avanzadas y elige <strong>Formato de fecha y hora: <code>ISO 8601</code></strong>.</p>
+          </div>
+
+          <div class="card accent-cyan">
+            <h3>3️⃣ "El archivo está bloqueado (Locked)"</h3>
+            <p><strong>Causa:</strong> Alguien tiene abierto el archivo Excel de forma local mientras el flujo intenta modificarlo.<br><strong>Solución:</strong> Trabajar el archivo desde Excel Online o programar el flujo en horario de corte (ej. 8:00 AM).</p>
+          </div>
+        </div>
+
+        <div class="card accent-purple" style="margin-top:12px;">
+          <h3>🤖 ¿Qué hacer si un paso sale con  ❌ Roja en el Historial de Ejecución?</h3>
+          <p>Haz clic en el paso marcado en rojo, copia el mensaje de <em>"Detalles del error / Error Details"</em> y pégalo en Copilot diciendo: <code>"Mi flujo de Power Automate falló en este paso con este mensaje de error: [pegar error]. Dime en 2 pasos qué debo corregir"</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 13: GOBERNANZA Y CONTINUIDAD OPERATIVA ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow">GOBERNANZA CORPORATIVA · HOJA "3_Gobernanza_y_Checklist"</span>
+        <h2 class="slide-h2">Las 4 Reglas de Gobernanza para que tu Automatización Sea Sostenible</h2>
+        <p class="lead">
+          El jurado de la Sustentación Final evaluará con un <strong>20% de la nota ("Control y Adopción")</strong> que tu solución no dependa de una sola persona y sea segura para la cuenta:
+        </p>
+
+        <div class="grid-4">
+          <div class="card accent-cyan">
+            <h3>1️⃣ Co-Propietario</h3>
+            <p>En Power Automate usa el botón <strong>Compartir (Share)</strong> y agrega al líder o compañero backup de tu cuenta como <strong>Co-propietario</strong>.</p>
+          </div>
+          <div class="card accent-green">
+            <h3>2️⃣ Nomenclatura Clara</h3>
+            <p>Nombra tus flujos y macros con el estándar del área:<br><code>[Cuenta]_[Proceso]_[Frecuencia]</code><br>(ej. <code>SM_Alerta_Liquidaciones_Diario</code>).</p>
+          </div>
+          <div class="card accent-amber">
+            <h3>3️⃣ Ruta Documentada</h3>
+            <p>Deja una pestaña <code>Instrucciones</code> en el Excel indicando qué columnas no se deben cambiar de nombre ni eliminar.</p>
+          </div>
+          <div class="card accent-red">
+            <h3>4️⃣ Validación Humana</h3>
+            <p>Revisa una vez por semana el <strong>Historial de ejecuciones de 28 días</strong> para confirmar que todas las corridas salieron en estado <em>Correcto (Succeeded)</em>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 14: PREPARACIÓN PARA LA SUSTENTACIÓN FINAL (LUNES 23 NOV) ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow amber">RUMBO AL LUNES 23 DE NOVIEMBRE · CONCURSO FINAL (1.° S/ 300 · 2.° S/ 200)</span>
+        <h2 class="slide-h2">Cómo Estructurar tu Sustentación de 7 Minutos para Ganar el Concurso</h2>
+        <p class="lead">
+          El próximo <strong>Lunes 23 de Noviembre (11:00 AM a 1:00 PM · Sala Oslo - Viena - Dublín)</strong> cada equipo o participante presentará su mejora aplicada siguiendo exactamente estos 4 pasos:
+        </p>
+
+        <div class="flow-banner">
+          <div class="flow-node red-node">
+            <div class="flow-icon">1️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FCA5A5;">MINUTO 1 A 2</span>
+              <span class="flow-step-title">El Problema Real (Antes)</span>
+              <span class="flow-step-sub">Cuántas horas y errores costaba</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node purple-node">
+            <div class="flow-icon">2️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#E9D5FF;">MINUTO 2 A 5 (35% NOTA)</span>
+              <span class="flow-step-title">Demostración en Vivo</span>
+              <span class="flow-step-sub">Ejecutar tu Excel / BI / Flujo</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node amber-node">
+            <div class="flow-icon">3️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#FDE68A;">MINUTO 5 A 6 (20% NOTA)</span>
+              <span class="flow-step-title">Cómo Usaste Copilot</span>
+              <span class="flow-step-sub">Mostrar tu Prompt y validación</span>
+            </div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-node active-node">
+            <div class="flow-icon">4️⃣</div>
+            <div class="flow-text">
+              <span class="flow-step-tag" style="color:#6EE7B7;">MINUTO 6 A 7 (25% NOTA)</span>
+              <span class="flow-step-title">Impacto Medido (ROI)</span>
+              <span class="flow-step-sub">Ej. "De 3 horas a 2 minutos"</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card accent-green">
+            <h3>✅ ¿Tengo que usar las 4 herramientas a la vez?</h3>
+            <p><strong>¡No es obligatorio usar todas!</strong> Puedes ganar el 1.er puesto con una **super automatización en Excel + Word**, o **Excel + Power BI**, o **Excel + Power Automate / Outlook**, siempre que resuelva un problema real de tu cuenta y corra en vivo frente al jurado.</p>
+          </div>
+          <div class="card accent-cyan">
+            <h3>🤖 Prompt para que Copilot te Arme tu Guion de 7 Minutos</h3>
+            <p>En la siguiente diapositiva tienes una plantilla de prompt lista para que Copilot te arme el resumen ejecutivo de tu proyecto y el cálculo de horas ahorradas al mes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 15: PROMPT PARA PREPARAR LA SUSTENTACIÓN FINAL ==================== -->
+    <section class="slide">
+      <div class="slide-inner">
+        <span class="eyebrow purple">BONUS PARA EQUIPOS · PREPARA TU PROYECTO DEL LUNES 23 NOV</span>
+        <h2 class="slide-h2">Prompt para Estructurar la Ficha de Impacto de tu Proyecto Final</h2>
+        <p class="lead">
+          Copia este prompt en Copilot y reemplaza los datos entre corchetes con el proceso real de tu cuenta para tener lista tu exposición del lunes:
+        </p>
+
+        <div class="prompt-box">
+          <div class="prompt-header">
+            <span class="prompt-tag">🏆 COPIAR Y PEGAR EN COPILOT PARA ARMAR TU SUSTENTACIÓN</span>
+            <button class="btn-copy" onclick="copyText('promptPitchFinal')">📋 Copiar Prompt Proyecto Final</button>
+          </div>
+          <div class="prompt-text" id="promptPitchFinal">Actúa como mentor de proyectos de mejora operativa para la Sustentación Final del programa Adecco AI Co-Pilot Lab.
+Mi equipo pertenece al área/cuenta: [Ej. Liquidaciones Cadenas / Operaciones Retail / Selección / Logística].
+El problema manual que teníamos era: [Ej. Consolidar asistencias Check-PDV y redactar cartas de descargo nos tomaba 45 minutos diarios (15 horas al mes)].
+La solución que construimos con ayuda de Copilot es: [Ej. Una Macro en Excel que audita la tabla, genera las cartas en Word/PDF y dispara los correos de alerta en Outlook en 1 minuto].
+
+Por favor, estructúrame una Ficha Ejecutiva de Sustentación para exponer en 7 minutos dividida en:
+1) PROBLEMA INICIAL (Dolor operativo y riesgo antes de la mejora).
+2) ARQUITECTURA DE LA SOLUCIÓN CON COPILOT (Paso a paso de qué hace nuestra herramienta).
+3) TABLA COMPARATIVA DE IMPACTO (Tiempo Antes vs. Tiempo Después, Horas ahorradas al mes y al año, y % de reducción de reprocesos).
+4) CONTROL DE CALIDAD Y GOBERNANZA (Cómo garantizamos que los datos sean exactos y que todo el equipo pueda usarla).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 16: CIERRE Y ARENA KAHOOT LIVE SESIÓN 03 ==================== -->
+    <section class="slide">
+      <div class="slide-inner" style="text-align:center;">
+        <span class="eyebrow red">CIERRE DE LA SESIÓN 03 · SALA OSLO - VIENA - DUBLÍN</span>
+        <h2 class="slide-h2">¡Hora de Competir en la Arena Kahoot Live — Sesión 03!</h2>
+        <p class="lead" style="max-width:780px; margin:0 auto 18px;">
+          Entra desde tu celular o laptop a la **Arena Live sincronizada en tiempo real** para demostrar tu dominio sobre flujos automáticos, alertas inteligentes, gobernanza y el ecosistema Microsoft Copilot.
+        </p>
+
+        <div class="cta-row" style="justify-content:center; margin-bottom:20px;">
+          <a href="kahoot.html" class="cta-btn" style="background:linear-gradient(135deg,#DA291C,#991B1B); border-color:#FCA5A5; font-size:15px; padding:13px 26px; box-shadow:0 8px 25px rgba(218,41,28,0.5);">
+            ⚡ LANZAR ARENA KAHOOT LIVE — SESIÓN 03
+          </a>
+          <a href="Practica_Clase03_PowerAutomate_Adecco.xlsx" download class="cta-btn" style="background:#107C41; border-color:#33C481;">
+            📗 Descargar Excel Práctica S3
+          </a>
+          <a href="index.html" class="cta-btn" style="background:#1E293B; border-color:#38BDF8; color:#38BDF8;">
+            🏠 Volver al Portal Principal
+          </a>
+        </div>
+
+        <div class="card" style="display:inline-block; max-width:680px; text-align:left; border-left:4px solid #F59E0B;">
+          <h3 style="color:#FDE68A;">🏆 Gran Cierre y Premiación: Lunes 23 de Noviembre</h3>
+          <p>
+            • <strong>Horario:</strong> 11:00 AM a 1:00 PM · <strong>Lugar:</strong> Sala Oslo - Viena - Dublín.<br>
+            • <strong>Premios Oficiales:</strong> 🥇 <strong>1.er Puesto: S/ 300</strong> · 🥈 <strong>2.° Puesto: S/ 200</strong> + Certificación Oficial del Programa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM BAR -->
+  <footer class="bottombar">
+    <div class="slide-counter" id="slideCounter">Diapositiva 01 / 16</div>
+    <div style="font-size:12.2px; color:#94A3B8;">
+      Usa las flechas <strong>⬅️ ➡️</strong> · Ponente: <strong style="color:#38BDF8;">Lic. Jhoan Taboada Huamán</strong> (BI Analyst — Adecco Perú)
+    </div>
+    <div class="nav-btns">
+      <a href="index.html" class="btn-nav" style="text-decoration:none; background:rgba(218,41,28,0.2); border-color:#DA291C; color:#FCA5A5;">🏠 Portal</a>
+      <button class="btn-nav" onclick="changeSlide(-1)">⬅️ Anterior</button>
+      <button class="btn-nav primary" onclick="changeSlide(1)">Siguiente ➡️</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toastMsg">✅ ¡Copiado al portapapeles! Listo para pegar en Copilot, Power Automate o Excel</div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slideCounter');
+    const progressEl = document.getElementById('progressBar');
+    let currentIndex = 0;
+
+    function updateDeck() {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentIndex));
+      const num = String(currentIndex + 1).padStart(2, '0');
+      const total = String(slides.length).padStart(2, '0');
+      counterEl.textContent = `Diapositiva ${num} / ${total}`;
+      progressEl.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+    }
+
+    function changeSlide(delta) {
+      const next = currentIndex + delta;
+      if (next >= 0 && next < slides.length) {
+        currentIndex = next;
+        updateDeck();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
+    });
+
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        const toast = document.getElementById('toastMsg');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    document.querySelectorAll('.slide p, .slide li').forEach(el => {
+      if (!el.closest('.prompt-box')) {
+        el.innerHTML = el.innerHTML
+          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+          .replace(/`([^`]+)`/g, '<code style="background:rgba(56,189,248,0.14);padding:1px 5px;border-radius:4px;font-family:monospace;color:#38BDF8;">$1</code>');
+      }
+    });
+
+    updateDeck();
+  </script>
+</body>
+</html>

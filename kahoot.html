@@ -731,7 +731,8 @@
     <div class="header-actions">
       <button class="btn-top" id="btn-audio-toggle" onclick="toggleAudio()">🔊 Sonido: ON</button>
       <button class="btn-top hide-mobile" onclick="toggleFullscreen()">⛶ Pantalla Completa</button>
-      <a href="clase2.html" class="btn-top hide-mobile">🚀 Clase 02</a>
+      <a href="clase3.html" class="btn-top hide-mobile" style="border-color:#38BDF8; color:#7DD3FC;">⚡ Clase 03</a>
+      <a href="clase2.html" class="btn-top hide-mobile">📊 Clase 02</a>
       <a href="index.html" class="btn-top">🏠 Portal</a>
     </div>
   </header>
@@ -798,10 +799,10 @@
           <div id="solo-pack-box" style="margin-top:18px; padding-top:16px; border-top:1px solid var(--border-hairline);">
             <span class="field-label" style="margin-bottom:8px;">Módulo para Modo Práctica Individual</span>
             <select id="solo-pack-select" class="input-box" style="margin-bottom:0; font-size:13.5px;">
-              <option value="1" selected>🤖 Sesión 02 — IA Aplicada: Excel, Word y Power BI (8 preg.)</option>
+              <option value="2" selected>⚡ Sesión 03 — IA, Power Automate y Conectividad (8 preg.)</option>
+              <option value="1">🤖 Sesión 02 — IA Aplicada: Excel, Word y Power BI (8 preg.)</option>
               <option value="0">📊 Sesión 01 — Fundamentos IA &amp; Excel Aplicado (6 preg.)</option>
-              <option value="2">⚡ Sesión 03 — IA y Flujos Automáticos (5 preg.)</option>
-              <option value="3">🏆 Sesión 04 — Torneo Final S&amp;M (5 preg.)</option>
+              <option value="3">🏆 Sesión 04 — Torneo Final S&amp;M (8 preg.)</option>
             </select>
           </div>
         </div>
@@ -823,21 +824,21 @@
 
         <label class="field-label">1. Selecciona el Cuestionario</label>
         <div class="pack-selector">
-          <button type="button" class="pack-btn active" id="hpack-1" onclick="selectHostPack(1)">
-            <span class="pack-title">🤖 Sesión 02 · IA Aplicada (Recomendado)</span>
+          <button type="button" class="pack-btn active" id="hpack-2" onclick="selectHostPack(2)">
+            <span class="pack-title">⚡ Sesión 03 · IA y Flujos Automáticos (Recomendado)</span>
+            <span class="pack-sub">Power Automate, Excel, Outlook y Teams · 8 preguntas prácticas</span>
+          </button>
+          <button type="button" class="pack-btn" id="hpack-1" onclick="selectHostPack(1)">
+            <span class="pack-title">🤖 Sesión 02 · IA Aplicada (Word &amp; BI)</span>
             <span class="pack-sub">IA (Copilot) en Excel, Word y Power BI · 8 preguntas no técnicas</span>
           </button>
           <button type="button" class="pack-btn" id="hpack-0" onclick="selectHostPack(0)">
             <span class="pack-title">📊 Sesión 01 · IA &amp; Excel Aplicado</span>
             <span class="pack-sub">Prompts, seguridad y buenas prácticas · 6 preguntas</span>
           </button>
-          <button type="button" class="pack-btn" id="hpack-2" onclick="selectHostPack(2)">
-            <span class="pack-title">⚡ Sesión 03 · IA y Flujos Automáticos</span>
-            <span class="pack-sub">Power Automate y alertas inteligentes · 5 preguntas</span>
-          </button>
           <button type="button" class="pack-btn" id="hpack-3" onclick="selectHostPack(3)">
             <span class="pack-title">🏆 Sesión 04 · Torneo Final S&amp;M</span>
-            <span class="pack-sub">Impacto operativo y sustentación · 5 preguntas</span>
+            <span class="pack-sub">Impacto operativo y sustentación · 8 preguntas</span>
           </button>
         </div>
 
@@ -1091,8 +1092,8 @@
           <button class="btn-top" onclick="returnToEntry()" style="padding:12px 20px; font-size:14px;">
             🔄 Volver al Inicio / Nueva Partida
           </button>
-          <a href="clase2.html" class="btn-top" style="padding:12px 20px; font-size:14px; background:linear-gradient(135deg,#2563EB,#1D4ED8); border-color:#93C5FD; color:#fff;">
-            🚀 Volver a Clase 02
+          <a href="clase3.html" class="btn-top" style="padding:12px 20px; font-size:14px; background:linear-gradient(135deg,#0066FF,#0284C7); border-color:#7DD3FC; color:#fff;">
+            ⚡ Volver a Clase 03
           </a>
         </div>
       </div>
@@ -1377,67 +1378,103 @@
         ]
       },
       {
-        title: "Sesión 03 — IA y Flujos Automáticos",
+        title: "Sesión 03 — IA, Power Automate y Conectividad",
         questions: [
           {
-            cat: "SESIÓN 03 · DISPARADORES",
-            q: "En una automatización entre correo y Excel, ¿qué significa definir un 'disparador'?",
+            cat: "SESIÓN 03 · QUÉ ES UN DISPARADOR",
+            q: "En un flujo automático entre Excel y Outlook, ¿para qué sirve el 'Disparador' (Trigger)?",
             opts: [
-              "Indicar qué evento u horario inicia el proceso automáticamente",
-              "Eliminar todos los correos de la bandeja",
-              "Cambiar el fondo de pantalla de la laptop",
-              "Cerrar Excel cada cinco minutos"
+              "Para borrar todos los correos antiguos de la bandeja",
+              "Para indicar qué evento u horario inicia el proceso solo (ej. Lunes a Viernes 8:30 AM)",
+              "Para cambiar el fondo de pantalla de la computadora",
+              "Para cerrar Excel cada cinco minutos"
             ],
-            ans: 0,
-            exp: "El disparador define cuándo arranca el flujo sin intervención manual (ej. cada lunes a las 8:00 AM o al llegar un correo)."
+            ans: 1,
+            exp: "El disparador es el punto de partida que hace que el flujo arranque puntual sin intervención manual."
           },
           {
-            cat: "SESIÓN 03 · ALERTAS INTELIGENTES",
-            q: "¿Cómo evitamos enviar alertas innecesarias a todo el equipo en un flujo automático?",
+            cat: "SESIÓN 03 · REQUISITO EN EXCEL",
+            q: "Para que Power Automate pueda leer las filas de tu archivo de Excel en OneDrive, ¿cómo deben estar tus datos?",
             opts: [
-              "Agregando una condición que filtre únicamente los casos pendientes o críticos",
-              "Enviando copias a toda la empresa por si acaso",
-              "Apagando el flujo durante toda la semana",
+              "Como celdas sueltas sin encabezados",
+              "Pegados como una foto dentro de la hoja",
+              "Con formato oficial de Tabla de Excel (Ctrl + T) y un nombre claro como Tabla_Incidencias",
+              "Ocultos en columnas en blanco"
+            ],
+            ans: 2,
+            exp: "Power Automate busca Tablas oficiales de Excel (Ctrl + T) para identificar con precisión cada columna y fila."
+          },
+          {
+            cat: "SESIÓN 03 · FILTRO ANTI-SPAM",
+            q: "¿Cómo evitamos que el flujo envíe alertas a los supervisores cuyos casos ya están 'REGULARIZADOS'?",
+            opts: [
+              "Agregando una Condición o filtro que procese únicamente los casos con estado 'PENDIENTE'",
+              "Enviando correos a toda la empresa por si acaso",
+              "Apagando el internet de la oficina",
               "No usando reglas de filtro"
             ],
             ans: 0,
-            exp: "Las reglas lógicas garantizan que solo se notifique a quien corresponde cuando realmente se necesita acción."
+            exp: "Filtrar solo los registros 'PENDIENTE' evita el correo basura y enfoca al equipo en lo que realmente urge resolver."
           },
           {
-            cat: "SESIÓN 03 · PRUEBA SEGURA",
-            q: "¿Cuál es la regla de oro antes de activar un flujo que envía correos automáticos por Outlook?",
+            cat: "SESIÓN 03 · REGLA DE ORO DE PRUEBAS",
+            q: "Antes de activar por primera vez un flujo que envía alertas automáticas por correo o Teams, ¿qué debes hacer siempre?",
             opts: [
-              "Probarlo primero hacia tu propio correo antes de enviarlo al cliente o equipo",
-              "Mandar la primera prueba directo a toda la gerencia",
-              "Omitir la revisión del mensaje",
-              "Borrar los archivos de respaldo"
+              "Poner de destinatario a toda la gerencia y al cliente desde el primer intento",
+              "No revisar cómo sale redactado el mensaje",
+              "Eliminar la base de datos original",
+              "Probarlo primero colocando tu propio correo como destinatario para verificar el diseño y los datos"
             ],
-            ans: 0,
-            exp: "Probar primero en tu propio buzón evita envíos equivocados y te deja pulir el mensaje."
+            ans: 3,
+            exp: "Probar hacia tu propio buzón asegura que el formato, las fechas y los montos salgan perfectos antes de lanzarlo al equipo."
           },
           {
-            cat: "SESIÓN 03 · CONTINUIDAD",
-            q: "¿Por qué conviene documentar qué hace cada automatización y quién es su responsable?",
+            cat: "SESIÓN 03 · PERSONALIZACIÓN AUTOMÁTICA",
+            q: "¿Qué logramos al usar 'Contenido Dinámico' (etiquetas como Colaborador, Tienda y Monto) dentro del correo?",
             opts: [
-              "Para que el proceso siga operando sin problemas aunque alguien cambie de puesto",
-              "Solo por llenar un documento sin uso",
-              "Para bloquear el archivo al resto del área",
-              "Para hacer el flujo más lento"
+              "Que todos reciban exactamente el mismo correo vacío sin datos",
+              "Que cada supervisor reciba automáticamente el nombre, tienda y monto exacto de su caso sin escribirlo a mano",
+              "Que el correo demore tres días en llegar",
+              "Que se borren los nombres de la hoja de Excel"
             ],
-            ans: 0,
-            exp: "Documentar asegura que la mejora quede como activo permanente de la cuenta."
+            ans: 1,
+            exp: "El contenido dinámico rellena automáticamente los datos de cada fila dentro de la plantilla del mensaje."
           },
           {
-            cat: "SESIÓN 03 · COPILOT EN FLUJOS",
-            q: "¿Cómo te ayuda la IA al armar un flujo conectado entre Excel, Outlook y Teams?",
+            cat: "SESIÓN 03 · FECHAS CLARAS EN EXCEL",
+            q: "Si una fecha de Excel aparece en el correo automático como un número raro (ej. 46344), ¿cómo lo solucionamos en Power Automate?",
             opts: [
-              "Traduciendo tu descripción en lenguaje cotidiano en los pasos del flujo",
-              "Escribiendo mensajes informales sin estructura",
-              "Descargando archivos ajenos a la empresa",
-              "No sirve para flujos de trabajo"
+              "Escribiendo todas las fechas a mano en cada correo",
+              "Borrando la columna de fechas del reporte",
+              "Seleccionando el formato de fecha 'ISO 8601' en las opciones del paso de Excel",
+              "Cambiando el monitor de la laptop"
+            ],
+            ans: 2,
+            exp: "Activar el formato ISO 8601 en la lectura de Excel hace que la fecha se muestre legible (Año-Mes-Día) al instante."
+          },
+          {
+            cat: "SESIÓN 03 · AYUDA DE COPILOT",
+            q: "Si un flujo falla o quieres darle un diseño corporativo al correo automático, ¿cómo te ayuda Microsoft Copilot?",
+            opts: [
+              "Explicándote la causa del error en sencillo y generando la plantilla visual del correo lista para copiar",
+              "No puede ayudar con correos ni con flujos",
+              "Apagando la computadora automáticamente",
+              "Borrando el historial del flujo"
             ],
             ans: 0,
-            exp: "Puedes describir en español qué quieres que ocurra y Copilot sugiere la secuencia de pasos para lograrlo."
+            exp: "Copilot diseña plantillas corporativas en segundos y traduce cualquier alerta de error en pasos claros de solución."
+          },
+          {
+            cat: "SESIÓN 03 · GOBERNANZA Y CONTINUIDAD",
+            q: "¿Por qué es clave compartir el flujo con un compañero o líder (Co-propietario) y documentar dónde está el Excel?",
+            opts: [
+              "Solo por cumplir un trámite sin utilidad",
+              "Para que la automatización siga funcionando en la cuenta aunque tú estés de vacaciones o cambies de rol",
+              "Para que nadie más pueda usar la herramienta",
+              "Para hacer el proceso más lento"
+            ],
+            ans: 1,
+            exp: "La gobernanza garantiza que la mejora sea sostenible para todo el equipo de Adecco Sales & Marketing."
           }
         ]
       },
@@ -1445,64 +1482,100 @@
         title: "Sesión 04 — Torneo Final: IA en Sales & Marketing",
         questions: [
           {
-            cat: "TORNEO FINAL · ENFOQUE DE CUENTA",
-            q: "¿Cuál es el punto de partida correcto para tu proyecto de mejora con IA?",
+            cat: "TORNEO FINAL · PUNTO DE PARTIDA",
+            q: "¿Cuál es el primer paso para elegir un proyecto ganador rumbo a la sustentación del lunes 23?",
             opts: [
-              "Identificar una tarea repetitiva o cuello de botella real de tu cuenta",
-              "Elegir una herramienta al azar aunque no la necesite el equipo",
-              "Hacer un documento solo teórico sin probarlo",
-              "Usar plataformas externas no autorizadas"
+              "Elegir una tarea operativa repetitiva o cuello de botella real de tu cuenta",
+              "Inventar un caso teórico que nadie usa en Adecco",
+              "Hacer solo diapositivas sin ninguna demostración",
+              "Usar programas no autorizados"
             ],
             ans: 0,
-            exp: "Partir del dolor operativo real asegura que la solución genere impacto inmediato en tu gestión."
+            exp: "Partir de un dolor real de tu operación asegura que el jurado vea utilidad inmediata."
           },
           {
-            cat: "TORNEO FINAL · ECOSISTEMA MICROSOFT",
-            q: "¿Qué logramos al combinar Excel + Power BI + Word + IA en un mismo proceso?",
+            cat: "TORNEO FINAL · ECOSISTEMA INTEGRADO",
+            q: "¿Qué ventaja tiene combinar Excel, Word, Power BI y alertas automáticas con ayuda de Copilot?",
             opts: [
-              "Ordenar datos, visualizar indicadores y generar informes en una fracción del tiempo",
-              "Duplicar el trabajo escribiendo todo tres veces",
-              "Complicar las entregas semanales",
-              "Depender únicamente de procesos manuales"
+              "Tener que digitar la misma información cuatro veces",
+              "Conectar todo el ciclo: limpiar datos, analizar indicadores, crear cartas y enviar alertas en minutos",
+              "Hacer más lento el cierre de mes",
+              "Eliminar la comunicación con los supervisores"
             ],
-            ans: 0,
-            exp: "Conectar las herramientas que ya usas cada día multiplica la productividad de todo el equipo."
+            ans: 1,
+            exp: "Cada herramienta cumple su rol y Copilot acelera la conexión entre todas ellas."
           },
           {
-            cat: "TORNEO FINAL · MEDIR EL IMPACTO",
-            q: "¿Cómo se demuestra ante el jurado el valor real de una mejora implementada?",
+            cat: "TORNEO FINAL · DEMOSTRACIÓN EN VIVO",
+            q: "En la evaluación del jurado (donde el funcionamiento en vivo vale 35%), ¿qué genera mayor impacto?",
             opts: [
-              "Comparando el tiempo y errores Antes vs. Después (ej. de 4 horas a 10 minutos)",
-              "Diciendo solo que 'quedó bonito' sin mostrar datos",
-              "Evitando mostrar el archivo funcionando",
-              "Presentando solo teoría general de IA"
+              "Leer un texto largo sin abrir ningún archivo",
+              "Decir que el archivo quedó en otra computadora",
+              "Mostrar tu solución ejecutándose en directo y resolviendo el caso en segundos",
+              "Presentar únicamente la portada"
             ],
-            ans: 0,
-            exp: "Medir horas ahorradas y errores evitados hace evidente el retorno de tu solución."
+            ans: 2,
+            exp: "Ver el botón, el tablero o el flujo funcionando en vivo demuestra el dominio práctico del equipo."
           },
           {
-            cat: "TORNEO FINAL · SUSTENTACIÓN",
-            q: "¿Qué secuencia clara ayuda a explicar cualquier proyecto de mejora en pocos minutos?",
+            cat: "TORNEO FINAL · MEDICIÓN DE AHORRO",
+            q: "¿Cómo se presenta de forma contundente el beneficio de tu mejora ante la gerencia?",
             opts: [
-              "Problema real → Solución aplicada → Validación → Impacto medido",
-              "Portada → Saludo → Despedida",
-              "Copiar texto → Pegar → Cerrar",
-              "Leer una tabla cruda fila por fila"
+              "Diciendo solo 'ahora es más rápido' sin dar números",
+              "Ocultando cuánto demoraba antes el proceso",
+              "Mostrando solo teoría general sobre inteligencia artificial",
+              "Comparando con datos claros el Antes vs. Después (ej. de 3 horas semanales a 2 minutos y cero errores)"
             ],
-            ans: 0,
-            exp: "Explicar Problema, Solución, Validación e Impacto comunica con claridad ejecutiva."
+            ans: 3,
+            exp: "Cuantificar las horas-hombre ahorradas al mes y los errores evitados demuestra el retorno real del proyecto."
           },
           {
-            cat: "TORNEO FINAL · MODELO ADECCO",
-            q: "¿Qué representa la fórmula Humano + Copilot en Sales & Marketing?",
+            cat: "TORNEO FINAL · ESTRUCTURA EN 7 MINUTOS",
+            q: "¿Cuál es el orden recomendado para exponer tu proyecto de mejora con claridad ejecutiva?",
             opts: [
-              "El criterio y conocimiento del negocio liderando la velocidad de la IA",
-              "Dejar que la IA tome decisiones comerciales sin supervisión",
-              "Trabajar sin metas ni indicadores",
-              "Un cambio exclusivo para sistemas"
+              "Problema Inicial → Solución en Vivo → Validación con IA → Impacto Medido",
+              "Saludo → Teoría → Despedida",
+              "Mostrar mil filas sin explicar qué hacen",
+              "Empezar por el final sin explicar qué problema resuelves"
             ],
             ans: 0,
-            exp: "La IA potencia tu talento: tú diriges la estrategia y validas la calidad; Copilot acelera la ejecución."
+            exp: "Esta estructura en 4 pasos permite que el jurado entienda el valor de tu proyecto desde el primer minuto."
+          },
+          {
+            cat: "TORNEO FINAL · FLEXIBILIDAD DE HERRAMIENTAS",
+            q: "¿Es obligatorio usar las 4 herramientas al mismo tiempo para ganar el concurso final?",
+            opts: [
+              "Sí, aunque tu cuenta no las necesite",
+              "No: lo importante es elegir la herramienta que mejor resuelva el dolor real de tu área y que funcione al 100%",
+              "Solo se permite presentar textos en bloc de notas",
+              "No se permite usar Excel en la sustentación"
+            ],
+            ans: 1,
+            exp: "Una solución enfocada (en Excel+Word, Power BI o Power Automate) bien ejecutada y con alto ahorro de tiempo puede ganar el 1.er puesto."
+          },
+          {
+            cat: "TORNEO FINAL · VALIDACIÓN HUMANA",
+            q: "¿Por qué el jurado evalúa también el 'Control de Calidad y Validación' de tu solución?",
+            opts: [
+              "Para confirmar que verificas que los totales, montos y destinatarios sean exactos antes de entregar al cliente",
+              "Para prohibir el uso de tecnología",
+              "Porque los datos no importan en operaciones",
+              "Solo para alargar la reunión"
+            ],
+            ans: 0,
+            exp: "En Adecco la velocidad de la IA siempre va acompañada de precisión y validación humana."
+          },
+          {
+            cat: "TORNEO FINAL · CULTURA CO-PILOT",
+            q: "¿Qué representa el espíritu 'Human + AI Co-Pilot' que llevamos a todas las cuentas de Sales & Marketing?",
+            opts: [
+              "Que las máquinas trabajen sin objetivos comerciales",
+              "Dejar todo al azar",
+              "El talento y criterio de nuestro equipo liderando la velocidad de la IA para dar un servicio superior",
+              "Trabajar de forma aislada sin compartir mejoras"
+            ],
+            ans: 2,
+            exp: "Tú pones el conocimiento del negocio y la estrategia; Copilot multiplica tu capacidad de ejecución."
           }
         ]
       }
@@ -1681,7 +1754,7 @@
       document.getElementById('panel-host').style.display = role === 'host' ? 'block' : 'none';
     }
 
-    let hostPackIdx = 1;
+    let hostPackIdx = 2;
     function selectHostPack(idx) {
       hostPackIdx = idx;
       [0, 1, 2, 3].forEach(i => {
