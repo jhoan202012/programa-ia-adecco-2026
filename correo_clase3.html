@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Correo Recordatorio HOY Sesión 03 (11:00 AM · Sala Oslo) — Adecco AI Co-Pilot Lab (Listo para Outlook)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B1120;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      padding: 28px 16px 60px;
+    }
+    .toolbar {
+      max-width: 820px;
+      margin: 0 auto 20px;
+      background: #131D31;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    }
+    .toolbar-left h1 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+    .toolbar-left p {
+      font-size: 12.5px;
+      color: #94A3B8;
+    }
+    .btn-action {
+      background: linear-gradient(135deg, #0066FF, #0284C7);
+      color: #FFFFFF;
+      border: 1px solid #7DD3FC;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-action:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+    .subject-bar {
+      max-width: 820px;
+      margin: 0 auto 16px;
+      background: #060D1A;
+      border: 1px dashed rgba(56,189,248,0.4);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #CBD5E1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .email-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      color: #1E293B;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h1>📧 Correo Oficial de Recordatorio — HOY Sesión 03 (11:00 AM)</h1>
+      <p>Haz clic en "Copiar Todo para Outlook" y pégalo directamente en un correo nuevo.</p>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn-action" onclick="copyEmail()">📋 Copiar Todo para Outlook</button>
+      <a class="btn-action" href="clase3.html" style="background:#0F172A; border-color:#38BDF8; color:#38BDF8;">⚡ Abrir Clase 03</a>
+    </div>
+  </div>
+
+  <div class="subject-bar">
+    <div><strong>ASUNTO:</strong> <span id="emailSubject">⚡ ¡Nos vemos HOY a las 11:00 AM! Sesión 03: Power Automate, Outlook & Teams con IA (Sala Oslo - Viena - Dublín) — Adecco AI Co-Pilot Lab</span></div>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('emailSubject').innerText); alert('✅ Asunto copiado al portapapeles')" style="background:none; border:none; color:#38BDF8; font-weight:700; cursor:pointer; white-space:nowrap;">📋 Copiar Asunto</button>
+  </div>
+
+  <div class="email-container" id="emailBody">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:'Segoe UI', Arial, sans-serif; background-color:#FFFFFF;">
+      <!-- CABECERA ROJA CORPORATIVA -->
+      <tr>
+        <td style="background-color:#DA291C; height:6px;"></td>
+      </tr>
+      <!-- ENCABEZADO -->
+      <tr>
+        <td style="background-color:#0B172A; padding:28px 32px; text-align:center;">
+          <div style="display:inline-block; background-color:#0066FF; color:#FFFFFF; font-size:11px; font-weight:bold; letter-spacing:1px; padding:4px 12px; border-radius:4px; text-transform:uppercase; margin-bottom:10px;">
+            HOY MIÉRCOLES 18 DE NOVIEMBRE · 11:00 AM A 1:00 PM · SALA OSLO - VIENA - DUBLÍN
+          </div>
+          <h1 style="color:#FFFFFF; font-size:24px; font-weight:800; margin:0 0 6px;">
+            Adecco <span style="color:#38BDF8;">AI Co-Pilot</span> <span style="color:#EF3326;">Lab</span>
+          </h1>
+          <p style="color:#94A3B8; font-size:13.5px; margin:0;">
+            Sesión 03: Conectividad Inteligente con Power Automate, Excel, Outlook y Teams + Copilot
+          </p>
+        </td>
+      </tr>
+      <!-- CUERPO -->
+      <tr>
+        <td style="padding:28px 32px; color:#1E293B; font-size:14px; line-height:1.6;">
+          <p style="margin:0 0 14px;"><strong>Estimado equipo de Sales &amp; Marketing,</strong></p>
+          <p style="margin:0 0 14px;">
+            ¡Los esperamos <strong>HOY Miércoles 18 de Noviembre a las 11:00 AM</strong> en la <strong>Sala Oslo - Viena - Dublín</strong> para nuestra <strong>Sesión 03 Presencial</strong> del programa <strong>Adecco AI Co-Pilot Lab</strong>!
+          </p>
+          <p style="margin:0 0 16px;">
+            Después de haber automatizado nuestras bases en Excel (Sesión 01), generado cartas masivas en Word y construido nuestro Dashboard DAX en Power BI (Sesión 02), hoy cerraremos el circuito operativo aprendiendo a <strong>conectar Excel con Outlook y Microsoft Teams mediante flujos automáticos</strong> para que las alertas de incidencias y SLAs se envíen solas en segundos.
+          </p>
+
+          <!-- FICHA DE CITA HOY -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8FAFC; border:1px solid #CBD5E1; border-left:5px solid #0066FF; border-radius:8px; margin:16px 0;">
+            <tr>
+              <td style="padding:16px 20px;">
+                <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:13.5px;">
+                  <tr>
+                    <td width="32%"><strong>⏰ Hora de Inicio (HOY):</strong></td>
+                    <td><strong style="color:#DA291C;">HOY Miércoles 18 de Noviembre — 11:00 AM a 1:00 PM</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>🏢 Sala Confirmada:</strong></td>
+                    <td><strong>Sala Oslo - Viena - Dublín</strong> (Traer Laptop)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🏆 Próximo Hito Final:</strong></td>
+                    <td><strong>Sustentación Final y Premiación (1.° S/ 300 · 2.° S/ 200):</strong> Lunes 23 Nov (11:00 AM · Sala Oslo)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>👨‍🏫 Ponente:</strong></td>
+                    <td><strong>Lic. Jhoan Taboada Huamán</strong> — Business Intelligence Analyst</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <h3 style="color:#0B172A; font-size:15px; font-weight:800; margin:20px 0 10px;">⚡ ¿Qué construiremos paso a paso en la sesión de hoy?</h3>
+          <ul style="margin:0 0 18px 20px; padding:0;">
+            <li style="margin-bottom:5px;"><strong>Flujos Automáticos en Power Automate:</strong> Cómo leer tu tabla <code>Tabla_Incidencias</code> de Excel, aplicar filtros anti-spam (<code>Estado = PENDIENTE</code>) y evitar el error de fechas numéricas con <code>ISO 8601</code>.</li>
+            <li style="margin-bottom:5px;"><strong>Tarjetas HTML Corporativas con Copilot:</strong> Diseño de alertas formales en Outlook y avisos instantáneos en Microsoft Teams con etiquetas dinámicas.</li>
+            <li style="margin-bottom:5px;"><strong>Plan Todoterreno Excel ➔ Outlook Desktop:</strong> Macro generada con IA para disparar correos HTML personalizados directamente desde tu archivo de Excel en 1 clic.</li>
+            <li style="margin-bottom:5px;"><strong>Estructura Ganadora para el Lunes 23 Nov:</strong> Guía y prompt para armar en 5 minutos la Ficha de Impacto (Antes vs. Después) de tu proyecto final.</li>
+            <li><strong>Competencia en vivo en la Arena Kahoot Live — Sesión 03</strong>.</li>
+          </ul>
+
+          <!-- BOTONES DE ACCESO DIRECTO -->
+          <div style="text-align:center; margin:24px 0;">
+            <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/clase3.html" style="display:inline-block; background-color:#0066FF; color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px;">
+              ⚡ Abrir Diapositivas Clase 03
+            </a>
+            <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/Practica_Clase03_PowerAutomate_Adecco.xlsx" style="display:inline-block; background-color:#107C41; color:#FFFFFF; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px;">
+              📗 Descargar Excel Práctica S3
+            </a>
+            <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/kahoot.html" style="display:inline-block; background-color:#0B172A; color:#38BDF8; text-decoration:none; font-weight:bold; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px; border:1px solid #38BDF8;">
+              🎮 Arena Kahoot Live
+            </a>
+          </div>
+
+          <p style="margin:0; font-size:12.5px; color:#64748B;">
+            * Te recomendamos ir descargando el archivo <strong>Practica_Clase03_PowerAutomate_Adecco.xlsx</strong> desde el botón verde para arrancar puntuales a las 11:00 AM. ¡Nos vemos en breve en Sala Oslo - Viena - Dublín!
+          </p>
+        </td>
+      </tr>
+      <!-- FOOTER -->
+      <tr>
+        <td style="background-color:#F1F5F9; padding:16px 32px; text-align:center; font-size:12px; color:#64748B; border-top:1px solid #E2E8F0;">
+          Adecco Sales &amp; Marketing · Programa Adecco AI Co-Pilot Lab 2026
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function copyEmail() {
+      const el = document.getElementById('emailBody');
+      const range = document.createRange();
+      range.selectNode(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      alert('✅ ¡Contenido del correo copiado! Pégalo directamente en Microsoft Outlook.');
+    }
+  </script>
+</body>
+</html>
