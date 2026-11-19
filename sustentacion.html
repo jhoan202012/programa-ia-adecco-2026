@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Función Final & Guía Oficial de Sustentación (23 Nov) — Adecco AI Co-Pilot Lab | América Móvil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #03060C;
+      --bg-surface: #091122;
+      --bg-card: rgba(12, 21, 40, 0.78);
+      --adecco-red: #DA291C;
+      --adecco-crimson: #FF3B2F;
+      --cyan-glow: #38BDF8;
+      --amber-glow: #F59E0B;
+      --emerald-glow: #10B981;
+      --purple-glow: #A855F7;
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      --border-glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(900px circle at 10% 8%, rgba(218, 41, 28, 0.16), transparent 55%),
+        radial-gradient(900px circle at 90% 15%, rgba(245, 158, 11, 0.14), transparent 55%),
+        radial-gradient(800px circle at 50% 90%, rgba(56, 189, 248, 0.12), transparent 60%),
+        var(--bg-obsidian);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar-wrapper {
+      position: sticky;
+      top: 14px;
+      z-index: 1000;
+      padding: 0 20px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .navbar {
+      background: rgba(8, 14, 28, 0.88);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.75);
+      border-radius: 16px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-tag-red {
+      background: var(--adecco-red);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .brand-tag-gold {
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #FDE68A;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-link.active-final {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(218, 41, 28, 0.25));
+      border-color: #F59E0B;
+      color: #FDE68A;
+    }
+
+    /* ================= CONTAINER & HERO ================= */
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-final {
+      margin-top: 32px;
+      background: linear-gradient(145deg, rgba(16, 26, 48, 0.92), rgba(8, 13, 26, 0.96));
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 24px;
+      padding: 36px 34px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.8), 0 0 40px -15px rgba(245, 158, 11, 0.3);
+    }
+
+    .hero-final::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #DA291C, #F59E0B, #38BDF8, #DA291C);
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .pill-live {
+      background: linear-gradient(135deg, #DA291C, #B91C1C);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-gold {
+      background: rgba(245, 158, 11, 0.16);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #FDE68A;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 920px;
+      margin-bottom: 26px;
+    }
+
+    /* CRITICAL RULES STRIP (10:00 AM, 10:30 AM, 5 MIN + 3 MIN) */
+    .critical-rules-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .critical-rules-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 560px) {
+      .critical-rules-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rule-card {
+      background: rgba(4, 8, 18, 0.78);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 18px;
+      position: relative;
+    }
+
+    .rule-card.red { border-left: 4px solid #DA291C; }
+    .rule-card.cyan { border-left: 4px solid #38BDF8; }
+    .rule-card.amber { border-left: 4px solid #F59E0B; }
+    .rule-card.emerald { border-left: 4px solid #10B981; }
+
+    .rule-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .rule-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16.5px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .rule-card p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* ================= SECTIONS ================= */
+    .section {
+      margin-top: 52px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cyan-glow);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(23px, 2.6vw, 32px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    /* ================= 3 BLOCKS OF 5-MINUTE PITCH ================= */
+    .pitch-master-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    .time-bar-visual {
+      display: grid;
+      grid-template-columns: 1fr 2fr 2fr 1.5fr;
+      gap: 6px;
+      margin-bottom: 26px;
+      background: rgba(3, 6, 12, 0.8);
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border-glass);
+    }
+
+    @media (max-width: 780px) {
+      .time-bar-visual {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .t-seg {
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .t-seg.b1 { background: rgba(56, 189, 248, 0.18); border: 1px solid #38BDF8; color: #7DD3FC; }
+    .t-seg.b2 { background: rgba(218, 41, 28, 0.22); border: 1px solid #DA291C; color: #FCA5A5; }
+    .t-seg.b3 { background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #6EE7B7; }
+    .t-seg.bq { background: rgba(245, 158, 11, 0.18); border: 1px dashed #F59E0B; color: #FDE68A; }
+
+    .blocks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .blocks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .block-card {
+      background: rgba(5, 10, 22, 0.85);
+      border: 1px solid var(--border-glass);
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .block-card.b1 { border-top: 4px solid #38BDF8; }
+    .block-card.b2 { border-top: 4px solid #DA291C; }
+    .block-card.b3 { border-top: 4px solid #10B981; }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .block-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .b1 .block-num { background: rgba(56, 189, 248, 0.18); color: #7DD3FC; }
+    .b2 .block-num { background: rgba(218, 41, 28, 0.22); color: #FCA5A5; }
+    .b3 .block-num { background: rgba(16, 185, 129, 0.2); color: #6EE7B7; }
+
+    .block-time-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .block-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .block-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .block-list li {
+      font-size: 13.8px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .block-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan-glow);
+      font-weight: 800;
+    }
+
+    .b2 .block-list li::before { color: #FF6B60; }
+    .b3 .block-list li::before { color: #34D399; }
+
+    .example-speech {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid #F59E0B;
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #F8FAFC;
+    }
+
+    .example-speech strong {
+      color: #FDE68A;
+    }
+
+    /* QUANTIFICATION CALLOUT (AMÉRICA MÓVIL EXAMPLE) */
+    .math-callout {
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.14), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(218, 41, 28, 0.45);
+      border-radius: 18px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .math-callout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .math-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .math-box {
+      background: rgba(3, 6, 12, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .math-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #FDE68A;
+      display: block;
+    }
+
+    .math-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ================= PROGRAMA GENERAL TIMELINE (10:00 AM - 1:30 PM) ================= */
+    .agenda-shell {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    .agenda-top-bar {
+      background: linear-gradient(90deg, #0F172A, #1E293B);
+      padding: 18px 26px;
+      border-bottom: 1px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .agenda-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .agenda-table th {
+      text-align: left;
+      padding: 14px 22px;
+      background: rgba(3, 6, 12, 0.7);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .agenda-table td {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    .agenda-table tr:hover {
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    .agenda-table tr.row-highlight-red {
+      background: rgba(218, 41, 28, 0.11);
+    }
+
+    .agenda-table tr.row-highlight-gold {
+      background: rgba(245, 158, 11, 0.12);
+    }
+
+    .agenda-table tr.row-highlight-coffee {
+      background: rgba(16, 185, 129, 0.11);
+    }
+
+    .time-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .phase-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    /* ================= LIVE TIMER + PRESENTATION ORDER BOARD (10:30 AM) ================= */
+    .live-ops-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.25fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .live-ops-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stage-timer-card {
+      background: linear-gradient(160deg, rgba(14, 23, 43, 0.95), rgba(5, 9, 20, 0.98));
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 22px;
+      padding: 26px;
+      position: sticky;
+      top: 86px;
+      box-shadow: 0 20px 55px -15px rgba(0, 0, 0, 0.85);
+    }
+
+    .timer-speaker-banner {
+      background: rgba(3, 6, 12, 0.75);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .timer-digits-box {
+      background: #02050B;
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      border-radius: 18px;
+      padding: 24px 16px;
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .timer-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(54px, 6vw, 76px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+
+    .timer-block-indicator {
+      margin-top: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--cyan-glow);
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.12);
+      display: inline-block;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ui {
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-ui:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .btn-ui.primary-red {
+      background: linear-gradient(135deg, #DA291C, #991B1B);
+      border-color: #FCA5A5;
+    }
+
+    .btn-ui.primary-cyan {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      border-color: #7DD3FC;
+    }
+
+    .btn-ui.primary-amber {
+      background: linear-gradient(135deg, #D97706, #B45309);
+      border-color: #FDE68A;
+    }
+
+    .btn-ui.primary-emerald {
+      background: linear-gradient(135deg, #059669, #047857);
+      border-color: #6EE7B7;
+    }
+
+    /* ORDER TABLE CARD */
+    .order-board-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .order-item {
+      display: grid;
+      grid-template-columns: 44px 92px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(4, 8, 18, 0.78);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      transition: all 0.2s ease;
+    }
+
+    @media (max-width: 680px) {
+      .order-item {
+        grid-template-columns: 38px 1fr;
+      }
+    }
+
+    .order-item.active-speaker {
+      border-color: #F59E0B;
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.16), rgba(4, 8, 18, 0.9));
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+
+    .order-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(218, 41, 28, 0.2);
+      border: 1px solid rgba(218, 41, 28, 0.5);
+      color: #FCA5A5;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .input-inline {
+      background: rgba(3, 6, 12, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .input-inline:focus {
+      border-color: var(--cyan-glow);
+    }
+
+    /* PROMPT BOX FOR STUDENTS */
+    .prompt-card {
+      background: rgba(3, 6, 12, 0.88);
+      border: 1px solid rgba(168, 85, 247, 0.45);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 22px;
+    }
+
+    .prompt-pre {
+      background: #020409;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.8px;
+      line-height: 1.6;
+      color: #E2E8F0;
+      white-space: pre-wrap;
+      margin-top: 12px;
+    }
+
+    @media print {
+      .navbar-wrapper, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+      }
+      .hero-final, .pitch-master-box, .agenda-shell, .block-card, .rule-card {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+      }
+      h1, h2, h3, h4, p, li, td, th, span {
+        color: #0f172a !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR COMPLETA (CON TODAS LAS CLASES INTACTAS) ================= -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-tag-red">Adecco</span>
+        <span class="brand-tag-gold">FUNCIÓN FINAL · 23 NOV</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">🏠 Portal Principal</a>
+        <a href="sustentacion.html" class="nav-link active-final">🏆 Función Final (23 Nov)</a>
+        <a href="clase3.html" class="nav-link" style="color:#7DD3FC;">⚡ Clase 03</a>
+        <a href="clase2.html" class="nav-link" style="color:#93C5FD;">📊 Clase 02</a>
+        <a href="clase1.html" class="nav-link" style="color:#6EE7B7;">📁 Clase 01</a>
+        <a href="diplomas.html" class="nav-link" style="color:#FDE68A;">🎓 Diplomas y Certificados</a>
+        <a href="correo_final.html" class="nav-link" style="color:#FCA5A5;">📧 Correo &amp; Guía Final</a>
+        <a href="kahoot.html" class="nav-link">🎮 Kahoot Live</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+
+    <!-- ================= HERO: GRAN FUNCIÓN FINAL DE SUSTENTACIÓN ================= -->
+    <section class="hero-final">
+      <div class="hero-badge-row">
+        <span class="pill-live">● FUNCIÓN FINAL PRINCIPAL · LUNES 23 DE NOVIEMBRE 2026</span>
+        <span class="pill-gold">📍 SALA OSLO - VIENA - DUBLÍN · 11:00 AM A 1:00 PM (EXTENSIBLE 1:30 PM)</span>
+        <span class="pill-gold" style="border-color:#38BDF8; color:#7DD3FC; background:rgba(56,189,248,0.12);">CUENTA AMÉRICA MÓVIL · SALES &amp; MARKETING</span>
+      </div>
+
+      <h1 class="hero-title">
+        Programa General y Guía Final de Sustentación — <span style="color:#FDE68A;">Adecco AI Co-Pilot Lab</span>
+      </h1>
+
+      <p class="hero-sub">
+        Llegamos a la etapa cumbre del programa donde cada participante presentará la mejora aplicada a su labor diaria en <strong>América Móvil</strong>. Revisa aquí las <strong>reglas oficiales de envío (10:00 AM)</strong>, la publicación del <strong>orden de exposiciones (10:30 AM)</strong>, el <strong>cronograma minuto a minuto</strong> y la <strong>estructura ganadora de 5 minutos en 3 bloques</strong>.
+      </p>
+
+      <!-- 4 REGLAS CRÍTICAS DEL DÍA DE LA FINAL -->
+      <div class="critical-rules-grid">
+        <div class="rule-card red">
+          <span class="rule-time" style="color:#FCA5A5;">⏰ HITO 01 · HASTA LAS 10:00 AM</span>
+          <h3>Envío Obligatorio PPT o PDF</h3>
+          <p>A más tardar a las <strong>10:00 AM</strong> todos deben haber enviado su presentación final. <strong>Solo se aceptará formato PowerPoint (<code>.ppt / .pptx</code>) o PDF (<code>.pdf</code>)</strong>. No se aceptará ningún otro formato.</p>
+        </div>
+
+        <div class="rule-card cyan">
+          <span class="rule-time" style="color:#7DD3FC;">🌐 HITO 02 · A LAS 10:30 AM</span>
+          <h3>Orden Oficial en la Web</h3>
+          <p>A las <strong>10:30 AM</strong> se publicará en esta misma página web el <strong>Orden Oficial de las Exposiciones</strong> para que cada participante conozca su turno exacto.</p>
+        </div>
+
+        <div class="rule-card amber">
+          <span class="rule-time" style="color:#FDE68A;">⏱️ HITO 03 · 5 MIN + 3 MIN PREGUNTAS</span>
+          <h3>Tiempo por Participante</h3>
+          <p>Cada participante tendrá <strong>5 minutos de exposición</strong> distribuidos en <strong>3 bloques estratégicos</strong> (máximo 6 min), extensible hasta <strong>+3 minutos adicionales</strong> para preguntas del jurado.</p>
+        </div>
+
+        <div class="rule-card emerald">
+          <span class="rule-time" style="color:#6EE7B7;">🪪 HITO 04 · 11:00 A 11:15 AM</span>
+          <h3>Credenciales e Inicio</h3>
+          <p>De <strong>11:00 a 11:15 AM</strong> se entregarán las credenciales a quienes aún les falte. A las <strong>11:30 AM</strong> iniciamos con las palabras de <strong>Aracely</strong> y a las <strong>11:35 AM</strong> arrancan las exposiciones.</p>
+        </div>
+      </div>
+
+      <div class="btn-row no-print" style="margin-top:22px;">
+        <a href="#guia-5-minutos" class="btn-ui primary-red">🎯 Ver Guía Ganadora de 5 Minutos (3 Bloques)</a>
+        <a href="#programa-general" class="btn-ui primary-cyan">📋 Ver Programa General (11:00 a 13:30)</a>
+        <a href="#orden-exposiciones" class="btn-ui primary-amber">🎲 Orden de Exposiciones (10:30 AM) y Cronómetro</a>
+        <a href="diplomas.html" class="btn-ui primary-emerald">🎓 Ver Modelos de Diplomas y Certificados</a>
+        <a href="correo_final.html" class="btn-ui">📧 Abrir Correo Tentativo Final para Outlook</a>
+        <button class="btn-ui" onclick="window.print()">🖨️ Imprimir Guía / Programa</button>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 1: GUÍA FINAL DEL PARTICIPANTE (5 MINUTOS EN 3 BLOQUES) ================= -->
+    <section id="guia-5-minutos" class="section">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Fórmula Ganadora · Estructura Oficial de Sustentación</span>
+          <h2 class="section-title">Cómo Distribuir tus 5 Minutos de Exposición en 3 Bloques (+3 Min de Preguntas)</h2>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#FDE68A; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:8px 14px; border-radius:10px;">
+          💡 Si cumples estos 3 bloques con números reales y tus prompts de Copilot, ¡tendrás altísimas posibilidades de ganar!
+        </div>
+      </div>
+
+      <div class="pitch-master-box">
+        <!-- BARRA VISUAL DE TIEMPO -->
+        <div class="time-bar-visual">
+          <div class="t-seg b1">
+            <span>BLOQUE 1 · 1 MINUTO (0:00 – 1:00)</span>
+            <span style="font-size:11px; font-weight:600; color:#E2E8F0;">30s Quién eres + 30s Tu puesto en América Móvil</span>
+          </div>
+          <div class="t-seg b2">
+            <span>BLOQUE 2 · 1:30 A 2 MINUTOS (1:00 – 3:00)</span>
+            <span style="font-size:11px; font-weight:600; color:#E2E8F0;">Problema con Números (Día/Sem/Mes) + Muestra Puntual del Flujo</span>
+          </div>
+          <div class="t-seg b3">
+            <span>BLOQUE 3 · 2 MINUTOS (3:00 – 5:00)</span>
+            <span style="font-size:11px; font-weight:600; color:#E2E8F0;">Tiempo Ahorrado + Prompts enviados a Copilot + Cómo lo armaste</span>
+          </div>
+          <div class="t-seg bq">
+            <span>PREGUNTAS · +3 MINUTOS</span>
+            <span style="font-size:11px; font-weight:600; color:#E2E8F0;">Feedback y consultas del Jurado</span>
+          </div>
+        </div>
+
+        <!-- 3 TARJETAS DE BLOQUES DETALLADOS -->
+        <div class="blocks-grid">
+
+          <!-- BLOQUE 1 -->
+          <div class="block-card b1">
+            <div>
+              <div class="block-header">
+                <span class="block-num">BLOQUE 01 · CONTEXTO</span>
+                <span class="block-time-badge">⏱️ 1 Minuto (30s + 30s)</span>
+              </div>
+              <h3>¿Quién Eres y Qué Haces en América Móvil?</h3>
+              <ul class="block-list">
+                <li><strong>Primeros 30 segundos (Quién eres):</strong> Preséntate brevemente con tu nombre, cargo y línea o equipo dentro de la cuenta.</li>
+                <li><strong>Siguientes 30 segundos (Descripción de tu puesto):</strong> Explica qué haces normalmente en tu operación diaria en <strong>América Móvil</strong> y cuál es tu responsabilidad principal.</li>
+              </ul>
+            </div>
+            <div class="example-speech">
+              <strong>🎙️ Ejemplo de Guion (1 min):</strong><br>
+              <em>"Buenos días con todos, soy [Tu Nombre], [Tu Cargo] en la cuenta América Móvil. En mi puesto soy responsable de monitorear y consolidar diariamente los indicadores operativos de promotores y puntos de venta para asegurar el cumplimiento comercial de nuestras tiendas..."</em>
+            </div>
+          </div>
+
+          <!-- BLOQUE 2 -->
+          <div class="block-card b2">
+            <div>
+              <div class="block-header">
+                <span class="block-num">BLOQUE 02 · DOLOR + FLUJO</span>
+                <span class="block-time-badge">⏱️ 1:30 a 2 Minutos</span>
+              </div>
+              <h3>El Problema con Números y Tiempo + Muestra Puntual del Flujo</h3>
+              <ul class="block-list">
+                <li><strong>Por qué es indispensable tu proceso:</strong> Explica por qué esta tarea es fundamental en la operación diaria de América Móvil.</li>
+                <li><strong>Cuantifica con números el tiempo manual (Día / Semana / Mes):</strong> Muestra exactamente cuántas horas te toma al día, a la semana y su equivalente en días/horas al mes.</li>
+                <li><strong>Pequeño ejemplo del flujo o solución:</strong> No tienes que mostrar todo el proceso largo, <strong>solo una parte puntual clave</strong> (ej. cómo el flujo robótico de Power Automate o tu Macro descarga, procesa o almacena solo en una carpeta).</li>
+              </ul>
+            </div>
+            <div class="example-speech">
+              <strong>🎙️ Ejemplo Real Cuantificado:</strong><br>
+              <em>"Es indispensable enviar las ventas todos los días porque permite ver el cumplimiento a nivel promotor y tiendas, fundamental en la operación. Este proceso manual y repetitivo me toma <strong>1 hora por día</strong>, semanalmente <strong>7 horas</strong> y mensualmente <strong>28 horas</strong> (<strong>1 día y 4 horas al mes</strong>). Pero integré <strong>Power Automate</strong> y a través de flujos robóticos ahora se descarga solo y se almacena en una carpeta (aquí les muestro el flujo)."</em>
+            </div>
+          </div>
+
+          <!-- BLOQUE 3 -->
+          <div class="block-card b3">
+            <div>
+              <div class="block-header">
+                <span class="block-num">BLOQUE 03 · ROI + PROMPTS</span>
+                <span class="block-time-badge">⏱️ 2 Minutos</span>
+              </div>
+              <h3>Tiempo Ahorrado + Tus Prompts en Copilot y Tu Conocimiento</h3>
+              <ul class="block-list">
+                <li><strong>Presenta el número de ahorro real:</strong> Cuánto tiempo le has ahorrado a la operación (Antes vs. Después: ej. de 28 horas mensuales a solo 5 minutos).</li>
+                <li><strong>Muestra los Prompts que le enviaste a Copilot:</strong> Si no manejas código pero <strong>ideaste muy bien tus prompts</strong>, muestra en tu lámina 1 o 2 de los prompts reales que mandaste a Copilot.</li>
+                <li><strong>Tu conocimiento del negocio al mando:</strong> Explica cómo uniste tu conocimiento operativo de América Móvil con Copilot para construir y validar el proyecto.</li>
+              </ul>
+            </div>
+            <div class="example-speech">
+              <strong>🎙️ Ejemplo de Cierre Ganador:</strong><br>
+              <em>"Con esta solución ahorramos <strong>26 de las 28 horas mensuales (93% de ahorro)</strong>. Yo no manejo código desde cero, pero estructuré estos prompts en <strong>Microsoft Copilot</strong> indicándole mis columnas y reglas de negocio en América Móvil, validé el resultado y armé este proyecto funcional."</em>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CUADRO DE EJEMPLO MATEMÁTICO DE CUANTIFICACIÓN -->
+        <div class="math-callout">
+          <div>
+            <span class="eyebrow" style="background:rgba(245,158,11,0.18); border-color:#F59E0B; color:#FDE68A;">📊 Ejemplo Oficial de Cuantificación de Tiempo para tu Diapositiva</span>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:#fff; margin-bottom:8px;">
+              ¿Cómo presentar tus números para impactar al Jurado?
+            </h3>
+            <p style="font-size:13.8px; color:var(--text-secondary); line-height:1.55;">
+              No digas solo <em>"me demoraba bastante"</em>. Cuantifícalo por <strong>día, semana y mes</strong>, y tradúcelo en <strong>días completos de trabajo</strong>. Por ejemplo, en el envío diario de ventas por promotor y tiendas:
+            </p>
+          </div>
+          <div class="math-metrics-row">
+            <div class="math-box">
+              <span class="math-val">1h / día</span>
+              <span class="math-lbl">7 Horas / Semana</span>
+            </div>
+            <div class="math-box">
+              <span class="math-val" style="color:#FCA5A5;">28h / mes</span>
+              <span class="math-lbl">= 1 Día y 4 Horas</span>
+            </div>
+            <div class="math-box" style="border-color:#10B981;">
+              <span class="math-val" style="color:#6EE7B7;">Automático</span>
+              <span class="math-lbl">Flujo + Copilot</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROMPT LISTO PARA QUE LOS CHICOS ARMEN SU PPT / PDF DE 5 MINUTOS -->
+        <div class="prompt-card no-print">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; color:#D8B4FE;">🤖 PROMPT OFICIAL PARA PARTICIPANTES · ARMA TU PPT O PDF DE 5 MINUTOS</span>
+              <h4 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:800; color:#fff; margin-top:3px;">
+                Copia este prompt en Microsoft Copilot para estructurar tus diapositivas con los 3 bloques ganadores
+              </h4>
+            </div>
+            <button class="btn-ui primary-cyan" onclick="copyPromptText()">📋 Copiar Prompt para Copilot</button>
+          </div>
+          <div class="prompt-pre" id="studentFinalPrompt">Actúa como un consultor experto en presentaciones ejecutivas de proyectos de automatización con IA. Voy a presentar mi proyecto final de 5 minutos en el programa "Adecco AI Co-Pilot Lab" para la cuenta América Móvil.
+
+Mis datos son:
+- Mi nombre y puesto en América Móvil: [Ej. Nombre Apellido - Analista / Supervisor / BackOffice en América Móvil]
+- Qué hago normalmente en mi puesto: [Ej. Controlar el reporte diario de ventas, asistencia o cobertura de promotores y tiendas]
+- El problema manual y por qué es indispensable: [Ej. Es indispensable mandar las ventas todos los días porque permite ver el cumplimiento a nivel promotor y tiendas, fundamental en la operación]
+- Tiempo que me tomaba manualmente: [Ej. 1 hora al día = 7 horas a la semana = 28 horas al mes, equivalente a 1 día y 4 horas mensuales en un proceso manual y repetitivo]
+- La solución que implementé (parte clave a mostrar): [Ej. Integré Power Automate / Macros VBA / Power BI con Copilot y ahora mediante flujos robóticos el archivo se descarga solo, se procesa y se almacena en una carpeta]
+- Los Prompts que le envié a Copilot: [Pega aquí 1 o 2 prompts que usaste en Copilot para armar tu solución]
+- Tiempo que toma ahora y ahorro logrado: [Ej. Ahora toma 2 minutos automáticos, ahorrando más de 26 horas al mes]
+
+Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pasar a PPT o PDF) y mi guion hablado cronometrado en 5 minutos exactos divididos en estos 3 bloques oficiales:
+- BLOQUE 1 (Minuto 0:00 a 1:00): 30 segundos sobre quién soy y 30 segundos con la descripción de mi puesto en América Móvil.
+- BLOQUE 2 (Minuto 1:00 a 3:00): El problema diario mostrando números y tiempo (día, semana, mes en días/horas), por qué es crítico para la operación y la explicación puntual de una parte de mi flujo/automatización.
+- BLOQUE 3 (Minuto 3:00 a 5:00): Cuánto tiempo he ahorrado en números, muestra de los prompts que envié a Copilot (destacando cómo sin ser programador ideé los prompts con mi conocimiento del negocio) y conclusión de impacto.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 2: PROGRAMA GENERAL MINUTO A MINUTO (10:00 AM A 1:30 PM) ================= -->
+    <section id="programa-general" class="section">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Cronograma Oficial de Cierre · Lunes 23 de Noviembre</span>
+          <h2 class="section-title">Programa General de la Jornada Final (11:00 AM a 1:30 PM)</h2>
+        </div>
+        <div style="font-size:13.5px; color:var(--text-secondary);">
+          📍 <strong>Sala Oslo - Viena - Dublín</strong> · Horario base 11:00 a 13:00 hrs (extensible a 13:30 hrs)
+        </div>
+      </div>
+
+      <div class="agenda-shell">
+        <div class="agenda-top-bar">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:20px;">🏛️</span>
+            <div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:16px; color:#fff;">
+                AGENDA OFICIAL MINUTO A MINUTO — FUNCIÓN PRINCIPAL DE SUSTENTACIÓN
+              </div>
+              <div style="font-size:12px; color:var(--text-muted);">
+                Control estricto de tiempos: 5 minutos de exposición por participante (+ hasta 3 min de preguntas)
+              </div>
+            </div>
+          </div>
+          <span class="pill-gold">FORMATO ÚNICO ACEPTADO: PPT O PDF (10:00 AM)</span>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="agenda-table">
+            <thead>
+              <tr>
+                <th width="18%">Horario Oficial</th>
+                <th width="16%">Fase / Bloque</th>
+                <th width="44%">Actividad del Programa General</th>
+                <th width="22%">Responsable / Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight-red">
+                <td><span class="time-pill" style="border-color:#DA291C; color:#FCA5A5;">10:00 AM (Límite)</span></td>
+                <td><span class="phase-tag" style="background:rgba(218,41,28,0.25); color:#FCA5A5;">Pre-Evento</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">📥 Cierre de Recepción de Presentaciones Finales</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Todos los participantes deben haber enviado su presentación. <strong>Únicamente se acepta formato PowerPoint (<code>.ppt / .pptx</code>) o PDF (<code>.pdf</code>)</strong>. No se aceptará ningún otro formato.</span>
+                </td>
+                <td><strong>Todos los Participantes</strong><br><span style="font-size:12px; color:#FCA5A5;">Requisito obligatorio</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill" style="border-color:#38BDF8; color:#7DD3FC;">10:30 AM</span></td>
+                <td><span class="phase-tag" style="background:rgba(56,189,248,0.18); color:#7DD3FC;">Publicación Web</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🌐 Publicación del Orden Oficial de las Exposiciones</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Se publica en la página web oficial del programa la lista y turnos exactos de exposición de cada participante.</span>
+                </td>
+                <td><strong>Portal Web Oficial</strong><br><span style="font-size:12px; color:#7DD3FC;">Ver tablero abajo</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill">11:00 – 11:15 AM</span></td>
+                <td><span class="phase-tag" style="background:rgba(255,255,255,0.1); color:#E2E8F0;">Acreditación</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🪪 Recepción en Sala y Entrega de Credenciales</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Ingreso a Sala Oslo - Viena - Dublín y entrega de credenciales oficiales (fotochecks) a quienes aún les falte recibir la suya.</span>
+                </td>
+                <td><strong>Organización Adecco</strong><br><span style="font-size:12px; color:var(--text-muted);">15 minutos</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill">11:15 – 11:20 AM</span></td>
+                <td><span class="phase-tag" style="background:rgba(255,255,255,0.1); color:#E2E8F0;">Consultas</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">💬 Ronda Rápida de Consultas Previas</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Absolución de dudas puntuales y confirmación de archivos proyectados en pantalla.</span>
+                </td>
+                <td><strong>Lic. Jhoan Taboada</strong><br><span style="font-size:12px; color:var(--text-muted);">5 minutos</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill">11:20 – 11:30 AM</span></td>
+                <td><span class="phase-tag" style="background:rgba(56,189,248,0.18); color:#7DD3FC;">Lineamientos</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">📋 Explicación sobre la Agenda Final del Programa</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Explicación de la dinámica de evaluación, estructura de 5 minutos (+3 min de preguntas) y criterios del jurado.</span>
+                </td>
+                <td><strong>Lic. Jhoan Taboada</strong><br><span style="font-size:12px; color:var(--text-muted);">10 minutos</span></td>
+              </tr>
+
+              <tr class="row-highlight-gold">
+                <td><span class="time-pill" style="border-color:#F59E0B; color:#FDE68A;">11:30 – 11:35 AM</span></td>
+                <td><span class="phase-tag" style="background:rgba(245,158,11,0.25); color:#FDE68A;">Apertura Oficial</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🎙️ Palabras de Apertura e Inicio Oficial — Aracely</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Mensaje de bienvenida y apertura oficial de la jornada de sustentación de proyectos de la cuenta América Móvil.</span>
+                </td>
+                <td><strong style="color:#FDE68A;">Aracely</strong><br><span style="font-size:12px; color:#FDE68A;">Apertura de Gala</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill" style="border-color:#38BDF8; color:#7DD3FC;">11:35 – 12:10 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(56,189,248,0.22); color:#7DD3FC;">Exposiciones I</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🚀 Inicio de las Exposiciones — Primer Bloque</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Sustentación en vivo siguiendo los 3 bloques (1m Rol en América Móvil + 2m Problema con números y flujo + 2m Ahorro y Prompts Copilot). 5 min + hasta 3 min de preguntas.</span>
+                </td>
+                <td><strong>Participantes Bloque 1</strong><br><span style="font-size:12px; color:#7DD3FC;">35 minutos</span></td>
+              </tr>
+
+              <tr class="row-highlight-coffee">
+                <td><span class="time-pill" style="border-color:#10B981; color:#6EE7B7;">12:10 – 12:20 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(16,185,129,0.22); color:#6EE7B7;">Pausa Activa</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">☕ Coffee Break Oficial</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Pausa de 10 minutos para refrigerio, networking y preparación del segundo bloque de expositores.</span>
+                </td>
+                <td><strong>Todos los Asistentes</strong><br><span style="font-size:12px; color:#6EE7B7;">10 minutos exactos</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill" style="border-color:#38BDF8; color:#7DD3FC;">12:20 – 1:00 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(56,189,248,0.22); color:#7DD3FC;">Exposiciones II</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">⚡ Continuación y Final de las Exposiciones (1:00 PM)</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Sustentación del segundo bloque de participantes hasta culminar todas las presentaciones a la 1:00 PM.</span>
+                </td>
+                <td><strong>Participantes Bloque 2</strong><br><span style="font-size:12px; color:#7DD3FC;">40 minutos</span></td>
+              </tr>
+
+              <tr>
+                <td><span class="time-pill">1:00 – 1:10 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(168,85,247,0.22); color:#E9D5FF;">Evaluación</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">⚖️ Deliberación del Jurado Calificador</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Consolidación de puntajes según la rúbrica oficial (Funcionamiento 35%, Impacto cuantificado 25%, Dominio de Prompts Copilot 20%, Control y Adopción 20%).</span>
+                </td>
+                <td><strong>Jurado Calificador</strong><br><span style="font-size:12px; color:var(--text-muted);">10 minutos</span></td>
+              </tr>
+
+              <tr class="row-highlight-gold">
+                <td><span class="time-pill" style="border-color:#F59E0B; color:#FDE68A;">1:10 – 1:20 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(245,158,11,0.25); color:#FDE68A;">Reconocimiento</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🏆 Premiación de Ganadores y Entrega de Certificados y Diplomas</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Anuncio del 1.er y 2.° Puesto, entrega de premios, diplomas de honor y certificados oficiales a todos los participantes.</span>
+                </td>
+                <td><strong style="color:#FDE68A;">Jurado &amp; Liderazgo</strong><br><span style="font-size:12px; color:#FDE68A;">Foto Oficial</span></td>
+              </tr>
+
+              <tr class="row-highlight-red">
+                <td><span class="time-pill" style="border-color:#DA291C; color:#FCA5A5;">1:20 – 1:30 PM</span></td>
+                <td><span class="phase-tag" style="background:rgba(218,41,28,0.25); color:#FCA5A5;">Clausura</span></td>
+                <td>
+                  <strong style="color:#fff; font-size:15px;">🎬 Palabras Finales y Cierre Oficial del Programa</strong><br>
+                  <span style="color:var(--text-secondary); font-size:13px;">Mensaje de clausura, proyección del video final de cierre y agradecimiento a todo el equipo de América Móvil.</span>
+                </td>
+                <td><strong>Aracely &amp; Lic. Jhoan Taboada</strong><br><span style="font-size:12px; color:#FCA5A5;">Cierre 1:30 PM</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECCIÓN 3: ORDEN DE EXPOSICIONES (10:30 AM) + CRONÓMETRO EN VIVO ================= -->
+    <section id="orden-exposiciones" class="section no-print">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Publicación Oficial 10:30 AM · Control de Sala en Vivo</span>
+          <h2 class="section-title">Orden Oficial de Exposiciones y Cronómetro del Jurado (5m + 3m)</h2>
+        </div>
+        <div class="btn-row">
+          <button class="btn-ui primary-amber" onclick="randomizeOrder()">🎲 Sortear / Publicar Orden (10:30 AM)</button>
+          <button class="btn-ui" onclick="resetDefaultOrder()">🔄 Restaurar Lista Base</button>
+        </div>
+      </div>
+
+      <div class="live-ops-grid">
+
+        <!-- CRONÓMETRO OFICIAL DE EXPOSICIÓN (5 MIN + 3 MIN PREGUNTAS) -->
+        <div class="stage-timer-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; color:#FDE68A;">⏱️ CRONÓMETRO OFICIAL DE SALA</span>
+            <span id="timerModeBadge" style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; background:rgba(56,189,248,0.16); color:#7DD3FC; padding:3px 10px; border-radius:999px;">MODO EXPOSICIÓN · 5:00 MIN</span>
+          </div>
+
+          <div class="timer-speaker-banner">
+            <div>
+              <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Expositor en Turno:</div>
+              <div id="activeSpeakerName" style="font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:800; color:#fff;">Selecciona un participante de la lista ➔</div>
+            </div>
+            <span id="activeSpeakerSlot" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#FDE68A; font-weight:800;">11:35 AM</span>
+          </div>
+
+          <div class="timer-digits-box" id="timerDisplayBox">
+            <div class="timer-digits" id="liveTimerDigits">05:00</div>
+            <div class="timer-block-indicator" id="liveBlockIndicator">
+              BLOQUE 1 (0:00 a 1:00) · Quién eres y tu puesto en América Móvil
+            </div>
+          </div>
+
+          <!-- CONTROLES DEL CRONÓMETRO -->
+          <div class="btn-row" style="margin-bottom:12px;">
+            <button class="btn-ui primary-emerald" style="flex:1;" id="btnStartPause" onclick="toggleStageTimer()">▶️ Iniciar / Pausar</button>
+            <button class="btn-ui primary-cyan" onclick="setStageTimerMode('pitch')">🎙️ 5:00 Exposición</button>
+            <button class="btn-ui primary-amber" onclick="setStageTimerMode('qa')">❓ 3:00 Preguntas</button>
+            <button class="btn-ui" onclick="resetStageTimer()">↺ Reset</button>
+          </div>
+
+          <div style="background:rgba(3,6,12,0.7); border:1px solid var(--border-glass); border-radius:12px; padding:12px 14px; font-size:12.5px; color:var(--text-secondary); line-height:1.5;">
+            <strong style="color:#fff;">🔔 Guía de Alertas Sonoras en Sala:</strong><br>
+            • <strong>Minuto 1:00 cumplido (queda 04:00):</strong> Pasa al <strong>Bloque 2</strong> (Problema con números + Flujo).<br>
+            • <strong>Minuto 3:00 cumplido (queda 02:00):</strong> Pasa al <strong>Bloque 3</strong> (Tiempo ahorrado + Prompts Copilot).<br>
+            • <strong>00:00 cumplido:</strong> Fin de los 5 minutos y pase a <strong>3 minutos de preguntas</strong>.
+          </div>
+        </div>
+
+        <!-- TABLERO DEL ORDEN DE EXPOSICIONES (10:30 AM) -->
+        <div class="order-board-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+            <div>
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:#fff;">
+                📋 Orden Oficial de Exposiciones (Publicación 10:30 AM)
+              </h3>
+              <p style="font-size:13px; color:var(--text-secondary);">
+                Registra o edita los nombres de los expositores, verifica quién entregó su <strong>PPT/PDF antes de las 10:00 AM</strong> y lanza su turno en el cronómetro.
+              </p>
+            </div>
+            <span id="orderStatusBadge" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; background:rgba(16,185,129,0.18); border:1px solid #10B981; color:#6EE7B7; padding:5px 12px; border-radius:8px;">
+              ● ORDEN SINCRONIZADO EN WEB
+            </span>
+          </div>
+
+          <!-- FORMULARIO PARA AGREGAR PARTICIPANTE -->
+          <div style="display:grid; grid-template-columns:1fr 1fr auto auto; gap:8px; margin-bottom:16px;">
+            <input type="text" id="newSpeakerName" class="input-inline" placeholder="Nombre del participante..." />
+            <input type="text" id="newSpeakerRole" class="input-inline" placeholder="Puesto en América Móvil / Proceso..." />
+            <select id="newSpeakerFormat" class="input-inline">
+              <option value="PPTX ✅ (10:00 AM)">PPTX ✅ (10:00 AM)</option>
+              <option value="PDF ✅ (10:00 AM)">PDF ✅ (10:00 AM)</option>
+              <option value="Pendiente ⏳">Pendiente ⏳</option>
+            </select>
+            <button class="btn-ui primary-cyan" onclick="addSpeakerToOrder()">➕ Agregar</button>
+          </div>
+
+          <!-- LISTA RENDERIZADA -->
+          <div id="speakersOrderContainer"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // =====================================================================
+    // 1. COPIAR PROMPT PARA PARTICIPANTES
+    // =====================================================================
+    function copyPromptText() {
+      const txt = document.getElementById('studentFinalPrompt').innerText;
+      navigator.clipboard.writeText(txt).then(() => {
+        alert('✅ ¡Prompt copiado al portapapeles! Pégalo en Microsoft Copilot para armar tus diapositivas y tu guion de 5 minutos.');
+      });
+    }
+
+    // =====================================================================
+    // 2. SISTEMA DE ORDEN DE EXPOSICIONES (SINCRONIZADO CON LOCALSTORAGE)
+    // =====================================================================
+    const DEFAULT_SPEAKERS = [
+      { name: "Turno 01 — Participante América Móvil", role: "Reporte Diario de Ventas Promotores y Tiendas (Power Automate)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:35 AM", done: false },
+      { name: "Turno 02 — Participante América Móvil", role: "Consolidación de Asistencia y Cobertura PDV (Excel VBA + Copilot)", format: "PDF ✅ (10:00 AM)", block: "Bloque I · 11:43 AM", done: false },
+      { name: "Turno 03 — Participante América Móvil", role: "Control de Liquidaciones y Comisiones Cadenas (Power BI DAX)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:51 AM", done: false },
+      { name: "Turno 04 — Participante América Móvil", role: "Automatización de Cartas y Descargos Operativos (Excel ➔ Word)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:59 AM", done: false },
+      { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos en Sala Oslo - Viena - Dublín", format: "REFRIGERIO", block: "12:10 – 12:20 PM", isBreak: true },
+      { name: "Turno 05 — Participante América Móvil", role: "Alertas Automáticas de SLAs y Vacantes por Zona (Excel ➔ Outlook)", format: "PDF ✅ (10:00 AM)", block: "Bloque II · 12:20 PM", done: false },
+      { name: "Turno 06 — Participante América Móvil", role: "Dashboard de Cumplimiento Comercial por Tienda (Power BI + Copilot)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:28 PM", done: false },
+      { name: "Turno 07 — Participante América Móvil", role: "Flujo Robótico de Descarga y Almacenamiento en Carpeta (Power Automate)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:36 PM", done: false },
+      { name: "Turno 08 — Participante América Móvil", role: "Auditoría de Bases Operativas y Reporte Ejecutivo (Excel + Copilot)", format: "PDF ✅ (10:00 AM)", block: "Bloque II · 12:44 PM", done: false },
+      { name: "Turno 09 — Participante América Móvil", role: "Seguimiento de Incidencias en Punto de Venta (Teams + Outlook)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:52 PM", done: false }
+    ];
+
+    let speakersList = JSON.parse(localStorage.getItem('adecco_final_order_2026') || 'null') || DEFAULT_SPEAKERS;
+    let currentActiveIdx = 0;
+
+    function saveSpeakers() {
+      localStorage.setItem('adecco_final_order_2026', JSON.stringify(speakersList));
+    }
+
+    function recalculateSlots() {
+      const slotsBeforeBreak = ["11:35 AM", "11:43 AM", "11:51 AM", "11:59 AM"];
+      const slotsAfterBreak = ["12:20 PM", "12:28 PM", "12:36 PM", "12:44 PM", "12:52 PM", "1:00 PM"];
+      let speakerCounter = 0;
+      speakersList.forEach(item => {
+        if (item.isBreak) {
+          item.block = "12:10 – 12:20 PM";
+        } else {
+          if (speakerCounter < 4) {
+            item.block = `Bloque I · ${slotsBeforeBreak[speakerCounter] || '12:05 PM'}`;
+          } else {
+            item.block = `Bloque II · ${slotsAfterBreak[speakerCounter - 4] || '12:55 PM'}`;
+          }
+          speakerCounter++;
+        }
+      });
+    }
+
+    function renderSpeakersOrder() {
+      const container = document.getElementById('speakersOrderContainer');
+      let turnNumber = 0;
+      container.innerHTML = speakersList.map((item, idx) => {
+        if (item.isBreak) {
+          return `
+            <div style="background:rgba(16,185,129,0.14); border:1px dashed #10B981; border-radius:12px; padding:11px 16px; margin:10px 0; display:flex; align-items:center; justify-content:space-between; color:#6EE7B7; font-weight:800; font-size:13.5px;">
+              <span>☕ 12:10 PM – 12:20 PM · COFFEE BREAK OFICIAL (10 MINUTOS)</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px;">PAUSA PROGRAMADA</span>
+            </div>
+          `;
+        }
+        turnNumber++;
+        const isCurrent = idx === currentActiveIdx;
+        return `
+          <div class="order-item ${isCurrent ? 'active-speaker' : ''}">
+            <div class="order-num">#${String(turnNumber).padStart(2, '0')}</div>
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; color:#FDE68A; display:block;">${item.block}</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#6EE7B7;">${item.format}</span>
+            </div>
+            <div>
+              <div contenteditable="true" onblur="updateSpeakerField(${idx}, 'name', this.innerText)" style="font-weight:800; font-size:14.5px; color:#fff; outline:none; border-bottom:1px dashed rgba(255,255,255,0.15); display:inline-block;">${item.name}</div>
+              <div contenteditable="true" onblur="updateSpeakerField(${idx}, 'role', this.innerText)" style="font-size:12.5px; color:var(--text-secondary); margin-top:2px; outline:none;">${item.role}</div>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button class="btn-ui ${isCurrent ? 'primary-amber' : 'primary-cyan'}" style="padding:7px 11px; font-size:11.5px;" onclick="selectSpeakerForTimer(${idx})">
+                ⏱️ ${isCurrent ? 'En Sala' : 'Exponer'}
+              </button>
+              <button class="btn-ui" style="padding:7px 9px; font-size:11.5px; color:#FCA5A5;" onclick="removeSpeaker(${idx})" title="Eliminar">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateSpeakerField(idx, field, val) {
+      speakersList[idx][field] = val.trim();
+      saveSpeakers();
+    }
+
+    function addSpeakerToOrder() {
+      const nameEl = document.getElementById('newSpeakerName');
+      const roleEl = document.getElementById('newSpeakerRole');
+      const formatEl = document.getElementById('newSpeakerFormat');
+      const name = nameEl.value.trim();
+      if (!name) {
+        alert('Escribe el nombre del participante para agregarlo al orden de exposiciones.');
+        return;
+      }
+      speakersList.push({
+        name: name,
+        role: roleEl.value.trim() || "Proyecto de Mejora Operativa — América Móvil",
+        format: formatEl.value,
+        block: "Bloque II",
+        done: false
+      });
+      nameEl.value = '';
+      roleEl.value = '';
+      recalculateSlots();
+      saveSpeakers();
+      renderSpeakersOrder();
+    }
+
+    function removeSpeaker(idx) {
+      speakersList.splice(idx, 1);
+      recalculateSlots();
+      saveSpeakers();
+      renderSpeakersOrder();
+    }
+
+    function randomizeOrder() {
+      const breakItem = speakersList.find(s => s.isBreak) || {
+        name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)",
+        role: "Pausa de 10 minutos en Sala Oslo - Viena - Dublín",
+        format: "REFRIGERIO",
+        block: "12:10 – 12:20 PM",
+        isBreak: true
+      };
+      const participants = speakersList.filter(s => !s.isBreak);
+      for (let i = participants.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [participants[i], participants[j]] = [participants[j], participants[i]];
+      }
+      const firstBlock = participants.slice(0, 4);
+      const secondBlock = participants.slice(4);
+      speakersList = [...firstBlock, breakItem, ...secondBlock];
+      recalculateSlots();
+      saveSpeakers();
+      renderSpeakersOrder();
+      document.getElementById('orderStatusBadge').textContent = "● ORDEN SORTEADO Y PUBLICADO (10:30 AM)";
+    }
+
+    function resetDefaultOrder() {
+      speakersList = JSON.parse(JSON.stringify(DEFAULT_SPEAKERS));
+      saveSpeakers();
+      renderSpeakersOrder();
+    }
+
+    function selectSpeakerForTimer(idx) {
+      currentActiveIdx = idx;
+      const item = speakersList[idx];
+      document.getElementById('activeSpeakerName').textContent = item.name;
+      document.getElementById('activeSpeakerSlot').textContent = item.block;
+      setStageTimerMode('pitch');
+      renderSpeakersOrder();
+    }
+
+    // =====================================================================
+    // 3. CRONÓMETRO DE SALA (5:00 EXPOSICIÓN EN 3 BLOQUES + 3:00 PREGUNTAS)
+    // =====================================================================
+    let timerSeconds = 300;
+    let timerMode = 'pitch'; // 'pitch' (300s) or 'qa' (180s)
+    let timerInterval = null;
+    let timerRunning = false;
+
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playBell(freq = 880, duration = 0.25) {
+      try {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function updateTimerUI() {
+      const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+      const secs = String(timerSeconds % 60).padStart(2, '0');
+      const digitsEl = document.getElementById('liveTimerDigits');
+      const indEl = document.getElementById('liveBlockIndicator');
+      const boxEl = document.getElementById('timerDisplayBox');
+
+      digitsEl.textContent = `${mins}:${secs}`;
+
+      if (timerMode === 'pitch') {
+        const elapsed = 300 - timerSeconds;
+        if (timerSeconds === 0) {
+          indEl.textContent = "⏰ ¡TIEMPO DE EXPOSICIÓN CUMPLIDO! Pasar a 3:00 min de Preguntas";
+          indEl.style.color = "#FCA5A5";
+          indEl.style.background = "rgba(218, 41, 28, 0.25)";
+          boxEl.style.borderColor = "#DA291C";
+        } else if (elapsed < 60) {
+          indEl.textContent = "BLOQUE 1 (0:00 a 1:00) · Quién eres (30s) + Tu puesto en América Móvil (30s)";
+          indEl.style.color = "#7DD3FC";
+          indEl.style.background = "rgba(56, 189, 248, 0.14)";
+          boxEl.style.borderColor = "rgba(56, 189, 248, 0.45)";
+        } else if (elapsed < 180) {
+          indEl.textContent = "BLOQUE 2 (1:00 a 3:00) · Problema con Números (Día/Sem/Mes) + Muestra de Flujo";
+          indEl.style.color = "#FCA5A5";
+          indEl.style.background = "rgba(218, 41, 28, 0.22)";
+          boxEl.style.borderColor = "rgba(218, 41, 28, 0.55)";
+        } else {
+          indEl.textContent = "BLOQUE 3 (3:00 a 5:00) · Tiempo Ahorrado + Prompts enviados a Copilot";
+          indEl.style.color = "#6EE7B7";
+          indEl.style.background = "rgba(16, 185, 129, 0.2)";
+          boxEl.style.borderColor = "rgba(16, 185, 129, 0.55)";
+        }
+      } else {
+        indEl.textContent = "❓ RONDA DE PREGUNTAS DEL JURADO (Máximo 3:00 Minutos)";
+        indEl.style.color = "#FDE68A";
+        indEl.style.background = "rgba(245, 158, 11, 0.2)";
+        boxEl.style.borderColor = "rgba(245, 158, 11, 0.55)";
+      }
+    }
+
+    function setStageTimerMode(mode) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerMode = mode;
+      timerSeconds = mode === 'pitch' ? 300 : 180;
+      document.getElementById('timerModeBadge').textContent =
+        mode === 'pitch' ? 'MODO EXPOSICIÓN · 5:00 MIN' : 'MODO PREGUNTAS · 3:00 MIN';
+      document.getElementById('btnStartPause').textContent = '▶️ Iniciar';
+      updateTimerUI();
+    }
+
+    function toggleStageTimer() {
+      if (timerRunning) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('btnStartPause').textContent = '▶️ Reanudar';
+      } else {
+        if (timerSeconds <= 0) {
+          timerSeconds = timerMode === 'pitch' ? 300 : 180;
+        }
+        timerRunning = true;
+        document.getElementById('btnStartPause').textContent = '⏸️ Pausar';
+        playBell(660, 0.15);
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            // Alertas de cambio de bloque en modo exposición (queda 240s = min 1:00; queda 120s = min 3:00; queda 30s = aviso final)
+            if (timerMode === 'pitch' && (timerSeconds === 240 || timerSeconds === 120 || timerSeconds === 30)) {
+              playBell(987.77, 0.25);
+            }
+            updateTimerUI();
+          } else {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('btnStartPause').textContent = '▶️ Iniciar';
+            playBell(523.25, 0.35);
+            setTimeout(() => playBell(659.25, 0.45), 220);
+          }
+        }, 1000);
+      }
+    }
+
+    function resetStageTimer() {
+      setStageTimerMode(timerMode);
+    }
+
+    renderSpeakersOrder();
+    selectSpeakerForTimer(0);
+  </script>
+</body>
+</html>
