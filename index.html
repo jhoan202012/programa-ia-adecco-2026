@@ -2658,18 +2658,21 @@
       const box = document.getElementById('portalOrderPreview');
       if (!box) return;
       const defaultOrder = [
-        { name: "Turno 01 — Participante América Móvil", role: "Reporte Diario de Ventas Promotores y Tiendas (Power Automate)", block: "11:35 AM", format: "PPT/PDF ✅" },
-        { name: "Turno 02 — Participante América Móvil", role: "Consolidación de Asistencia y Cobertura PDV (Excel VBA + Copilot)", block: "11:43 AM", format: "PPT/PDF ✅" },
-        { name: "Turno 03 — Participante América Móvil", role: "Control de Liquidaciones y Comisiones Cadenas (Power BI DAX)", block: "11:51 AM", format: "PPT/PDF ✅" },
-        { name: "Turno 04 — Participante América Móvil", role: "Automatización de Cartas y Descargos Operativos (Excel ➔ Word)", block: "11:59 AM", format: "PPT/PDF ✅" },
+        { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:35 AM", format: "PPT/PDF ✅" },
+        { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:41 AM", format: "PPT/PDF ✅" },
+        { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:47 AM", format: "PPT/PDF ✅" },
+        { name: "SANCHEZ BARRETO AMERICO MODESTO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:53 AM", format: "PPT/PDF ✅" },
+        { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:59 AM", format: "PPT/PDF ✅" },
+        { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 12:05 PM", format: "PPT/PDF ✅" },
         { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos", block: "12:10 PM", isBreak: true },
-        { name: "Turno 05 — Participante América Móvil", role: "Alertas Automáticas de SLAs y Vacantes por Zona (Excel ➔ Outlook)", block: "12:20 PM", format: "PPT/PDF ✅" },
-        { name: "Turno 06 — Participante América Móvil", role: "Dashboard de Cumplimiento Comercial por Tienda (Power BI + Copilot)", block: "12:28 PM", format: "PPT/PDF ✅" },
-        { name: "Turno 07 — Participante América Móvil", role: "Flujo Robótico de Descarga y Almacenamiento en Carpeta (Power Automate)", block: "12:36 PM", format: "PPT/PDF ✅" },
-        { name: "Turno 08 — Participante América Móvil", role: "Auditoría de Bases Operativas y Reporte Ejecutivo (Excel + Copilot)", block: "12:44 PM", format: "PPT/PDF ✅" },
-        { name: "Turno 09 — Participante América Móvil", role: "Seguimiento de Incidencias en Punto de Venta (Teams + Outlook)", block: "12:52 PM", format: "PPT/PDF ✅" }
+        { name: "MILIAN GONZA DAYANA NICOL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:20 PM", format: "PPT/PDF ✅" },
+        { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:26 PM", format: "PPT/PDF ✅" },
+        { name: "CRUZ AGUILAR MARIELL JAZMIN", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:33 PM", format: "PPT/PDF ✅" },
+        { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:40 PM", format: "PPT/PDF ✅" },
+        { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:47 PM", format: "PPT/PDF ✅" },
+        { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:54 PM", format: "PPT/PDF ✅" }
       ];
-      const list = JSON.parse(localStorage.getItem('adecco_final_order_2026') || 'null') || defaultOrder;
+      const list = JSON.parse(localStorage.getItem('adecco_final_order_amx_12') || 'null') || defaultOrder;
       let turn = 0;
       box.innerHTML = list.map(item => {
         if (item.isBreak) {

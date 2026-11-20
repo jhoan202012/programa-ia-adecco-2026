@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelos Oficiales de Diplomas y Certificados — Adecco AI Co-Pilot Lab | América Móvil</title>
+  <title>Certificados Oficiales (12 Participantes + Ponente) — Adecco AI Co-Pilot Lab | América Móvil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -89,10 +89,10 @@
 
     /* SIDEBAR EDITOR */
     .sidebar {
-      width: 370px;
+      width: 380px;
       background: #0D1627;
       border-right: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 22px 20px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -110,7 +110,7 @@
 
     .sidebar h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 18px;
+      font-size: 17.5px;
       font-weight: 900;
       color: #FFFFFF;
       line-height: 1.25;
@@ -122,23 +122,18 @@
       line-height: 1.45;
     }
 
-    .model-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-    }
-
     .tab-btn {
       background: #132038;
       border: 1px solid rgba(255, 255, 255, 0.12);
       color: #CBD5E1;
-      padding: 9px 10px;
+      padding: 9px 11px;
       border-radius: 9px;
       font-size: 11.5px;
       font-weight: 800;
       cursor: pointer;
       text-align: left;
       transition: all 0.2s;
+      width: 100%;
     }
 
     .tab-btn:hover {
@@ -147,14 +142,9 @@
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, rgba(218, 41, 28, 0.3), rgba(245, 158, 11, 0.25));
+      background: linear-gradient(135deg, rgba(218, 41, 28, 0.32), rgba(245, 158, 11, 0.28));
       border-color: #F59E0B;
       color: #FDE68A;
-    }
-
-    .tab-btn.full-span {
-      grid-column: span 2;
-      text-align: center;
     }
 
     .field-group {
@@ -172,7 +162,7 @@
       letter-spacing: 0.05em;
     }
 
-    .field-group input, .field-group textarea {
+    .field-group select, .field-group input {
       background: #060B14;
       border: 1px solid #26354D;
       color: #FFFFFF;
@@ -181,10 +171,6 @@
       font-size: 12.5px;
       font-family: inherit;
       outline: none;
-    }
-
-    .field-group input:focus, .field-group textarea:focus {
-      border-color: #38BDF8;
     }
 
     .btn-print {
@@ -213,22 +199,22 @@
     /* PREVIEW AREA */
     .preview-canvas {
       flex: 1;
-      padding: 32px 24px 60px;
+      padding: 28px 24px 60px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 42px;
+      gap: 38px;
       background:
         radial-gradient(800px circle at 50% 10%, rgba(37, 99, 235, 0.12), transparent 60%),
         #070C17;
     }
 
-    .model-wrapper {
+    .cert-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
     }
 
@@ -240,8 +226,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 10px 18px;
       border-radius: 12px;
     }
@@ -259,12 +245,6 @@
       page-break-inside: avoid;
       break-inside: avoid;
       flex-shrink: 0;
-    }
-
-    /* ==========================================================================
-       MODELO 01: CERTIFICADO OFICIAL CORPORATIVO (ADECCO RED & DEEP NAVY)
-       ========================================================================== */
-    .sheet-m1 {
       background: #FFFFFF;
       color: #0F172A;
       padding: 13mm 16mm;
@@ -326,7 +306,7 @@
       align-items: center;
       justify-content: space-between;
       margin-top: 8mm;
-      padding-bottom: 4mm;
+      padding-bottom: 4.5mm;
       border-bottom: 1.5px solid #E2E8F0;
     }
 
@@ -351,66 +331,46 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 2mm 10mm;
-    }
-
-    .cert-pre-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: #DA291C;
-      margin-bottom: 2mm;
+      padding: 4mm 10mm;
     }
 
     .cert-main-title {
       font-family: 'Cinzel', serif;
-      font-size: 34px;
+      font-size: 36px;
       font-weight: 900;
       color: #0F1E36;
       letter-spacing: 0.06em;
-      line-height: 1.1;
-      margin-bottom: 2.5mm;
+      line-height: 1.12;
+      margin-bottom: 3.5mm;
     }
 
     .cert-grant-line {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 600;
       color: #475569;
       letter-spacing: 0.04em;
-      margin-bottom: 3mm;
+      margin-bottom: 4.5mm;
     }
 
     .recipient-name-m1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 37px;
+      font-size: 35px;
       font-weight: 800;
       font-style: italic;
       color: #0F1E36;
       border-bottom: 2.5px solid #DA291C;
       display: inline-block;
-      padding: 0 18mm 2mm;
-      margin-bottom: 2.5mm;
-      min-width: 150mm;
-    }
-
-    .recipient-role-m1 {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #DA291C;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 4mm;
+      padding: 0 16mm 2.5mm;
+      margin-bottom: 6mm;
+      min-width: 165mm;
     }
 
     .cert-paragraph {
-      font-size: 13.2px;
-      line-height: 1.58;
+      font-size: 13.5px;
+      line-height: 1.62;
       color: #334155;
-      max-width: 225mm;
-      margin: 0 auto 4.5mm;
+      max-width: 228mm;
+      margin: 0 auto 5.5mm;
     }
 
     .modules-pills-row {
@@ -419,14 +379,14 @@
       justify-content: center;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 3mm;
+      margin-bottom: 2mm;
     }
 
     .m-pill {
       background: #F8FAFC;
       border: 1px solid #CBD5E1;
       border-left: 3.5px solid #0F1E36;
-      padding: 4px 11px;
+      padding: 4.5px 12px;
       border-radius: 6px;
       font-size: 10.5px;
       font-weight: 800;
@@ -442,7 +402,7 @@
       grid-template-columns: 1fr auto 1fr;
       align-items: end;
       gap: 14mm;
-      padding: 0 8mm 5mm;
+      padding: 0 8mm 5.5mm;
     }
 
     .sig-block {
@@ -454,8 +414,8 @@
       font-style: italic;
       font-size: 21px;
       color: #1E3A8A;
-      opacity: 0.82;
-      margin-bottom: -4px;
+      opacity: 0.85;
+      margin-bottom: -3px;
       height: 26px;
     }
 
@@ -475,104 +435,7 @@
       font-size: 10.5px;
       font-weight: 600;
       color: #64748B;
-      line-height: 1.3;
-    }
-
-    /* ==========================================================================
-       MODELO 02: DIPLOMA DE HONOR 1.ER PUESTO (GALA ORO IMPERIAL)
-       ========================================================================== */
-    .sheet-m2 {
-      background:
-        radial-gradient(circle at 50% 25%, #FFFDF7 0%, #FBF6E9 65%, #F3E9D2 100%);
-      color: #0F172A;
-      padding: 13mm 16mm;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .m2-gold-border {
-      position: absolute;
-      inset: 7.5mm;
-      border: 3px solid #B45309;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .m2-gold-border::before {
-      content: '';
-      position: absolute;
-      inset: 2.2mm;
-      border: 1.2px solid #D97706;
-    }
-
-    .m2-top-ribbon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 7.5mm;
-      background: linear-gradient(90deg, #0F172A 0%, #B45309 35%, #F59E0B 50%, #B45309 65%, #DA291C 100%);
-    }
-
-    /* ==========================================================================
-       MODELO 03: DIPLOMA DE HONOR 2.° PUESTO (GALA PLATINO & ADECCO)
-       ========================================================================== */
-    .sheet-m3 {
-      background:
-        radial-gradient(circle at 50% 25%, #FFFFFF 0%, #F8FAFC 65%, #E2E8F0 100%);
-      color: #0F172A;
-      padding: 13mm 16mm;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .m3-plat-border {
-      position: absolute;
-      inset: 7.5mm;
-      border: 3px solid #334155;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .m3-plat-border::before {
-      content: '';
-      position: absolute;
-      inset: 2.2mm;
-      border: 1.2px solid #DA291C;
-    }
-
-    /* ==========================================================================
-       MODELO 04: DIPLOMA ESPECIAL BIÓNICO HIGH-TECH (DARK OBSIDIAN & CYAN/GOLD)
-       ========================================================================== */
-    .sheet-m4 {
-      background:
-        radial-gradient(650px circle at 12% 18%, rgba(218, 41, 28, 0.22), transparent 60%),
-        radial-gradient(650px circle at 88% 82%, rgba(56, 189, 248, 0.22), transparent 60%),
-        linear-gradient(145deg, #050B16 0%, #0A1428 55%, #060C1A 100%);
-      color: #F8FAFC;
-      padding: 13mm 16mm;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .m4-cyber-border {
-      position: absolute;
-      inset: 8mm;
-      border: 2px solid rgba(56, 189, 248, 0.45);
-      border-radius: 4mm;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .m4-cyber-border::after {
-      content: '';
-      position: absolute;
-      inset: 2.5mm;
-      border: 1px dashed rgba(218, 41, 28, 0.55);
-      border-radius: 3mm;
+      line-height: 1.32;
     }
 
     /* PRINT RULES */
@@ -590,12 +453,12 @@
         display: block !important;
         overflow: visible !important;
       }
-      .model-wrapper {
+      .cert-wrapper {
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
       }
-      .model-wrapper.hidden-for-print {
+      .cert-wrapper.hidden-for-print {
         display: none !important;
       }
       .diploma-sheet {
@@ -614,13 +477,13 @@
   <div class="top-bar no-print">
     <div style="display:flex; align-items:center; gap:10px;">
       <span style="background:#DA291C; color:#fff; font-weight:900; font-size:11px; padding:3px 9px; border-radius:5px; text-transform:uppercase;">Adecco</span>
-      <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; color:#fff;">Catálogo &amp; Editor Oficial de Diplomas y Certificados (A4 Horizontal)</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; color:#fff;">Certificados Oficiales: 12 Participantes + Certificado de Ponente (A4 Horizontal)</span>
     </div>
 
     <div class="nav-links">
       <a href="index.html" class="nav-link">🏠 Portal Principal</a>
       <a href="sustentacion.html" class="nav-link" style="color:#FDE68A;">🏆 Función Final (23 Nov)</a>
-      <a href="diplomas.html" class="nav-link active">🎓 Diplomas y Certificados</a>
+      <a href="diplomas.html" class="nav-link active">🎓 Certificados Oficiales</a>
       <a href="correo_final.html" class="nav-link" style="color:#FCA5A5;">📧 Correo &amp; Guía Final</a>
       <a href="clase3.html" class="nav-link" style="color:#7DD3FC;">⚡ Clase 03</a>
       <a href="clase2.html" class="nav-link" style="color:#93C5FD;">📊 Clase 02</a>
@@ -630,58 +493,49 @@
 
   <div class="workspace">
 
-    <!-- ================= SIDEBAR DE PERSONALIZACIÓN E IMPRESIÓN ================= -->
+    <!-- ================= SIDEBAR DE FILTRO E IMPRESIÓN ================= -->
     <aside class="sidebar no-print">
       <div>
-        <h1>🎓 Modelos de Diplomas y Certificados</h1>
+        <h1>🎓 Certificados Oficiales Listos</h1>
         <p class="sub" style="margin-top:4px;">
-          Personaliza los datos aquí o haz clic directamente sobre cualquier texto del diploma para editarlo antes de imprimir en A4 Horizontal.
+          Diseño oficial aprobado con los <strong>12 participantes de América Móvil</strong> y el <strong>Certificado de Ponente de Jhoan Taboada Huamán</strong> (firmado por Araceli Giuliana Chávez Brito y Claudio Abdala).
         </p>
       </div>
 
       <div class="field-group">
-        <label>1. Selecciona el Modelo a Visualizar / Imprimir</label>
-        <div class="model-tabs">
-          <button class="tab-btn active full-span" id="tab-all" onclick="filterModel('all')">✨ Ver los 4 Modelos Oficiales (Catálogo Completo)</button>
-          <button class="tab-btn" id="tab-m1" onclick="filterModel('m1')">📜 Modelo 1: Certificado Participación</button>
-          <button class="tab-btn" id="tab-m2" onclick="filterModel('m2')">🥇 Modelo 2: Diploma 1.er Puesto (Oro)</button>
-          <button class="tab-btn" id="tab-m3" onclick="filterModel('m3')">🥈 Modelo 3: Diploma 2.° Puesto (Platino)</button>
-          <button class="tab-btn" id="tab-m4" onclick="filterModel('m4')">🤖 Modelo 4: Reconocimiento Copilot IA</button>
+        <label>1. Filtrar Certificado para Ver o Imprimir</label>
+        <select id="certFilterSelect" onchange="filterCertificates(this.value)">
+          <option value="all">✨ Ver Todos (12 Participantes + 1 Ponente = 13 Hojas)</option>
+          <option value="ponente">👨‍🏫 SOLO CERTIFICADO DE PONENTE (Jhoan Taboada Huamán)</option>
+          <option value="participants">👥 SOLO LOS 12 PARTICIPANTES (12 Hojas A4)</option>
+          <option value="p-0">01. FLORES LIMAYMANTA JEAN PAUL</option>
+          <option value="p-1">02. ZEA SALVATIERRA, ANDREA CELESTE</option>
+          <option value="p-2">03. VILCHEZ CENTURION SALY CARINA</option>
+          <option value="p-3">04. SANCHEZ BARRETO AMERICO MODESTO</option>
+          <option value="p-4">05. FLORES VILCHEZ ALEXIS FRANCO</option>
+          <option value="p-5">06. FARFAN NARBASTA MARIO ALEJANDRO</option>
+          <option value="p-6">07. MILIAN GONZA DAYANA NICOL</option>
+          <option value="p-7">08. ROJAS OTURI VICTOR MANUEL</option>
+          <option value="p-8">09. CRUZ AGUILAR MARIELL JAZMIN</option>
+          <option value="p-9">10. ANDRADE DE LA CRUZ ALEXANDER CESAR</option>
+          <option value="p-10">11. TORRES AVENDAÑO, DIANA VIRGINIA</option>
+          <option value="p-11">12. JULIAN FERNANDEZ</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>2. Formato del Nombre en los Certificados</label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <button class="tab-btn active" id="btnFmtOriginal" onclick="setNameFormat('original')">🔠 Mayúsculas (Lista Original)</button>
+          <button class="tab-btn" id="btnFmtTitle" onclick="setNameFormat('title')">✨ Nombre Propio (Capitalizado)</button>
         </div>
       </div>
 
       <div class="field-group">
-        <label>2. Nombre y Apellido del Participante</label>
-        <input type="text" id="inpName" value="Nombre y Apellido del Participante" oninput="syncCertificates()" />
-      </div>
-
-      <div class="field-group">
-        <label>3. Puesto / Cargo en América Móvil</label>
-        <input type="text" id="inpRole" value="Analista / Ejecutivo de Operaciones — Cuenta América Móvil (Sales & Marketing)" oninput="syncCertificates()" />
-      </div>
-
-      <div class="field-group">
-        <label>4. Proyecto / Logro Cuantificado (Para Diplomas)</label>
-        <textarea id="inpProject" rows="2" oninput="syncCertificates()">Automatización del Reporte Diario de Ventas por Promotor y Tiendas con Power Automate y Microsoft Copilot (Ahorro cuantificado: 28 horas mensuales = 1 día y 4 horas al mes)</textarea>
-      </div>
-
-      <div class="field-group">
-        <label>5. Firma 1 (Liderazgo Cuenta América Móvil / S&amp;M)</label>
-        <input type="text" id="inpSig1Name" value="Aracely" oninput="syncCertificates()" />
-        <input type="text" id="inpSig1Role" value="Liderazgo de Cuenta América Móvil · Sales & Marketing — Adecco Perú" oninput="syncCertificates()" />
-      </div>
-
-      <div class="field-group">
-        <label>6. Firma 2 (Instructor &amp; Especialista BI)</label>
-        <input type="text" id="inpSig2Name" value="Lic. Jhoan Taboada Huamán" oninput="syncCertificates()" />
-        <input type="text" id="inpSig2Role" value="Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab" oninput="syncCertificates()" />
-      </div>
-
-      <div class="field-group">
-        <label>7. Fecha y Código de Certificación</label>
+        <label>3. Formato de Firma de Araceli</label>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-          <input type="text" id="inpDate" value="Lima, 23 de noviembre de 2026" oninput="syncCertificates()" />
-          <input type="text" id="inpCode" value="ID: ADECCO-AMX-2026-01" oninput="syncCertificates()" />
+          <button class="tab-btn active" id="btnAraceli1" onclick="setAraceliFormat('Chávez Brito, Araceli Giuliana')">Chávez Brito, Araceli Giuliana</button>
+          <button class="tab-btn" id="btnAraceli2" onclick="setAraceliFormat('Araceli Giuliana Chávez Brito')">Araceli Giuliana Chávez Brito</button>
         </div>
       </div>
 
@@ -689,426 +543,262 @@
         🖨️ Imprimir / Guardar en PDF (A4 Horizontal)
       </button>
 
-      <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.25); border-radius:10px; padding:11px; font-size:11.5px; color:#CBD5E1; line-height:1.45;">
-        💡 <strong>Tip de Impresión Perfecta:</strong> Al presionar <code>Ctrl + P</code> o el botón rojo, elige orientación <strong>Horizontal (Landscape)</strong>, tamaño <strong>A4</strong> y activa <strong>Gráficos de fondo</strong>.
+      <div style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.35); border-radius:10px; padding:12px; font-size:11.8px; color:#E2E8F0; line-height:1.5;">
+        <strong style="color:#6EE7B7;">📂 Archivos Word y Excel generados en tu carpeta:</strong><br>
+        También tienes todos estos certificados guardados en:<br>
+        <code>Certificados_Oficiales_Adecco_2026/</code><br>
+        en formato <strong>Word (<code>.docx</code>)</strong> y <strong>Excel (<code>.xlsx</code>)</strong>.
       </div>
     </aside>
 
-    <!-- ================= PREVIEW DE LOS 4 MODELOS A4 HORIZONTAL ================= -->
-    <main class="preview-canvas">
+    <!-- ================= CONTENEDOR DE CERTIFICADOS A4 HORIZONTAL ================= -->
+    <main class="preview-canvas" id="certificatesContainer"></main>
 
-      <!-- =====================================================================
-           MODELO 01: CERTIFICADO OFICIAL DE PARTICIPACIÓN Y APROBACIÓN
-           ===================================================================== -->
-      <div class="model-wrapper" id="wrap-m1">
-        <div class="model-caption no-print">
-          <div>
-            <strong style="color:#fff; font-size:14px;">📜 MODELO 01 — Certificado Oficial de Participación y Aprobación (Corporativo Adecco Red &amp; Navy)</strong>
-            <div style="font-size:12px; color:#94A3B8;">Ideal para entregar a los 30 participantes que culminaron las sesiones y sustentaron su proyecto aplicable a América Móvil.</div>
-          </div>
-          <button class="tab-btn active" onclick="printSingleModel('m1')">🖨️ Imprimir Solo Este Modelo</button>
-        </div>
-
-        <section class="diploma-sheet sheet-m1">
-          <div class="m1-corner-left"></div>
-          <div class="m1-corner-right"></div>
-          <div class="m1-bottom-bar"></div>
-          <div class="m1-inner-frame"></div>
-
-          <!-- HEADER -->
-          <div class="m1-header">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div class="adecco-square-logo">Adecco</div>
-              <div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:15px; color:#0F1E36; letter-spacing:0.02em;">ADECCO PERÚ — DIVISIÓN SALES &amp; MARKETING</div>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; color:#DA291C;">CUENTA AMÉRICA MÓVIL · PROGRAMA ADECCO AI CO-PILOT LAB 2026</div>
-              </div>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:10px;">
-              <div style="text-align:right;">
-                <div style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:800; color:#64748B;">REGISTRO OFICIAL</div>
-                <div class="sync-code" style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:#0F1E36;">ID: ADECCO-AMX-2026-01</div>
-              </div>
-              <!-- EMBLEMA CYBORG SPLIT VECTORIAL -->
-              <svg width="52" height="52" viewBox="0 0 400 400">
-                <circle cx="200" cy="200" r="185" fill="#0F1E36" stroke="#DA291C" stroke-width="10"/>
-                <path d="M110,120 C110,60 150,45 200,45 L200,230 C150,230 114,200 110,150 Z" fill="#F5C29E"/>
-                <path d="M200,45 C255,45 290,60 290,120 L290,150 C286,200 250,230 200,230 Z" fill="#CBD5E1"/>
-                <rect x="206" y="106" width="64" height="44" rx="12" fill="#1C304B"/>
-                <circle cx="238" cy="128" r="14" fill="#DA291C"/>
-                <circle cx="238" cy="128" r="6" fill="#FFFFFF"/>
-                <rect x="70" y="265" width="260" height="72" rx="14" fill="#DA291C"/>
-                <text x="200" y="314" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="48" font-weight="900">Adecco</text>
-              </svg>
-            </div>
-          </div>
-
-          <!-- BODY -->
-          <div class="m1-body">
-            <div class="cert-pre-title">CERTIFICACIÓN EJECUTIVA EN INTELIGENCIA ARTIFICIAL APLICADA</div>
-            <h2 class="cert-main-title">CERTIFICADO DE APROBACIÓN</h2>
-            <div class="cert-grant-line">Se otorga el presente certificado oficial a:</div>
-
-            <div class="recipient-name-m1 sync-name" contenteditable="true">Nombre y Apellido del Participante</div>
-            <div class="recipient-role-m1 sync-role" contenteditable="true">Analista / Ejecutivo de Operaciones — Cuenta América Móvil (Sales &amp; Marketing)</div>
-
-            <p class="cert-paragraph" contenteditable="true">
-              Por haber culminado y sustentado satisfactoriamente su proyecto de mejora operativa en el programa intensivo <strong>"Adecco AI Co-Pilot Lab: IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot"</strong>, demostrando dominio práctico en la cuantificación de tiempos operativos, ingeniería de prompts y automatización de flujos aplicados a la operación de la cuenta <strong>América Móvil</strong>.
-            </p>
-
-            <div class="modules-pills-row">
-              <span class="m-pill red">✔ MÓDULO 01: Excel, Macros VBA &amp; Copilot</span>
-              <span class="m-pill">✔ MÓDULO 02: Word Automatizado &amp; Power BI (DAX)</span>
-              <span class="m-pill red">✔ MÓDULO 03: Power Automate, Outlook &amp; Teams</span>
-              <span class="m-pill">✔ MÓDULO 04: Sustentación de Proyecto con ROI Medido</span>
-            </div>
-          </div>
-
-          <!-- FOOTER -->
-          <div class="m1-footer">
-            <div class="sig-block">
-              <div class="sig-rubric">Aracely</div>
-              <div class="sig-line">
-                <div class="sig-name sync-sig1-name" contenteditable="true">Aracely</div>
-                <div class="sig-title sync-sig1-role" contenteditable="true">Liderazgo de Cuenta América Móvil · Sales &amp; Marketing — Adecco Perú</div>
-              </div>
-            </div>
-
-            <!-- SELLO DORADO CENTRAL -->
-            <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
-              <svg width="74" height="74" viewBox="0 0 120 120">
-                <polygon points="42,88 30,116 46,108 56,118 58,90" fill="#DA291C"/>
-                <polygon points="78,88 90,116 74,108 64,118 62,90" fill="#0F1E36"/>
-                <circle cx="60" cy="52" r="40" fill="#F59E0B" stroke="#B45309" stroke-width="3"/>
-                <circle cx="60" cy="52" r="33" fill="none" stroke="#FEF3C7" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <text x="60" y="48" text-anchor="middle" fill="#0F1E36" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="900">ADECCO AI</text>
-                <text x="60" y="61" text-anchor="middle" fill="#78350F" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="800">VERIFIED 2026</text>
-              </svg>
-              <span class="sync-date" style="font-size:10.5px; font-weight:700; color:#475569;" contenteditable="true">Lima, 23 de noviembre de 2026</span>
-            </div>
-
-            <div class="sig-block">
-              <div class="sig-rubric">Jhoan Taboada H.</div>
-              <div class="sig-line">
-                <div class="sig-name sync-sig2-name" contenteditable="true">Lic. Jhoan Taboada Huamán</div>
-                <div class="sig-title sync-sig2-role" contenteditable="true">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- =====================================================================
-           MODELO 02: DIPLOMA DE HONOR — 1.ER PUESTO (GALA ORO IMPERIAL)
-           ===================================================================== -->
-      <div class="model-wrapper" id="wrap-m2">
-        <div class="model-caption no-print">
-          <div>
-            <strong style="color:#FDE68A; font-size:14px;">🥇 MODELO 02 — Diploma de Honor · 1.er Puesto (Edición Gala Oro Imperial)</strong>
-            <div style="font-size:12px; color:#94A3B8;">Reconocimiento oficial al Primer Puesto de la Sustentación Final por impacto cuantificado en tiempo ahorrado y dominio de Copilot.</div>
-          </div>
-          <button class="tab-btn active" onclick="printSingleModel('m2')">🖨️ Imprimir Solo Este Modelo</button>
-        </div>
-
-        <section class="diploma-sheet sheet-m2">
-          <div class="m2-top-ribbon"></div>
-          <div class="m2-gold-border"></div>
-
-          <!-- HEADER -->
-          <div class="m1-header" style="border-bottom-color:rgba(180,83,9,0.25);">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div class="adecco-square-logo">Adecco</div>
-              <div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:15px; color:#0F1E36;">ADECCO PERÚ — DIVISIÓN SALES &amp; MARKETING</div>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:800; color:#B45309;">GRAN FINAL DE PROYECTOS DE MEJORA · CUENTA AMÉRICA MÓVIL</div>
-              </div>
-            </div>
-
-            <div style="background:linear-gradient(135deg,#B45309,#F59E0B); color:#FFFFFF; padding:6px 16px; border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; box-shadow:0 4px 12px rgba(180,83,9,0.3);">
-              🏆 1.ER PUESTO · EXCELENCIA EN AUTOMATIZACIÓN &amp; IA
-            </div>
-          </div>
-
-          <!-- BODY -->
-          <div class="m1-body">
-            <div class="cert-pre-title" style="color:#B45309;">MÁXIMA DISTINCIÓN EN INNOVACIÓN OPERATIVA Y PRODUCTIVIDAD</div>
-            <h2 class="cert-main-title" style="color:#78350F; font-size:35px;">DIPLOMA DE HONOR · 1.ER PUESTO</h2>
-            <div class="cert-grant-line">Otorgado con felicitación especial a:</div>
-
-            <div class="recipient-name-m1 sync-name" style="border-bottom-color:#D97706; color:#0F1E36;" contenteditable="true">Nombre y Apellido del Participante</div>
-            <div class="recipient-role-m1 sync-role" style="color:#B45309;" contenteditable="true">Analista / Ejecutivo de Operaciones — Cuenta América Móvil (Sales &amp; Marketing)</div>
-
-            <p class="cert-paragraph" style="margin-bottom:3mm;" contenteditable="true">
-              Por haber obtenido el <strong>PRIMER PUESTO</strong> en la Sustentación Final del programa <strong>Adecco AI Co-Pilot Lab 2026</strong>, al presentar y demostrar en vivo una solución de alto impacto para la operación de <strong>América Móvil</strong>, destacando por su cuantificación exacta de ahorro de horas-hombre, automatización de flujos y excelente ingeniería de prompts en <strong>Microsoft Copilot</strong>.
-            </p>
-
-            <!-- CAJA DEL PROYECTO GANADOR -->
-            <div style="background:rgba(255,255,255,0.85); border:1.5px solid #D97706; border-left:5px solid #DA291C; border-radius:8px; padding:8px 16px; max-width:215mm; margin:0 auto;">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:800; color:#B45309; text-transform:uppercase;">PROYECTO GANADOR &amp; IMPACTO CUANTIFICADO EN LA OPERACIÓN:</div>
-              <div class="sync-project" style="font-size:12px; font-weight:700; color:#0F1E36; margin-top:2px;" contenteditable="true">
-                Automatización del Reporte Diario de Ventas por Promotor y Tiendas con Power Automate y Microsoft Copilot (Ahorro cuantificado: 28 horas mensuales = 1 día y 4 horas al mes)
-              </div>
-            </div>
-          </div>
-
-          <!-- FOOTER -->
-          <div class="m1-footer">
-            <div class="sig-block">
-              <div class="sig-rubric">Aracely</div>
-              <div class="sig-line" style="border-top-color:#78350F;">
-                <div class="sig-name sync-sig1-name" contenteditable="true">Aracely</div>
-                <div class="sig-title sync-sig1-role" contenteditable="true">Liderazgo de Cuenta América Móvil · Sales &amp; Marketing — Adecco Perú</div>
-              </div>
-            </div>
-
-            <!-- MEDALLA 1ER PUESTO -->
-            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
-              <svg width="82" height="82" viewBox="0 0 120 120">
-                <polygon points="40,84 26,118 44,108 55,118 58,86" fill="#DA291C"/>
-                <polygon points="80,84 94,118 76,108 65,118 62,86" fill="#B45309"/>
-                <circle cx="60" cy="50" r="42" fill="#F59E0B" stroke="#78350F" stroke-width="3.5"/>
-                <circle cx="60" cy="50" r="35" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
-                <text x="60" y="45" text-anchor="middle" fill="#B45309" font-family="Cinzel,serif" font-size="16" font-weight="900">1° PUESTO</text>
-                <text x="60" y="61" text-anchor="middle" fill="#DA291C" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="900">GOLD WINNER</text>
-              </svg>
-              <span class="sync-date" style="font-size:10.5px; font-weight:800; color:#78350F;" contenteditable="true">Lima, 23 de noviembre de 2026</span>
-            </div>
-
-            <div class="sig-block">
-              <div class="sig-rubric">Jhoan Taboada H.</div>
-              <div class="sig-line" style="border-top-color:#78350F;">
-                <div class="sig-name sync-sig2-name" contenteditable="true">Lic. Jhoan Taboada Huamán</div>
-                <div class="sig-title sync-sig2-role" contenteditable="true">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- =====================================================================
-           MODELO 03: DIPLOMA DE HONOR — 2.° PUESTO (GALA PLATINO)
-           ===================================================================== -->
-      <div class="model-wrapper" id="wrap-m3">
-        <div class="model-caption no-print">
-          <div>
-            <strong style="color:#E2E8F0; font-size:14px;">🥈 MODELO 03 — Diploma de Honor · 2.° Puesto (Edición Gala Platino &amp; Adecco Red)</strong>
-            <div style="font-size:12px; color:#94A3B8;">Reconocimiento oficial al Segundo Puesto en la Sustentación Final de Proyectos de Mejora Operativa.</div>
-          </div>
-          <button class="tab-btn active" onclick="printSingleModel('m3')">🖨️ Imprimir Solo Este Modelo</button>
-        </div>
-
-        <section class="diploma-sheet sheet-m3">
-          <div class="m1-bottom-bar"></div>
-          <div class="m3-plat-border"></div>
-
-          <!-- HEADER -->
-          <div class="m1-header">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div class="adecco-square-logo">Adecco</div>
-              <div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:15px; color:#0F1E36;">ADECCO PERÚ — DIVISIÓN SALES &amp; MARKETING</div>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:800; color:#475569;">GRAN FINAL DE PROYECTOS DE MEJORA · CUENTA AMÉRICA MÓVIL</div>
-              </div>
-            </div>
-
-            <div style="background:linear-gradient(135deg,#334155,#0F172A); color:#FFFFFF; padding:6px 16px; border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; border:1.5px solid #94A3B8;">
-              🥈 2.° PUESTO · DESTACADO IMPACTO OPERATIVO CON IA
-            </div>
-          </div>
-
-          <!-- BODY -->
-          <div class="m1-body">
-            <div class="cert-pre-title" style="color:#334155;">DISTINCIÓN AL MÉRITO EN AUTOMATIZACIÓN Y OPTIMIZACIÓN DE TIEMPOS</div>
-            <h2 class="cert-main-title" style="color:#0F1E36; font-size:35px;">DIPLOMA DE HONOR · 2.° PUESTO</h2>
-            <div class="cert-grant-line">Se confiere el presente reconocimiento a:</div>
-
-            <div class="recipient-name-m1 sync-name" style="border-bottom-color:#334155;" contenteditable="true">Nombre y Apellido del Participante</div>
-            <div class="recipient-role-m1 sync-role" contenteditable="true">Analista / Ejecutivo de Operaciones — Cuenta América Móvil (Sales &amp; Marketing)</div>
-
-            <p class="cert-paragraph" style="margin-bottom:3mm;" contenteditable="true">
-              Por haber alcanzado el <strong>SEGUNDO PUESTO</strong> en la Sustentación Final del programa <strong>Adecco AI Co-Pilot Lab 2026</strong>, demostrando sobresaliente capacidad para identificar oportunidades de mejora en su labor diaria dentro de la cuenta <strong>América Móvil</strong>, cuantificar el ahorro de tiempo operativo y construir flujos automatizados impulsados por <strong>Microsoft Copilot</strong>.
-            </p>
-
-            <div style="background:#FFFFFF; border:1.5px solid #94A3B8; border-left:5px solid #0F1E36; border-radius:8px; padding:8px 16px; max-width:215mm; margin:0 auto;">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:800; color:#475569; text-transform:uppercase;">PROYECTO SUSTENTADO &amp; AHORRO OPERATIVO LOGRADO:</div>
-              <div class="sync-project" style="font-size:12px; font-weight:700; color:#0F1E36; margin-top:2px;" contenteditable="true">
-                Automatización del Reporte Diario de Ventas por Promotor y Tiendas con Power Automate y Microsoft Copilot (Ahorro cuantificado: 28 horas mensuales = 1 día y 4 horas al mes)
-              </div>
-            </div>
-          </div>
-
-          <!-- FOOTER -->
-          <div class="m1-footer">
-            <div class="sig-block">
-              <div class="sig-rubric">Aracely</div>
-              <div class="sig-line">
-                <div class="sig-name sync-sig1-name" contenteditable="true">Aracely</div>
-                <div class="sig-title sync-sig1-role" contenteditable="true">Liderazgo de Cuenta América Móvil · Sales &amp; Marketing — Adecco Perú</div>
-              </div>
-            </div>
-
-            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
-              <svg width="80" height="80" viewBox="0 0 120 120">
-                <polygon points="40,84 26,118 44,108 55,118 58,86" fill="#DA291C"/>
-                <polygon points="80,84 94,118 76,108 65,118 62,86" fill="#334155"/>
-                <circle cx="60" cy="50" r="41" fill="#CBD5E1" stroke="#334155" stroke-width="3.5"/>
-                <circle cx="60" cy="50" r="34" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
-                <text x="60" y="45" text-anchor="middle" fill="#0F1E36" font-family="Cinzel,serif" font-size="16" font-weight="900">2° PUESTO</text>
-                <text x="60" y="61" text-anchor="middle" fill="#DA291C" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="900">SILVER AWARD</text>
-              </svg>
-              <span class="sync-date" style="font-size:10.5px; font-weight:800; color:#334155;" contenteditable="true">Lima, 23 de noviembre de 2026</span>
-            </div>
-
-            <div class="sig-block">
-              <div class="sig-rubric">Jhoan Taboada H.</div>
-              <div class="sig-line">
-                <div class="sig-name sync-sig2-name" contenteditable="true">Lic. Jhoan Taboada Huamán</div>
-                <div class="sig-title sync-sig2-role" contenteditable="true">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- =====================================================================
-           MODELO 04: RECONOCIMIENTO ESPECIAL "MASTER COPILOT & PROMPT ENGINEERING"
-           ===================================================================== -->
-      <div class="model-wrapper" id="wrap-m4">
-        <div class="model-caption no-print">
-          <div>
-            <strong style="color:#7DD3FC; font-size:14px;">🤖 MODELO 04 — Diploma Especial "Master Prompt Engineering &amp; Copilot Architect" (Edición Biónica Dark)</strong>
-            <div style="font-size:12px; color:#94A3B8;">Ideal para premiar a quienes sin programar código estructuraron los mejores prompts con su conocimiento de América Móvil, o como versión moderna High-Tech.</div>
-          </div>
-          <button class="tab-btn active" onclick="printSingleModel('m4')">🖨️ Imprimir Solo Este Modelo</button>
-        </div>
-
-        <section class="diploma-sheet sheet-m4">
-          <div class="m4-cyber-border"></div>
-
-          <!-- HEADER -->
-          <div class="m1-header" style="border-bottom-color:rgba(56,189,248,0.22); margin-top:2mm;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div class="adecco-square-logo">Adecco</div>
-              <div>
-                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:15px; color:#FFFFFF;">ADECCO PERÚ — SALES &amp; MARKETING</div>
-                <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:800; color:#38BDF8;">ADECCO AI CO-PILOT LAB · HUMAN + BIONIC SYNERGY</div>
-              </div>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="background:rgba(56,189,248,0.16); border:1px solid #38BDF8; color:#7DD3FC; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; padding:5px 14px; border-radius:999px;">
-                ⚡ MASTER COPILOT &amp; PROMPT ARCHITECT
-              </span>
-            </div>
-          </div>
-
-          <!-- BODY -->
-          <div class="m1-body">
-            <div class="cert-pre-title" style="color:#38BDF8;">RECONOCIMIENTO A LA SINERGIA ENTRE CONOCIMIENTO DEL NEGOCIO E INTELIGENCIA ARTIFICIAL</div>
-            <h2 class="cert-main-title" style="color:#FFFFFF; font-size:33px;">DIPLOMA DE EXCELENCIA EN IA</h2>
-            <div class="cert-grant-line" style="color:#94A3B8;">Se otorga la presente distinción tecnológica a:</div>
-
-            <div class="recipient-name-m1 sync-name" style="color:#FDE68A; border-bottom-color:#DA291C;" contenteditable="true">Nombre y Apellido del Participante</div>
-            <div class="recipient-role-m1 sync-role" style="color:#38BDF8;" contenteditable="true">Analista / Ejecutivo de Operaciones — Cuenta América Móvil (Sales &amp; Marketing)</div>
-
-            <p class="cert-paragraph" style="color:#CBD5E1; margin-bottom:3.5mm;" contenteditable="true">
-              Por demostrar que el verdadero poder de la Inteligencia Artificial nace del conocimiento profundo de nuestra operación en <strong>América Móvil</strong>: transformando procesos manuales y repetitivos en flujos autónomos de alto impacto mediante <strong>ingeniería estratégica de prompts en Microsoft Copilot, Excel, Power BI y Power Automate</strong>.
-            </p>
-
-            <div style="background:rgba(15,23,42,0.85); border:1px solid rgba(56,189,248,0.4); border-left:4px solid #F59E0B; border-radius:8px; padding:8px 16px; max-width:215mm; margin:0 auto;">
-              <div style="font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:800; color:#FDE68A;">SOLUCIÓN IMPLEMENTADA CON MICROSOFT COPILOT:</div>
-              <div class="sync-project" style="font-size:12px; font-weight:700; color:#FFFFFF; margin-top:2px;" contenteditable="true">
-                Automatización del Reporte Diario de Ventas por Promotor y Tiendas con Power Automate y Microsoft Copilot (Ahorro cuantificado: 28 horas mensuales = 1 día y 4 horas al mes)
-              </div>
-            </div>
-          </div>
-
-          <!-- FOOTER -->
-          <div class="m1-footer">
-            <div class="sig-block">
-              <div class="sig-rubric" style="color:#7DD3FC;">Aracely</div>
-              <div class="sig-line" style="border-top-color:rgba(255,255,255,0.35);">
-                <div class="sig-name sync-sig1-name" style="color:#FFFFFF;" contenteditable="true">Aracely</div>
-                <div class="sig-title sync-sig1-role" style="color:#94A3B8;" contenteditable="true">Liderazgo de Cuenta América Móvil · Sales &amp; Marketing — Adecco Perú</div>
-              </div>
-            </div>
-
-            <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
-              <svg width="72" height="72" viewBox="0 0 400 400">
-                <circle cx="200" cy="200" r="185" fill="#0B1528" stroke="#38BDF8" stroke-width="10"/>
-                <path d="M110,120 C110,60 150,45 200,45 L200,230 C150,230 114,200 110,150 Z" fill="#F5C29E"/>
-                <path d="M200,45 C255,45 290,60 290,120 L290,150 C286,200 250,230 200,230 Z" fill="#CBD5E1"/>
-                <rect x="206" y="106" width="64" height="44" rx="12" fill="#1C304B"/>
-                <circle cx="238" cy="128" r="14" fill="#DA291C"/>
-                <circle cx="238" cy="128" r="6" fill="#FFFFFF"/>
-                <rect x="70" y="265" width="260" height="72" rx="14" fill="#DA291C"/>
-                <text x="200" y="314" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="48" font-weight="900">Adecco</text>
-              </svg>
-              <span class="sync-date" style="font-size:10.5px; font-weight:700; color:#94A3B8;" contenteditable="true">Lima, 23 de noviembre de 2026</span>
-            </div>
-
-            <div class="sig-block">
-              <div class="sig-rubric" style="color:#7DD3FC;">Jhoan Taboada H.</div>
-              <div class="sig-line" style="border-top-color:rgba(255,255,255,0.35);">
-                <div class="sig-name sync-sig2-name" style="color:#FFFFFF;" contenteditable="true">Lic. Jhoan Taboada Huamán</div>
-                <div class="sig-title sync-sig2-role" style="color:#94A3B8;" contenteditable="true">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab</div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-    </main>
   </div>
 
   <script>
-    function syncCertificates() {
-      const name = document.getElementById('inpName').value;
-      const role = document.getElementById('inpRole').value;
-      const proj = document.getElementById('inpProject').value;
-      const sig1Name = document.getElementById('inpSig1Name').value;
-      const sig1Role = document.getElementById('inpSig1Role').value;
-      const sig2Name = document.getElementById('inpSig2Name').value;
-      const sig2Role = document.getElementById('inpSig2Role').value;
-      const date = document.getElementById('inpDate').value;
-      const code = document.getElementById('inpCode').value;
+    const PARTICIPANTS = [
+      { id: "ADECCO-AMX-2026-01", raw: "FLORES LIMAYMANTA JEAN PAUL", clean: "Jean Paul Flores Limaymanta" },
+      { id: "ADECCO-AMX-2026-02", raw: "ZEA SALVATIERRA, ANDREA CELESTE", clean: "Andrea Celeste Zea Salvatierra" },
+      { id: "ADECCO-AMX-2026-03", raw: "VILCHEZ CENTURION SALY CARINA", clean: "Saly Carina Vílchez Centurión" },
+      { id: "ADECCO-AMX-2026-04", raw: "SANCHEZ BARRETO AMERICO MODESTO", clean: "Américo Modesto Sánchez Barreto" },
+      { id: "ADECCO-AMX-2026-05", raw: "FLORES VILCHEZ ALEXIS FRANCO", clean: "Alexis Franco Flores Vílchez" },
+      { id: "ADECCO-AMX-2026-06", raw: "FARFAN NARBASTA MARIO ALEJANDRO", clean: "Mario Alejandro Farfán Narbasta" },
+      { id: "ADECCO-AMX-2026-07", raw: "MILIAN GONZA DAYANA NICOL", clean: "Dayana Nicol Milián Gonza" },
+      { id: "ADECCO-AMX-2026-08", raw: "ROJAS OTURI VICTOR MANUEL", clean: "Víctor Manuel Rojas Oturi" },
+      { id: "ADECCO-AMX-2026-09", raw: "CRUZ AGUILAR MARIELL JAZMIN", clean: "Mariell Jazmín Cruz Aguilar" },
+      { id: "ADECCO-AMX-2026-10", raw: "ANDRADE DE LA CRUZ ALEXANDER CESAR", clean: "Alexander César Andrade De La Cruz" },
+      { id: "ADECCO-AMX-2026-11", raw: "TORRES AVENDAÑO, DIANA VIRGINIA", clean: "Diana Virginia Torres Avendaño" },
+      { id: "ADECCO-AMX-2026-12", raw: "JULIAN FERNANDEZ", clean: "Julián Fernández" }
+    ];
 
-      document.querySelectorAll('.sync-name').forEach(el => el.textContent = name);
-      document.querySelectorAll('.sync-role').forEach(el => el.textContent = role);
-      document.querySelectorAll('.sync-project').forEach(el => el.textContent = proj);
-      document.querySelectorAll('.sync-sig1-name').forEach(el => el.textContent = sig1Name);
-      document.querySelectorAll('.sync-sig1-role').forEach(el => el.textContent = sig1Role);
-      document.querySelectorAll('.sync-sig2-name').forEach(el => el.textContent = sig2Name);
-      document.querySelectorAll('.sync-sig2-role').forEach(el => el.textContent = sig2Role);
-      document.querySelectorAll('.sync-date').forEach(el => el.textContent = date);
-      document.querySelectorAll('.sync-code').forEach(el => el.textContent = code);
+    let nameFormatMode = 'original';
+    let araceliDisplayName = 'Chávez Brito, Araceli Giuliana';
+    let currentFilter = 'all';
+
+    function getHeaderHTML(certCode) {
+      return `
+        <div class="m1-header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="adecco-square-logo">Adecco</div>
+            <div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:15px; color:#0F1E36; letter-spacing:0.02em;">ADECCO PERÚ — DIVISIÓN SALES &amp; MARKETING</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; color:#DA291C;">CUENTA AMÉRICA MÓVIL · PROGRAMA ADECCO AI CO-PILOT LAB 2026</div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="text-align:right;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:800; color:#64748B;">REGISTRO OFICIAL</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:#0F1E36;">ID: ${certCode}</div>
+            </div>
+            <svg width="52" height="52" viewBox="0 0 400 400">
+              <circle cx="200" cy="200" r="185" fill="#0F1E36" stroke="#DA291C" stroke-width="10"/>
+              <path d="M110,120 C110,60 150,45 200,45 L200,230 C150,230 114,200 110,150 Z" fill="#F5C29E"/>
+              <path d="M200,45 C255,45 290,60 290,120 L290,150 C286,200 250,230 200,230 Z" fill="#CBD5E1"/>
+              <rect x="206" y="106" width="64" height="44" rx="12" fill="#1C304B"/>
+              <circle cx="238" cy="128" r="14" fill="#DA291C"/>
+              <circle cx="238" cy="128" r="6" fill="#FFFFFF"/>
+              <rect x="70" y="265" width="260" height="72" rx="14" fill="#DA291C"/>
+              <text x="200" y="314" text-anchor="middle" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="48" font-weight="900">Adecco</text>
+            </svg>
+          </div>
+        </div>
+      `;
     }
 
-    function filterModel(modelId) {
-      ['all', 'm1', 'm2', 'm3', 'm4'].forEach(id => {
-        const btn = document.getElementById('tab-' + id);
-        if (btn) btn.classList.toggle('active', id === modelId);
+    function getSealHTML() {
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; gap:3px;">
+          <svg width="76" height="76" viewBox="0 0 120 120">
+            <polygon points="42,88 30,116 46,108 56,118 58,90" fill="#DA291C"/>
+            <polygon points="78,88 90,116 74,108 64,118 62,90" fill="#0F1E36"/>
+            <circle cx="60" cy="52" r="40" fill="#F59E0B" stroke="#B45309" stroke-width="3"/>
+            <circle cx="60" cy="52" r="33" fill="none" stroke="#FEF3C7" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="60" y="48" text-anchor="middle" fill="#0F1E36" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="900">ADECCO AI</text>
+            <text x="60" y="61" text-anchor="middle" fill="#78350F" font-family="JetBrains Mono,monospace" font-size="9.5" font-weight="800">VERIFIED 2026</text>
+          </svg>
+          <span style="font-size:10.5px; font-weight:700; color:#475569;" contenteditable="true">Lima, 23 de noviembre de 2026</span>
+        </div>
+      `;
+    }
+
+    function renderAllCertificates() {
+      const container = document.getElementById('certificatesContainer');
+      let html = '';
+
+      // 1. CERTIFICADO ESPECIAL DE PONENTE (JHOAN TABOADA HUAMÁN)
+      html += `
+        <div class="cert-wrapper" id="wrap-ponente" data-group="ponente">
+          <div class="model-caption no-print">
+            <div>
+              <strong style="color:#FDE68A; font-size:14px;">👨‍🏫 CERTIFICADO OFICIAL DE PONENTE — Jhoan Taboada Huamán</strong>
+              <div style="font-size:12px; color:#94A3B8;">Firmado por: <strong>${araceliDisplayName}</strong> (Gerenta de la Cuenta América Móvil) y <strong>Claudio Abdala</strong> (Director Comercial de Adecco Perú).</div>
+            </div>
+            <button class="tab-btn active" style="width:auto;" onclick="printSingle('ponente')">🖨️ Imprimir Certificado de Ponente</button>
+          </div>
+
+          <section class="diploma-sheet">
+            <div class="m1-corner-left"></div>
+            <div class="m1-corner-right"></div>
+            <div class="m1-bottom-bar"></div>
+            <div class="m1-inner-frame"></div>
+
+            ${getHeaderHTML('ADECCO-PONENTE-2026-01')}
+
+            <div class="m1-body">
+              <h2 class="cert-main-title">CERTIFICADO DE RECONOCIMIENTO</h2>
+              <div class="cert-grant-line">Se otorga el presente certificado oficial en calidad de <strong>PONENTE E INSTRUCTOR LÍDER</strong> a:</div>
+
+              <div class="recipient-name-m1" contenteditable="true">Jhoan Taboada Huamán</div>
+
+              <p class="cert-paragraph" contenteditable="true">
+                Por su destacada participación como <strong>Ponente Principal</strong> del programa intensivo <strong>"Adecco AI Co-Pilot Lab: IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot"</strong>, diseñando e impartiendo las sesiones prácticas de automatización y guiando los proyectos de mejora operativa para la cuenta <strong>América Móvil — División Sales &amp; Marketing de Adecco Perú</strong>.
+              </p>
+
+              <div class="modules-pills-row">
+                <span class="m-pill red">✔ MÓDULO 01: Excel, Macros VBA &amp; Copilot</span>
+                <span class="m-pill">✔ MÓDULO 02: Word Automatizado &amp; Power BI (DAX)</span>
+                <span class="m-pill red">✔ MÓDULO 03: Power Automate, Outlook &amp; Teams</span>
+                <span class="m-pill">✔ MÓDULO 04: Mentoria y Evaluación de Proyectos con ROI</span>
+              </div>
+            </div>
+
+            <div class="m1-footer">
+              <div class="sig-block">
+                <div class="sig-rubric">Araceli Chávez B.</div>
+                <div class="sig-line">
+                  <div class="sig-name" contenteditable="true">${araceliDisplayName}</div>
+                  <div class="sig-title" contenteditable="true">Gerenta de la Cuenta América Móvil<br>Adecco Perú</div>
+                </div>
+              </div>
+
+              ${getSealHTML()}
+
+              <div class="sig-block">
+                <div class="sig-rubric">Claudio Abdala</div>
+                <div class="sig-line">
+                  <div class="sig-name" contenteditable="true">Claudio Abdala</div>
+                  <div class="sig-title" contenteditable="true">Director Comercial<br>Adecco Perú</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+
+      // 2. LOS 12 CERTIFICADOS DE LOS PARTICIPANTES
+      PARTICIPANTS.forEach((p, idx) => {
+        const displayName = nameFormatMode === 'original' ? p.raw : p.clean;
+        html += `
+          <div class="cert-wrapper" id="wrap-p-${idx}" data-group="participant">
+            <div class="model-caption no-print">
+              <div>
+                <strong style="color:#fff; font-size:14px;">📜 CERTIFICADO PARTICIPANTE #${String(idx + 1).padStart(2, '0')} — ${displayName}</strong>
+                <div style="font-size:12px; color:#94A3B8;">Firmado por: <strong>${araceliDisplayName}</strong> (Gerenta de la Cuenta América Móvil) y <strong>Jhoan Taboada Huamán</strong>.</div>
+              </div>
+              <button class="tab-btn active" style="width:auto;" onclick="printSingle('p-${idx}')">🖨️ Imprimir Este Certificado</button>
+            </div>
+
+            <section class="diploma-sheet">
+              <div class="m1-corner-left"></div>
+              <div class="m1-corner-right"></div>
+              <div class="m1-bottom-bar"></div>
+              <div class="m1-inner-frame"></div>
+
+              ${getHeaderHTML(p.id)}
+
+              <div class="m1-body">
+                <h2 class="cert-main-title">CERTIFICADO DE APROBACIÓN</h2>
+                <div class="cert-grant-line">Se otorga el presente certificado oficial a:</div>
+
+                <div class="recipient-name-m1" contenteditable="true">${displayName}</div>
+
+                <p class="cert-paragraph" contenteditable="true">
+                  Por haber culminado y sustentado satisfactoriamente su proyecto de mejora operativa en el programa intensivo <strong>"Adecco AI Co-Pilot Lab: IA Aplicada a la Mejora y Automatización de Procesos con Herramientas Microsoft y Copilot"</strong>, demostrando dominio práctico en la cuantificación de tiempos operativos, ingeniería de prompts y automatización de flujos aplicados a la operación de la cuenta <strong>América Móvil</strong>.
+                </p>
+
+                <div class="modules-pills-row">
+                  <span class="m-pill red">✔ MÓDULO 01: Excel, Macros VBA &amp; Copilot</span>
+                  <span class="m-pill">✔ MÓDULO 02: Word Automatizado &amp; Power BI (DAX)</span>
+                  <span class="m-pill red">✔ MÓDULO 03: Power Automate, Outlook &amp; Teams</span>
+                  <span class="m-pill">✔ MÓDULO 04: Sustentación de Proyecto con ROI Medido</span>
+                </div>
+              </div>
+
+              <div class="m1-footer">
+                <div class="sig-block">
+                  <div class="sig-rubric">Araceli Chávez B.</div>
+                  <div class="sig-line">
+                    <div class="sig-name" contenteditable="true">${araceliDisplayName}</div>
+                    <div class="sig-title" contenteditable="true">Gerenta de la Cuenta América Móvil<br>Adecco Perú</div>
+                  </div>
+                </div>
+
+                ${getSealHTML()}
+
+                <div class="sig-block">
+                  <div class="sig-rubric">Jhoan Taboada H.</div>
+                  <div class="sig-line">
+                    <div class="sig-name" contenteditable="true">Jhoan Taboada Huamán</div>
+                    <div class="sig-title" contenteditable="true">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        `;
       });
 
-      ['m1', 'm2', 'm3', 'm4'].forEach(id => {
-        const wrap = document.getElementById('wrap-' + id);
-        if (modelId === 'all' || modelId === id) {
-          wrap.style.display = 'flex';
-          wrap.classList.remove('hidden-for-print');
+      container.innerHTML = html;
+      filterCertificates(currentFilter);
+    }
+
+    function setNameFormat(mode) {
+      nameFormatMode = mode;
+      document.getElementById('btnFmtOriginal').classList.toggle('active', mode === 'original');
+      document.getElementById('btnFmtTitle').classList.toggle('active', mode === 'title');
+      renderAllCertificates();
+    }
+
+    function setAraceliFormat(nameStr) {
+      araceliDisplayName = nameStr;
+      document.getElementById('btnAraceli1').classList.toggle('active', nameStr === 'Chávez Brito, Araceli Giuliana');
+      document.getElementById('btnAraceli2').classList.toggle('active', nameStr === 'Araceli Giuliana Chávez Brito');
+      renderAllCertificates();
+    }
+
+    function filterCertificates(val) {
+      currentFilter = val;
+      document.getElementById('certFilterSelect').value = val;
+      const allWrappers = document.querySelectorAll('.cert-wrapper');
+      allWrappers.forEach(w => {
+        const id = w.id.replace('wrap-', '');
+        const group = w.getAttribute('data-group');
+        let show = false;
+        if (val === 'all') show = true;
+        else if (val === 'ponente' && id === 'ponente') show = true;
+        else if (val === 'participants' && group === 'participant') show = true;
+        else if (val === id) show = true;
+
+        if (show) {
+          w.style.display = 'flex';
+          w.classList.remove('hidden-for-print');
         } else {
-          wrap.style.display = 'none';
-          wrap.classList.add('hidden-for-print');
+          w.style.display = 'none';
+          w.classList.add('hidden-for-print');
         }
       });
     }
 
-    function printSingleModel(modelId) {
-      filterModel(modelId);
+    function printSingle(targetId) {
+      filterCertificates(targetId);
       setTimeout(() => {
         window.print();
       }, 150);
     }
+
+    renderAllCertificates();
   </script>
 </body>
 </html>

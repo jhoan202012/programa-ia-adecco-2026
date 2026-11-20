@@ -1310,37 +1310,40 @@ Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pa
     // 2. SISTEMA DE ORDEN DE EXPOSICIONES (SINCRONIZADO CON LOCALSTORAGE)
     // =====================================================================
     const DEFAULT_SPEAKERS = [
-      { name: "Turno 01 — Participante América Móvil", role: "Reporte Diario de Ventas Promotores y Tiendas (Power Automate)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:35 AM", done: false },
-      { name: "Turno 02 — Participante América Móvil", role: "Consolidación de Asistencia y Cobertura PDV (Excel VBA + Copilot)", format: "PDF ✅ (10:00 AM)", block: "Bloque I · 11:43 AM", done: false },
-      { name: "Turno 03 — Participante América Móvil", role: "Control de Liquidaciones y Comisiones Cadenas (Power BI DAX)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:51 AM", done: false },
-      { name: "Turno 04 — Participante América Móvil", role: "Automatización de Cartas y Descargos Operativos (Excel ➔ Word)", format: "PPTX ✅ (10:00 AM)", block: "Bloque I · 11:59 AM", done: false },
+      { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:35 AM", done: false },
+      { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:41 AM", done: false },
+      { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:47 AM", done: false },
+      { name: "SANCHEZ BARRETO AMERICO MODESTO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:53 AM", done: false },
+      { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:59 AM", done: false },
+      { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 12:05 PM", done: false },
       { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos en Sala Oslo - Viena - Dublín", format: "REFRIGERIO", block: "12:10 – 12:20 PM", isBreak: true },
-      { name: "Turno 05 — Participante América Móvil", role: "Alertas Automáticas de SLAs y Vacantes por Zona (Excel ➔ Outlook)", format: "PDF ✅ (10:00 AM)", block: "Bloque II · 12:20 PM", done: false },
-      { name: "Turno 06 — Participante América Móvil", role: "Dashboard de Cumplimiento Comercial por Tienda (Power BI + Copilot)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:28 PM", done: false },
-      { name: "Turno 07 — Participante América Móvil", role: "Flujo Robótico de Descarga y Almacenamiento en Carpeta (Power Automate)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:36 PM", done: false },
-      { name: "Turno 08 — Participante América Móvil", role: "Auditoría de Bases Operativas y Reporte Ejecutivo (Excel + Copilot)", format: "PDF ✅ (10:00 AM)", block: "Bloque II · 12:44 PM", done: false },
-      { name: "Turno 09 — Participante América Móvil", role: "Seguimiento de Incidencias en Punto de Venta (Teams + Outlook)", format: "PPTX ✅ (10:00 AM)", block: "Bloque II · 12:52 PM", done: false }
+      { name: "MILIAN GONZA DAYANA NICOL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:20 PM", done: false },
+      { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:26 PM", done: false },
+      { name: "CRUZ AGUILAR MARIELL JAZMIN", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:33 PM", done: false },
+      { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:40 PM", done: false },
+      { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:47 PM", done: false },
+      { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:54 PM", done: false }
     ];
 
-    let speakersList = JSON.parse(localStorage.getItem('adecco_final_order_2026') || 'null') || DEFAULT_SPEAKERS;
+    let speakersList = JSON.parse(localStorage.getItem('adecco_final_order_amx_12') || 'null') || DEFAULT_SPEAKERS;
     let currentActiveIdx = 0;
 
     function saveSpeakers() {
-      localStorage.setItem('adecco_final_order_2026', JSON.stringify(speakersList));
+      localStorage.setItem('adecco_final_order_amx_12', JSON.stringify(speakersList));
     }
 
     function recalculateSlots() {
-      const slotsBeforeBreak = ["11:35 AM", "11:43 AM", "11:51 AM", "11:59 AM"];
-      const slotsAfterBreak = ["12:20 PM", "12:28 PM", "12:36 PM", "12:44 PM", "12:52 PM", "1:00 PM"];
+      const slotsBeforeBreak = ["11:35 AM", "11:41 AM", "11:47 AM", "11:53 AM", "11:59 AM", "12:05 PM"];
+      const slotsAfterBreak = ["12:20 PM", "12:26 PM", "12:33 PM", "12:40 PM", "12:47 PM", "12:54 PM"];
       let speakerCounter = 0;
       speakersList.forEach(item => {
         if (item.isBreak) {
           item.block = "12:10 – 12:20 PM";
         } else {
-          if (speakerCounter < 4) {
+          if (speakerCounter < 6) {
             item.block = `Bloque I · ${slotsBeforeBreak[speakerCounter] || '12:05 PM'}`;
           } else {
-            item.block = `Bloque II · ${slotsAfterBreak[speakerCounter - 4] || '12:55 PM'}`;
+            item.block = `Bloque II · ${slotsAfterBreak[speakerCounter - 6] || '12:54 PM'}`;
           }
           speakerCounter++;
         }
@@ -1431,8 +1434,8 @@ Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pa
         const j = Math.floor(Math.random() * (i + 1));
         [participants[i], participants[j]] = [participants[j], participants[i]];
       }
-      const firstBlock = participants.slice(0, 4);
-      const secondBlock = participants.slice(4);
+      const firstBlock = participants.slice(0, 6);
+      const secondBlock = participants.slice(6);
       speakersList = [...firstBlock, breakItem, ...secondBlock];
       recalculateSlots();
       saveSpeakers();
