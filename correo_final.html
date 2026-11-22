@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Correo Oficial Final: Programa General y Guía de Sustentación (23 Nov) — Adecco AI Co-Pilot Lab (Listo para Outlook)</title>
+  <title>Correo Oficial Final para el Lunes 23 Nov: Programa General y Guía de Sustentación — Adecco AI Co-Pilot Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       max-width: 860px;
       margin: 0 auto 18px;
       background: #111C30;
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      border: 1px solid rgba(245, 158, 11, 0.45);
       border-radius: 16px;
       padding: 18px 22px;
       display: flex;
@@ -73,7 +73,7 @@
       gap: 12px;
     }
     .email-container {
-      max-width: 740px;
+      max-width: 720px;
       margin: 0 auto;
       background: #FFFFFF;
       color: #1E293B;
@@ -87,120 +87,136 @@
 
   <div class="toolbar">
     <div class="toolbar-left">
-      <h1>📧 Correo Oficial Tentativo Final + Programa General y Guía de 5 Minutos</h1>
-      <p>Haz clic en <strong>"Copiar Todo para Outlook"</strong> y pégalo directamente en un correo nuevo para los participantes.</p>
+      <h1>📧 Correo Oficial Definitivo — Lunes 23 de Noviembre (Listo para Outlook)</h1>
+      <p>Haz clic en <strong>"Copiar Todo para Outlook"</strong> y pégalo directamente en un correo nuevo para el equipo.</p>
     </div>
     <div style="display:flex; gap:8px; flex-wrap:wrap;">
       <button class="btn-action" onclick="copyEmail()">📋 Copiar Todo para Outlook</button>
-      <a class="btn-action" href="sustentacion.html" style="background:#0F172A; border-color:#F59E0B; color:#FDE68A;">🏆 Abrir Página Función Final</a>
-      <a class="btn-action" href="diplomas.html" style="background:#0F172A; border-color:#38BDF8; color:#7DD3FC;">🎓 Ver Diplomas</a>
+      <button class="btn-action" onclick="downloadRawHtml()" style="background:#0F172A; border-color:#38BDF8; color:#7DD3FC;">💾 Descargar HTML Puro</button>
+      <a class="btn-action" href="sustentacion.html" style="background:#0F172A; border-color:#F59E0B; color:#FDE68A;">🏆 Función Final</a>
       <a class="btn-action" href="index.html" style="background:#0F172A; border-color:#94A3B8; color:#E2E8F0;">🏠 Portal</a>
     </div>
   </div>
 
   <div class="subject-bar">
-    <div><strong>ASUNTO:</strong> <span id="emailSubject">🏆 [GUÍA FINAL Y PROGRAMA GENERAL] Gran Sustentación de Proyectos: Lunes 23 Nov (11:00 AM · Sala Oslo) — Envío PPT/PDF hasta 10:00 AM | Adecco AI Co-Pilot Lab</span></div>
+    <div><strong>ASUNTO:</strong> <span id="emailSubject">🏆 [IMPORTANTE — LUNES 23 NOV] Programa General y Guía Final de Sustentación (11:00 AM · Sala Oslo) | Envío PPT/PDF hasta 10:00 AM — Adecco AI Co-Pilot Lab</span></div>
     <button onclick="navigator.clipboard.writeText(document.getElementById('emailSubject').innerText); alert('✅ Asunto copiado al portapapeles')" style="background:none; border:none; color:#FDE68A; font-weight:800; cursor:pointer; white-space:nowrap;">📋 Copiar Asunto</button>
   </div>
 
-  <!-- ================= CONTENIDO DEL CORREO PARA OUTLOOK ================= -->
+  <!-- ================= CONTENIDO DEL CORREO 100% COMPATIBLE CON OUTLOOK ================= -->
   <div class="email-container" id="emailBody">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:'Segoe UI', Arial, sans-serif; background-color:#FFFFFF;">
-      <!-- CABECERA ROJA Y DORADA CORPORATIVA -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:'Segoe UI', Arial, sans-serif; background-color:#FFFFFF; color:#1E293B;">
+      <!-- FRANJA SUPERIOR ROJA CORPORATIVA -->
       <tr>
         <td style="background-color:#DA291C; height:7px;"></td>
       </tr>
-      <!-- ENCABEZADO -->
+
+      <!-- ENCABEZADO CORPORATIVO CON LOGO OFICIAL -->
       <tr>
-        <td style="background-color:#0B1528; padding:28px 34px; text-align:center; border-bottom:3px solid #F59E0B;">
-          <div style="display:inline-block; background-color:#F59E0B; color:#0B1528; font-size:11px; font-weight:900; letter-spacing:1px; padding:4px 14px; border-radius:4px; text-transform:uppercase; margin-bottom:10px;">
-            GRAN FUNCIÓN FINAL DE SUSTENTACIÓN · LUNES 23 DE NOVIEMBRE · 11:00 AM A 1:00 PM (EXT. 1:30 PM)
-          </div>
-          <h1 style="color:#FFFFFF; font-size:26px; font-weight:900; margin:0 0 6px;">
-            Adecco <span style="color:#38BDF8;">AI Co-Pilot</span> <span style="color:#EF3326;">Lab</span> — <span style="color:#FDE68A;">Guía &amp; Programa Final</span>
-          </h1>
-          <p style="color:#CBD5E1; font-size:13.8px; margin:0;">
-            Sustentación de Proyectos de Mejora Operativa · Cuenta América Móvil (Sales &amp; Marketing) · Sala Oslo - Viena - Dublín
-          </p>
+        <td style="background-color:#0B1528; padding:26px 32px; border-bottom:4px solid #F59E0B;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td width="106" valign="middle" align="center" style="padding-right:18px;">
+                <img src="https://jhoan202012.github.io/programa-ia-adecco-2026/logo_correo.png" alt="Adecco AI Co-Pilot Lab" width="94" style="display:block; width:94px; height:auto; border:0;" />
+              </td>
+              <td valign="middle">
+                <div style="display:inline-block; background-color:#F59E0B; color:#0B1528; font-size:10.5px; font-weight:900; letter-spacing:1px; padding:4px 12px; border-radius:4px; text-transform:uppercase; margin-bottom:8px;">
+                  GRAN FUNCIÓN FINAL DE SUSTENTACIÓN · LUNES 23 DE NOVIEMBRE
+                </div>
+                <h1 style="color:#FFFFFF; font-size:24px; font-weight:900; margin:0 0 5px; line-height:1.18;">
+                  Adecco <span style="color:#38BDF8;">AI Co-Pilot</span> <span style="color:#EF3326;">Lab</span> — <span style="color:#FDE68A;">Guía &amp; Programa Final</span>
+                </h1>
+                <p style="color:#CBD5E1; font-size:13px; margin:0;">
+                  Cuenta América Móvil · Sales &amp; Marketing | 11:00 AM a 1:00 PM (extensible a 1:30 PM) · Sala Oslo - Viena - Dublín
+                </p>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
-      <!-- CUERPO PRINCIPAL -->
+      <!-- CUERPO DEL CORREO -->
       <tr>
         <td style="padding:28px 34px; color:#1E293B; font-size:14px; line-height:1.6;">
-          <p style="margin:0 0 14px; font-size:15px;"><strong>Estimado equipo de América Móvil — Sales &amp; Marketing,</strong></p>
+          <p style="margin:0 0 14px; font-size:15px;"><strong>Estimado equipo de la Cuenta América Móvil — Sales &amp; Marketing,</strong></p>
+
           <p style="margin:0 0 14px;">
-            ¡Llegamos a la gran final de nuestro programa <strong>Adecco AI Co-Pilot Lab</strong>! Este <strong>Lunes 23 de Noviembre de 11:00 AM a 1:00 PM</strong> (con extensión prevista hasta la <strong>1:30 PM</strong>) en la <strong>Sala Oslo - Viena - Dublín</strong> viviremos nuestra función principal, donde cada uno presentará la mejora aplicada a su labor diaria y celebraremos la premiación y entrega oficial de certificados.
-          </p>
-          <p style="margin:0 0 18px;">
-            Para que todos estén 100% preparados y tengan una presentación impecable, compartimos a continuación las <strong>reglas obligatorias de entrega</strong>, el <strong>Programa General minuto a minuto</strong> y la <strong>Guía Final con la estructura ganadora de 5 minutos en 3 bloques</strong>.
+            ¡Llegamos a la etapa más importante de nuestro programa <strong>Adecco AI Co-Pilot Lab</strong>! Este <strong>Lunes 23 de Noviembre</strong> de <strong>11:00 AM a 1:00 PM</strong> (con extensión normal prevista hasta la <strong>1:30 PM</strong>) en la <strong>Sala Oslo - Viena - Dublín</strong> realizaremos nuestra <strong>Función Final Principal</strong>, donde cada participante sustentará su proyecto de mejora aplicada y cerraremos con la <strong>premiación de ganadores (1.er y 2.° Puesto) y entrega oficial de diplomas y certificados</strong>.
           </p>
 
-          <!-- CAJA CRÍTICA DE REGLAS (10:00 AM PPT/PDF y 10:30 AM ORDEN WEB) -->
+          <p style="margin:0 0 18px;">
+            Para que todo salga impecable y todos tengan absoluta claridad para el lunes, detallamos a continuación las <strong>reglas obligatorias de envío y horarios</strong>, el <strong>Programa General minuto a minuto</strong> y la <strong>Guía Final de cómo distribuir sus 5 minutos de exposición en 3 bloques</strong>.
+          </p>
+
+          <!-- CAJA CRÍTICA DE REGLAS OBLIGATORIAS -->
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FEF2F2; border:1px solid #FECACA; border-left:5px solid #DA291C; border-radius:8px; margin:0 0 22px 0;">
             <tr>
               <td style="padding:16px 20px;">
-                <p style="margin:0 0 8px 0; font-size:13.5px; font-weight:800; color:#991B1B; text-transform:uppercase;">
-                  🚨 REGLAS OBLIGATORIAS DE ENTREGA Y ORDEN DE EXPOSICIÓN:
+                <p style="margin:0 0 10px 0; font-size:13.5px; font-weight:800; color:#991B1B; text-transform:uppercase;">
+                  🚨 REGLAS OBLIGATORIAS PARA EL LUNES 23 DE NOVIEMBRE:
                 </p>
-                <table width="100%" cellpadding="4" cellspacing="0" border="0" style="font-size:13.5px; color:#1E293B;">
+                <table width="100%" cellpadding="5" cellspacing="0" border="0" style="font-size:13.5px; color:#1E293B;">
                   <tr>
-                    <td width="34%" valign="top"><strong>⏰ 10:00 AM (Hora Límite):</strong></td>
+                    <td width="35%" valign="top"><strong>⏰ 10:00 AM (Hora Límite):</strong></td>
                     <td>Todos deben haber enviado su presentación final a más tardar a las <strong>10:00 AM</strong>.</td>
                   </tr>
                   <tr>
-                    <td valign="top"><strong>📂 Formato Único Aceptado:</strong></td>
-                    <td>Únicamente se aceptará archivo en <strong>PowerPoint (<code>.ppt / .pptx</code>)</strong> o <strong>PDF (<code>.pdf</code>)</strong>. <strong style="color:#DA291C;">No se aceptará ningún otro tipo de formato.</strong></td>
+                    <td valign="top"><strong>📂 Formato Único Permitido:</strong></td>
+                    <td>Únicamente se aceptará presentación en <strong>PowerPoint (<code>.ppt / .pptx</code>)</strong> o <strong>PDF (<code>.pdf</code>)</strong>. <strong style="color:#DA291C;">No se aceptará ningún otro tipo de formato.</strong></td>
                   </tr>
                   <tr>
-                    <td valign="top"><strong>🌐 10:30 AM (Sorteo y Orden):</strong></td>
-                    <td>A las <strong>10:30 AM</strong> saldrá publicado el <strong>Orden Oficial de las Exposiciones</strong> mediante nuestra <strong>Página Web Oficial</strong>.</td>
+                    <td valign="top"><strong>🌐 10:30 AM (Orden en la Web):</strong></td>
+                    <td>A las <strong>10:30 AM</strong> se publicará el <strong>Orden Oficial de las Exposiciones</strong> mediante la <strong>Página Web del Programa</strong>.</td>
                   </tr>
                   <tr>
-                    <td valign="top"><strong>⏱️ Tiempo por Participante:</strong></td>
-                    <td><strong>5 minutos de exposición</strong> distribuidos en 3 bloques (máximo 6 min), extensible hasta <strong>+3 minutos adicionales por preguntas</strong> del jurado.</td>
+                    <td valign="top"><strong>⏱️ Duración por Participante:</strong></td>
+                    <td><strong>5 minutos de exposición</strong> distribuidos en 3 bloques (máximo absoluto 6 min con transición), <strong>extensible hasta +3 minutos adicionales para preguntas</strong> del jurado.</td>
+                  </tr>
+                  <tr>
+                    <td valign="top"><strong>📍 Lugar y Horario:</strong></td>
+                    <td><strong>Sala Oslo - Viena - Dublín</strong> · <strong>11:00 AM a 1:00 PM</strong> (extensible hasta la <strong>1:30 PM</strong>).</td>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
 
-          <!-- PROGRAMA GENERAL MINUTO A MINUTO -->
+          <!-- SECCIÓN 1: PROGRAMA GENERAL MINUTO A MINUTO -->
           <h3 style="color:#0B1528; font-size:16px; font-weight:800; margin:24px 0 10px; border-bottom:2px solid #E2E8F0; padding-bottom:6px;">
-            📋 1. Programa General Oficial de la Jornada (11:00 AM a 1:30 PM)
+            📋 1. Programa General Oficial del Lunes 23 de Noviembre (10:00 AM a 1:30 PM)
           </h3>
 
           <table width="100%" cellpadding="8" cellspacing="0" border="0" style="border-collapse:collapse; border:1px solid #CBD5E1; font-size:13px; margin-bottom:24px;">
             <thead>
               <tr style="background-color:#0B1528; color:#FFFFFF;">
-                <th width="26%" align="left" style="padding:10px 12px; border-bottom:2px solid #DA291C;">Horario</th>
-                <th width="74%" align="left" style="padding:10px 12px; border-bottom:2px solid #DA291C;">Actividad Oficial del Programa</th>
+                <th width="27%" align="left" style="padding:10px 12px; border-bottom:2px solid #DA291C;">Horario Oficial</th>
+                <th width="73%" align="left" style="padding:10px 12px; border-bottom:2px solid #DA291C;">Actividad Programada</th>
               </tr>
             </thead>
             <tbody>
               <tr style="background-color:#FEF2F2;">
-                <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#DA291C;">10:00 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;"><strong>Hora límite de envío de presentaciones</strong> (Únicamente en formato <strong>PPT o PDF</strong>).</td>
+                <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#DA291C;">10:00 AM (Límite)</td>
+                <td style="border-bottom:1px solid #E2E8F0;">📥 <strong>Cierre de recepción de presentaciones:</strong> Todos deben enviar su archivo únicamente en formato <strong>PPT o PDF</strong>.</td>
               </tr>
               <tr style="background-color:#F0F9FF;">
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#0284C7;">10:30 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;"><strong>Publicación del Orden Oficial de las Exposiciones</strong> mediante la página web del programa.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">🌐 <strong>Publicación del Orden Oficial de las Exposiciones</strong> en la página web del programa.</td>
               </tr>
               <tr>
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:700;">11:00 – 11:15 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;">Recepción en Sala Oslo - Viena - Dublín y <strong>entrega de credenciales</strong> a quienes aún les falte.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">🪪 Recepción en sala y <strong>entrega de credenciales (fotochecks)</strong> a quienes aún les falte.</td>
               </tr>
               <tr style="background-color:#F8FAFC;">
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:700;">11:15 – 11:20 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;">Ronda rápida de <strong>consultas previas</strong> antes de iniciar.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">💬 Ronda breve de <strong>consultas previas</strong> y verificación técnica.</td>
               </tr>
               <tr>
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:700;">11:20 – 11:30 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;"><strong>Explicación sobre la agenda final del programa</strong> y dinámica de tiempos.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">📋 <strong>Explicación sobre la agenda final del programa</strong> y control de tiempos.</td>
               </tr>
               <tr style="background-color:#FFFBEB;">
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#B45309;">11:30 – 11:35 AM</td>
-                <td style="border-bottom:1px solid #E2E8F0;">🎙️ <strong>Inicio Oficial y Palabras de Apertura de Aracely</strong>.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">🎙️ <strong>Inicio Oficial y Palabras de Apertura de Araceli Giuliana Chávez Brito</strong> (Gerenta de la Cuenta América Móvil).</td>
               </tr>
               <tr>
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#0B1528;">11:35 – 12:10 PM</td>
@@ -220,7 +236,7 @@
               </tr>
               <tr style="background-color:#FFFBEB;">
                 <td style="border-bottom:1px solid #E2E8F0; font-weight:800; color:#B45309;">1:10 – 1:20 PM</td>
-                <td style="border-bottom:1px solid #E2E8F0;">🏆 <strong>Premiación de Ganadores y Entrega Oficial de Certificados y Diplomas</strong>.</td>
+                <td style="border-bottom:1px solid #E2E8F0;">🏆 <strong>Premiación de Ganadores (1.er y 2.° Puesto) y Entrega Oficial de Diplomas y Certificados</strong>.</td>
               </tr>
               <tr style="background-color:#FEF2F2;">
                 <td style="font-weight:800; color:#DA291C;">1:20 – 1:30 PM</td>
@@ -229,24 +245,24 @@
             </tbody>
           </table>
 
-          <!-- GUÍA FINAL DE EXPOSICIÓN: 5 MINUTOS EN 3 BLOQUES -->
+          <!-- SECCIÓN 2: GUÍA FINAL DE EXPOSICIÓN (5 MINUTOS EN 3 BLOQUES) -->
           <h3 style="color:#0B1528; font-size:16px; font-weight:800; margin:24px 0 10px; border-bottom:2px solid #E2E8F0; padding-bottom:6px;">
-            🎯 2. Guía Final del Participante: Cómo Distribuir tus 5 Minutos en 3 Bloques Ganadores
+            🎯 2. Guía Final de Exposición: Estructura Ganadora de 5 Minutos en 3 Bloques (+3 Min Preguntas)
           </h3>
           <p style="margin:0 0 14px; font-size:13.5px; color:#334155;">
-            Cada participante contará con <strong>5 minutos de exposición</strong> (extensible hasta <strong>3 minutos adicionales para preguntas</strong>). Para tener las mayores posibilidades de ganar, distribuye tus 5 minutos exactamente en estos <strong>3 bloques</strong>:
+            Cada participante tendrá <strong>5 minutos de exposición</strong> (máximo 6 min) más <strong>hasta 3 minutos adicionales para preguntas del jurado</strong>. Para estructurar una sustentación sólida y competitiva, divide tus 5 minutos exactamente en estos <strong>3 bloques</strong>:
           </p>
 
           <!-- BLOQUE 1 -->
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F0F9FF; border:1px solid #BAE6FD; border-left:5px solid #0284C7; border-radius:8px; margin-bottom:12px;">
             <tr>
               <td style="padding:14px 18px;">
-                <div style="font-size:12px; font-weight:800; color:#0369A1; text-transform:uppercase; margin-bottom:4px;">
-                  ⏱️ BLOQUE 1 (MINUTO 0:00 A 1:00 — 1 MINUTO EN TOTAL) · ¿QUIÉN ERES Y QUÉ HACES EN AMÉRICA MÓVIL?
+                <div style="font-size:12px; font-weight:800; color:#0369A1; text-transform:uppercase; margin-bottom:5px;">
+                  ⏱️ BLOQUE 1 (0:00 A 1:00 — 1 MINUTO EN TOTAL) · ¿QUIÉN ERES Y QUÉ HACES EN AMÉRICA MÓVIL?
                 </div>
                 <ul style="margin:0 0 0 18px; padding:0; font-size:13.3px; color:#1E293B;">
-                  <li style="margin-bottom:4px;"><strong>Primeros 30 segundos (Quién eres):</strong> Tu nombre, cargo y equipo dentro de la operación.</li>
-                  <li><strong>Siguientes 30 segundos (Tu puesto en América Móvil):</strong> Descripción breve de tu puesto y qué haces normalmente en tu labor diaria en <strong>América Móvil</strong>.</li>
+                  <li style="margin-bottom:4px;"><strong>Primeros 30 segundos (Quién eres):</strong> Preséntate brevemente con tu nombre y equipo.</li>
+                  <li><strong>Siguientes 30 segundos (Descripción de tu puesto):</strong> Explica cuál es tu puesto y qué haces normalmente en tu labor diaria dentro de <strong>América Móvil</strong>.</li>
                 </ul>
               </td>
             </tr>
@@ -256,16 +272,16 @@
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FEF2F2; border:1px solid #FECACA; border-left:5px solid #DA291C; border-radius:8px; margin-bottom:12px;">
             <tr>
               <td style="padding:14px 18px;">
-                <div style="font-size:12px; font-weight:800; color:#B91C1C; text-transform:uppercase; margin-bottom:4px;">
-                  ⏱️ BLOQUE 2 (MINUTO 1:00 A 3:00 — 1:30 A 2 MINUTOS) · EL PROBLEMA CON NÚMEROS Y TIEMPO + MUESTRA PUNTUAL DE TU FLUJO
+                <div style="font-size:12px; font-weight:800; color:#B91C1C; text-transform:uppercase; margin-bottom:5px;">
+                  ⏱️ BLOQUE 2 (1:00 A 3:00 — 1:30 A 2 MINUTOS) · EL PROBLEMA CON NÚMEROS Y TIEMPO + MUESTRA PUNTUAL DE TU FLUJO
                 </div>
                 <ul style="margin:0 0 8px 18px; padding:0; font-size:13.3px; color:#1E293B;">
-                  <li style="margin-bottom:4px;"><strong>Explica por qué es importante este proceso y cuantifica en NÚMEROS y TIEMPO (Día / Semana / Mes):</strong> No menciones el problema sin números; calcula cuánto tiempo te toma por día, por semana y cuántos días/horas representa al mes.</li>
-                  <li><strong>Muestra un pequeño ejemplo de tu flujo o solución:</strong> No tienes que mostrar todo tu proceso completo, <strong>solo una parte clave</strong> en funcionamiento.</li>
+                  <li style="margin-bottom:4px;"><strong>Importancia del proceso + Cuantificación exacta con NÚMEROS y TIEMPO (Día / Semana / Mes):</strong> Explica por qué este proceso es indispensable para la operación y cuantifica cuántas horas te toma al día, a la semana y su equivalente en días y horas al mes.</li>
+                  <li><strong>Muestra un pequeño ejemplo de tu flujo o automatización:</strong> No tienes que mostrar todo el proceso completo, <strong>solo una parte clave</strong> donde se vea tu solución trabajando.</li>
                 </ul>
-                <div style="background-color:#FFFFFF; border:1px dashed #F87171; border-radius:6px; padding:10px 14px; font-size:12.8px; color:#334155;">
-                  <strong style="color:#DA291C;">💡 Ejemplo modelo de cómo debes presentarlo:</strong><br>
-                  <em>"En mi labor diaria es indispensable mandar las ventas todos los días porque permite ver el cumplimiento de las ventas a nivel promotor y tiendas, lo cual es fundamental en la operación. Este proceso manual y repetitivo me toma alrededor de <strong>1 hora por día</strong>, semanalmente son <strong>7 horas</strong> y mensualmente serían <strong>28 horas</strong> (es decir, al mes son <strong>1 día completo y 4 horas</strong> invertidos en esto). Pero integré <strong>Power Automate</strong> y a través de los flujos robóticos ahora el reporte se descarga solo y se almacena automáticamente en una carpeta (y aquí muestran brevemente su flujo)."</em>
+                <div style="background-color:#FFFFFF; border:1px dashed #F87171; border-radius:6px; padding:11px 14px; font-size:12.8px; color:#334155;">
+                  <strong style="color:#DA291C;">💡 Ejemplo modelo para tu lámina y discurso:</strong><br>
+                  <em>"En mi labor diaria es indispensable mandar las ventas todos los días porque permite ver el cumplimiento de las ventas a nivel promotor y tiendas, algo fundamental en la operación. Este proceso manual y repetitivo me toma alrededor de <strong>1 hora por día</strong>, semanalmente son <strong>7 horas</strong> y mensualmente serían <strong>28 horas</strong> —es decir, al mes son <strong>1 día y 4 horas</strong> invertidos en un proceso manual y repetitivo—. Sin embargo, integré <strong>Power Automate</strong> y a través de los flujos robóticos ahora el reporte se descarga solo y se almacena automáticamente en una carpeta (aquí les muestro brevemente el flujo)."</em>
                 </div>
               </td>
             </tr>
@@ -275,24 +291,38 @@
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ECFDF5; border:1px solid #A7F3D0; border-left:5px solid #059669; border-radius:8px; margin-bottom:16px;">
             <tr>
               <td style="padding:14px 18px;">
-                <div style="font-size:12px; font-weight:800; color:#047857; text-transform:uppercase; margin-bottom:4px;">
-                  ⏱️ BLOQUE 3 (MINUTO 3:00 A 5:00 — 2 MINUTOS) · TIEMPO AHORRADO + TUS PROMPTS EN COPILOT Y CÓMO LO ARMASTE
+                <div style="font-size:12px; font-weight:800; color:#047857; text-transform:uppercase; margin-bottom:5px;">
+                  ⏱️ BLOQUE 3 (3:00 A 5:00 — 2 MINUTOS) · TIEMPO AHORRADO + TUS PROMPTS EN COPILOT Y CÓMO LO ARMASTE
                 </div>
                 <ul style="margin:0 0 0 18px; padding:0; font-size:13.3px; color:#1E293B;">
-                  <li style="margin-bottom:4px;"><strong>Presenta en números cuánto tiempo has ahorrado:</strong> Compara el tiempo manual anterior contra el tiempo automático actual.</li>
-                  <li style="margin-bottom:4px;"><strong>Muestra los Prompts que mandaste a Copilot:</strong> Sabemos que varios no manejan código de programación, ¡y ahí está el gran mérito! Si ideaste bien tus prompts, <strong>muestra en tu presentación algunos de los prompts que le enviaste a Microsoft Copilot</strong>.</li>
-                  <li><strong>Tu conocimiento del negocio:</strong> Explica cómo, combinando esos prompts bien estructurados con tu propio conocimiento operativo en <strong>América Móvil</strong>, lograste armar tu proyecto.</li>
+                  <li style="margin-bottom:4px;"><strong>Presenta en números cuánto tiempo has ahorrado:</strong> Compara el tiempo manual anterior contra el tiempo actual logrado con tu solución.</li>
+                  <li style="margin-bottom:4px;"><strong>Muestra los Prompts que le enviaste a Copilot:</strong> Sabemos que muchos no manejan código de programación, ¡y ahí radica el mayor valor! Si ideaste bien tus instrucciones, <strong>muestra en tu diapositiva algunos de los prompts que le mandaste a Microsoft Copilot</strong>.</li>
+                  <li><strong>Tu conocimiento del negocio al mando:</strong> Explica cómo, combinando esos prompts bien pensados con tu propio conocimiento de la operación en <strong>América Móvil</strong>, lograste armar tu proyecto.</li>
                 </ul>
               </td>
             </tr>
           </table>
 
-          <div style="background-color:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:12px 16px; font-size:13.3px; color:#92400E; font-weight:600; margin-bottom:22px;">
-            🏆 <strong>Consejo Clave para Ganar:</strong> Si estructuran sus 5 minutos cumpliendo estos 3 bloques (1° Rol en América Móvil, 2° Problema cuantificado en horas/días al mes + parte puntual del flujo, y 3° Tiempo ahorrado + Prompts enviados a Copilot), <strong>¡realmente van a tener muchísimas posibilidades de ganar!</strong>
+          <!-- CONSEJO GANADOR -->
+          <div style="background-color:#FFFBEB; border:1px solid #F59E0B; border-radius:8px; padding:13px 16px; font-size:13.4px; color:#92400E; font-weight:600; margin-bottom:20px;">
+            🏆 <strong>Clave para Ganar el Concurso:</strong> Si preparan su exposición de 5 minutos cumpliendo estos 3 bloques (1° Tu rol en América Móvil, 2° El problema cuantificado en horas/días al mes + una muestra puntual del flujo, y 3° Tiempo ahorrado + Prompts enviados a Copilot), <strong>¡realmente van a tener muchísimas posibilidades de ganar!</strong>
           </div>
 
-          <!-- BOTONES DE ACCESO A LA WEB -->
-          <div style="text-align:center; margin:24px 0 18px;">
+          <!-- CHECKLIST RÁPIDO PARA EL LUNES -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8FAFC; border:1px solid #CBD5E1; border-radius:8px; margin-bottom:22px;">
+            <tr>
+              <td style="padding:14px 18px; font-size:13px; color:#334155;">
+                <strong style="color:#0B1528; font-size:13.5px; display:block; margin-bottom:6px;">✅ Checklist Rápido antes de llegar el Lunes 23 de Noviembre:</strong>
+                ☐ Enviar tu presentación en formato <strong>PPT o PDF</strong> a más tardar a las <strong>10:00 AM</strong>.<br>
+                ☐ Revisar tu turno en el <strong>Orden Oficial de Exposiciones</strong> a las <strong>10:30 AM</strong> en la página web.<br>
+                ☐ Llegar puntual a las <strong>11:00 AM</strong> a la <strong>Sala Oslo - Viena - Dublín</strong> (si te falta tu credencial, la recibirás entre 11:00 y 11:15 AM).<br>
+                ☐ Ensayar tus <strong>5 minutos cronometrados</strong> con tus números de ahorro y tus prompts de Copilot listos.
+              </td>
+            </tr>
+          </table>
+
+          <!-- BOTONES DE ACCESO DIRECTO A LA PLATAFORMA WEB -->
+          <div style="text-align:center; margin:24px 0 20px;">
             <a href="https://jhoan202012.github.io/programa-ia-adecco-2026/sustentacion.html" style="display:inline-block; background-color:#DA291C; color:#FFFFFF; text-decoration:none; font-weight:800; font-size:13.5px; padding:12px 22px; border-radius:8px; margin:4px;">
               🏆 Ver Guía Final y Orden de Exposiciones (10:30 AM)
             </a>
@@ -301,8 +331,14 @@
             </a>
           </div>
 
-          <p style="margin:0; font-size:12.5px; color:#64748B;">
-            * Recuerden enviar su archivo <strong>PPT o PDF antes de las 10:00 AM</strong> y revisar a las <strong>10:30 AM</strong> su turno de exposición en la página web. ¡Muchos éxitos a todos y nos vemos a las 11:00 AM en la Sala Oslo - Viena - Dublín!
+          <p style="margin:0 0 14px; font-size:13.5px; color:#334155;">
+            Les deseamos muchos éxitos en el cierre de sus proyectos. ¡Nos vemos el <strong>Lunes 23 de Noviembre a las 11:00 AM</strong> en la <strong>Sala Oslo - Viena - Dublín</strong> para celebrar juntos el gran cierre de <strong>Adecco AI Co-Pilot Lab</strong>!
+          </p>
+
+          <p style="margin:0; font-size:13.5px; color:#0B1528;">
+            Un cordial saludo,<br>
+            <strong>Jhoan Taboada Huamán</strong><br>
+            <span style="font-size:12.5px; color:#64748B;">Business Intelligence Analyst · Instructor Líder Adecco AI Co-Pilot Lab — Sales &amp; Marketing</span>
           </p>
         </td>
       </tr>
@@ -325,7 +361,16 @@
       window.getSelection().addRange(range);
       document.execCommand('copy');
       window.getSelection().removeAllRanges();
-      alert('✅ ¡Correo Final y Programa General copiados! Pégalo directamente en un correo nuevo de Microsoft Outlook.');
+      alert('✅ ¡Correo Oficial Final copiado! Ahora abre un correo nuevo en Microsoft Outlook y presiona Ctrl + V.');
+    }
+
+    function downloadRawHtml() {
+      const raw = '<!DOCTYPE html>\n<html lang="es">\n<head><meta charset="UTF-8"><title>Correo Final Lunes 23 Nov - Adecco AI Co-Pilot Lab</title></head>\n<body style="margin:0;padding:16px;background:#F1F5F9;">\n<div style="max-width:720px;margin:0 auto;">\n' + document.getElementById('emailBody').innerHTML + '\n</div>\n</body>\n</html>';
+      const blob = new Blob([raw], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Correo_Final_Lunes23_Outlook_Adecco.html';
+      a.click();
     }
   </script>
 </body>

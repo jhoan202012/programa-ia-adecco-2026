@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto Final & Sala de Proyección Oficial (Apertura y Cierre) — Adecco AI Co-Pilot Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-obsidian: #03060C;
+      --bg-surface: #091122;
+      --bg-card: rgba(12, 21, 40, 0.85);
+      --adecco-red: #DA291C;
+      --adecco-orange: #EE2E24;
+      --cyan-glow: #38BDF8;
+      --amber-glow: #F59E0B;
+      --emerald-glow: #10B981;
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --text-muted: #94A3B8;
+      --border-glass: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html, body {
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+
+    body {
+      background:
+        radial-gradient(900px circle at 12% 10%, rgba(238, 46, 36, 0.16), transparent 55%),
+        radial-gradient(900px circle at 88% 15%, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(800px circle at 50% 90%, rgba(16, 185, 129, 0.10), transparent 60%),
+        var(--bg-obsidian);
+      padding-bottom: 80px;
+      transition: background 0.4s ease;
+    }
+
+    body.cinema-dark-mode {
+      background: #010204 !important;
+    }
+
+    body.cinema-dark-mode .dimmable {
+      opacity: 0.15;
+      transition: opacity 0.35s ease;
+    }
+
+    body.cinema-dark-mode .dimmable:hover {
+      opacity: 0.95;
+    }
+
+    .navbar-wrapper {
+      position: sticky;
+      top: 14px;
+      z-index: 1000;
+      padding: 0 20px;
+      max-width: 1340px;
+      margin: 0 auto;
+    }
+
+    .navbar {
+      background: rgba(8, 14, 28, 0.9);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.78);
+      border-radius: 16px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-tag-red {
+      background: var(--adecco-orange);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-tag-cyan {
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #7DD3FC;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 10.5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, rgba(238, 46, 36, 0.28), rgba(56, 189, 248, 0.24));
+      border-color: #38BDF8;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ================= AVISO IMPORTANTE DE PROTECCIÓN DE INFORMACIÓN ================= */
+    .security-shield-banner {
+      margin-top: 26px;
+      background: linear-gradient(135deg, rgba(6, 28, 24, 0.94), rgba(10, 20, 38, 0.96));
+      border: 2px solid #10B981;
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 35px -10px rgba(16, 185, 129, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .security-shield-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #10B981, #38BDF8, #F59E0B, #10B981);
+    }
+
+    .security-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .security-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10B981;
+      color: #6EE7B7;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .security-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(19px, 2.3vw, 25px);
+      font-weight: 900;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .security-desc {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #E2E8F0;
+      margin-bottom: 18px;
+    }
+
+    .security-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .security-pillars {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sec-pillar {
+      background: rgba(3, 8, 18, 0.78);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-left: 4px solid #10B981;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .sec-pillar h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #6EE7B7;
+      margin-bottom: 5px;
+    }
+
+    .sec-pillar p {
+      font-size: 12.8px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ================= PROJECTION STAGE HEADER ================= */
+    .stage-hero {
+      margin-top: 26px;
+      background: linear-gradient(145deg, rgba(15, 25, 48, 0.92), rgba(7, 12, 24, 0.96));
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 24px;
+      padding: 30px 32px;
+      box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.85);
+    }
+
+    .stage-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .btn-action {
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      padding: 11px 18px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.22s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-action.red {
+      background: linear-gradient(135deg, #EE2E24, #B91C1C);
+      border-color: #FCA5A5;
+      box-shadow: 0 8px 25px -6px rgba(238, 46, 36, 0.65);
+    }
+
+    .btn-action.cyan {
+      background: linear-gradient(135deg, #0284C7, #1D4ED8);
+      border-color: #7DD3FC;
+      box-shadow: 0 8px 25px -6px rgba(56, 189, 248, 0.55);
+    }
+
+    .btn-action.amber {
+      background: linear-gradient(135deg, #D97706, #B45309);
+      border-color: #FDE68A;
+    }
+
+    /* ================= DUAL VIDEO CINEMA GRID ================= */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .videos-grid.single-focus {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 1024px) {
+      .videos-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .video-card {
+      background: rgba(4, 9, 20, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .video-card.apertura {
+      border-top: 5px solid #38BDF8;
+    }
+
+    .video-card.cierre {
+      border-top: 5px solid #EE2E24;
+    }
+
+    .video-card.playing-now {
+      box-shadow: 0 0 45px -5px rgba(56, 189, 248, 0.45);
+      border-color: #38BDF8;
+    }
+
+    .vid-meta-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .vid-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 11px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .vid-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .vid-sub {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .player-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      margin-bottom: 16px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75);
+    }
+
+    .player-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .vid-controls-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .script-accordion {
+      background: rgba(12, 21, 40, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 12.8px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <div class="navbar-wrapper dimmable">
+    <nav class="navbar">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-tag-red">Adecco</span>
+        <span class="brand-tag-cyan">SALA DE PROYECCIÓN · PROYECTO FINAL</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">🏠 Portal Principal</a>
+        <a href="proyeccion.html" class="nav-link active">🎬 Proyección Videos (Apertura y Cierre)</a>
+        <a href="sustentacion.html" class="nav-link" style="color:#FDE68A;">🏆 Función Final &amp; Cronómetro (23 Nov)</a>
+        <a href="clase3.html" class="nav-link" style="color:#7DD3FC;">⚡ Clase 03</a>
+        <a href="clase2.html" class="nav-link" style="color:#93C5FD;">📊 Clase 02</a>
+        <a href="clase1.html" class="nav-link" style="color:#6EE7B7;">📁 Clase 01</a>
+        <a href="diplomas.html" class="nav-link" style="color:#FDE68A;">🎓 Diplomas</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+
+    <!-- ================= AVISO IMPORTANTE DE PROTECCIÓN DE LA INFORMACIÓN ================= -->
+    <section class="security-shield-banner dimmable" id="aviso-confidencialidad">
+      <div class="security-top-row">
+        <span class="security-pill">
+          🔒 AVISO IMPORTANTE · CRITERIO PERMANENTE DE PROTECCIÓN DE LA INFORMACIÓN CORPORATIVA
+        </span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#6EE7B7; font-weight:700;">
+          CUMPLIMIENTO DE SEGURIDAD Y PRIVACIDAD · ADECCO &amp; AMÉRICA MÓVIL
+        </span>
+      </div>
+
+      <h2 class="security-title">
+        Declaración de Confidencialidad: Aquí NO se muestra ningún apartado de información confidencial ni datos sensibles
+      </h2>
+
+      <p class="security-desc">
+        <strong>AVISO IMPORTANTE:</strong> En cumplimiento estricto de las políticas de <strong>Seguridad de la Información, Confidencialidad y Gobernanza de Datos</strong> de la compañía, se deja constancia expresa de que <strong>en esta página web, en el apartado del Proyecto Final, en los recursos de capacitación y en los videos de apertura y cierre NO se muestra, almacena, procesa ni expone ningún apartado de información confidencial</strong>, bases de datos reales, registros de clientes, indicadores financieros reservados, credenciales ni datos personales. Todo el contenido tiene carácter exclusivamente académico y demostrativo.
+      </p>
+
+      <div class="security-pillars">
+        <div class="sec-pillar">
+          <h4>🛡️ 1. Cero Datos Confidenciales</h4>
+          <p>Ninguna sección de este portal web ni de las piezas audiovisuales contiene información confidencial o sensible de Adecco ni de la operación de América Móvil. Todos los casos prácticos emplean datos 100% ficticios, simulados o anonimizados.</p>
+        </div>
+        <div class="sec-pillar">
+          <h4>📽️ 2. Criterio en las Sustentaciones Finales</h4>
+          <p>Durante las exposiciones del Proyecto Final (5 minutos), los participantes presentan únicamente la <strong>arquitectura del flujo, lógica de automatización (Macros/Power Automate/DAX), tiempos ahorrados y estructura de prompts</strong>, sin proyectar información reservada.</p>
+        </div>
+        <div class="sec-pillar">
+          <h4>🤖 3. Uso Seguro de Inteligencia Artificial</h4>
+          <p>Se mantiene en todo momento la regla de oro del programa: diseñar prompts estructurados describiendo encabezados y reglas lógicas, sin cargar jamás documentos confidenciales ni bases sensibles en herramientas públicas externas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONSOLA DE PROYECCIÓN DEL PROYECTO FINAL ================= -->
+    <section class="stage-hero" id="consola-proyeccion">
+      <div class="stage-header-bar">
+        <div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; color:#7DD3FC; text-transform:uppercase; letter-spacing:0.08em;">
+            🎬 APARTADO GENERAL DEL PROYECTO FINAL · SALA OSLO - VIENA - DUBLÍN
+          </span>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(24px, 3vw, 36px); font-weight:900; color:#fff; margin-top:4px;">
+            Consola Oficial de Proyección — Videos de Apertura y Cierre (Full HD 1080p)
+          </h1>
+          <p style="font-size:14px; color:var(--text-secondary); margin-top:4px;">
+            Utiliza los botones de <strong>Proyectar en Pantalla Completa</strong> o <strong>Modo Cine</strong> para lanzar cada video directamente en el proyector de la sala con audio normalizado.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn-action cyan" onclick="projectVideoFullscreen('playerApertura')">
+            🚀 Proyectar Video 1: Apertura (Pantalla Completa)
+          </button>
+          <button class="btn-action red" onclick="projectVideoFullscreen('playerCierre')">
+            🏆 Proyectar Video 2: Cierre (Pantalla Completa)
+          </button>
+          <button class="btn-action amber" onclick="toggleCinemaMode()" id="btnCinemaToggle">
+            💡 Modo Teatro Oscuro (Apagar Luces)
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID DE LOS 2 VIDEOS OFICIALES -->
+      <div class="videos-grid" id="videosGridContainer">
+
+        <!-- VIDEO 1: APERTURA DE LAS EXPOSICIONES -->
+        <div class="video-card apertura" id="cardApertura">
+          <div>
+            <div class="vid-meta-top">
+              <span class="vid-badge" style="background:rgba(56,189,248,0.18); border:1px solid #38BDF8; color:#7DD3FC;">
+                ▶️ VIDEO 01 · APERTURA DE EXPOSICIONES (11:35 AM)
+              </span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#6EE7B7; font-weight:700;">
+                1080p · 31.1s · Audio -14 LUFS · Sin Subtítulos
+              </span>
+            </div>
+
+            <h3 class="vid-title">Apertura del Proyecto Final: "¡Ahora te toca a ti!"</h3>
+            <p class="vid-sub">
+              Se proyecta justo antes de iniciar el <strong>Bloque I de Exposiciones (11:35 AM)</strong>. Nuestro Co-Piloto IA abre el portal neuronal, transforma la tormenta de datos en soluciones 3D y lanza la esfera de energía a los participantes dándoles el escenario.
+            </p>
+
+            <div class="player-frame">
+              <video id="playerApertura" controls preload="metadata" poster="Poster_Apertura_Adecco.jpg">
+                <source src="Video_Apertura_Exposiciones_Adecco_1080p.mp4" type="video/mp4" />
+                Tu navegador no soporta reproducción de video HTML5.
+              </video>
+            </div>
+          </div>
+
+          <div>
+            <div class="vid-controls-bar">
+              <button class="btn-action cyan" style="flex:1;" onclick="projectVideoFullscreen('playerApertura')">
+                🖥️ Proyectar en Pantalla Completa (Desde 00:00)
+              </button>
+              <button class="btn-action" onclick="playOrPauseVideo('playerApertura')">
+                ⏯️ Reproducir / Pausar
+              </button>
+              <a class="btn-action" href="Video_Apertura_Exposiciones_Adecco_1080p.mp4" download>
+                📥 Descargar MP4
+              </a>
+            </div>
+
+            <div class="script-accordion">
+              <strong style="color:#7DD3FC;">🎙️ Guion de Apertura ("¡Ahora te toca a ti!"):</strong><br>
+              <em>"Todo gran cambio comienza cuando cruzamos la puerta y entramos al corazón de la inteligencia artificial. Aquí transformamos miles de datos e ideas en soluciones reales que impulsan nuestro trabajo diario. Hoy te paso toda esta energía para que sorprendas al equipo. ¡Ahora te toca a ti! El escenario es tuyo: inspira con tu proyecto. Adecco: hacemos que el futuro del trabajo funcione para todos."</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIDEO 2: CIERRE OFICIAL DEL PROGRAMA -->
+        <div class="video-card cierre" id="cardCierre">
+          <div>
+            <div class="vid-meta-top">
+              <span class="vid-badge" style="background:rgba(238,46,36,0.22); border:1px solid #EE2E24; color:#FCA5A5;">
+                🏆 VIDEO 02 · CLAUSURA Y CIERRE DEL PROGRAMA (01:20 PM)
+              </span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#6EE7B7; font-weight:700;">
+                1080p · 29.8s · Audio -14 LUFS · Sin Subtítulos
+              </span>
+            </div>
+
+            <h3 class="vid-title">Cierre Oficial: "Misión Cumplida — Equipo América Móvil"</h3>
+            <p class="vid-sub">
+              Se proyecta en el bloque de <strong>Clausura y Premiación (01:20 PM)</strong> tras finalizar todas las sustentaciones. Reconoce el esfuerzo de todo el equipo de América Móvil por asumir el reto y liderar la evolución tecnológica con Adecco.
+            </p>
+
+            <div class="player-frame">
+              <video id="playerCierre" controls preload="metadata" poster="Poster_Cierre_Adecco.jpg">
+                <source src="Video_Cierre_Final_Adecco_1080p.mp4" type="video/mp4" />
+                Tu navegador no soporta reproducción de video HTML5.
+              </video>
+            </div>
+          </div>
+
+          <div>
+            <div class="vid-controls-bar">
+              <button class="btn-action red" style="flex:1;" onclick="projectVideoFullscreen('playerCierre')">
+                🖥️ Proyectar en Pantalla Completa (Desde 00:00)
+              </button>
+              <button class="btn-action" onclick="playOrPauseVideo('playerCierre')">
+                ⏯️ Reproducir / Pausar
+              </button>
+              <a class="btn-action" href="Video_Cierre_Final_Adecco_1080p.mp4" download>
+                📥 Descargar MP4
+              </a>
+            </div>
+
+            <div class="script-accordion">
+              <strong style="color:#FCA5A5;">🎙️ Guion de Cierre ("Misión Cumplida"):</strong><br>
+              <em>"Hola equipo. Hoy dimos un gran paso juntos: la inteligencia artificial ya trabaja a nuestro lado. Automatizamos reportes, creamos tableros claros y conectamos procesos para ganar horas de valor cada día. Gracias a todo el equipo de América Móvil por asumir el reto y liderar el cambio. Misión cumplida. Nuestra mayor fuerza siempre eres tú. Adecco: hacemos que el futuro del trabajo funcione para todos."</em>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function pauseAllOtherVideos(exceptId) {
+      ['playerApertura', 'playerCierre'].forEach(id => {
+        if (id !== exceptId) {
+          const v = document.getElementById(id);
+          if (v && !v.paused) v.pause();
+        }
+      });
+    }
+
+    function projectVideoFullscreen(videoId) {
+      pauseAllOtherVideos(videoId);
+      const video = document.getElementById(videoId);
+      if (!video) return;
+
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1.0;
+
+      const reqFs = video.requestFullscreen || video.webkitRequestFullscreen || video.msRequestFullscreen;
+      if (reqFs) {
+        reqFs.call(video).catch(() => {});
+      }
+
+      video.play().catch(() => {});
+    }
+
+    function playOrPauseVideo(videoId) {
+      pauseAllOtherVideos(videoId);
+      const video = document.getElementById(videoId);
+      if (!video) return;
+      if (video.paused) {
+        video.muted = false;
+        video.volume = 1.0;
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    function toggleCinemaMode() {
+      document.body.classList.toggle('cinema-dark-mode');
+      const grid = document.getElementById('videosGridContainer');
+      grid.classList.toggle('single-focus');
+      const isDark = document.body.classList.contains('cinema-dark-mode');
+      document.getElementById('btnCinemaToggle').innerHTML = isDark
+        ? '☀️ Restaurar Vista Normal de Sala'
+        : '💡 Modo Teatro Oscuro (Ampliar Videos)';
+    }
+  </script>
+</body>
+</html>
