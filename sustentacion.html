@@ -1404,14 +1404,14 @@ Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pa
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
             <div>
               <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:#fff;">
-                📋 Orden Oficial de Exposiciones (Publicación 10:30 AM)
+                📋 Orden Oficial Sorteado — 10 Expositores Confirmados (Publicación 10:30 AM)
               </h3>
               <p style="font-size:13px; color:var(--text-secondary);">
-                Registra o edita los nombres de los expositores, verifica quién entregó su <strong>PPT/PDF antes de las 10:00 AM</strong> y lanza su turno en el cronómetro.
+                Lista oficial de los <strong>10 participantes confirmados</strong> (5 en Bloque I + Coffee Break + 5 en Bloque II). Puedes lanzar cada turno en el cronómetro o volver a sortear en vivo.
               </p>
             </div>
-            <span id="orderStatusBadge" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; background:rgba(16,185,129,0.18); border:1px solid #10B981; color:#6EE7B7; padding:5px 12px; border-radius:8px;">
-              ● ORDEN SINCRONIZADO EN WEB
+            <span id="orderStatusBadge" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:800; background:rgba(245,158,11,0.22); border:1px solid #F59E0B; color:#FDE68A; padding:5px 12px; border-radius:8px;">
+              🎲 ORDEN OFICIAL SORTEADO · 10 EXPOSITORES
             </span>
           </div>
 
@@ -1448,43 +1448,43 @@ Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pa
     }
 
     // =====================================================================
-    // 2. SISTEMA DE ORDEN DE EXPOSICIONES (SINCRONIZADO CON LOCALSTORAGE)
+    // 2. SISTEMA DE ORDEN DE EXPOSICIONES (10 EXPOSITORES CONFIRMADOS Y SORTEADOS)
     // =====================================================================
     const DEFAULT_SPEAKERS = [
-      { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:35 AM", done: false },
-      { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:41 AM", done: false },
-      { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:47 AM", done: false },
-      { name: "SANCHEZ BARRETO AMERICO MODESTO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:53 AM", done: false },
-      { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:59 AM", done: false },
-      { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 12:05 PM", done: false },
+      { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:35 AM", done: false },
+      { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:42 AM", done: false },
+      { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:49 AM", done: false },
+      { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 11:56 AM", done: false },
+      { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque I · 12:03 PM", done: false },
       { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos en Sala Oslo - Viena - Dublín", format: "REFRIGERIO", block: "12:10 – 12:20 PM", isBreak: true },
       { name: "MILIAN GONZA DAYANA NICOL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:20 PM", done: false },
-      { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:26 PM", done: false },
-      { name: "CRUZ AGUILAR MARIELL JAZMIN", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:33 PM", done: false },
-      { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:40 PM", done: false },
-      { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:47 PM", done: false },
-      { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:54 PM", done: false }
+      { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:28 PM", done: false },
+      { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:36 PM", done: false },
+      { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:44 PM", done: false },
+      { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", format: "PPT/PDF ✅ (10:00 AM)", block: "Bloque II · 12:52 PM", done: false }
     ];
 
-    let speakersList = JSON.parse(localStorage.getItem('adecco_final_order_amx_12') || 'null') || DEFAULT_SPEAKERS;
+    localStorage.removeItem('adecco_final_order_amx_12');
+    const STORAGE_KEY_ORDER = 'adecco_final_order_amx_10_v2';
+    let speakersList = JSON.parse(localStorage.getItem(STORAGE_KEY_ORDER) || 'null') || JSON.parse(JSON.stringify(DEFAULT_SPEAKERS));
     let currentActiveIdx = 0;
 
     function saveSpeakers() {
-      localStorage.setItem('adecco_final_order_amx_12', JSON.stringify(speakersList));
+      localStorage.setItem(STORAGE_KEY_ORDER, JSON.stringify(speakersList));
     }
 
     function recalculateSlots() {
-      const slotsBeforeBreak = ["11:35 AM", "11:41 AM", "11:47 AM", "11:53 AM", "11:59 AM", "12:05 PM"];
-      const slotsAfterBreak = ["12:20 PM", "12:26 PM", "12:33 PM", "12:40 PM", "12:47 PM", "12:54 PM"];
+      const slotsBeforeBreak = ["11:35 AM", "11:42 AM", "11:49 AM", "11:56 AM", "12:03 PM"];
+      const slotsAfterBreak = ["12:20 PM", "12:28 PM", "12:36 PM", "12:44 PM", "12:52 PM"];
       let speakerCounter = 0;
       speakersList.forEach(item => {
         if (item.isBreak) {
           item.block = "12:10 – 12:20 PM";
         } else {
-          if (speakerCounter < 6) {
-            item.block = `Bloque I · ${slotsBeforeBreak[speakerCounter] || '12:05 PM'}`;
+          if (speakerCounter < 5) {
+            item.block = `Bloque I · ${slotsBeforeBreak[speakerCounter] || '12:03 PM'}`;
           } else {
-            item.block = `Bloque II · ${slotsAfterBreak[speakerCounter - 6] || '12:54 PM'}`;
+            item.block = `Bloque II · ${slotsAfterBreak[speakerCounter - 5] || '12:52 PM'}`;
           }
           speakerCounter++;
         }
@@ -1570,18 +1570,29 @@ Por favor, estructúrame el contenido exacto para 4 diapositivas (listas para pa
         block: "12:10 – 12:20 PM",
         isBreak: true
       };
-      const participants = speakersList.filter(s => !s.isBreak);
-      for (let i = participants.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [participants[i], participants[j]] = [participants[j], participants[i]];
-      }
-      const firstBlock = participants.slice(0, 6);
-      const secondBlock = participants.slice(6);
-      speakersList = [...firstBlock, breakItem, ...secondBlock];
-      recalculateSlots();
-      saveSpeakers();
-      renderSpeakersOrder();
-      document.getElementById('orderStatusBadge').textContent = "● ORDEN SORTEADO Y PUBLICADO (10:30 AM)";
+      let steps = 0;
+      const badge = document.getElementById('orderStatusBadge');
+      if (badge) badge.textContent = "🎲 SORTEANDO TURNOS EN VIVO...";
+      const anim = setInterval(() => {
+        const participants = speakersList.filter(s => !s.isBreak);
+        for (let i = participants.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [participants[i], participants[j]] = [participants[j], participants[i]];
+        }
+        const firstBlock = participants.slice(0, 5);
+        const secondBlock = participants.slice(5);
+        speakersList = [...firstBlock, breakItem, ...secondBlock];
+        recalculateSlots();
+        renderSpeakersOrder();
+        playBell(520 + steps * 45, 0.08);
+        steps++;
+        if (steps >= 8) {
+          clearInterval(anim);
+          saveSpeakers();
+          selectSpeakerForTimer(0);
+          if (badge) badge.textContent = "● ORDEN OFICIAL SORTEADO Y PUBLICADO (10 EXPOSITORES)";
+        }
+      }, 110);
     }
 
     function resetDefaultOrder() {

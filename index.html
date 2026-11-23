@@ -2130,16 +2130,21 @@
             <div>
               <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
                 <h4 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:16.5px; font-weight:800; color:#7DD3FC;">
-                  🌐 Orden Oficial de Exposiciones (Publicación 10:30 AM)
+                  🎲 Orden Oficial Sorteado — 10 Expositores (10:30 AM)
                 </h4>
-                <a href="sustentacion.html#orden-exposiciones" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#FDE68A; text-decoration:none; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:4px 10px; border-radius:6px;">
-                  🎲 Editar / Sortear / Cronómetro ➔
-                </a>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <button type="button" onclick="randomizePortalOrderLive()" style="cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:#000; background:linear-gradient(135deg,#F59E0B,#FBBF24); border:1px solid #FDE68A; padding:5px 11px; border-radius:6px;">
+                    🎲 Sortear en Vivo
+                  </button>
+                  <a href="sustentacion.html#orden-exposiciones" style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#FDE68A; text-decoration:none; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.4); padding:5px 10px; border-radius:6px;">
+                    ⏱️ Cronómetro ➔
+                  </a>
+                </div>
               </div>
-              <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:12px;">
-                Lista oficial sincronizada en tiempo real con el panel de sala (5 min exposición + 3 min preguntas):
+              <p id="portalOrderSubtitle" style="font-size:12.5px; color:var(--text-secondary); margin-bottom:12px;">
+                Lista oficial sorteada de los <strong>10 participantes confirmados</strong> (5 en Bloque I + Coffee Break + 5 en Bloque II):
               </p>
-              <div id="portalOrderPreview" style="max-height:265px; overflow-y:auto; padding-right:4px;"></div>
+              <div id="portalOrderPreview" style="max-height:295px; overflow-y:auto; padding-right:4px;"></div>
             </div>
 
             <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
@@ -2814,26 +2819,28 @@
     let currentTargetIdx = 3;
     let prevDigits = { d: '', h: '', m: '', s: '' };
 
-    // Renderizar el Orden Oficial de Exposiciones (10:30 AM) en el Portal Principal
-    (function renderPortalOrderBoard() {
+    // Renderizar el Orden Oficial de Exposiciones (10 Participantes Confirmados y Sorteados) en el Portal Principal
+    const PORTAL_DEFAULT_ORDER_10 = [
+      { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:35 AM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:42 AM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:49 AM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:56 AM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 12:03 PM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos", block: "12:10 – 12:20 PM", format: "REFRIGERIO", isBreak: true },
+      { name: "MILIAN GONZA DAYANA NICOL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:20 PM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:28 PM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:36 PM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:44 PM", format: "PPT/PDF ✅ (10:00 AM)" },
+      { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:52 PM", format: "PPT/PDF ✅ (10:00 AM)" }
+    ];
+
+    localStorage.removeItem('adecco_final_order_amx_12');
+    const PORTAL_STORAGE_KEY_10 = 'adecco_final_order_amx_10_v2';
+
+    function renderPortalOrderBoard() {
       const box = document.getElementById('portalOrderPreview');
       if (!box) return;
-      const defaultOrder = [
-        { name: "FLORES LIMAYMANTA JEAN PAUL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:35 AM", format: "PPT/PDF ✅" },
-        { name: "ZEA SALVATIERRA, ANDREA CELESTE", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:41 AM", format: "PPT/PDF ✅" },
-        { name: "VILCHEZ CENTURION SALY CARINA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:47 AM", format: "PPT/PDF ✅" },
-        { name: "SANCHEZ BARRETO AMERICO MODESTO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:53 AM", format: "PPT/PDF ✅" },
-        { name: "FLORES VILCHEZ ALEXIS FRANCO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 11:59 AM", format: "PPT/PDF ✅" },
-        { name: "FARFAN NARBASTA MARIO ALEJANDRO", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque I · 12:05 PM", format: "PPT/PDF ✅" },
-        { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos", block: "12:10 PM", isBreak: true },
-        { name: "MILIAN GONZA DAYANA NICOL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:20 PM", format: "PPT/PDF ✅" },
-        { name: "ROJAS OTURI VICTOR MANUEL", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:26 PM", format: "PPT/PDF ✅" },
-        { name: "CRUZ AGUILAR MARIELL JAZMIN", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:33 PM", format: "PPT/PDF ✅" },
-        { name: "ANDRADE DE LA CRUZ ALEXANDER CESAR", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:40 PM", format: "PPT/PDF ✅" },
-        { name: "TORRES AVENDAÑO, DIANA VIRGINIA", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:47 PM", format: "PPT/PDF ✅" },
-        { name: "JULIAN FERNANDEZ", role: "Proyecto de Mejora Operativa — Cuenta América Móvil", block: "Bloque II · 12:54 PM", format: "PPT/PDF ✅" }
-      ];
-      const list = JSON.parse(localStorage.getItem('adecco_final_order_amx_12') || 'null') || defaultOrder;
+      const list = JSON.parse(localStorage.getItem(PORTAL_STORAGE_KEY_10) || 'null') || PORTAL_DEFAULT_ORDER_10;
       let turn = 0;
       box.innerHTML = list.map(item => {
         if (item.isBreak) {
@@ -2855,7 +2862,36 @@
           </div>
         `;
       }).join('');
-    })();
+    }
+    renderPortalOrderBoard();
+
+    function randomizePortalOrderLive() {
+      const slotsB1 = ["11:35 AM", "11:42 AM", "11:49 AM", "11:56 AM", "12:03 PM"];
+      const slotsB2 = ["12:20 PM", "12:28 PM", "12:36 PM", "12:44 PM", "12:52 PM"];
+      const breakItem = { name: "☕ COFFEE BREAK OFICIAL (12:10 – 12:20 PM)", role: "Pausa de 10 minutos", block: "12:10 – 12:20 PM", format: "REFRIGERIO", isBreak: true };
+      const subEl = document.getElementById('portalOrderSubtitle');
+      if (subEl) subEl.innerHTML = `<strong style="color:#FDE68A;">🎲 Sorteando turnos de los 10 participantes en vivo...</strong>`;
+      let step = 0;
+      const timer = setInterval(() => {
+        const current = JSON.parse(localStorage.getItem(PORTAL_STORAGE_KEY_10) || 'null') || JSON.parse(JSON.stringify(PORTAL_DEFAULT_ORDER_10));
+        const parts = current.filter(x => !x.isBreak);
+        for (let i = parts.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [parts[i], parts[j]] = [parts[j], parts[i]];
+        }
+        parts.forEach((p, idx) => {
+          p.block = idx < 5 ? `Bloque I · ${slotsB1[idx]}` : `Bloque II · ${slotsB2[idx - 5]}`;
+        });
+        const merged = [...parts.slice(0, 5), breakItem, ...parts.slice(5)];
+        localStorage.setItem(PORTAL_STORAGE_KEY_10, JSON.stringify(merged));
+        renderPortalOrderBoard();
+        step++;
+        if (step >= 8) {
+          clearInterval(timer);
+          if (subEl) subEl.innerHTML = `✅ <strong style="color:#6EE7B7;">¡Orden Oficial Sorteado y Sincronizado!</strong> (10 participantes · 5 en Bloque I y 5 en Bloque II):`;
+        }
+      }, 110);
+    }
 
     function selectSessionCountdown(idx) {
       currentTargetIdx = idx;
